@@ -871,6 +871,15 @@ body::after {
   pointer-events: none;
 }
 
+@media (max-width: 640px) {
+  .img-break-label {
+    white-space: normal;
+    text-align: center;
+    width: calc(100% - 3rem);
+    letter-spacing: 0.2em;
+  }
+}
+
 /* ── SECTION WITH BACKGROUND IMAGE ──────────────────────── */
 .section-has-bg {
   position: relative;
