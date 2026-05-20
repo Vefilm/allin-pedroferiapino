@@ -1040,6 +1040,33 @@ a.press-ticker-item:hover .press-ticker-dot {
 /* ── STAT COUNTER ────────────────────────────────────────── */
 .stat-number[data-count] { transition: none; }
 
+/* ── TODAY BADGE (Why Now timeline) ─────────────────────── */
+.today-badge {
+  display: inline-block;
+  background: var(--red);
+  color: var(--white);
+  font-family: var(--font-sans);
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  padding: 0.18rem 0.55rem;
+  vertical-align: middle;
+  margin-left: 0.6rem;
+  position: relative;
+  top: -1px;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.7); }
+  50%       { box-shadow: 0 0 0 5px rgba(255,255,255,0); }
+}
+
+.today-event::before {
+  background: var(--white) !important;
+  animation: pulse-dot 1.8s ease-in-out infinite;
+}
+
 /* ── REDUCED MOTION ──────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .reveal, .reveal-stagger > * {
