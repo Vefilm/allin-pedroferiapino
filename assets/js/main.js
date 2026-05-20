@@ -38,10 +38,10 @@
 
 /* ── SCROLL REVEAL (IntersectionObserver) ── */
 (function () {
+  const els = document.querySelectorAll('.reveal, .reveal-stagger');
+
   if (!('IntersectionObserver' in window)) {
-    document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => {
-      el.classList.add('visible');
-    });
+    els.forEach(el => el.classList.add('visible'));
     return;
   }
 
@@ -54,11 +54,16 @@
         }
       });
     },
-    { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+    { threshold: 0.04, rootMargin: '0px' }
   );
 
-  document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => {
-    observer.observe(el);
+  els.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      el.classList.add('visible');
+    } else {
+      observer.observe(el);
+    }
   });
 })();
 
