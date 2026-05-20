@@ -12,196 +12,249 @@
   <meta property="og:url" content="https://allin.pedroferiapino.com/why-now/">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Why Now — ALL IN: The Most American Addiction">
-  <meta name="twitter:description" content="Senate hearing today. Marketing data due May 29. Landmark lawsuit in discovery. Every event in the timeline that makes this the film to make right now.">
+  <meta name="twitter:description" content="Live story tracker. Senate hearing. Marketing data deadline. Landmark lawsuit. 12 events and counting.">
   <meta name="twitter:image" content="https://allin.pedroferiapino.com/assets/img/hero-eyes.jpeg">
   <link rel="canonical" href="https://allin.pedroferiapino.com/why-now/">
   <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
   <link rel="stylesheet" href="../assets/css/main.css">
   <style>
+
+    /* ── PAGE HERO ── */
     .page-hero {
-      padding: clamp(8rem, 14vw, 12rem) 0 clamp(4rem, 8vw, 6rem);
+      padding: clamp(8rem, 14vw, 12rem) 0 clamp(3rem, 6vw, 5rem);
       border-bottom: 1px solid rgba(255,255,255,0.07);
     }
-    .timeline-section { padding: clamp(4rem, 9vw, 7rem) 0; }
-    .timeline {
-      position: relative;
-      padding-left: 2px;
-    }
-    .timeline::before {
-      content: '';
-      position: absolute;
-      top: 0; bottom: 0; left: 0;
-      width: 2px;
-      background: linear-gradient(to bottom, var(--red), rgba(177,18,38,0.15));
-    }
-    .timeline-event {
-      position: relative;
-      padding: 0 0 3.5rem 2.5rem;
-      opacity: 0;
-      transform: translateX(-12px);
-      transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
-    }
-    .timeline-event.visible {
-      opacity: 1;
-      transform: translateX(0);
-    }
-    .timeline-event::before {
-      content: '';
-      position: absolute;
-      left: -5px;
-      top: 8px;
-      width: 12px; height: 12px;
-      border-radius: 50%;
-      background: var(--red);
-      border: 2px solid var(--black);
-      transition: background 0.2s, transform 0.2s;
-    }
-    .timeline-event:hover::before {
-      background: var(--white);
-      transform: scale(1.35);
-    }
-    .timeline-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      margin-top: 1rem;
-      font-family: var(--font-sans);
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--red);
-      text-decoration: none;
-      transition: gap 0.2s, color 0.2s;
-    }
-    .timeline-link:hover { color: var(--white); gap: 0.55rem; }
-    .timeline-date {
-      font-family: var(--font-sans);
-      font-size: 0.6875rem;
-      font-weight: 700;
-      letter-spacing: 0.4em;
-      text-transform: uppercase;
-      color: var(--red);
-      display: block;
-      margin-bottom: 0.5rem;
-    }
-    .timeline-title {
-      font-family: var(--font-serif);
-      font-size: 1.375rem;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 0.75rem;
-      line-height: 1.25;
-    }
-    .timeline-body {
-      font-family: var(--font-sans);
-      font-size: 1rem;
-      line-height: 1.75;
-      color: rgba(255,255,255,0.72);
-    }
-    .timeline-source {
-      font-size: 0.8125rem;
-      color: var(--grey);
-      margin-top: 0.75rem;
-      display: block;
-    }
 
-    /* ── TRACKER META BAR ── */
-    .tracker-meta {
-      display: none;
+    /* ── TRACKER SECTION ── */
+    .tracker-section { padding: clamp(3rem, 7vw, 5rem) 0 clamp(4rem, 9vw, 7rem); }
+
+    /* ── TRACKER HEADER BAR ── */
+    .tracker-header {
+      display: flex;
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 0.75rem;
-      margin-bottom: 3rem;
       padding-bottom: 1.5rem;
-      border-bottom: 1px solid rgba(255,255,255,0.07);
+      margin-bottom: 2.5rem;
+      border-bottom: 2px solid var(--red);
     }
     .tracker-live {
       display: flex;
       align-items: center;
-      gap: 0.6rem;
+      gap: 0.65rem;
       font-family: var(--font-sans);
       font-size: 0.6875rem;
       font-weight: 700;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.28em;
       text-transform: uppercase;
       color: var(--red);
     }
-    .tracker-dot {
-      width: 6px;
-      height: 6px;
+    .tracker-pulse {
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
       background: var(--red);
       flex-shrink: 0;
-      animation: pulse-dot 1.8s ease-in-out infinite;
+      animation: pulse-red 1.8s ease-in-out infinite;
     }
-    .tracker-info {
+    @keyframes pulse-red {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(177,18,38,0.7); }
+      50%       { box-shadow: 0 0 0 6px rgba(177,18,38,0); }
+    }
+    .tracker-meta-text {
       font-family: var(--font-sans);
       font-size: 0.6875rem;
       font-weight: 600;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.28);
+      color: rgba(255,255,255,0.25);
     }
 
-    /* ── LOADING / ERROR ── */
-    .timeline-loading {
-      padding: 4rem 0 2rem;
+    /* ── FEED LOADING / ERROR ── */
+    .feed-loading {
+      padding: 4rem 0;
       font-family: var(--font-sans);
       font-size: 0.75rem;
       font-weight: 700;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.25);
+      color: rgba(255,255,255,0.2);
     }
-    .timeline-error {
+    .feed-error {
       padding: 3rem 0;
       font-family: var(--font-sans);
       font-size: 0.9375rem;
-      color: rgba(255,255,255,0.6);
+      color: rgba(255,255,255,0.55);
     }
-    .timeline-error a { color: var(--red); text-decoration: underline; }
+    .feed-error a { color: var(--red); text-decoration: underline; }
 
-    /* ── TODAY BADGE ── */
-    .today-badge {
+    /* ── UPDATE CARDS ── */
+    .update-feed { display: flex; flex-direction: column; }
+
+    .update-card {
+      border-left: 3px solid rgba(177,18,38,0.2);
+      padding: 1.75rem 0 1.75rem 1.75rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.55s var(--ease-out), transform 0.55s var(--ease-out),
+                  border-color 0.2s;
+    }
+    .update-card.visible { opacity: 1; transform: translateY(0); }
+    .update-card:hover { border-left-color: rgba(177,18,38,0.55); }
+
+    /* NEW — within 7 days */
+    .update-card.is-new { border-left-color: var(--red); }
+
+    /* TODAY */
+    .update-card.is-today {
+      border-left: none;
+      border-top: 3px solid var(--red);
+      padding: 2rem 0 2rem 0;
+      background: rgba(177,18,38,0.05);
+      margin-bottom: 0.5rem;
+    }
+    .update-card.is-today .card-inner { padding-left: 0; }
+
+    /* FEATURED — most recent past event */
+    .update-card.is-featured {
+      border-left: none;
+      border-top: 3px solid var(--red);
+      background: var(--ink);
+      padding: 2.25rem 0 2.25rem 0;
+      margin-bottom: 0.25rem;
+    }
+    .update-card.is-featured .card-inner { padding-left: 0; }
+
+    .card-inner { padding-left: 0; }
+
+    /* ── CARD ELEMENTS ── */
+    .card-dateline {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.6rem;
+      flex-wrap: wrap;
+    }
+    .card-date {
+      font-family: var(--font-sans);
+      font-size: 0.625rem;
+      font-weight: 700;
+      letter-spacing: 0.38em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+    }
+    .card-badge {
       display: inline-block;
-      background: var(--red);
-      color: var(--white);
       font-family: var(--font-sans);
       font-size: 0.5rem;
       font-weight: 700;
       letter-spacing: 0.28em;
       text-transform: uppercase;
       padding: 0.18rem 0.55rem;
-      vertical-align: middle;
-      margin-left: 0.6rem;
       position: relative;
       top: -1px;
     }
-    .today-event::before {
-      background: var(--white) !important;
-      animation: pulse-dot 1.8s ease-in-out infinite;
+    .badge-today {
+      background: var(--red);
+      color: var(--white);
     }
-
-    /* ── NEW BADGE ── */
-    .new-badge {
-      display: inline-block;
+    .badge-new {
       background: transparent;
       color: var(--red);
       border: 1px solid var(--red);
-      font-family: var(--font-sans);
-      font-size: 0.5rem;
-      font-weight: 700;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      padding: 0.15rem 0.5rem;
-      vertical-align: middle;
-      margin-left: 0.6rem;
-      position: relative;
-      top: -1px;
     }
-    .new-event::before { background: var(--red) !important; }
+    .card-title {
+      font-family: var(--font-serif);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+    .update-card.is-featured .card-title,
+    .update-card.is-today .card-title {
+      font-size: clamp(1.375rem, 3vw, 1.875rem);
+    }
+    .update-card:not(.is-featured):not(.is-today) .card-title {
+      font-size: 1.125rem;
+    }
+    .card-body {
+      font-family: var(--font-sans);
+      font-size: 0.9375rem;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 1rem;
+    }
+    .update-card.is-featured .card-body,
+    .update-card.is-today .card-body {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.78);
+    }
+    .card-footer {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .card-source {
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.25);
+      line-height: 1.5;
+      flex: 1;
+      min-width: 0;
+    }
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-family: var(--font-sans);
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--red);
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: gap 0.2s, color 0.2s;
+    }
+    .card-link:hover { color: var(--white); gap: 0.55rem; }
+
+    /* ── COMING UP SEPARATOR ── */
+    .coming-up-divider {
+      display: none;
+      align-items: center;
+      gap: 1.25rem;
+      margin: 2.5rem 0 1rem;
+    }
+    .coming-up-divider.visible { display: flex; }
+    .coming-up-label {
+      font-family: var(--font-sans);
+      font-size: 0.5625rem;
+      font-weight: 700;
+      letter-spacing: 0.45em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.2);
+      white-space: nowrap;
+    }
+    .coming-up-rule {
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,0.07);
+    }
+    .update-card.is-upcoming {
+      border-left-color: rgba(255,255,255,0.08);
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.55s var(--ease-out), transform 0.55s var(--ease-out);
+    }
+    .update-card.is-upcoming.visible { opacity: 1; transform: translateY(0); }
+    .update-card.is-upcoming .card-date { color: rgba(255,255,255,0.2); }
+    .update-card.is-upcoming .card-title { color: rgba(255,255,255,0.55); }
+
   </style>
 </head>
 <body>
@@ -242,28 +295,33 @@
     <section class="page-hero reveal">
       <div class="container-prose">
         <p class="eyebrow">Why Now</p>
-        <h1 style="font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1.05; margin-bottom: 1.5rem;">This Story Breaks Open This Month.</h1>
-        <p class="synopsis">The Senate hearing. The marketing data deadline. The landmark lawsuit. The Van Dyke indictment. Everything is happening now. The window to be the first film on this is closing.</p>
+        <h1 style="font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1.05; margin-bottom: 1.25rem;">This Story Breaks Open<br>Right Now.</h1>
+        <p class="synopsis" style="margin-bottom: 0;">The Senate has held its first hearing. The attorneys general have moved. The lawsuit is in discovery. Every week brings a new development. The window to be the first film on this is closing.</p>
       </div>
     </section>
 
-    <section class="timeline-section">
+    <section class="tracker-section">
       <div class="container-prose">
 
-        <div class="tracker-meta" id="tracker-meta" aria-live="polite">
+        <div class="tracker-header" id="tracker-header" style="display:none;" aria-live="polite">
           <span class="tracker-live">
-            <span class="tracker-dot" aria-hidden="true"></span>
+            <span class="tracker-pulse" aria-hidden="true"></span>
             Live Story Tracker
           </span>
-          <span class="tracker-info" id="tracker-info"></span>
+          <span class="tracker-meta-text" id="tracker-meta-text"></span>
         </div>
 
-        <p class="timeline-loading" id="timeline-loading" aria-label="Loading events">Loading&hellip;</p>
-        <p class="timeline-error" id="timeline-error" style="display:none;">
-          Could not load events. <a href="">Reload the page</a> to try again.
+        <p class="feed-loading" id="feed-loading">Loading&hellip;</p>
+        <p class="feed-error" id="feed-error" style="display:none;">
+          Could not load events. <a href="">Reload to try again.</a>
         </p>
 
-        <div class="timeline" id="timeline" aria-label="Timeline of key events"></div>
+        <div class="coming-up-divider" id="coming-up-divider" aria-hidden="true">
+          <span class="coming-up-label">Coming Up</span>
+          <span class="coming-up-rule"></span>
+        </div>
+
+        <div class="update-feed" id="update-feed" aria-label="Live story updates"></div>
 
       </div>
     </section>
@@ -288,18 +346,18 @@
   <script>
   (function () {
 
-    var timeline  = document.getElementById('timeline');
-    var loading   = document.getElementById('timeline-loading');
-    var errorEl   = document.getElementById('timeline-error');
-    var metaBar   = document.getElementById('tracker-meta');
-    var infoEl    = document.getElementById('tracker-info');
+    var feed       = document.getElementById('update-feed');
+    var loading    = document.getElementById('feed-loading');
+    var errorEl    = document.getElementById('feed-error');
+    var header     = document.getElementById('tracker-header');
+    var metaText   = document.getElementById('tracker-meta-text');
+    var divider    = document.getElementById('coming-up-divider');
 
     function todayStr() {
       var d = new Date();
-      var y = d.getFullYear();
-      var m = String(d.getMonth() + 1).padStart(2, '0');
-      var day = String(d.getDate()).padStart(2, '0');
-      return y + '-' + m + '-' + day;
+      return d.getFullYear() + '-'
+        + String(d.getMonth() + 1).padStart(2, '0') + '-'
+        + String(d.getDate()).padStart(2, '0');
     }
 
     function daysDiff(dateStr) {
@@ -313,83 +371,99 @@
       return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
     }
 
-    function badge(dateStr) {
-      var diff = daysDiff(dateStr);
-      if (diff === 0) return '<span class="today-badge">Today</span>';
-      if (diff > 0 && diff <= 7) return '<span class="new-badge">New</span>';
-      return '';
-    }
-
-    function eventClass(dateStr) {
-      var diff = daysDiff(dateStr);
-      if (diff === 0) return 'timeline-event today-event';
-      if (diff > 0 && diff <= 7) return 'timeline-event new-event';
-      return 'timeline-event';
-    }
-
-    function escapeHTML(str) {
+    function esc(str) {
       return str
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;');
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     }
 
-    function renderEvent(ev, idx) {
-      var cls      = eventClass(ev.date);
-      var dateBadge = badge(ev.date);
-      var sourceEl  = ev.source
-        ? '<span class="timeline-source">Source: ' + escapeHTML(ev.source) + '</span>'
-        : '';
-      var linkEl = ev.source_url
-        ? '<a class="timeline-link" href="' + escapeHTML(ev.source_url) + '" target="_blank" rel="noopener">'
-          + escapeHTML(ev.source_link_text || 'Read Source') + ' &#8594;</a>'
+    function renderCard(ev, isFeatured, isUpcoming) {
+      var diff  = daysDiff(ev.date);
+      var today = diff === 0;
+      var isNew = diff > 0 && diff <= 7;
+
+      var cls = 'update-card';
+      if (isUpcoming)    cls += ' is-upcoming';
+      else if (isFeatured && today) cls += ' is-today is-featured';
+      else if (isFeatured)          cls += ' is-featured';
+      else if (today)               cls += ' is-today';
+      else if (isNew)               cls += ' is-new';
+
+      var badge = '';
+      if (today)       badge = '<span class="card-badge badge-today">Today</span>';
+      else if (isNew)  badge = '<span class="card-badge badge-new">New</span>';
+
+      var link = ev.source_url
+        ? '<a class="card-link" href="' + esc(ev.source_url) + '" target="_blank" rel="noopener">'
+          + esc(ev.source_link_text || 'Read Source') + ' &#8594;</a>'
         : '';
 
-      return '<div class="' + cls + '" id="te-' + (idx + 1) + '">'
-        + '<span class="timeline-date">' + escapeHTML(ev.date_display) + dateBadge + '</span>'
-        + '<h2 class="timeline-title">' + escapeHTML(ev.title) + '</h2>'
-        + '<p class="timeline-body">' + escapeHTML(ev.body) + '</p>'
-        + sourceEl
-        + linkEl
+      var source = ev.source
+        ? '<span class="card-source">Source: ' + esc(ev.source) + '</span>'
+        : '';
+
+      return '<div class="' + cls + '">'
+        + '<div class="card-inner">'
+        + '<div class="card-dateline">'
+        + '<span class="card-date">' + esc(ev.date_display) + '</span>'
+        + badge
+        + '</div>'
+        + '<h2 class="card-title">' + esc(ev.title) + '</h2>'
+        + '<p class="card-body">' + esc(ev.body) + '</p>'
+        + '<div class="card-footer">' + source + link + '</div>'
+        + '</div>'
         + '</div>';
     }
 
     function attachObserver() {
-      var items = Array.from(timeline.querySelectorAll('.timeline-event'));
+      var cards = Array.from(feed.querySelectorAll('.update-card'));
       if (!('IntersectionObserver' in window)) {
-        items.forEach(function (el) { el.classList.add('visible'); });
+        cards.forEach(function (c) { c.classList.add('visible'); });
         return;
       }
       var obs = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
           if (entry.isIntersecting) {
-            var idx = items.indexOf(entry.target);
-            setTimeout(function () { entry.target.classList.add('visible'); }, idx * 80);
+            var idx = cards.indexOf(entry.target);
+            setTimeout(function () { entry.target.classList.add('visible'); }, idx * 60);
             obs.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.15 });
-      items.forEach(function (el) { obs.observe(el); });
+      }, { threshold: 0.08 });
+      cards.forEach(function (c) { obs.observe(c); });
     }
 
     fetch('../data/events.json')
       .then(function (r) {
-        if (!r.ok) throw new Error('Network response was not ok');
+        if (!r.ok) throw new Error('Network error');
         return r.json();
       })
       .then(function (data) {
         loading.style.display = 'none';
 
-        var events = data.events.slice().sort(function (a, b) {
-          return new Date(a.date) - new Date(b.date);
+        var now     = new Date(todayStr() + 'T00:00:00');
+        var past    = data.events.filter(function (e) { return new Date(e.date + 'T00:00:00') <= now; });
+        var future  = data.events.filter(function (e) { return new Date(e.date + 'T00:00:00') >  now; });
+
+        past.sort(function (a, b) { return new Date(b.date) - new Date(a.date); });
+        future.sort(function (a, b) { return new Date(a.date) - new Date(b.date); });
+
+        var html = '';
+        past.forEach(function (ev, i) {
+          html += renderCard(ev, i === 0, false);
         });
+        feed.innerHTML = html;
 
-        timeline.innerHTML = events.map(renderEvent).join('');
+        if (future.length) {
+          divider.classList.add('visible');
+          var futureHtml = '';
+          future.forEach(function (ev) { futureHtml += renderCard(ev, false, true); });
+          feed.insertAdjacentHTML('beforeend', futureHtml);
+        }
 
-        metaBar.style.display = 'flex';
+        header.style.display = 'flex';
         var updated = formatDate(data.last_updated);
-        infoEl.textContent = events.length + ' events · Updated ' + updated;
+        metaText.textContent = data.events.length + ' events · Updated ' + updated;
 
         attachObserver();
       })
