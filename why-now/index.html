@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -105,6 +105,103 @@
       margin-top: 0.75rem;
       display: block;
     }
+
+    /* ── TRACKER META BAR ── */
+    .tracker-meta {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 3rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .tracker-live {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--font-sans);
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+    .tracker-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--red);
+      flex-shrink: 0;
+      animation: pulse-dot 1.8s ease-in-out infinite;
+    }
+    .tracker-info {
+      font-family: var(--font-sans);
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.28);
+    }
+
+    /* ── LOADING / ERROR ── */
+    .timeline-loading {
+      padding: 4rem 0 2rem;
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+    }
+    .timeline-error {
+      padding: 3rem 0;
+      font-family: var(--font-sans);
+      font-size: 0.9375rem;
+      color: rgba(255,255,255,0.6);
+    }
+    .timeline-error a { color: var(--red); text-decoration: underline; }
+
+    /* ── TODAY BADGE ── */
+    .today-badge {
+      display: inline-block;
+      background: var(--red);
+      color: var(--white);
+      font-family: var(--font-sans);
+      font-size: 0.5rem;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      padding: 0.18rem 0.55rem;
+      vertical-align: middle;
+      margin-left: 0.6rem;
+      position: relative;
+      top: -1px;
+    }
+    .today-event::before {
+      background: var(--white) !important;
+      animation: pulse-dot 1.8s ease-in-out infinite;
+    }
+
+    /* ── NEW BADGE ── */
+    .new-badge {
+      display: inline-block;
+      background: transparent;
+      color: var(--red);
+      border: 1px solid var(--red);
+      font-family: var(--font-sans);
+      font-size: 0.5rem;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      padding: 0.15rem 0.5rem;
+      vertical-align: middle;
+      margin-left: 0.6rem;
+      position: relative;
+      top: -1px;
+    }
+    .new-event::before { background: var(--red) !important; }
   </style>
 </head>
 <body>
@@ -153,73 +250,20 @@
     <section class="timeline-section">
       <div class="container-prose">
 
-        <div class="timeline" id="timeline" aria-label="Timeline of key events">
-
-          <div class="timeline-event" id="te-1">
-            <span class="timeline-date">March 24, 2026</span>
-            <h2 class="timeline-title">Landmark Lawsuit Filed</h2>
-            <p class="timeline-body">The Public Health Advocacy Institute files suit in the Court of Common Pleas of Philadelphia County against FanDuel, DraftKings, Genius Sports, and the National Football League. Named plaintiffs are Terry Thompson and Christopher Sage. The complaint calls the sportsbook apps "unreasonably dangerous products intentionally designed to maximize addiction." Case No. 260303384.</p>
-            <span class="timeline-source">Source: PHAI press release, March 24, 2026; Philadelphia Inquirer, March 30, 2026.</span>
-            <a class="timeline-link" href="https://phai.org/phai-files-landmark-lawsuit-against-draftkings-nfl-geniussports/" target="_blank" rel="noopener">Read Source &#8594;</a>
-          </div>
-
-          <div class="timeline-event" id="te-2">
-            <span class="timeline-date">April 22, 2026</span>
-            <h2 class="timeline-title">Kalshi Suspends Three Congressional Candidates</h2>
-            <p class="timeline-body">Kalshi announces it has suspended and fined one US Senate candidate and two House of Representatives candidates for what it calls "political insider trading." The three candidates had been betting on their own races.</p>
-            <span class="timeline-source">Source: CNBC, April 30, 2026; NBC News, May 1, 2026.</span>
-            <a class="timeline-link" href="https://www.washingtonpost.com/politics/2026/04/22/prediction-markets-kalshi-congress-candidates-elections-betting/09cc18c8-3e9a-11f1-bb46-ed564688d953_story.html" target="_blank" rel="noopener">Read Source &#8594;</a>
-          </div>
-
-          <div class="timeline-event" id="te-3">
-            <span class="timeline-date">April 23, 2026</span>
-            <h2 class="timeline-title">Van Dyke Indicted — First Federal Prediction Market Prosecution</h2>
-            <p class="timeline-body">US Army Special Forces Master Sergeant Gannon Ken Van Dyke, age 38, Fort Bragg, is indicted in the Southern District of New York for allegedly using classified intelligence about Operation Absolute Resolve, the mission to capture Venezuelan President Nicolas Maduro, to win $410,000 on Polymarket. He wagered approximately $33,000 across 13 bets. The case marks the first time the CFTC has used the "Eddie Murphy Rule" to bring charges based on misuse of government information in a prediction market.</p>
-            <span class="timeline-source">Sources: CNN Politics, CNBC, NBC News, Axios, April 23, 2026. Federal indictment unsealed SDNY.</span>
-            <a class="timeline-link" href="https://www.justice.gov/opa/pr/us-soldier-charged-using-classified-information-profit-prediction-market-bets" target="_blank" rel="noopener">Read Source &#8594;</a>
-          </div>
-
-          <div class="timeline-event" id="te-4">
-            <span class="timeline-date">April 30, 2026</span>
-            <h2 class="timeline-title">Senate Unanimously Bans Members from Prediction Markets</h2>
-            <p class="timeline-body">The US Senate passes a unanimous voice-vote resolution banning senators and their staff from trading on prediction markets, effective immediately. The resolution is sponsored by Sen. Bernie Moreno (R-OH), with a staff-coverage amendment by Sen. Alex Padilla (D-CA). It comes eight days after the Kalshi suspensions.</p>
-            <span class="timeline-source">Sources: CNBC, April 30, 2026; PBS News and NBC News, May 1, 2026.</span>
-            <a class="timeline-link" href="https://www.nbcnews.com/politics/congress/senate-bans-members-staff-trading-prediction-markets-rcna342939" target="_blank" rel="noopener">Read Source &#8594;</a>
-          </div>
-
-          <div class="timeline-event" id="te-5">
-            <span class="timeline-date">May 11, 2026</span>
-            <h2 class="timeline-title">Congress Demands Youth-Marketing Data from Ten Companies</h2>
-            <p class="timeline-body">Five members of Congress (Reps. Valerie Foushee, Paul Tonko, Betty McCollum, Kevin Mullin, and Sen. Richard Blumenthal) send letters to the CEOs of ten companies demanding data on how their platforms market to young adults aged 18 to 24. Written responses due by May 29. The ten companies: bet365, BetMGM, Caesars, DraftKings, Fanatics, FanDuel, Kalshi, Polymarket, PrizePicks, Robinhood.</p>
-            <span class="timeline-source">Source: Bettors Insider, May 13, 2026.</span>
-            <a class="timeline-link" href="https://foushee.house.gov/media/press-releases/reps-foushee-and-tonko-lead-push-to-hold-gambling-industry-ceos-accountable-for-social-harms-affecting-young-americans" target="_blank" rel="noopener">Read Source &#8594;</a>
-          </div>
-
-          <div class="timeline-event today-event" id="te-6">
-            <span class="timeline-date">May 20, 2026 <span class="today-badge">Today</span></span>
-            <h2 class="timeline-title">First Senate Hearing on Sports Betting and Prediction Markets</h2>
-            <p class="timeline-body">The Senate Commerce Subcommittee on Consumer Protection, Technology, and Data Privacy holds a hearing titled "No Sure Bets: Protecting Sports Integrity in America" at the Dirksen Senate Office Building, 10:00 a.m. ET. Chair: Sen. Marsha Blackburn (R-TN). It is the first time any Senate body has directly addressed prediction markets and their intersection with sports wagering. Witnesses include Harry Levant, Director of Gambling Policy at the Public Health Advocacy Institute.</p>
-            <span class="timeline-source">Sources: Senate Commerce Committee press release, April 2026; Philadelphia Inquirer, May 19, 2026.</span>
-            <a class="timeline-link" href="https://www.commerce.senate.gov/meetings/no-sure-bets-protecting-sports-integrity-in-america/" target="_blank" rel="noopener">Official Senate Hearing Record &#8594;</a>
-          </div>
-
-          <div class="timeline-event" id="te-7">
-            <span class="timeline-date">May 29, 2026</span>
-            <h2 class="timeline-title">Marketing Data Due to Congress</h2>
-            <p class="timeline-body">Ten companies must deliver written responses and youth-marketing data to Congress. This data will document exactly how FanDuel, DraftKings, Kalshi, Polymarket, and six other operators have targeted 18-to-24-year-olds. It is, potentially, the documentary equivalent of the internal tobacco industry research.</p>
-            <span class="timeline-source">Source: Bettors Insider, May 13, 2026.</span>
-            <a class="timeline-link" href="https://foushee.house.gov/imo/media/doc/letter_to_prediction_market_and_sports_betting_ceos.pdf" target="_blank" rel="noopener">Read Source &#8594;</a>
-          </div>
-
-          <div class="timeline-event" id="te-8">
-            <span class="timeline-date">Ongoing / Summer 2026</span>
-            <h2 class="timeline-title">PHAI Lawsuit Enters Discovery</h2>
-            <p class="timeline-body">The Public Health Advocacy Institute lawsuit moves into discovery this summer. Internal documents from FanDuel, DraftKings, and Genius Sports will be subject to subpoena. The discovery process may surface internal communications about VIP host strategy, micro-bet design, and addiction data that have never been public. Nationwide class action suits continue to pile up on behalf of young adults and families who lost loved ones to gambling-related suicide.</p>
-            <span class="timeline-source">Source: PHAI press release, March 24, 2026.</span>
-            <a class="timeline-link" href="https://phai.org/phai-files-landmark-lawsuit-against-draftkings-nfl-geniussports/" target="_blank" rel="noopener">Read Source &#8594;</a>
-          </div>
-
+        <div class="tracker-meta" id="tracker-meta" aria-live="polite">
+          <span class="tracker-live">
+            <span class="tracker-dot" aria-hidden="true"></span>
+            Live Story Tracker
+          </span>
+          <span class="tracker-info" id="tracker-info"></span>
         </div>
+
+        <p class="timeline-loading" id="timeline-loading" aria-label="Loading events">Loading&hellip;</p>
+        <p class="timeline-error" id="timeline-error" style="display:none;">
+          Could not load events. <a href="">Reload the page</a> to try again.
+        </p>
+
+        <div class="timeline" id="timeline" aria-label="Timeline of key events"></div>
 
       </div>
     </section>
@@ -242,21 +286,119 @@
 
   <script src="../assets/js/main.js"></script>
   <script>
-    /* Timeline scroll reveal */
-    const events = document.querySelectorAll('.timeline-event');
-    if ('IntersectionObserver' in window) {
-      const obs = new IntersectionObserver(entries => {
-        entries.forEach((e, i) => {
-          if (e.isIntersecting) {
-            setTimeout(() => e.target.classList.add('visible'), i * 80);
-            obs.unobserve(e.target);
+  (function () {
+
+    var timeline  = document.getElementById('timeline');
+    var loading   = document.getElementById('timeline-loading');
+    var errorEl   = document.getElementById('timeline-error');
+    var metaBar   = document.getElementById('tracker-meta');
+    var infoEl    = document.getElementById('tracker-info');
+
+    function todayStr() {
+      var d = new Date();
+      var y = d.getFullYear();
+      var m = String(d.getMonth() + 1).padStart(2, '0');
+      var day = String(d.getDate()).padStart(2, '0');
+      return y + '-' + m + '-' + day;
+    }
+
+    function daysDiff(dateStr) {
+      var now  = new Date(todayStr() + 'T00:00:00');
+      var then = new Date(dateStr   + 'T00:00:00');
+      return Math.floor((now - then) / 86400000);
+    }
+
+    function formatDate(dateStr) {
+      var d = new Date(dateStr + 'T00:00:00');
+      return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    }
+
+    function badge(dateStr) {
+      var diff = daysDiff(dateStr);
+      if (diff === 0) return '<span class="today-badge">Today</span>';
+      if (diff > 0 && diff <= 7) return '<span class="new-badge">New</span>';
+      return '';
+    }
+
+    function eventClass(dateStr) {
+      var diff = daysDiff(dateStr);
+      if (diff === 0) return 'timeline-event today-event';
+      if (diff > 0 && diff <= 7) return 'timeline-event new-event';
+      return 'timeline-event';
+    }
+
+    function escapeHTML(str) {
+      return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function renderEvent(ev, idx) {
+      var cls      = eventClass(ev.date);
+      var dateBadge = badge(ev.date);
+      var sourceEl  = ev.source
+        ? '<span class="timeline-source">Source: ' + escapeHTML(ev.source) + '</span>'
+        : '';
+      var linkEl = ev.source_url
+        ? '<a class="timeline-link" href="' + escapeHTML(ev.source_url) + '" target="_blank" rel="noopener">'
+          + escapeHTML(ev.source_link_text || 'Read Source') + ' &#8594;</a>'
+        : '';
+
+      return '<div class="' + cls + '" id="te-' + (idx + 1) + '">'
+        + '<span class="timeline-date">' + escapeHTML(ev.date_display) + dateBadge + '</span>'
+        + '<h2 class="timeline-title">' + escapeHTML(ev.title) + '</h2>'
+        + '<p class="timeline-body">' + escapeHTML(ev.body) + '</p>'
+        + sourceEl
+        + linkEl
+        + '</div>';
+    }
+
+    function attachObserver() {
+      var items = Array.from(timeline.querySelectorAll('.timeline-event'));
+      if (!('IntersectionObserver' in window)) {
+        items.forEach(function (el) { el.classList.add('visible'); });
+        return;
+      }
+      var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            var idx = items.indexOf(entry.target);
+            setTimeout(function () { entry.target.classList.add('visible'); }, idx * 80);
+            obs.unobserve(entry.target);
           }
         });
       }, { threshold: 0.15 });
-      events.forEach(el => obs.observe(el));
-    } else {
-      events.forEach(el => el.classList.add('visible'));
+      items.forEach(function (el) { obs.observe(el); });
     }
+
+    fetch('../data/events.json')
+      .then(function (r) {
+        if (!r.ok) throw new Error('Network response was not ok');
+        return r.json();
+      })
+      .then(function (data) {
+        loading.style.display = 'none';
+
+        var events = data.events.slice().sort(function (a, b) {
+          return new Date(a.date) - new Date(b.date);
+        });
+
+        timeline.innerHTML = events.map(renderEvent).join('');
+
+        metaBar.style.display = 'flex';
+        var updated = formatDate(data.last_updated);
+        infoEl.textContent = events.length + ' events · Updated ' + updated;
+
+        attachObserver();
+      })
+      .catch(function () {
+        loading.style.display = 'none';
+        errorEl.style.display = 'block';
+      });
+
+  })();
   </script>
 </body>
 </html>
