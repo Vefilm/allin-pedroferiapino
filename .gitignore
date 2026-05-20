@@ -1,0 +1,11 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Duplicate source folders (working files, not part of site)
+All In final/
+Photos/
+files/
+*.zip
+*.pptx
+*.docx
