@@ -124,6 +124,14 @@
   stats.forEach(el => observer.observe(el));
 })();
 
+/* ── PRESS TICKER: touch pause ── */
+(function () {
+  const track = document.querySelector('.press-ticker-track');
+  if (!track) return;
+  track.addEventListener('touchstart', () => { track.style.animationPlayState = 'paused'; }, { passive: true });
+  track.addEventListener('touchend',   () => { track.style.animationPlayState = 'running'; }, { passive: true });
+})();
+
 /* ── FLOATING CTA ── */
 (function () {
   const cta = document.getElementById('float-cta');

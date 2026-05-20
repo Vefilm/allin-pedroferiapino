@@ -1080,6 +1080,29 @@ a.press-ticker-item:hover .press-ticker-dot {
   animation: pulse-dot 1.8s ease-in-out infinite;
 }
 
+/* ── CALLOUT-SOURCE: cream-background context ────────────── */
+.character-cream .callout-source,
+.pillar-cream .callout-source {
+  background: rgba(17,17,17,0.05);
+  border-left-color: rgba(17,17,17,0.2);
+  color: var(--grey);
+}
+
+/* ── CALLOUT-SOURCE: story-body specificity fix ──────────── */
+.story-body .callout-source {
+  font-size: 0.8125rem;
+  color: var(--grey-light);
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+/* ── FLOAT CTA: iOS safe-area ────────────────────────────── */
+@supports (bottom: env(safe-area-inset-bottom)) {
+  .float-cta {
+    bottom: max(2rem, calc(1.25rem + env(safe-area-inset-bottom)));
+  }
+}
+
 /* ── REDUCED MOTION ──────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .reveal, .reveal-stagger > * {
