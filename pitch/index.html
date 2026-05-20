@@ -35,6 +35,13 @@
     .ask-block { background: var(--card-bg); border-left: 4px solid var(--red); padding: 2.5rem 2rem; margin-top: 2rem; }
     .ask-block p { color: rgba(255,255,255,0.8); font-size: 1.0625rem; line-height: 1.75; margin-bottom: 1rem; }
     .ask-block p:last-child { margin-bottom: 0; }
+    .video-section { padding: 0; background: #000; }
+    .video-wrap { position: relative; width: 100%; max-width: 1200px; margin: 0 auto; }
+    .video-wrap video { display: block; width: 100%; aspect-ratio: 16/9; background: #000; }
+    .video-eyebrow { padding: 2.5rem 0 1.25rem; text-align: center; }
+    .video-eyebrow p { font-family: var(--font-sans); font-size: 0.625rem; font-weight: 700; letter-spacing: 0.44em; text-transform: uppercase; color: var(--red); margin: 0; }
+    .video-caption { padding: 1.25rem 0 3rem; text-align: center; }
+    .video-caption p { font-family: var(--font-serif); font-style: italic; font-size: 1rem; color: rgba(255,255,255,0.38); margin: 0; }
   </style>
 </head>
 <body>
@@ -77,6 +84,25 @@
         <p class="eyebrow">For Producers</p>
         <h1 style="font-size: clamp(3rem, 8vw, 6rem); line-height: 0.95; margin-bottom: 1.5rem;">LET'S<br>BUILD IT.</h1>
         <p style="font-family: var(--font-serif); font-style: italic; font-size: clamp(1.125rem, 2.5vw, 1.5rem); color: rgba(255,255,255,0.75); line-height: 1.5; max-width: 600px;">The Senate hearing is May 20. The marketing data drops May 29. The lawsuit goes through discovery this summer. The window to be the first film on this is now.</p>
+      </div>
+    </section>
+
+    <!-- PITCH VIDEO -->
+    <section class="video-section">
+      <div class="video-eyebrow">
+        <p>Pitch Reel — ALL IN</p>
+      </div>
+      <div class="video-wrap">
+        <video
+          controls
+          preload="metadata"
+          poster="../assets/img/hero-eyes.jpeg"
+          style="outline: none;">
+          <source src="../assets/video/AllInPitch_web.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-caption">
+        <p>63 seconds. The story, the characters, the system, the ask.</p>
       </div>
     </section>
 
