@@ -4,11 +4,7 @@
 (function () {
   const header = document.getElementById('site-header');
   if (!header) return;
-
-  const onScroll = () => {
-    header.classList.toggle('scrolled', window.scrollY > 60);
-  };
-
+  const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 60);
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 })();
@@ -39,12 +35,10 @@
 /* ── SCROLL REVEAL (IntersectionObserver) ── */
 (function () {
   const els = document.querySelectorAll('.reveal, .reveal-stagger');
-
   if (!('IntersectionObserver' in window)) {
     els.forEach(el => el.classList.add('visible'));
     return;
   }
-
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach(entry => {
@@ -56,7 +50,6 @@
     },
     { threshold: 0.04, rootMargin: '0px' }
   );
-
   els.forEach(el => {
     const rect = el.getBoundingClientRect();
     if (rect.top < window.innerHeight && rect.bottom > 0) {
@@ -76,4 +69,67 @@
       link.setAttribute('aria-current', 'page');
     }
   });
+})();
+
+/* ── READING PROGRESS BAR ── */
+(function () {
+  const bar = document.getElementById('reading-progress');
+  if (!bar) return;
+  const update = () => {
+    const scrollTop  = window.scrollY;
+    const docHeight  = document.documentElement.scrollHeight - window.innerHeight;
+    const pct        = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    bar.style.width  = Math.min(pct, 100) + '%';
+  };
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+
+/* ── STAT COUNTERS ── */
+(function () {
+  const stats = document.querySelectorAll('.stat-number[data-count]');
+  if (!stats.length || !('IntersectionObserver' in window)) return;
+
+  const easeOut = t => 1 - Math.pow(1 - t, 3);
+
+  function animateCount(el) {
+    const raw      = el.dataset.count;       // e.g. "150" or "52" or "1"
+    const prefix   = el.dataset.prefix || '';
+    const suffix   = el.dataset.suffix || '';
+    const duration = 1800;
+    const target   = parseFloat(raw);
+    const decimals = raw.includes('.') ? raw.split('.')[1].length : 0;
+    let start = null;
+
+    const step = (ts) => {
+      if (!start) start = ts;
+      const elapsed = ts - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const val = easeOut(progress) * target;
+      el.textContent = prefix + val.toFixed(decimals) + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCount(entry.target);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  stats.forEach(el => observer.observe(el));
+})();
+
+/* ── FLOATING CTA ── */
+(function () {
+  const cta = document.getElementById('float-cta');
+  if (!cta) return;
+  const trigger = 400;
+  const onScroll = () => cta.classList.toggle('visible', window.scrollY > trigger);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 })();

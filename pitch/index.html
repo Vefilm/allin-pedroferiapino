@@ -7,6 +7,7 @@
   <meta name="description" content="Format, logline, filmmaker bio, the ask. Downloadable pitch deck and one-sheet.">
   <meta property="og:title" content="For Producers — ALL IN">
   <meta property="og:image" content="../assets/img/hero-eyes.jpeg">
+  <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
   <link rel="stylesheet" href="../assets/css/main.css">
   <style>
     .page-hero { padding: clamp(8rem, 14vw, 12rem) 0 clamp(4rem, 8vw, 5rem); background: var(--ink); border-bottom: 3px solid var(--red); }
@@ -38,6 +39,8 @@
 </head>
 <body>
 
+  <div id="reading-progress" aria-hidden="true"></div>
+
   <header class="site-header" id="site-header">
     <div class="header-inner">
       <a class="wordmark" href="../">ALL IN</a>
@@ -49,6 +52,10 @@
         <a href="../sources/">Sources</a>
         <a href="../pitch/" class="active">For Producers</a>
       </nav>
+      <a class="reel-link" href="https://www.pedroferiapino.com/reel" target="_blank" rel="noopener" aria-label="Watch director reel">
+        <svg viewBox="0 0 10 10" aria-hidden="true"><polygon points="2,1 9,5 2,9"/></svg>
+        Reel
+      </a>
       <button class="nav-toggle" id="nav-toggle" aria-label="Open navigation menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -154,6 +161,21 @@
       </div>
     </section>
 
+    <!-- REEL -->
+    <section class="pitch-section reveal">
+      <div class="container-prose">
+        <p class="eyebrow">Director's Reel</p>
+        <h2>20+ Years. One Frame at a Time.</h2>
+        <p>Netflix. Disney. VICE. MTV. ABC News. Before ALL IN, there's a body of work. Watch the reel.</p>
+        <div style="margin-top: 2rem;">
+          <a href="https://www.pedroferiapino.com/reel" target="_blank" rel="noopener" class="dl-btn primary" style="text-decoration:none;">
+            <svg viewBox="0 0 10 10" style="width:12px;height:12px;fill:currentColor;flex-shrink:0;" aria-hidden="true"><polygon points="2,1 9,5 2,9"/></svg>
+            Watch Reel &rarr;
+          </a>
+        </div>
+      </div>
+    </section>
+
     <!-- THE ASK -->
     <section class="pitch-section reveal">
       <div class="container-prose">
@@ -176,6 +198,16 @@
     </section>
 
   </main>
+
+  <!-- Floating CTA -->
+  <div class="float-cta" id="float-cta" aria-label="Quick actions">
+    <a href="../assets/pdf/ALL_IN_deck.pdf" class="float-cta-btn" target="_blank" rel="noopener" download>
+      &#8595; Pitch Deck
+    </a>
+    <a href="mailto:vefilm@gmail.com" class="float-cta-btn float-cta-btn-secondary">
+      Contact
+    </a>
+  </div>
 
   <footer class="site-footer">
     <div class="container-wide">

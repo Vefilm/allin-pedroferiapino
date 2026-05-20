@@ -20,10 +20,13 @@
   <meta name="twitter:description" content="America's $150-billion-a-year sports betting boom has a body count.">
   <meta name="twitter:image" content="/assets/img/hero-eyes.jpeg">
 
+  <link rel="icon" type="image/svg+xml" href="./assets/img/favicon.svg">
   <link rel="stylesheet" href="./assets/css/main.css">
   <link rel="canonical" href="https://allin.pedroferiapino.com/">
 </head>
 <body>
+
+  <div id="reading-progress" aria-hidden="true"></div>
 
   <!-- ── HEADER ─────────────────────────────────────────── -->
   <header class="site-header" id="site-header">
@@ -39,6 +42,10 @@
         <a href="/pitch/">For Producers</a>
       </nav>
 
+      <a class="reel-link" href="https://www.pedroferiapino.com/reel" target="_blank" rel="noopener" aria-label="Watch director reel">
+        <svg viewBox="0 0 10 10" aria-hidden="true"><polygon points="2,1 9,5 2,9"/></svg>
+        Reel
+      </a>
       <button class="nav-toggle" id="nav-toggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-nav">
         <span></span><span></span><span></span>
       </button>
@@ -97,28 +104,50 @@
         <div class="stats-grid reveal-stagger">
 
           <div class="stat-item">
-            <span class="stat-number">$150B</span>
+            <span class="stat-number" data-count="150" data-prefix="$" data-suffix="B">$150B</span>
             <span class="stat-label">wagered on US sports annually</span>
           </div>
 
           <div class="stat-item">
-            <span class="stat-number">1 in 5</span>
+            <span class="stat-number" data-count="1" data-prefix="1 in ">1 in 5</span>
             <span class="stat-label">problem gamblers attempt suicide, highest rate of any addiction</span>
           </div>
 
           <div class="stat-item">
-            <span class="stat-number">~52%</span>
+            <span class="stat-number" data-count="52" data-suffix="%">~52%</span>
             <span class="stat-label">of US men 18&ndash;49 have an active sports betting account</span>
           </div>
 
           <div class="stat-item">
-            <span class="stat-number">$1T</span>
+            <span class="stat-number" data-count="1" data-prefix="$" data-suffix="T">$1T</span>
             <span class="stat-label">projected cumulative US betting losses by 2028</span>
           </div>
 
         </div>
       </div>
     </section>
+
+    <!-- ── PRESS TICKER ──────────────────────────────────────── -->
+    <div class="press-ticker" aria-hidden="true">
+      <div class="press-ticker-track">
+        <span class="press-ticker-item"><span class="press-ticker-dot"></span>Rolling Stone</span>
+        <span class="press-ticker-item"><span class="press-ticker-dot"></span>Senate Commerce Committee</span>
+        <span class="press-ticker-item"><span class="press-ticker-dot"></span>Philadelphia Inquirer</span>
+        <span class="press-ticker-item"><span class="press-ticker-dot"></span>CBS News</span>
+        <span class="press-ticker-item"><span class="press-ticker-dot"></span>CNN</span>
+        <span class="press-ticker-item"><span class="press-ticker-dot"></span>PHAI / Northeastern Law</span>
+        <span class="press-ticker-item"><span class="press-ticker-dot"></span>SDNY Federal Court</span>
+        <span class="press-ticker-item"><span class="press-ticker-dot"></span>Senate Hearing May 20, 2026</span>
+        <span class="press-ticker-item"><span class="press-ticker-dot"></span>Rolling Stone</span>
+        <span class="press-ticker-item"><span class="press-ticker-dot"></span>Senate Commerce Committee</span>
+        <span class="press-ticker-item"><span class="press-ticker-dot"></span>Philadelphia Inquirer</span>
+        <span class="press-ticker-item"><span class="press-ticker-dot"></span>CBS News</span>
+        <span class="press-ticker-item"><span class="press-ticker-dot"></span>CNN</span>
+        <span class="press-ticker-item"><span class="press-ticker-dot"></span>PHAI / Northeastern Law</span>
+        <span class="press-ticker-item"><span class="press-ticker-dot"></span>SDNY Federal Court</span>
+        <span class="press-ticker-item"><span class="press-ticker-dot"></span>Senate Hearing May 20, 2026</span>
+      </div>
+    </div>
 
     <!-- ── IMAGE BREAK: group phones ────────────────────────── -->
     <div class="img-break" aria-hidden="true">
