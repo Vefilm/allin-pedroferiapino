@@ -38,6 +38,15 @@
       "source_link_text": "Read Source"
     },
     {
+      "date": "2026-05-06",
+      "date_display": "May 6, 2026",
+      "title": "41 State Attorneys General Demand Federal Action on Prediction Markets",
+      "body": "A bipartisan coalition of 41 state attorneys general writes to Congress and formally petitions the CFTC to clarify through rulemaking that it does not have jurisdiction over sports-related event contracts. The coalition argues that platforms like Kalshi and Polymarket are operating as unregulated sportsbooks in states that have not legalized sports betting. New York Attorney General Letitia James is among the signatories. The letter is the broadest coordinated state challenge yet to the federal government's claim that prediction markets fall outside state gambling law.",
+      "source": "GamblingNews.com, May 6, 2026; SCCG Management, May 6, 2026; New York Attorney General press release.",
+      "source_url": "https://www.gamblingnews.com/news/bipartisan-coalition-of-41-attorneys-general-urge-prediction-markets-clarity/",
+      "source_link_text": "Read Source"
+    },
+    {
       "date": "2026-05-11",
       "date_display": "May 11, 2026",
       "title": "Congress Demands Youth-Marketing Data from Ten Companies",
@@ -47,11 +56,38 @@
       "source_link_text": "Read Source"
     },
     {
+      "date": "2026-05-13",
+      "date_display": "May 13, 2026",
+      "title": "Schiff-Curtis Bipartisan Bill: Ban Sports Contracts on Prediction Markets",
+      "body": "Senators Adam Schiff (D-CA) and John Curtis (R-UT) introduce the Prediction Markets Are Gambling Act, bipartisan legislation to prohibit CFTC-registered entities from listing any prediction contract that resembles a sports bet or casino-style game. The bill would return authority over sports betting-style contracts to states and tribal governments — the same position held by the coalition of 41 attorneys general. Schiff states the CFTC is \"completely unequipped\" to regulate the industry, and cites a Wall Street Journal analysis showing that approximately two-thirds of profits on prediction market exchanges are captured by just 0.1% of all traders.",
+      "source": "Sen. Schiff press release, May 2026; CNBC, Squawk Box, May 2026; NBC News; Bettors Insider, May 13, 2026.",
+      "source_url": "https://www.schiff.senate.gov/news/press-releases/news-sens-schiff-curtis-introduce-bipartisan-legislation-to-ban-sports-prediction-market-contracts/",
+      "source_link_text": "Read Source"
+    },
+    {
+      "date": "2026-05-15",
+      "date_display": "May 15, 2026",
+      "title": "NFL Writes CFTC: Ban Manipulable Contracts, Raise Age to 21",
+      "body": "NFL Senior Vice President Brendon Plack writes to the Commodity Futures Trading Commission requesting that prediction market platforms be prohibited from offering contracts on events that are \"easily manipulable\" by a single person — including first pass completions and individual field goal attempts — and on \"inherently objectionable\" events such as player injuries. The league asks the CFTC to raise the minimum trading age from 18 to 21 and ban margin trading on sports event contracts. The NFL's position is notable: the league remains the second-largest shareholder in Genius Sports, the data company that powers over 98% of the legal US sports betting market and earns a commission on every microbet placed.",
+      "source": "CNBC, May 15, 2026; Casino Beats, May 18, 2026; ESPN; Sports Betting Dime, May 2026.",
+      "source_url": "https://www.cnbc.com/2026/05/15/prediction-markets-nfl-letter-wants-certain-betting-contracts-banned.html",
+      "source_link_text": "Read Source"
+    },
+    {
+      "date": "2026-05-18",
+      "date_display": "May 18, 2026",
+      "title": "Colorado Passes First-in-Nation Daily Deposit Cap on Sports Betting Apps",
+      "body": "The Colorado legislature passes Senate Bill 131 on a 20-15 vote and sends it to Governor Jared Polis, who has 30 days to sign or veto. The bill would make Colorado the first state in the country to cap daily deposits on sports betting platforms at six deposits per 24-hour period, ban credit card deposits entirely, and prohibit push notifications and text messages soliciting bets. Operators and their marketing affiliates would also be prohibited from targeting underage users with advertising. The bill passed on the final day of the 2026 legislative session.",
+      "source": "Bettors Insider, May 18, 2026; Sports Betting Dime; SBC Americas; Colorado General Assembly SB26-131.",
+      "source_url": "https://bettorsinsider.com/sports-betting/2026/05/18/colorado-sports-betting-deposit-limit-bill-heads-to-governor-after-passing-senate-20-15/",
+      "source_link_text": "Read Source"
+    },
+    {
       "date": "2026-05-20",
       "date_display": "May 20, 2026",
-      "title": "First Senate Hearing on Sports Betting and Prediction Markets",
-      "body": "The Senate Commerce Subcommittee on Consumer Protection, Technology, and Data Privacy holds a hearing titled \"No Sure Bets: Protecting Sports Integrity in America\" at the Dirksen Senate Office Building, 10:00 a.m. ET. Chair: Sen. Marsha Blackburn (R-TN). It is the first time any Senate body has directly addressed prediction markets and their intersection with sports wagering. Witnesses include Harry Levant, Director of Gambling Policy at the Public Health Advocacy Institute.",
-      "source": "Senate Commerce Committee press release, April 2026; Philadelphia Inquirer, May 19, 2026.",
+      "title": "Senate Hearing: Prediction Market Firms Take Two Hours of Direct Fire",
+      "body": "The Senate Commerce Subcommittee on Consumer Protection, Technology, and Data Privacy holds \"No Sure Bets: Protecting Sports Integrity in America\" at the Dirksen Senate Office Building, 10:00 a.m. ET. Chair: Sen. Marsha Blackburn (R-TN). Harry Levant, Director of Gambling Policy at PHAI, testifies that the products are \"a known addictive product, just like heroin\" and describes an \"avalanche of unregulated advertising\" targeting young people. Sen. John Hickenlooper tells prediction market executives they are \"unleashing the hounds of hell\" through social media. Sen. Ted Cruz enters active match-fixing cases into the record — NBA players and coaches accused of manipulating performance, two MLB pitchers allegedly rigging pitches for money, MLS players deliberately getting yellow cards to win bets. Cruz states \"The Supreme Court may have to decide\" whether the CFTC or the states have jurisdiction over sports prediction market contracts. It is the first time any Senate body has directly addressed prediction markets and their intersection with sports wagering.",
+      "source": "CoinDesk, May 20, 2026; PR Newswire (PHAI); Philadelphia Inquirer, May 19, 2026; Senate Commerce Committee official record.",
       "source_url": "https://www.commerce.senate.gov/meetings/no-sure-bets-protecting-sports-integrity-in-america/",
       "source_link_text": "Official Senate Hearing Record"
     },
