@@ -25,6 +25,58 @@
       border-bottom: 1px solid rgba(255,255,255,0.07);
     }
 
+    /* ── LIVE CLOCK ── */
+    .now-block {
+      margin-top: 2.75rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .now-date-line {
+      font-family: var(--font-sans);
+      font-size: 0.625rem;
+      font-weight: 700;
+      letter-spacing: 0.45em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.32);
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    .now-time-line {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .now-time {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: clamp(2.75rem, 9vw, 5rem);
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    .now-ampm {
+      font-family: var(--font-sans);
+      font-size: clamp(0.75rem, 2vw, 1rem);
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      align-self: flex-end;
+      padding-bottom: 0.3rem;
+    }
+    .now-live-dot {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--red);
+      margin-right: 0.4rem;
+      position: relative;
+      top: -1px;
+      animation: pulse-red 1.8s ease-in-out infinite;
+    }
+
     /* ── TRACKER SECTION ── */
     .tracker-section { padding: clamp(3rem, 7vw, 5rem) 0 clamp(4rem, 9vw, 7rem); }
 
@@ -297,6 +349,15 @@
         <p class="eyebrow">Why Now</p>
         <h1 style="font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1.05; margin-bottom: 1.25rem;">This Story Breaks Open<br>Right Now.</h1>
         <p class="synopsis" style="margin-bottom: 0;">The Senate has held its first hearing. The attorneys general have moved. The lawsuit is in discovery. Every week brings a new development. The window to be the first film on this is closing.</p>
+
+        <div class="now-block" aria-label="Current date and time">
+          <span class="now-date-line" id="now-date"><span class="now-live-dot" aria-hidden="true"></span>Loading&hellip;</span>
+          <div class="now-time-line">
+            <span class="now-time" id="now-time">--:--:--</span>
+            <span class="now-ampm" id="now-ampm"></span>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -343,6 +404,29 @@
   </footer>
 
   <script src="../assets/js/main.js"></script>
+  <script>
+  /* ── LIVE CLOCK ── */
+  (function () {
+    var DAYS   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var dateEl = document.getElementById('now-date');
+    var timeEl = document.getElementById('now-time');
+    var ampmEl = document.getElementById('now-ampm');
+    function pad(n) { return String(n).padStart(2, '0'); }
+    function tick() {
+      var d    = new Date();
+      var h    = d.getHours();
+      var ampm = h >= 12 ? 'PM' : 'AM';
+      h = h % 12 || 12;
+      timeEl.textContent = pad(h) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+      ampmEl.textContent = ampm;
+      dateEl.innerHTML   = '<span class="now-live-dot" aria-hidden="true"></span>'
+        + DAYS[d.getDay()] + ', ' + MONTHS[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+    }
+    tick();
+    setInterval(tick, 1000);
+  })();
+  </script>
   <script>
   (function () {
 
