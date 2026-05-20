@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why Now — ALL IN: The Most American Addiction</title>
+  <meta name="description" content="The Senate hearing, the marketing data deadline, the landmark lawsuit, the Van Dyke indictment. This story breaks open in May 2026.">
+  <meta property="og:title" content="Why Now — ALL IN">
+  <meta property="og:image" content="../assets/img/hero-eyes.jpeg">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <style>
+    .page-hero {
+      padding: clamp(8rem, 14vw, 12rem) 0 clamp(4rem, 8vw, 6rem);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .timeline-section { padding: clamp(4rem, 9vw, 7rem) 0; }
+    .timeline {
+      position: relative;
+      padding-left: 2px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0; left: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--red), rgba(177,18,38,0.15));
+    }
+    .timeline-event {
+      position: relative;
+      padding: 0 0 3.5rem 2.5rem;
+      opacity: 0;
+      transform: translateX(-12px);
+      transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+    }
+    .timeline-event.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .timeline-event::before {
+      content: '';
+      position: absolute;
+      left: -5px;
+      top: 8px;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--red);
+      border: 2px solid var(--black);
+    }
+    .timeline-date {
+      font-family: var(--font-sans);
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--red);
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    .timeline-title {
+      font-family: var(--font-serif);
+      font-size: 1.375rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+      line-height: 1.25;
+    }
+    .timeline-body {
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.72);
+    }
+    .timeline-source {
+      font-size: 0.8125rem;
+      color: var(--grey);
+      margin-top: 0.75rem;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <a class="wordmark" href="../">ALL IN</a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="../the-story/">The Story</a>
+        <a href="../who-this-follows/">Who This Follows</a>
+        <a href="../the-fix/">The Fix</a>
+        <a href="../why-now/" class="active">Why Now</a>
+        <a href="../sources/">Sources</a>
+        <a href="../pitch/">For Producers</a>
+      </nav>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Open navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <nav class="mobile-nav" id="mobile-nav" aria-hidden="true">
+    <a href="../">Home</a>
+    <a href="../the-story/">The Story</a>
+    <a href="../who-this-follows/">Who This Follows</a>
+    <a href="../the-fix/">The Fix</a>
+    <a href="../why-now/">Why Now</a>
+    <a href="../sources/">Sources</a>
+    <a href="../pitch/">For Producers</a>
+    <a href="../contact/">Contact</a>
+  </nav>
+
+  <main>
+
+    <section class="page-hero reveal">
+      <div class="container-prose">
+        <p class="eyebrow">Why Now</p>
+        <h1 style="font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1.05; margin-bottom: 1.5rem;">This Story Breaks Open This Month.</h1>
+        <p class="synopsis">The Senate hearing. The marketing data deadline. The landmark lawsuit. The Van Dyke indictment. Everything is happening now. The window to be the first film on this is closing.</p>
+      </div>
+    </section>
+
+    <section class="timeline-section">
+      <div class="container-prose">
+
+        <div class="timeline" id="timeline" aria-label="Timeline of key events">
+
+          <div class="timeline-event" id="te-1">
+            <span class="timeline-date">March 24, 2026</span>
+            <h2 class="timeline-title">Landmark Lawsuit Filed</h2>
+            <p class="timeline-body">The Public Health Advocacy Institute files suit in the Court of Common Pleas of Philadelphia County against FanDuel, DraftKings, Genius Sports, and the National Football League. Named plaintiffs are Terry Thompson and Christopher Sage. The complaint calls the sportsbook apps "unreasonably dangerous products intentionally designed to maximize addiction." Case No. 260303384.</p>
+            <span class="timeline-source">Source: PHAI press release, March 24, 2026; Philadelphia Inquirer, March 30, 2026.</span>
+          </div>
+
+          <div class="timeline-event" id="te-2">
+            <span class="timeline-date">April 22, 2026</span>
+            <h2 class="timeline-title">Kalshi Suspends Three Congressional Candidates</h2>
+            <p class="timeline-body">Kalshi announces it has suspended and fined one US Senate candidate and two House of Representatives candidates for what it calls "political insider trading." The three candidates had been betting on their own races.</p>
+            <span class="timeline-source">Source: CNBC, April 30, 2026; NBC News, May 1, 2026.</span>
+          </div>
+
+          <div class="timeline-event" id="te-3">
+            <span class="timeline-date">April 23, 2026</span>
+            <h2 class="timeline-title">Van Dyke Indicted — First Federal Prediction Market Prosecution</h2>
+            <p class="timeline-body">US Army Special Forces Master Sergeant Gannon Ken Van Dyke, age 38, Fort Bragg, is indicted in the Southern District of New York for allegedly using classified intelligence about Operation Absolute Resolve, the mission to capture Venezuelan President Nicolas Maduro, to win $410,000 on Polymarket. He wagered approximately $33,000 across 13 bets. The case marks the first time the CFTC has used the "Eddie Murphy Rule" to bring charges based on misuse of government information in a prediction market.</p>
+            <span class="timeline-source">Sources: CNN Politics, CNBC, NBC News, Axios, April 23, 2026. Federal indictment unsealed SDNY.</span>
+          </div>
+
+          <div class="timeline-event" id="te-4">
+            <span class="timeline-date">April 30, 2026</span>
+            <h2 class="timeline-title">Senate Unanimously Bans Members from Prediction Markets</h2>
+            <p class="timeline-body">The US Senate passes a unanimous voice-vote resolution banning senators and their staff from trading on prediction markets, effective immediately. The resolution is sponsored by Sen. Bernie Moreno (R-OH), with a staff-coverage amendment by Sen. Alex Padilla (D-CA). It comes eight days after the Kalshi suspensions.</p>
+            <span class="timeline-source">Sources: CNBC, April 30, 2026; PBS News and NBC News, May 1, 2026.</span>
+          </div>
+
+          <div class="timeline-event" id="te-5">
+            <span class="timeline-date">May 11, 2026</span>
+            <h2 class="timeline-title">Congress Demands Youth-Marketing Data from Ten Companies</h2>
+            <p class="timeline-body">Five members of Congress (Reps. Valerie Foushee, Paul Tonko, Betty McCollum, Kevin Mullin, and Sen. Richard Blumenthal) send letters to the CEOs of ten companies demanding data on how their platforms market to young adults aged 18 to 24. Written responses due by May 29. The ten companies: bet365, BetMGM, Caesars, DraftKings, Fanatics, FanDuel, Kalshi, Polymarket, PrizePicks, Robinhood.</p>
+            <span class="timeline-source">Source: Bettors Insider, May 13, 2026.</span>
+          </div>
+
+          <div class="timeline-event" id="te-6">
+            <span class="timeline-date">May 20, 2026</span>
+            <h2 class="timeline-title">First Senate Hearing on Sports Betting and Prediction Markets</h2>
+            <p class="timeline-body">The Senate Commerce Subcommittee on Consumer Protection, Technology, and Data Privacy holds a hearing titled "No Sure Bets: Protecting Sports Integrity in America" at the Dirksen Senate Office Building, 10:00 a.m. ET. Chair: Sen. Marsha Blackburn (R-TN). It is the first time any Senate body has directly addressed prediction markets and their intersection with sports wagering. Witnesses include Harry Levant, Director of Gambling Policy at the Public Health Advocacy Institute.</p>
+            <span class="timeline-source">Sources: Senate Commerce Committee press release, April 2026; Philadelphia Inquirer, May 19, 2026.</span>
+          </div>
+
+          <div class="timeline-event" id="te-7">
+            <span class="timeline-date">May 29, 2026</span>
+            <h2 class="timeline-title">Marketing Data Due to Congress</h2>
+            <p class="timeline-body">Ten companies must deliver written responses and youth-marketing data to Congress. This data will document exactly how FanDuel, DraftKings, Kalshi, Polymarket, and six other operators have targeted 18-to-24-year-olds. It is, potentially, the documentary equivalent of the internal tobacco industry research.</p>
+            <span class="timeline-source">Source: Bettors Insider, May 13, 2026.</span>
+          </div>
+
+          <div class="timeline-event" id="te-8">
+            <span class="timeline-date">Ongoing / Summer 2026</span>
+            <h2 class="timeline-title">PHAI Lawsuit Enters Discovery</h2>
+            <p class="timeline-body">The Public Health Advocacy Institute lawsuit moves into discovery this summer. Internal documents from FanDuel, DraftKings, and Genius Sports will be subject to subpoena. The discovery process may surface internal communications about VIP host strategy, micro-bet design, and addiction data that have never been public. Nationwide class action suits continue to pile up on behalf of young adults and families who lost loved ones to gambling-related suicide.</p>
+            <span class="timeline-source">Source: PHAI press release, March 24, 2026.</span>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container-wide">
+      <div class="footer-inner">
+        <p class="footer-credit">A documentary by Pedro Feria Pino / VEFILM. &copy; 2026. All facts independently sourced.</p>
+        <div class="footer-links">
+          <a href="../assets/pdf/ALL_IN_deck.pdf" target="_blank" rel="noopener">Deck (PDF)</a>
+          <a href="../assets/pdf/ALL_IN_one_sheet.pdf" target="_blank" rel="noopener">One-Sheet (PDF)</a>
+          <a href="../contact/">Contact</a>
+          <a href="https://www.pedroferiapino.com" target="_blank" rel="noopener">pedroferiapino.com</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+  <script>
+    /* Timeline scroll reveal */
+    const events = document.querySelectorAll('.timeline-event');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach((e, i) => {
+          if (e.isIntersecting) {
+            setTimeout(() => e.target.classList.add('visible'), i * 80);
+            obs.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.15 });
+      events.forEach(el => obs.observe(el));
+    } else {
+      events.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

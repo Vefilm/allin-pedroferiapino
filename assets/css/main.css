@@ -248,24 +248,53 @@ h1, h2, h3, h4 {
   height: 100%;
   object-fit: cover;
   object-position: center 30%;
+  filter: saturate(0.78) brightness(0.88);
+}
+
+/* grain overlay — makes AI images read as film */
+.hero-image-wrap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  opacity: 0.045;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+/* blue glass tint — ties screen-glow to image */
+.hero-image-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: radial-gradient(
+    ellipse 80% 60% at 50% 40%,
+    rgba(18, 40, 80, 0.22) 0%,
+    rgba(10, 10, 10, 0) 70%
+  );
+  pointer-events: none;
 }
 
 .hero-gradient {
   position: absolute;
   inset: 0;
+  z-index: 3;
   background: linear-gradient(
     to bottom,
-    rgba(10,10,10,0.15) 0%,
-    rgba(10,10,10,0.1)  40%,
-    rgba(10,10,10,0.65) 70%,
-    rgba(10,10,10,0.98) 92%,
+    rgba(10,10,10,0.08) 0%,
+    rgba(10,10,10,0.0)  35%,
+    rgba(10,10,10,0.55) 65%,
+    rgba(10,10,10,0.96) 88%,
     var(--black)        100%
   );
 }
 
 .hero-title-block {
   position: relative;
-  z-index: 2;
+  z-index: 4;
   margin-top: auto;
   padding: clamp(2rem, 6vw, 4rem) clamp(1.25rem, 5vw, 3rem) clamp(3rem, 7vw, 5rem);
   max-width: 900px;
@@ -697,6 +726,80 @@ h1, h2, h3, h4 {
 .reveal-stagger.visible > *:nth-child(2) { opacity:1; transform:translateY(0); transition-delay: 0.15s; }
 .reveal-stagger.visible > *:nth-child(3) { opacity:1; transform:translateY(0); transition-delay: 0.25s; }
 .reveal-stagger.visible > *:nth-child(4) { opacity:1; transform:translateY(0); transition-delay: 0.35s; }
+
+/* ── PAGE-LEVEL GRAIN (subtle, global) ──────────────────── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 220px 220px;
+  opacity: 0.022;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+/* ── SECTION TRANSITIONS ─────────────────────────────────── */
+.stats-bar {
+  position: relative;
+}
+.stats-bar::before {
+  content: '';
+  display: block;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--red), transparent);
+  margin-bottom: 0;
+  position: absolute;
+  top: 0; left: 0; right: 0;
+}
+
+.cold-open {
+  position: relative;
+}
+.cold-open::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--red);
+}
+
+/* stronger pull quote on dark bg */
+.callout-quote {
+  border-left: 4px solid var(--red);
+  padding: 1.25rem 0 1.25rem 1.75rem;
+  margin: 2.5rem 0;
+}
+.callout-quote p {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: var(--white);
+}
+
+/* stat callout punch */
+.callout-stat {
+  border-top: 3px solid var(--red);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+/* thread cards: add subtle glow on hover */
+.thread-card {
+  transition: box-shadow 0.3s var(--ease-out), border-color 0.3s;
+}
+.thread-card:hover {
+  box-shadow: -4px 0 20px rgba(177,18,38,0.25);
+}
+
+/* page-card refined hover */
+.page-card {
+  transition: background 0.25s, box-shadow 0.25s;
+}
+.page-card:hover {
+  box-shadow: inset 0 0 0 1px rgba(177,18,38,0.4);
+}
 
 /* ── UTILITY ─────────────────────────────────────────────── */
 .sr-only {
