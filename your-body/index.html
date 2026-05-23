@@ -30,6 +30,17 @@
       --green-bg:  #0E2E1C;
     }
 
+    /* ── TITLE CARD VIDEO ── */
+    .title-card-video {
+      max-width: min(680px, calc(100% - 56px));
+      width: 100%;
+      display: block;
+      position: relative;
+      z-index: 1;
+      border-radius: 2px;
+      filter: drop-shadow(0 8px 40px rgba(0,0,0,0.8)) drop-shadow(0 2px 8px rgba(0,0,0,0.6));
+    }
+
     /* ── FLOATING DUST CANVAS ── */
     #dust-canvas {
       position: fixed;
@@ -217,20 +228,12 @@
     /* ── TOM PAPER CUTOUT ── */
     .tom-cutout {
       display: inline-block;
-      filter:
-        drop-shadow(4px 6px 0 rgba(28,18,8,0.32))
-        drop-shadow(0 2px 10px rgba(28,18,8,0.14));
       transform: rotate(-1.5deg);
-      transition:
-        transform 0.45s cubic-bezier(0.16,1,0.3,1),
-        filter 0.45s;
+      transition: transform 0.45s cubic-bezier(0.16,1,0.3,1);
       cursor: default;
     }
     .tom-cutout:hover {
-      transform: rotate(0.8deg) translateY(-10px);
-      filter:
-        drop-shadow(6px 12px 0 rgba(28,18,8,0.28))
-        drop-shadow(0 6px 18px rgba(28,18,8,0.18));
+      transform: rotate(0.8deg) translateY(-12px);
     }
 
     /* ── FACT BOX (paper card feel) ── */
@@ -659,19 +662,9 @@
       <span class="crosshair crosshair-bl" aria-hidden="true"></span>
       <span class="crosshair crosshair-br" aria-hidden="true"></span>
 
-      <div class="countdown-ring" aria-hidden="true">
-        <span class="countdown-num">3</span>
-      </div>
-
-      <div class="film-rule" aria-hidden="true"></div>
-
-      <div class="film-title-card">
-        <span class="film-eyebrow">A VEFILM Educational Presentation</span>
-        <h1 class="film-title">What Happens<br>When Tom Bets</h1>
-        <p class="film-sub">A Brief Guide to the Physiological Effects<br>of Sports Wagering on the Human Body</p>
-      </div>
-
-      <div class="film-rule" aria-hidden="true"></div>
+      <video class="title-card-video" autoplay muted loop playsinline aria-label="What Happens When Tom Bets — title card animation by VEFILM">
+        <source src="../assets/video/title-card.mp4" type="video/mp4">
+      </video>
 
       <p style="font-family: 'Special Elite', monospace; font-size: 0.625rem; letter-spacing: 0.45em; text-transform: uppercase; color: rgba(255,255,255,0.18); position: relative; z-index: 1;">Approved for General Audiences &bull; 1 Min 27 Sec</p>
     </section>
