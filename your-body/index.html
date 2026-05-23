@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Body on Gambling — ALL IN: The Most American Addiction</title>
+  <meta name="description" content="The neuroscience of gambling addiction. What happens to Tom’s eyes, brain, heart, and bloodstream when he bets. A 1:27 explainer by VEFILM.">
+  <meta property="og:title" content="Your Body on Gambling — ALL IN">
+  <meta property="og:description" content="Dopamine. Adrenaline. Prefrontal cortex shutdown. The loop. Explained with Tom. Watch the VEFILM explainer.">
+  <meta property="og:image" content="https://allin.pedroferiapino.com/assets/img/hero-eyes.jpeg">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://allin.pedroferiapino.com/your-body/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Your Body on Gambling — ALL IN: The Most American Addiction">
+  <meta name="twitter:description" content="What happens to your eyes, brain, heart, and bloodstream when you bet. Explained with Tom.">
+  <meta name="twitter:image" content="https://allin.pedroferiapino.com/assets/img/hero-eyes.jpeg">
+  <link rel="canonical" href="https://allin.pedroferiapino.com/your-body/">
+  <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+  <style>
+    /* ── 1950s FILM VARIABLES ── */
+    :root {
+      --paper:     #F0EAD2;
+      --ink-dark:  #1C1208;
+      --ink-mid:   #3D2B1F;
+      --sepia:     #8B6914;
+      --film-bg:   #060606;
+      --green-on:  #53D337;
+      --green-bg:  #0E2E1C;
+    }
+
+    /* ── FILM LEADER (hero) ── */
+    .film-leader {
+      min-height: 100svh;
+      background: var(--film-bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: calc(var(--header-h) + 3rem) 3rem 4rem;
+      position: relative;
+      overflow: hidden;
+      gap: 2.5rem;
+      text-align: center;
+    }
+    .film-leader::before, .film-leader::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 22px;
+      background: repeating-linear-gradient(
+        to bottom,
+        var(--film-bg) 0, var(--film-bg) 10px,
+        #1C1C1C 10px, #1C1C1C 20px,
+        var(--film-bg) 20px, var(--film-bg) 34px
+      );
+    }
+    .film-leader::before { left: 0; border-right: 1px solid #141414; }
+    .film-leader::after  { right: 0; border-left: 1px solid #141414; }
+
+    /* Countdown ring */
+    .countdown-ring {
+      width: 110px; height: 110px;
+      border: 3px solid rgba(255,255,255,0.12);
+      border-radius: 50%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .countdown-ring::before {
+      content: '';
+      position: absolute;
+      inset: 8px;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 50%;
+    }
+    .countdown-ring::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 0; right: 0;
+      height: 1px;
+      background: rgba(255,255,255,0.08);
+    }
+    .countdown-num {
+      font-family: 'Special Elite', monospace;
+      font-size: 4rem;
+      color: rgba(255,255,255,0.85);
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Title card */
+    .film-title-card {
+      max-width: 600px;
+    }
+    .film-eyebrow {
+      font-family: 'Special Elite', monospace;
+      font-size: 0.625rem;
+      letter-spacing: 0.55em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      display: block;
+      margin-bottom: 1.25rem;
+    }
+    .film-title {
+      font-family: 'Special Elite', monospace;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    .film-sub {
+      font-family: 'Special Elite', monospace;
+      font-size: 0.9375rem;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.08em;
+    }
+    .film-rule {
+      width: 60px; height: 1px;
+      background: rgba(255,255,255,0.2);
+      margin: 0 auto;
+    }
+
+    /* Crosshair corners on film leader */
+    .crosshair {
+      position: absolute;
+      width: 20px; height: 20px;
+      opacity: 0.18;
+    }
+    .crosshair::before, .crosshair::after {
+      content: '';
+      position: absolute;
+      background: var(--white);
+    }
+    .crosshair::before { width: 1px; height: 100%; left: 50%; }
+    .crosshair::after  { height: 1px; width: 100%; top: 50%; }
+    .crosshair-tl { top: 3rem; left: 3rem; }
+    .crosshair-tr { top: 3rem; right: 3rem; }
+    .crosshair-bl { bottom: 3rem; left: 3rem; }
+    .crosshair-br { bottom: 3rem; right: 3rem; }
+
+    /* ── PAPER SECTIONS ── */
+    .paper {
+      background: var(--paper);
+      color: var(--ink-dark);
+    }
+    .paper h2, .paper h3 {
+      color: var(--ink-dark);
+    }
+    .double-rule {
+      border: none;
+      border-top: 2px solid var(--ink-dark);
+      margin: 0;
+    }
+    .double-rule::after {
+      content: '';
+      display: block;
+      border-top: 1px solid rgba(28,18,8,0.3);
+      margin-top: 4px;
+    }
+    .narrator {
+      font-family: 'Special Elite', monospace;
+      font-size: 1.0625rem;
+      line-height: 1.9;
+      color: var(--ink-mid);
+      margin-bottom: 1.25rem;
+    }
+    .narrator-kicker {
+      font-family: 'Special Elite', monospace;
+      font-size: 1.125rem;
+      color: #8B1A1A;
+      display: block;
+      margin-top: 1.5rem;
+    }
+
+    /* ── MEET TOM ── */
+    .meet-tom {
+      padding: clamp(4rem, 9vw, 7rem) 0;
+      border-bottom: 2px solid var(--ink-dark);
+    }
+    .meet-tom-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2.5rem;
+      text-align: center;
+      max-width: 580px;
+      margin: 0 auto;
+      padding-inline: clamp(1.25rem, 5vw, 2.5rem);
+    }
+    .tom-label {
+      font-family: 'Special Elite', monospace;
+      font-size: clamp(2rem, 6vw, 3rem);
+      color: var(--ink-dark);
+      line-height: 1.1;
+      margin-bottom: 0;
+    }
+    .tom-role {
+      font-family: 'Special Elite', monospace;
+      font-size: 0.8125rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--sepia);
+    }
+
+    /* ── FACT BOX ── */
+    .fact-box {
+      border: 2px solid var(--ink-dark);
+      padding: 1.5rem 1.75rem;
+      margin-top: 2rem;
+      position: relative;
+    }
+    .fact-label {
+      position: absolute;
+      top: -0.65rem;
+      left: 1.25rem;
+      padding: 0 0.4rem;
+      background: var(--paper);
+      font-family: 'Special Elite', monospace;
+      font-size: 0.4375rem;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: #8B1A1A;
+    }
+    .fact-text {
+      font-family: 'Special Elite', monospace;
+      font-size: 0.9375rem;
+      line-height: 1.75;
+      color: var(--ink-mid);
+    }
+
+    /* ── VIDEO REEL ── */
+    .video-reel {
+      padding: clamp(4rem, 8vw, 6rem) 0;
+      border-bottom: 2px solid var(--ink-dark);
+    }
+    .video-reel-inner {
+      max-width: 480px;
+      margin: 0 auto;
+      padding-inline: clamp(1.25rem, 5vw, 2.5rem);
+      text-align: center;
+    }
+    .reel-eyebrow {
+      font-family: 'Special Elite', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.55em;
+      text-transform: uppercase;
+      color: var(--sepia);
+      display: block;
+      margin-bottom: 1.5rem;
+    }
+    .video-frame {
+      border: 6px solid var(--ink-dark);
+      padding: 8px;
+      background: var(--film-bg);
+      position: relative;
+    }
+    .video-frame::before, .video-frame::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0;
+      height: 12px;
+      background: repeating-linear-gradient(
+        to right,
+        var(--film-bg) 0, var(--film-bg) 8px,
+        #222 8px, #222 14px,
+        var(--film-bg) 14px, var(--film-bg) 20px
+      );
+    }
+    .video-frame::before { top: 0; }
+    .video-frame::after  { bottom: 0; }
+    .video-inner {
+      aspect-ratio: 9 / 16;
+      background: #0A0A0A;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .video-inner iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .vp-text {
+      font-family: 'Special Elite', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.22);
+    }
+    .reel-caption {
+      font-family: 'Special Elite', monospace;
+      font-size: 0.75rem;
+      color: var(--sepia);
+      letter-spacing: 0.12em;
+      margin-top: 1.25rem;
+    }
+
+    /* ── CHAPTER SECTIONS ── */
+    .ch {
+      padding: clamp(3.5rem, 7vw, 6rem) 0;
+      border-bottom: 1px solid rgba(28,18,8,0.15);
+    }
+    .ch-a { background: var(--paper); color: var(--ink-dark); }
+    .ch-b { background: var(--film-bg); color: var(--white); }
+    .ch-b .double-rule { border-top-color: rgba(255,255,255,0.15); }
+    .ch-b .double-rule::after { border-top-color: rgba(255,255,255,0.06); }
+    .ch-b .narrator { color: rgba(255,255,255,0.72); }
+    .ch-b .narrator-kicker { color: var(--red); }
+    .ch-b .fact-box { border-color: rgba(255,255,255,0.15); }
+    .ch-b .fact-label { background: var(--film-bg); color: var(--red); }
+    .ch-b .fact-text { color: rgba(255,255,255,0.65); }
+
+    .ch-inner {
+      max-width: 640px;
+      margin: 0 auto;
+      padding-inline: clamp(1.25rem, 5vw, 2.5rem);
+    }
+    .ch-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .ch-icon {
+      flex-shrink: 0;
+      width: 52px;
+      height: 52px;
+      border: 2px solid currentColor;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.7;
+    }
+    .ch-a .ch-icon { color: var(--ink-dark); }
+    .ch-b .ch-icon { color: rgba(255,255,255,0.5); }
+    .ch-num {
+      font-family: 'Special Elite', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: var(--sepia);
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    .ch-b .ch-num { color: rgba(255,255,255,0.3); }
+    .ch-title {
+      font-family: 'Special Elite', monospace;
+      font-size: clamp(1.625rem, 4vw, 2.25rem);
+      line-height: 1.15;
+    }
+    .ch-a .ch-title { color: var(--ink-dark); }
+    .ch-b .ch-title { color: var(--white); }
+
+    /* app name chip */
+    .app-chip {
+      display: inline;
+      background: var(--green-bg);
+      color: var(--green-on);
+      padding: 0.05em 0.3em;
+      font-family: 'Special Elite', monospace;
+    }
+
+    /* ── DARK STAT ── */
+    .dark-stat {
+      background: var(--film-bg);
+      padding: clamp(5rem, 11vw, 9rem) clamp(1.25rem, 5vw, 2.5rem);
+      text-align: center;
+      border-top: 3px solid var(--red);
+      border-bottom: 3px solid var(--red);
+    }
+    .ds-num {
+      font-family: 'Special Elite', monospace;
+      font-size: clamp(7rem, 26vw, 17rem);
+      color: var(--white);
+      line-height: 0.85;
+      display: block;
+    }
+    .ds-denom {
+      font-family: 'Special Elite', monospace;
+      font-size: clamp(1.5rem, 5vw, 3rem);
+      color: rgba(255,255,255,0.35);
+      display: block;
+      margin-top: 0.5rem;
+    }
+    .ds-label {
+      font-family: 'Special Elite', monospace;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.55);
+      max-width: 480px;
+      margin: 2rem auto 0;
+      line-height: 1.75;
+    }
+    .ds-source {
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.2);
+      margin-top: 1.5rem;
+    }
+
+    /* ── WARNING POSTER ── */
+    .warn-poster {
+      max-width: 540px;
+      margin: 4rem auto 0;
+      border: 3px solid var(--red);
+      padding: 2.25rem;
+    }
+    .warn-poster-inner {
+      border: 1px solid rgba(177,18,38,0.3);
+      padding: 2rem;
+    }
+    .warn-head {
+      font-family: 'Special Elite', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.6em;
+      text-transform: uppercase;
+      color: var(--red);
+      display: block;
+      text-align: center;
+      margin-bottom: 1.25rem;
+    }
+    .warn-title {
+      font-family: 'Special Elite', monospace;
+      font-size: clamp(1.25rem, 3.5vw, 1.75rem);
+      color: var(--white);
+      text-align: center;
+      line-height: 1.3;
+      margin-bottom: 1.5rem;
+    }
+    .warn-num {
+      font-family: 'Special Elite', monospace;
+      font-size: clamp(1.625rem, 5vw, 2.5rem);
+      color: var(--white);
+      text-align: center;
+      letter-spacing: 0.08em;
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .warn-body {
+      font-family: 'Special Elite', monospace;
+      font-size: 0.8125rem;
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      line-height: 1.75;
+    }
+
+    /* ── WHO KNEW (apps section) ── */
+    .who-knew {
+      padding: clamp(4rem, 8vw, 7rem) 0;
+      border-bottom: 2px solid var(--ink-dark);
+    }
+    .who-knew-inner {
+      max-width: 640px;
+      margin: 0 auto;
+      padding-inline: clamp(1.25rem, 5vw, 2.5rem);
+    }
+    .apps-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.625rem;
+      margin: 2rem 0;
+    }
+    .app-tag {
+      font-family: 'Special Elite', monospace;
+      font-size: 0.875rem;
+      background: var(--green-bg);
+      color: var(--green-on);
+      padding: 0.35rem 0.75rem;
+      border: 1px solid rgba(83,211,55,0.2);
+    }
+
+    /* ── THE SCALE ── */
+    .the-scale {
+      background: var(--film-bg);
+      padding: clamp(4rem, 9vw, 8rem) clamp(1.25rem, 5vw, 2.5rem);
+      text-align: center;
+    }
+    .scale-big {
+      font-family: 'Special Elite', monospace;
+      font-size: clamp(5rem, 20vw, 12rem);
+      color: var(--white);
+      line-height: 0.9;
+      display: block;
+    }
+    .scale-unit {
+      font-family: 'Special Elite', monospace;
+      font-size: clamp(1rem, 3vw, 1.75rem);
+      color: rgba(255,255,255,0.3);
+      display: block;
+      margin-top: 0.5rem;
+    }
+    .scale-body {
+      font-family: 'Special Elite', monospace;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.55);
+      max-width: 500px;
+      margin: 2rem auto 0;
+      line-height: 1.8;
+    }
+    .scale-source {
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.18);
+      margin-top: 1.5rem;
+    }
+
+    /* ── PAGE CTA ── */
+    .page-cta {
+      padding: clamp(4rem, 8vw, 7rem) 0;
+    }
+    .page-cta-inner {
+      max-width: 640px;
+      margin: 0 auto;
+      padding-inline: clamp(1.25rem, 5vw, 2.5rem);
+      text-align: center;
+    }
+    .retro-btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 2.5rem;
+    }
+    .retro-btn {
+      font-family: 'Special Elite', monospace;
+      font-size: 0.875rem;
+      letter-spacing: 0.12em;
+      color: var(--ink-dark);
+      border: 2px solid var(--ink-dark);
+      padding: 0.75rem 1.5rem;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .retro-btn:hover {
+      background: var(--ink-dark);
+      color: var(--paper);
+    }
+    .retro-btn-primary {
+      background: #8B1A1A;
+      border-color: #8B1A1A;
+      color: var(--paper);
+    }
+    .retro-btn-primary:hover {
+      background: #6B1212;
+      border-color: #6B1212;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="reading-progress" aria-hidden="true"></div>
+
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <a class="wordmark" href="../">ALL IN</a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="../the-story/">The Story</a>
+        <a href="../who-this-follows/">Who This Follows</a>
+        <a href="../the-fix/">The Fix</a>
+        <a href="../why-now/">Why Now</a>
+        <a href="../sources/">Sources</a>
+        <a href="../pitch/">For Producers</a>
+        <a href="../your-body/" class="active" aria-current="page">Your Body</a>
+      </nav>
+      <a class="site-link" href="https://www.pedroferiapino.com" target="_blank" rel="noopener">pedroferiapino.com</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Open navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <nav class="mobile-nav" id="mobile-nav" aria-hidden="true">
+    <a href="../">Home</a>
+    <a href="../the-story/">The Story</a>
+    <a href="../who-this-follows/">Who This Follows</a>
+    <a href="../the-fix/">The Fix</a>
+    <a href="../why-now/">Why Now</a>
+    <a href="../sources/">Sources</a>
+    <a href="../pitch/">For Producers</a>
+    <a href="../your-body/">Your Body</a>
+    <a href="../contact/">Contact</a>
+  </nav>
+
+  <main>
+
+    <!-- ── FILM LEADER ── -->
+    <section class="film-leader" aria-label="Film title card">
+      <span class="crosshair crosshair-tl" aria-hidden="true"></span>
+      <span class="crosshair crosshair-tr" aria-hidden="true"></span>
+      <span class="crosshair crosshair-bl" aria-hidden="true"></span>
+      <span class="crosshair crosshair-br" aria-hidden="true"></span>
+
+      <div class="countdown-ring" aria-hidden="true">
+        <span class="countdown-num">3</span>
+      </div>
+
+      <div class="film-rule" aria-hidden="true"></div>
+
+      <div class="film-title-card">
+        <span class="film-eyebrow">A VEFILM Educational Presentation</span>
+        <h1 class="film-title">What Happens<br>When Tom Bets</h1>
+        <p class="film-sub">A Brief Guide to the Physiological Effects<br>of Sports Wagering on the Human Body</p>
+      </div>
+
+      <div class="film-rule" aria-hidden="true"></div>
+
+      <p style="font-family: 'Special Elite', monospace; font-size: 0.625rem; letter-spacing: 0.45em; text-transform: uppercase; color: rgba(255,255,255,0.18);">Approved for General Audiences &bull; 1 Min 27 Sec</p>
+    </section>
+
+    <!-- ── MEET TOM ── -->
+    <section class="paper meet-tom">
+      <div class="meet-tom-inner">
+
+        <svg width="90" height="152" viewBox="0 0 90 152" fill="none" aria-hidden="true">
+          <circle cx="45" cy="22" r="19" stroke="#1C1208" stroke-width="2.5"/>
+          <circle cx="38" cy="19" r="2.5" fill="#1C1208"/>
+          <circle cx="52" cy="19" r="2.5" fill="#1C1208"/>
+          <path d="M 37 27 Q 45 34 53 27" stroke="#1C1208" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <line x1="45" y1="41" x2="45" y2="97" stroke="#1C1208" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="45" y1="58" x2="18" y2="78" stroke="#1C1208" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="45" y1="58" x2="67" y2="73" stroke="#1C1208" stroke-width="2.5" stroke-linecap="round"/>
+          <rect x="63" y="69" width="18" height="28" rx="3" fill="#53D337" stroke="#0E2E1C" stroke-width="2"/>
+          <line x1="45" y1="97" x2="26" y2="138" stroke="#1C1208" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="45" y1="97" x2="64" y2="138" stroke="#1C1208" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+
+        <div>
+          <p class="tom-label">This is Tom.</p>
+          <p class="tom-role">Avg. American male &bull; Age 28 &bull; Has a betting app</p>
+        </div>
+
+        <hr class="double-rule" style="width: 100%;">
+
+        <div>
+          <p class="narrator">Tom is a normal fellow. He has a job, a couch, and a sports betting app he downloaded during the playoffs. Sixteen months ago. Tom considers himself a casual bettor.</p>
+          <p class="narrator">Tom is not aware of what happens inside his body every time he opens the app. We are about to show him. This is going to be informative.</p>
+          <span class="narrator-kicker">Pay attention, Tom.</span>
+        </div>
+
+        <div class="fact-box">
+          <span class="fact-label">Did You Know</span>
+          <p class="fact-text">Approximately 52% of American men aged 18&ndash;49 now have an active online sports betting account. Tom is not unusual. Tom is the majority.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── VIDEO REEL ── -->
+    <section class="paper video-reel">
+      <div class="video-reel-inner">
+        <span class="reel-eyebrow">VEFILM Explainer &bull; 1 Min 27 Sec</span>
+        <div class="video-frame">
+          <div class="video-inner">
+            <!-- VIDEO PLACEHOLDER — replace the span below with an iframe once the video is live:
+                 <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
+                         title="How Gambling Affects Your Body — ALL IN by VEFILM"
+                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                         allowfullscreen></iframe>
+            -->
+            <span class="vp-text">Video Coming Soon</span>
+          </div>
+        </div>
+        <p class="reel-caption">Watch: What Happens When Tom Bets &mdash; a VEFILM production</p>
+      </div>
+    </section>
+
+    <!-- ── CH 1: EYES ── -->
+    <section class="ch ch-a reveal" id="eyes">
+      <div class="ch-inner">
+        <div class="ch-header">
+          <div class="ch-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <ellipse cx="12" cy="12" rx="9" ry="5.5"/>
+              <circle cx="12" cy="12" r="3"/>
+              <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/>
+            </svg>
+          </div>
+          <div>
+            <span class="ch-num">Chapter 01</span>
+            <h2 class="ch-title">Tom’s Eyes</h2>
+          </div>
+        </div>
+        <hr class="double-rule">
+        <br>
+        <p class="narrator">The moment Tom places a bet, his pupils dilate. This is not voluntary. This is the sympathetic nervous system preparing Tom for a threat &mdash; or an opportunity. His brain cannot tell the difference.</p>
+        <p class="narrator">The visual cortex prioritizes the screen. Peripheral vision narrows. Tom’s field of awareness shrinks to the size of a phone. This is called attentional tunneling. It is the same thing that happens to a fighter pilot in a dogfight.</p>
+        <span class="narrator-kicker">Tom is not in a dogfight. Tom is on his couch.</span>
+        <div class="fact-box">
+          <span class="fact-label">The Design</span>
+          <p class="fact-text">App interfaces are built to exploit this tunnel. Red and green color coding, flashing odds, countdown timers. Every element is engineered to hold the narrowed gaze. The book sees Tom’s attention. The book is keeping it.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CH 2: BRAIN ── -->
+    <section class="ch ch-b reveal" id="brain">
+      <div class="ch-inner">
+        <div class="ch-header">
+          <div class="ch-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 4C9 4 7 6 7 8.5C7 10 7.5 11 8 12C6.5 12.5 5 14 5 16C5 18.5 7.5 20 10 20H14C16.5 20 19 18.5 19 16C19 14 17.5 12.5 16 12C16.5 11 17 10 17 8.5C17 6 15 4 12 4Z"/>
+              <line x1="12" y1="4" x2="12" y2="6.5"/>
+              <line x1="10" y1="12" x2="14" y2="12"/>
+            </svg>
+          </div>
+          <div>
+            <span class="ch-num">Chapter 02</span>
+            <h2 class="ch-title">Tom’s Brain</h2>
+          </div>
+        </div>
+        <hr class="double-rule" style="border-top-color: rgba(255,255,255,0.15);">
+        <br>
+        <p class="narrator">The nucleus accumbens &mdash; the brain’s reward center &mdash; releases dopamine in anticipation of the outcome. Not after a win. Before it is decided. The uncertainty is the drug.</p>
+        <p class="narrator">This is called variable-ratio reinforcement. It is the most powerful behavioral conditioning schedule known to science. It is the same mechanism that drives slot machines. The <span class="app-chip">FanDuel</span> interface was built by people who studied this. They studied it carefully.</p>
+        <span class="narrator-kicker">Tom’s brain is not broken. It is working exactly as designed. Someone else designed it.</span>
+        <div class="fact-box">
+          <span class="fact-label">The Loop</span>
+          <p class="fact-text">With micro-betting &mdash; wagering on individual pitches, plays, and possessions &mdash; the dopamine loop fires every 90 seconds. A four-hour game is not four hours. It is 160 individual bets. 160 individual dopamine pulses. Tom’s reward system does not distinguish between a $5 and a $500 bet.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CH 3: HEART ── -->
+    <section class="ch ch-a reveal" id="heart">
+      <div class="ch-inner">
+        <div class="ch-header">
+          <div class="ch-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 21C12 21 4 15 4 9C4 6.2 6.2 4 9 4C10.5 4 11.8 4.8 12 6C12.2 4.8 13.5 4 15 4C17.8 4 20 6.2 20 9C20 15 12 21 12 21Z"/>
+            </svg>
+          </div>
+          <div>
+            <span class="ch-num">Chapter 03</span>
+            <h2 class="ch-title">Tom’s Heart</h2>
+          </div>
+        </div>
+        <hr class="double-rule">
+        <br>
+        <p class="narrator">Tom’s resting heart rate is 68 beats per minute. When he places a live bet during a fourth-quarter comeback, it reaches 112. When the bet is pending, it does not drop. It holds. Tom’s cardiovascular system is responding to a perceived survival event.</p>
+        <p class="narrator">Cortisol and adrenaline are released. Blood pressure rises. This is the same physiological state as physical danger. Tom’s body does not know he is watching sports. Tom’s body thinks Tom is being chased.</p>
+        <span class="narrator-kicker">Tom is not being chased. Tom has been sitting still for six hours.</span>
+        <div class="fact-box">
+          <span class="fact-label">Research Note</span>
+          <p class="fact-text">Studies of problem gamblers show cardiovascular indicators consistent with chronic stress disorder: elevated baseline cortisol, disrupted sleep architecture, and suppressed immune response. The body keeps the score. Tom’s body is keeping it.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CH 4: BLOODSTREAM ── -->
+    <section class="ch ch-b reveal" id="bloodstream">
+      <div class="ch-inner">
+        <div class="ch-header">
+          <div class="ch-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 3L12 21M8 7C8 7 6 9 6 11C6 13.2 7.8 15 10 15M16 7C16 7 18 9 18 11C18 13.2 16.2 15 14 15"/>
+              <circle cx="12" cy="19" r="2"/>
+            </svg>
+          </div>
+          <div>
+            <span class="ch-num">Chapter 04</span>
+            <h2 class="ch-title">Tom’s Bloodstream</h2>
+          </div>
+        </div>
+        <hr class="double-rule" style="border-top-color: rgba(255,255,255,0.15);">
+        <br>
+        <p class="narrator">Adrenaline (epinephrine) spikes. Glucose floods the bloodstream to fuel the muscles Tom is not using. His liver releases glycogen. His digestive system shuts down. His body is prepared to run or fight. He is scrolling through odds on <span class="app-chip">DraftKings</span>.</p>
+        <p class="narrator">After the bet resolves &mdash; win or lose &mdash; the crash. Cortisol levels fall. Serotonin dips. Tom feels flat. Empty. The obvious solution is to place another bet. Tom’s brain agrees. This is called the chasing reflex. It is not a character flaw. It is chemistry.</p>
+        <span class="narrator-kicker">The book knew about the chasing reflex. The book counted on it.</span>
+      </div>
+    </section>
+
+    <!-- ── CH 5: PREFRONTAL CORTEX ── -->
+    <section class="ch ch-a reveal" id="good-sense">
+      <div class="ch-inner">
+        <div class="ch-header">
+          <div class="ch-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="4" y="10" width="4" height="4" rx="1"/>
+              <rect x="10" y="7" width="4" height="10" rx="1"/>
+              <rect x="16" y="4" width="4" height="13" rx="1"/>
+              <line x1="4" y1="20" x2="20" y2="20"/>
+            </svg>
+          </div>
+          <div>
+            <span class="ch-num">Chapter 05</span>
+            <h2 class="ch-title">Tom’s Good Sense</h2>
+          </div>
+        </div>
+        <hr class="double-rule">
+        <br>
+        <p class="narrator">The prefrontal cortex is where Tom keeps his judgment. Risk assessment. Impulse control. The part of the brain that says: Tom, you cannot afford this. Tom, you have been at this for four hours. Tom, it is 2 a.m.</p>
+        <p class="narrator">Under sustained dopamine flooding and cortisol elevation, prefrontal cortex activity measurably decreases. Tom’s judgment center goes partially offline. This is not metaphor. This is observable in brain imaging. Tom’s good sense has a light switch. The app has found the switch.</p>
+        <span class="narrator-kicker">Tom is making financial decisions with the lights off.</span>
+        <div class="fact-box">
+          <span class="fact-label">The VIP Host</span>
+          <p class="fact-text">This is precisely when <span class="app-chip" style="background: var(--green-bg); color: var(--green-on);">FanDuel</span> VIP hosts are trained to call. Not when Tom is rested and rational. When Tom is deep in the session, prefrontal cortex suppressed, chasing reflex active. Terry Thompson’s VIP host messaged him hundreds of times. She knew when to call.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CH 6: THE LOOP ── -->
+    <section class="ch ch-b reveal" id="the-loop">
+      <div class="ch-inner">
+        <div class="ch-header">
+          <div class="ch-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M4 12C4 7.6 7.6 4 12 4C14.5 4 16.7 5.1 18.2 6.8" stroke-linecap="round"/>
+              <path d="M20 12C20 16.4 16.4 20 12 20C9.5 20 7.3 18.9 5.8 17.2" stroke-linecap="round"/>
+              <polyline points="16,4 18.2,6.8 15.4,8" stroke-linecap="round" stroke-linejoin="round"/>
+              <polyline points="8,20 5.8,17.2 8.6,16" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <span class="ch-num">Chapter 06</span>
+            <h2 class="ch-title">The Loop</h2>
+          </div>
+        </div>
+        <hr class="double-rule" style="border-top-color: rgba(255,255,255,0.15);">
+        <br>
+        <p class="narrator">Bet. Spike. Crash. Chase. Bet again. The cycle compresses over time. Sessions grow longer. Stakes grow larger. Tom is no longer betting for fun. Tom is betting to return to baseline. Tom needs the spike to feel normal.</p>
+        <p class="narrator">This is the clinical definition of addiction. It applies to gambling with the same neurological precision as opioids. The National Council on Problem Gambling documents the highest suicide attempt rate of any addictive disorder: 1 in 5 people with a gambling problem will attempt it in their lifetime.</p>
+        <span class="narrator-kicker">Higher than alcohol. Higher than opioids. Higher than any other addiction on record.</span>
+        <div class="fact-box">
+          <span class="fact-label">Source</span>
+          <p class="fact-text" style="color: rgba(255,255,255,0.5);">National Council on Problem Gambling, Problem Gambling Awareness Month materials, 2025. The full case is documented at <a href="../sources/" style="color: var(--green-on);">Sources</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── DARK STAT ── -->
+    <section class="dark-stat">
+      <span class="ds-num" aria-label="One in five">1 in 5</span>
+      <span class="ds-denom">people with a gambling problem</span>
+      <p class="ds-label">will attempt suicide in their lifetime &mdash; the highest rate of any addictive disorder. Higher than alcohol. Higher than opioids. Higher than anything else studied.</p>
+      <p class="ds-source">National Council on Problem Gambling, 2025</p>
+
+      <div class="warn-poster" role="complementary" aria-label="Crisis helpline">
+        <div class="warn-poster-inner">
+          <span class="warn-head">If You or Someone You Know Needs Help</span>
+          <p class="warn-title">National Problem<br>Gambling Helpline</p>
+          <p class="warn-num">1-800-522-4700</p>
+          <p class="warn-body">Free &bull; Confidential &bull; 24/7<br>Call or text. Help is available.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── WHO KNEW ── -->
+    <section class="paper who-knew reveal">
+      <div class="who-knew-inner">
+        <p class="eyebrow" style="color: #8B1A1A;">The Industry Knew</p>
+        <h2 style="font-family: 'Special Elite', monospace; font-size: clamp(1.75rem, 4vw, 2.5rem); color: var(--ink-dark); margin-bottom: 1.5rem;">These Apps Were Built on This Science</h2>
+        <hr class="double-rule">
+        <br>
+        <p class="narrator">The variable-ratio reinforcement. The micro-betting loop. The VIP host timing. The push notifications calibrated to user behavior. The companies building these products employed behavioral scientists. They published research. They knew.</p>
+        <p class="narrator">A landmark 2026 lawsuit names them by product. The complaint calls the apps &ldquo;unreasonably dangerous products intentionally designed to maximize addiction.&rdquo;</p>
+
+        <div class="apps-list" aria-label="Named defendants">
+          <span class="app-tag">FanDuel</span>
+          <span class="app-tag">DraftKings</span>
+          <span class="app-tag">Genius Sports</span>
+          <span class="app-tag">The NFL</span>
+          <span class="app-tag">Kalshi</span>
+          <span class="app-tag">Polymarket</span>
+        </div>
+
+        <p class="narrator">The full picture &mdash; White House, Congress, leagues, military &mdash; is on <a href="../the-fix/" style="color: #8B1A1A; text-decoration: underline;">The Fix</a> page.</p>
+      </div>
+    </section>
+
+    <!-- ── THE SCALE ── -->
+    <section class="the-scale reveal">
+      <span class="scale-big" aria-label="Fifty-two percent">52%</span>
+      <span class="scale-unit">of American men 18&ndash;49</span>
+      <p class="scale-body">have an active sports betting account. Tom is not the exception. Tom is the statistical majority. This is what happens inside the majority of American men’s bodies on any given game day.</p>
+      <p class="scale-source">American Sports Fanship Survey, Siena College Research Institute / St. Bonaventure University, April 2026</p>
+    </section>
+
+    <!-- ── PAGE CTA ── -->
+    <section class="paper page-cta reveal">
+      <div class="page-cta-inner">
+        <p class="eyebrow" style="color: #8B1A1A;">Go Deeper</p>
+        <h2 style="font-family: 'Special Elite', monospace; font-size: clamp(1.5rem, 4vw, 2.25rem); color: var(--ink-dark); line-height: 1.25;">Tom’s story is not an accident.<br>It is a business model.</h2>
+        <hr class="double-rule" style="margin-top: 1.5rem;">
+        <div class="retro-btn-row">
+          <a href="../the-story/" class="retro-btn">The Story &rarr;</a>
+          <a href="../the-fix/" class="retro-btn">The Fix &rarr;</a>
+          <a href="../sources/" class="retro-btn">Sources &rarr;</a>
+          <a href="../pitch/" class="retro-btn retro-btn-primary">For Producers &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container-wide">
+      <div class="footer-inner">
+        <p class="footer-credit">A documentary by Pedro Feria Pino / VEFILM. &copy; 2026. All facts independently sourced.</p>
+        <div class="footer-links">
+          <a href="../assets/pdf/ALL_IN_deck.pdf" target="_blank" rel="noopener">Deck (PDF)</a>
+          <a href="../assets/pdf/ALL_IN_one_sheet.pdf" target="_blank" rel="noopener">One-Sheet (PDF)</a>
+          <a href="../contact/">Contact</a>
+          <a href="https://www.pedroferiapino.com" target="_blank" rel="noopener">pedroferiapino.com</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>
