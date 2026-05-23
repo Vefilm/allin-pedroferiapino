@@ -157,7 +157,7 @@ h1, h2, h3, h4 {
 
 .site-nav {
   display: none;
-  gap: 2rem;
+  gap: 1.5rem;
 }
 
 @media (min-width: 900px) {
