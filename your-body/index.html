@@ -30,6 +30,14 @@
       --green-bg:  #0E2E1C;
     }
 
+    /* ── FLOATING DUST CANVAS ── */
+    #dust-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 5;
+    }
+
     /* ── FILM LEADER (hero) ── */
     .film-leader {
       min-height: 100svh;
@@ -55,6 +63,7 @@
         #1C1C1C 10px, #1C1C1C 20px,
         var(--film-bg) 20px, var(--film-bg) 34px
       );
+      z-index: 1;
     }
     .film-leader::before { left: 0; border-right: 1px solid #141414; }
     .film-leader::after  { right: 0; border-left: 1px solid #141414; }
@@ -69,6 +78,7 @@
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+      filter: drop-shadow(2px 3px 0 rgba(255,255,255,0.04));
     }
     .countdown-ring::before {
       content: '';
@@ -94,9 +104,7 @@
     }
 
     /* Title card */
-    .film-title-card {
-      max-width: 600px;
-    }
+    .film-title-card { max-width: 600px; position: relative; z-index: 1; }
     .film-eyebrow {
       font-family: 'Special Elite', monospace;
       font-size: 0.625rem;
@@ -123,13 +131,15 @@
       width: 60px; height: 1px;
       background: rgba(255,255,255,0.2);
       margin: 0 auto;
+      position: relative; z-index: 1;
     }
 
-    /* Crosshair corners on film leader */
+    /* Crosshair corners */
     .crosshair {
       position: absolute;
       width: 20px; height: 20px;
       opacity: 0.18;
+      z-index: 1;
     }
     .crosshair::before, .crosshair::after {
       content: '';
@@ -148,9 +158,7 @@
       background: var(--paper);
       color: var(--ink-dark);
     }
-    .paper h2, .paper h3 {
-      color: var(--ink-dark);
-    }
+    .paper h2, .paper h3 { color: var(--ink-dark); }
     .double-rule {
       border: none;
       border-top: 2px solid var(--ink-dark);
@@ -197,7 +205,6 @@
       font-size: clamp(2rem, 6vw, 3rem);
       color: var(--ink-dark);
       line-height: 1.1;
-      margin-bottom: 0;
     }
     .tom-role {
       font-family: 'Special Elite', monospace;
@@ -207,12 +214,39 @@
       color: var(--sepia);
     }
 
-    /* ── FACT BOX ── */
+    /* ── TOM PAPER CUTOUT ── */
+    .tom-cutout {
+      display: inline-block;
+      filter:
+        drop-shadow(4px 6px 0 rgba(28,18,8,0.32))
+        drop-shadow(0 2px 10px rgba(28,18,8,0.14));
+      transform: rotate(-1.5deg);
+      transition:
+        transform 0.45s cubic-bezier(0.16,1,0.3,1),
+        filter 0.45s;
+      cursor: default;
+    }
+    .tom-cutout:hover {
+      transform: rotate(0.8deg) translateY(-10px);
+      filter:
+        drop-shadow(6px 12px 0 rgba(28,18,8,0.28))
+        drop-shadow(0 6px 18px rgba(28,18,8,0.18));
+    }
+
+    /* ── FACT BOX (paper card feel) ── */
     .fact-box {
       border: 2px solid var(--ink-dark);
       padding: 1.5rem 1.75rem;
       margin-top: 2rem;
       position: relative;
+      box-shadow:
+        3px 4px 0 rgba(28,18,8,0.22),
+        1px 6px 18px rgba(28,18,8,0.1);
+    }
+    .ch-b .fact-box {
+      box-shadow:
+        3px 4px 0 rgba(255,255,255,0.06),
+        1px 6px 18px rgba(0,0,0,0.35);
     }
     .fact-label {
       position: absolute;
@@ -225,13 +259,16 @@
       letter-spacing: 0.5em;
       text-transform: uppercase;
       color: #8B1A1A;
+      box-shadow: 0 1px 3px rgba(28,18,8,0.1);
     }
+    .ch-b .fact-label { background: var(--film-bg); }
     .fact-text {
       font-family: 'Special Elite', monospace;
       font-size: 0.9375rem;
       line-height: 1.75;
       color: var(--ink-mid);
     }
+    .ch-b .fact-text { color: rgba(255,255,255,0.55); }
 
     /* ── VIDEO REEL ── */
     .video-reel {
@@ -258,6 +295,7 @@
       padding: 8px;
       background: var(--film-bg);
       position: relative;
+      box-shadow: 4px 6px 0 rgba(28,18,8,0.3), 2px 8px 20px rgba(28,18,8,0.15);
     }
     .video-frame::before, .video-frame::after {
       content: '';
@@ -314,9 +352,6 @@
     .ch-b .double-rule::after { border-top-color: rgba(255,255,255,0.06); }
     .ch-b .narrator { color: rgba(255,255,255,0.72); }
     .ch-b .narrator-kicker { color: var(--red); }
-    .ch-b .fact-box { border-color: rgba(255,255,255,0.15); }
-    .ch-b .fact-label { background: var(--film-bg); color: var(--red); }
-    .ch-b .fact-text { color: rgba(255,255,255,0.65); }
 
     .ch-inner {
       max-width: 640px;
@@ -329,6 +364,8 @@
       gap: 1.5rem;
       margin-bottom: 2.5rem;
     }
+
+    /* ── CHAPTER ICON — paper cutout stamp feel ── */
     .ch-icon {
       flex-shrink: 0;
       width: 52px;
@@ -338,10 +375,22 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      opacity: 0.7;
+      opacity: 0.75;
+      transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
     }
-    .ch-a .ch-icon { color: var(--ink-dark); }
-    .ch-b .ch-icon { color: rgba(255,255,255,0.5); }
+    .ch-a .ch-icon {
+      color: var(--ink-dark);
+      box-shadow: 3px 3px 0 rgba(28,18,8,0.2), 0 4px 10px rgba(28,18,8,0.1);
+    }
+    .ch-b .ch-icon {
+      color: rgba(255,255,255,0.5);
+      box-shadow: 3px 3px 0 rgba(255,255,255,0.06), 0 4px 10px rgba(0,0,0,0.3);
+    }
+    /* Hand-placed alternating rotation */
+    .ch:nth-child(odd)  .ch-icon { transform: rotate(-2deg); }
+    .ch:nth-child(even) .ch-icon { transform: rotate(1.5deg); }
+    .ch-icon:hover { transform: rotate(0deg) scale(1.08) !important; }
+
     .ch-num {
       font-family: 'Special Elite', monospace;
       font-size: 0.5rem;
@@ -360,7 +409,7 @@
     .ch-a .ch-title { color: var(--ink-dark); }
     .ch-b .ch-title { color: var(--white); }
 
-    /* app name chip */
+    /* app chip */
     .app-chip {
       display: inline;
       background: var(--green-bg);
@@ -406,12 +455,14 @@
       margin-top: 1.5rem;
     }
 
-    /* ── WARNING POSTER ── */
+    /* ── WARNING POSTER (paper cutout feel) ── */
     .warn-poster {
       max-width: 540px;
       margin: 4rem auto 0;
       border: 3px solid var(--red);
       padding: 2.25rem;
+      filter: drop-shadow(4px 6px 0 rgba(177,18,38,0.25)) drop-shadow(0 4px 16px rgba(0,0,0,0.4));
+      transform: rotate(-0.5deg);
     }
     .warn-poster-inner {
       border: 1px solid rgba(177,18,38,0.3);
@@ -453,7 +504,7 @@
       line-height: 1.75;
     }
 
-    /* ── WHO KNEW (apps section) ── */
+    /* ── WHO KNEW ── */
     .who-knew {
       padding: clamp(4rem, 8vw, 7rem) 0;
       border-bottom: 2px solid var(--ink-dark);
@@ -476,7 +527,13 @@
       color: var(--green-on);
       padding: 0.35rem 0.75rem;
       border: 1px solid rgba(83,211,55,0.2);
+      box-shadow: 2px 2px 0 rgba(28,18,8,0.3);
+      transform: rotate(0deg);
+      transition: transform 0.25s, box-shadow 0.25s;
     }
+    .app-tag:nth-child(odd)  { transform: rotate(-0.8deg); }
+    .app-tag:nth-child(even) { transform: rotate(0.6deg); }
+    .app-tag:hover { transform: rotate(0deg) translateY(-2px); box-shadow: 3px 4px 0 rgba(28,18,8,0.3); }
 
     /* ── THE SCALE ── */
     .the-scale {
@@ -514,9 +571,7 @@
     }
 
     /* ── PAGE CTA ── */
-    .page-cta {
-      padding: clamp(4rem, 8vw, 7rem) 0;
-    }
+    .page-cta { padding: clamp(4rem, 8vw, 7rem) 0; }
     .page-cta-inner {
       max-width: 640px;
       margin: 0 auto;
@@ -538,20 +593,25 @@
       border: 2px solid var(--ink-dark);
       padding: 0.75rem 1.5rem;
       text-decoration: none;
-      transition: background 0.2s, color 0.2s;
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.2s;
+      box-shadow: 3px 3px 0 rgba(28,18,8,0.22);
     }
     .retro-btn:hover {
       background: var(--ink-dark);
       color: var(--paper);
+      box-shadow: 4px 5px 0 rgba(28,18,8,0.3);
+      transform: translateY(-1px);
     }
     .retro-btn-primary {
       background: #8B1A1A;
       border-color: #8B1A1A;
       color: var(--paper);
+      box-shadow: 3px 3px 0 rgba(100,10,10,0.4);
     }
     .retro-btn-primary:hover {
       background: #6B1212;
       border-color: #6B1212;
+      box-shadow: 4px 5px 0 rgba(100,10,10,0.45);
     }
   </style>
 </head>
@@ -613,25 +673,27 @@
 
       <div class="film-rule" aria-hidden="true"></div>
 
-      <p style="font-family: 'Special Elite', monospace; font-size: 0.625rem; letter-spacing: 0.45em; text-transform: uppercase; color: rgba(255,255,255,0.18);">Approved for General Audiences &bull; 1 Min 27 Sec</p>
+      <p style="font-family: 'Special Elite', monospace; font-size: 0.625rem; letter-spacing: 0.45em; text-transform: uppercase; color: rgba(255,255,255,0.18); position: relative; z-index: 1;">Approved for General Audiences &bull; 1 Min 27 Sec</p>
     </section>
 
     <!-- ── MEET TOM ── -->
     <section class="paper meet-tom">
       <div class="meet-tom-inner">
 
-        <svg width="90" height="152" viewBox="0 0 90 152" fill="none" aria-hidden="true">
-          <circle cx="45" cy="22" r="19" stroke="#1C1208" stroke-width="2.5"/>
-          <circle cx="38" cy="19" r="2.5" fill="#1C1208"/>
-          <circle cx="52" cy="19" r="2.5" fill="#1C1208"/>
-          <path d="M 37 27 Q 45 34 53 27" stroke="#1C1208" stroke-width="2" fill="none" stroke-linecap="round"/>
-          <line x1="45" y1="41" x2="45" y2="97" stroke="#1C1208" stroke-width="2.5" stroke-linecap="round"/>
-          <line x1="45" y1="58" x2="18" y2="78" stroke="#1C1208" stroke-width="2.5" stroke-linecap="round"/>
-          <line x1="45" y1="58" x2="67" y2="73" stroke="#1C1208" stroke-width="2.5" stroke-linecap="round"/>
-          <rect x="63" y="69" width="18" height="28" rx="3" fill="#53D337" stroke="#0E2E1C" stroke-width="2"/>
-          <line x1="45" y1="97" x2="26" y2="138" stroke="#1C1208" stroke-width="2.5" stroke-linecap="round"/>
-          <line x1="45" y1="97" x2="64" y2="138" stroke="#1C1208" stroke-width="2.5" stroke-linecap="round"/>
-        </svg>
+        <div class="tom-cutout" aria-label="Tom, stick figure character">
+          <svg width="90" height="152" viewBox="0 0 90 152" fill="none" aria-hidden="true">
+            <circle cx="45" cy="22" r="19" stroke="#1C1208" stroke-width="2.5"/>
+            <circle cx="38" cy="19" r="2.5" fill="#1C1208"/>
+            <circle cx="52" cy="19" r="2.5" fill="#1C1208"/>
+            <path d="M 37 27 Q 45 34 53 27" stroke="#1C1208" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <line x1="45" y1="41" x2="45" y2="97" stroke="#1C1208" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="45" y1="58" x2="18" y2="78" stroke="#1C1208" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="45" y1="58" x2="67" y2="73" stroke="#1C1208" stroke-width="2.5" stroke-linecap="round"/>
+            <rect x="63" y="69" width="18" height="28" rx="3" fill="#53D337" stroke="#0E2E1C" stroke-width="2"/>
+            <line x1="45" y1="97" x2="26" y2="138" stroke="#1C1208" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="45" y1="97" x2="64" y2="138" stroke="#1C1208" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </div>
 
         <div>
           <p class="tom-label">This is Tom.</p>
@@ -689,9 +751,8 @@
             <h2 class="ch-title">Tom’s Eyes</h2>
           </div>
         </div>
-        <hr class="double-rule">
-        <br>
-        <p class="narrator">The moment Tom places a bet, his pupils dilate. This is not voluntary. This is the sympathetic nervous system preparing Tom for a threat &mdash; or an opportunity. His brain cannot tell the difference.</p>
+        <hr class="double-rule"><br>
+        <p class="narrator">The moment Tom places a bet, his pupils dilate. This is not voluntary. This is the sympathetic nervous system preparing Tom for a threat — or an opportunity. His brain cannot tell the difference.</p>
         <p class="narrator">The visual cortex prioritizes the screen. Peripheral vision narrows. Tom’s field of awareness shrinks to the size of a phone. This is called attentional tunneling. It is the same thing that happens to a fighter pilot in a dogfight.</p>
         <span class="narrator-kicker">Tom is not in a dogfight. Tom is on his couch.</span>
         <div class="fact-box">
@@ -717,14 +778,13 @@
             <h2 class="ch-title">Tom’s Brain</h2>
           </div>
         </div>
-        <hr class="double-rule" style="border-top-color: rgba(255,255,255,0.15);">
-        <br>
-        <p class="narrator">The nucleus accumbens &mdash; the brain’s reward center &mdash; releases dopamine in anticipation of the outcome. Not after a win. Before it is decided. The uncertainty is the drug.</p>
+        <hr class="double-rule" style="border-top-color: rgba(255,255,255,0.15);"><br>
+        <p class="narrator">The nucleus accumbens — the brain’s reward center — releases dopamine in anticipation of the outcome. Not after a win. Before it is decided. The uncertainty is the drug.</p>
         <p class="narrator">This is called variable-ratio reinforcement. It is the most powerful behavioral conditioning schedule known to science. It is the same mechanism that drives slot machines. The <span class="app-chip">FanDuel</span> interface was built by people who studied this. They studied it carefully.</p>
         <span class="narrator-kicker">Tom’s brain is not broken. It is working exactly as designed. Someone else designed it.</span>
         <div class="fact-box">
           <span class="fact-label">The Loop</span>
-          <p class="fact-text">With micro-betting &mdash; wagering on individual pitches, plays, and possessions &mdash; the dopamine loop fires every 90 seconds. A four-hour game is not four hours. It is 160 individual bets. 160 individual dopamine pulses. Tom’s reward system does not distinguish between a $5 and a $500 bet.</p>
+          <p class="fact-text">With micro-betting — wagering on individual pitches, plays, and possessions — the dopamine loop fires every 90 seconds. A four-hour game is not four hours. It is 160 individual bets. 160 individual dopamine pulses. Tom’s reward system does not distinguish between a $5 and a $500 bet.</p>
         </div>
       </div>
     </section>
@@ -743,8 +803,7 @@
             <h2 class="ch-title">Tom’s Heart</h2>
           </div>
         </div>
-        <hr class="double-rule">
-        <br>
+        <hr class="double-rule"><br>
         <p class="narrator">Tom’s resting heart rate is 68 beats per minute. When he places a live bet during a fourth-quarter comeback, it reaches 112. When the bet is pending, it does not drop. It holds. Tom’s cardiovascular system is responding to a perceived survival event.</p>
         <p class="narrator">Cortisol and adrenaline are released. Blood pressure rises. This is the same physiological state as physical danger. Tom’s body does not know he is watching sports. Tom’s body thinks Tom is being chased.</p>
         <span class="narrator-kicker">Tom is not being chased. Tom has been sitting still for six hours.</span>
@@ -770,10 +829,9 @@
             <h2 class="ch-title">Tom’s Bloodstream</h2>
           </div>
         </div>
-        <hr class="double-rule" style="border-top-color: rgba(255,255,255,0.15);">
-        <br>
+        <hr class="double-rule" style="border-top-color: rgba(255,255,255,0.15);"><br>
         <p class="narrator">Adrenaline (epinephrine) spikes. Glucose floods the bloodstream to fuel the muscles Tom is not using. His liver releases glycogen. His digestive system shuts down. His body is prepared to run or fight. He is scrolling through odds on <span class="app-chip">DraftKings</span>.</p>
-        <p class="narrator">After the bet resolves &mdash; win or lose &mdash; the crash. Cortisol levels fall. Serotonin dips. Tom feels flat. Empty. The obvious solution is to place another bet. Tom’s brain agrees. This is called the chasing reflex. It is not a character flaw. It is chemistry.</p>
+        <p class="narrator">After the bet resolves — win or lose — the crash. Cortisol levels fall. Serotonin dips. Tom feels flat. Empty. The obvious solution is to place another bet. Tom’s brain agrees. This is called the chasing reflex. It is not a character flaw. It is chemistry.</p>
         <span class="narrator-kicker">The book knew about the chasing reflex. The book counted on it.</span>
       </div>
     </section>
@@ -795,8 +853,7 @@
             <h2 class="ch-title">Tom’s Good Sense</h2>
           </div>
         </div>
-        <hr class="double-rule">
-        <br>
+        <hr class="double-rule"><br>
         <p class="narrator">The prefrontal cortex is where Tom keeps his judgment. Risk assessment. Impulse control. The part of the brain that says: Tom, you cannot afford this. Tom, you have been at this for four hours. Tom, it is 2 a.m.</p>
         <p class="narrator">Under sustained dopamine flooding and cortisol elevation, prefrontal cortex activity measurably decreases. Tom’s judgment center goes partially offline. This is not metaphor. This is observable in brain imaging. Tom’s good sense has a light switch. The app has found the switch.</p>
         <span class="narrator-kicker">Tom is making financial decisions with the lights off.</span>
@@ -824,8 +881,7 @@
             <h2 class="ch-title">The Loop</h2>
           </div>
         </div>
-        <hr class="double-rule" style="border-top-color: rgba(255,255,255,0.15);">
-        <br>
+        <hr class="double-rule" style="border-top-color: rgba(255,255,255,0.15);"><br>
         <p class="narrator">Bet. Spike. Crash. Chase. Bet again. The cycle compresses over time. Sessions grow longer. Stakes grow larger. Tom is no longer betting for fun. Tom is betting to return to baseline. Tom needs the spike to feel normal.</p>
         <p class="narrator">This is the clinical definition of addiction. It applies to gambling with the same neurological precision as opioids. The National Council on Problem Gambling documents the highest suicide attempt rate of any addictive disorder: 1 in 5 people with a gambling problem will attempt it in their lifetime.</p>
         <span class="narrator-kicker">Higher than alcohol. Higher than opioids. Higher than any other addiction on record.</span>
@@ -858,8 +914,7 @@
       <div class="who-knew-inner">
         <p class="eyebrow" style="color: #8B1A1A;">The Industry Knew</p>
         <h2 style="font-family: 'Special Elite', monospace; font-size: clamp(1.75rem, 4vw, 2.5rem); color: var(--ink-dark); margin-bottom: 1.5rem;">These Apps Were Built on This Science</h2>
-        <hr class="double-rule">
-        <br>
+        <hr class="double-rule"><br>
         <p class="narrator">The variable-ratio reinforcement. The micro-betting loop. The VIP host timing. The push notifications calibrated to user behavior. The companies building these products employed behavioral scientists. They published research. They knew.</p>
         <p class="narrator">A landmark 2026 lawsuit names them by product. The complaint calls the apps &ldquo;unreasonably dangerous products intentionally designed to maximize addiction.&rdquo;</p>
 
@@ -872,7 +927,7 @@
           <span class="app-tag">Polymarket</span>
         </div>
 
-        <p class="narrator">The full picture &mdash; White House, Congress, leagues, military &mdash; is on <a href="../the-fix/" style="color: #8B1A1A; text-decoration: underline;">The Fix</a> page.</p>
+        <p class="narrator">The full picture — White House, Congress, leagues, military — is on <a href="../the-fix/" style="color: #8B1A1A; text-decoration: underline;">The Fix</a> page.</p>
       </div>
     </section>
 
@@ -916,5 +971,77 @@
   </footer>
 
   <script src="../assets/js/main.js"></script>
+
+  <!-- Floating dust particles -->
+  <script>
+  (function () {
+    /* Respect reduced-motion preference */
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var canvas = document.createElement('canvas');
+    canvas.id = 'dust-canvas';
+    canvas.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(canvas);
+
+    var ctx = canvas.getContext('2d');
+    var W, H;
+    var particles = [];
+    var N = 55;
+
+    function resize() {
+      W = canvas.width  = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+
+    function mkParticle(scatter) {
+      return {
+        x:    Math.random() * (W || window.innerWidth),
+        y:    scatter ? Math.random() * (H || window.innerHeight) : (H || window.innerHeight) + 8,
+        r:    Math.random() * 1.4 + 0.3,
+        vx:   (Math.random() - 0.5) * 0.22,
+        vy:   -(Math.random() * 0.38 + 0.07),
+        a:    Math.random() * 0.32 + 0.05,
+        wave: Math.random() * 6.28,
+        life: 0,
+        max:  (Math.random() * 420 + 240) | 0
+      };
+    }
+
+    function init() {
+      for (var i = 0; i < N; i++) {
+        var p = mkParticle(true);
+        p.life = Math.random() * p.max | 0;
+        particles.push(p);
+      }
+    }
+
+    function frame() {
+      ctx.clearRect(0, 0, W, H);
+      for (var i = 0; i < particles.length; i++) {
+        var p = particles[i];
+        p.wave += 0.018;
+        p.x += p.vx + Math.sin(p.wave) * 0.14;
+        p.y += p.vy;
+        p.life++;
+        var t    = p.life / p.max;
+        var fade = t < 0.12 ? t / 0.12 : t > 0.84 ? (1 - t) / 0.16 : 1;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, 6.2832);
+        ctx.fillStyle = 'rgba(255,245,195,' + (p.a * fade).toFixed(3) + ')';
+        ctx.fill();
+        if (p.life >= p.max || p.y < -12) {
+          particles[i] = mkParticle(false);
+        }
+      }
+      requestAnimationFrame(frame);
+    }
+
+    resize();
+    window.addEventListener('resize', resize);
+    init();
+    frame();
+  })();
+  </script>
+
 </body>
 </html>
