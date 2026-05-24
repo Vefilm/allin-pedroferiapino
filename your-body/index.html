@@ -575,6 +575,24 @@
       margin-top: 1.5rem;
     }
 
+    /* ── MOBILE FIXES ── */
+    @media (max-width: 500px) {
+      /* Film leader: reduce sprockets + padding so text isn't crushed */
+      .film-leader { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .film-leader::before, .film-leader::after { width: 10px; }
+      /* Eyebrow letter-spacing causes ~390px overflow on small screens */
+      .film-eyebrow { letter-spacing: 0.18em; }
+      /* Move crosshairs to match reduced padding */
+      .crosshair-tl, .crosshair-bl { left: 1.5rem; }
+      .crosshair-tr, .crosshair-br { right: 1.5rem; }
+      /* "1 in 20" at 7rem minimum overflows 320px — bring it down */
+      .ds-num { font-size: clamp(3.75rem, 19vw, 7rem); }
+      /* Warn poster: double-nested padding leaves ~144px on a 320px phone */
+      .warn-poster { padding: 1.25rem; margin-top: 2.5rem; }
+      .warn-poster-inner { padding: 1rem; }
+      .warn-num { font-size: clamp(1.25rem, 5vw, 2.5rem); }
+    }
+
     /* ── VIDEO FULLSCREEN — preserve portrait, no crop ── */
     .video-inner video:fullscreen          { object-fit: contain !important; background: #000; }
     .video-inner video:-webkit-full-screen { object-fit: contain !important; background: #000; }
