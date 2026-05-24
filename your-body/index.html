@@ -618,11 +618,317 @@
       border-color: #6B1212;
       box-shadow: 4px 5px 0 rgba(100,10,10,0.45);
     }
+
+    /* ── BODY MAP SIDEBAR ── */
+    .body-map {
+      position: fixed;
+      right: 1.25rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 68px;
+      z-index: 15;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+    }
+    .body-map.bm-visible { opacity: 1; }
+    .body-map svg { width: 100%; display: block; }
+    .bm-base { opacity: 0.15; }
+    .bm-region {
+      opacity: 0.08;
+      transition: opacity 0.45s, filter 0.45s;
+    }
+    .bm-region.bm-active {
+      opacity: 1;
+      filter: drop-shadow(0 0 5px var(--bm-c, #fff));
+    }
+    .bm-label-wrap { text-align: center; margin-top: 5px; }
+    .bm-chapter {
+      font-family: 'Special Elite', monospace;
+      font-size: 0.42rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.28);
+      display: block;
+      min-height: 1em;
+    }
+    @media (max-width: 960px) { .body-map { display: none; } }
+
+    /* ── RECEIPT TICKER ── */
+    .receipt {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(4,4,4,0.95);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: stretch;
+      z-index: 20;
+      transform: translateY(100%);
+      transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .receipt.r-visible { transform: translateY(0); }
+    .receipt-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0.55rem 0.75rem;
+      border-right: 1px solid rgba(255,255,255,0.06);
+      gap: 2px;
+    }
+    .receipt-item:last-child { border-right: none; }
+    .r-val {
+      font-family: 'Special Elite', monospace;
+      font-size: clamp(0.9rem, 2vw, 1.3rem);
+      color: #fff;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.04em;
+    }
+    .r-key {
+      font-family: 'Special Elite', monospace;
+      font-size: 0.42rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.28);
+    }
+    .r-heart .r-val   { color: #E87070; }
+    .r-dopamine .r-val { color: #53D337; }
+    .r-cortisol .r-val { color: #E67E22; }
+    .r-time .r-val    { color: rgba(255,255,255,0.65); }
+    @media (max-width: 480px) {
+      .r-key { font-size: 0.37rem; letter-spacing: 0.2em; }
+    }
+
+    /* ── ADDICTION SCREEN ── */
+    .addiction-test {
+      background: var(--film-bg);
+      color: var(--paper);
+      padding: 5rem 2rem 5rem;
+      position: relative;
+    }
+    .test-inner {
+      max-width: 660px;
+      margin: 0 auto;
+    }
+    .test-eyebrow {
+      font-family: 'Special Elite', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.28);
+      display: block;
+      margin-bottom: 1rem;
+    }
+    .test-title {
+      font-family: 'Special Elite', monospace;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      color: var(--paper);
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+    }
+    .test-sub {
+      font-family: 'Special Elite', monospace;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 3rem;
+      letter-spacing: 0.06em;
+    }
+    .test-rule {
+      width: 40px; height: 1px;
+      background: rgba(255,255,255,0.15);
+      margin-bottom: 3rem;
+    }
+    .test-q { margin-bottom: 2.25rem; }
+    .test-q-text {
+      font-family: 'Special Elite', monospace;
+      font-size: 0.95rem;
+      color: var(--paper);
+      display: block;
+      margin-bottom: 0.875rem;
+      line-height: 1.55;
+    }
+    .test-q-num {
+      color: rgba(255,255,255,0.22);
+      margin-right: 0.5em;
+    }
+    .test-options {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+    .test-opt {
+      font-family: 'Special Elite', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.4rem 0.85rem;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: transparent;
+      color: rgba(255,255,255,0.4);
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s, background 0.15s;
+      border-radius: 1px;
+    }
+    .test-opt:hover {
+      border-color: rgba(255,255,255,0.45);
+      color: rgba(255,255,255,0.8);
+    }
+    .test-opt.selected {
+      background: var(--paper);
+      color: var(--film-bg);
+      border-color: var(--paper);
+    }
+    .test-submit {
+      font-family: 'Special Elite', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      padding: 0.75rem 2.5rem;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.25);
+      color: rgba(255,255,255,0.55);
+      cursor: pointer;
+      margin-top: 0.75rem;
+      transition: all 0.2s;
+      display: block;
+    }
+    .test-submit:hover:not(:disabled) {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(255,255,255,0.55);
+      color: #fff;
+    }
+    .test-submit:disabled { opacity: 0.25; cursor: default; }
+    .test-result {
+      display: none;
+      margin-top: 3rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .test-result.show { display: block; }
+    .result-bar-wrap {
+      height: 4px;
+      background: rgba(255,255,255,0.08);
+      margin-bottom: 1.75rem;
+      overflow: hidden;
+    }
+    .result-bar {
+      height: 100%;
+      width: 0%;
+      transition: width 1.1s cubic-bezier(0.16,1,0.3,1);
+    }
+    .result-verdict {
+      font-family: 'Special Elite', monospace;
+      font-size: clamp(1.2rem, 3vw, 1.75rem);
+      color: var(--paper);
+      margin-bottom: 0.875rem;
+      line-height: 1.25;
+    }
+    .result-body {
+      font-family: 'Special Elite', monospace;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.75;
+      margin-bottom: 1.5rem;
+      max-width: 540px;
+    }
+    .result-helpline {
+      font-family: 'Special Elite', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.18);
+      padding-bottom: 1px;
+      display: none;
+    }
+    .result-helpline:hover { color: #fff; border-color: #fff; }
+    .result-helpline.show { display: inline; }
   </style>
 </head>
 <body>
 
   <div id="reading-progress" aria-hidden="true"></div>
+
+  <!-- ── BODY MAP (fixed sidebar) ── -->
+  <div class="body-map" id="body-map" role="img" aria-label="Tom's body with active organ highlighted">
+    <svg viewBox="0 0 80 175" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <!-- Ghost base figure -->
+      <g class="bm-base" stroke="#666" stroke-linecap="round">
+        <circle cx="40" cy="18" r="13" stroke-width="1"/>
+        <line x1="40" y1="31" x2="40" y2="38" stroke-width="1"/>
+        <line x1="40" y1="38" x2="40" y2="113" stroke-width="0.8"/>
+        <line x1="40" y1="46" x2="20" y2="75" stroke-width="1"/>
+        <line x1="40" y1="46" x2="60" y2="72" stroke-width="1"/>
+        <line x1="40" y1="113" x2="27" y2="153" stroke-width="1"/>
+        <line x1="40" y1="113" x2="53" y2="153" stroke-width="1"/>
+        <rect x="59" y="68" width="11" height="17" rx="2" stroke-width="0.8"/>
+      </g>
+      <!-- EYES -->
+      <g class="bm-region" id="bm-eyes" style="--bm-c:#F5C518">
+        <circle cx="35" cy="15" r="2.5" stroke="#F5C518" stroke-width="1.4"/>
+        <circle cx="35" cy="15" r="1" fill="#F5C518"/>
+        <circle cx="45" cy="15" r="2.5" stroke="#F5C518" stroke-width="1.4"/>
+        <circle cx="45" cy="15" r="1" fill="#F5C518"/>
+      </g>
+      <!-- BRAIN -->
+      <g class="bm-region" id="bm-brain" style="--bm-c:#E87070">
+        <path d="M31 14 Q33 7 40 7 Q47 7 49 14 Q52 19 47 22 Q40 25 33 22 Q28 19 31 14Z" stroke="#E87070" stroke-width="1.2" fill="rgba(232,112,112,0.14)"/>
+        <path d="M37 10 Q39 13 37 17" stroke="#E87070" stroke-width="0.6" opacity="0.7"/>
+        <path d="M43 10 Q41 13 43 17" stroke="#E87070" stroke-width="0.6" opacity="0.7"/>
+      </g>
+      <!-- HEART -->
+      <g class="bm-region" id="bm-heart" style="--bm-c:#C0392B">
+        <path d="M37 53 Q34 49 31 51 Q28 55 31 59 L37 65 L43 59 Q46 55 43 51 Q40 49 37 53Z" stroke="#C0392B" stroke-width="1.3" fill="rgba(192,57,43,0.18)"/>
+      </g>
+      <!-- BLOODSTREAM -->
+      <g class="bm-region" id="bm-blood" style="--bm-c:#3498DB">
+        <path d="M40 65 Q43 72 41 82 Q39 92 41 102 Q43 109 40 113" stroke="#3498DB" stroke-width="1.3" stroke-dasharray="3 2"/>
+        <path d="M37 68 Q29 77 27 90 Q25 102 29 111" stroke="#3498DB" stroke-width="0.7" stroke-dasharray="2 2"/>
+        <path d="M43 68 Q51 77 53 90 Q55 102 51 111" stroke="#3498DB" stroke-width="0.7" stroke-dasharray="2 2"/>
+        <path d="M39 48 Q28 59 22 71" stroke="#3498DB" stroke-width="0.7" stroke-dasharray="2 2"/>
+        <path d="M41 48 Q52 57 58 68" stroke="#3498DB" stroke-width="0.7" stroke-dasharray="2 2"/>
+      </g>
+      <!-- ADRENAL / CORTISOL -->
+      <g class="bm-region" id="bm-adrenal" style="--bm-c:#E67E22">
+        <ellipse cx="33" cy="83" rx="4.5" ry="3" stroke="#E67E22" stroke-width="1.2" fill="rgba(230,126,34,0.2)" transform="rotate(-15 33 83)"/>
+        <ellipse cx="47" cy="83" rx="4.5" ry="3" stroke="#E67E22" stroke-width="1.2" fill="rgba(230,126,34,0.2)" transform="rotate(15 47 83)"/>
+      </g>
+      <!-- THE LOOP -->
+      <g class="bm-region" id="bm-loop" style="--bm-c:#53D337">
+        <path d="M54 16 Q74 50 70 95 Q66 125 53 143 Q47 152 40 155" stroke="#53D337" stroke-width="1.1" stroke-dasharray="3 2" fill="none"/>
+        <path d="M26 16 Q6 50 10 95 Q14 125 27 143 Q33 152 40 155" stroke="#53D337" stroke-width="1.1" stroke-dasharray="3 2" fill="none"/>
+        <path d="M50 19 L54 16 L52 21" stroke="#53D337" stroke-width="1.1" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M30 19 L26 16 L28 21" stroke="#53D337" stroke-width="1.1" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+    </svg>
+    <div class="bm-label-wrap">
+      <span class="bm-chapter" id="bm-chapter"></span>
+    </div>
+  </div>
+
+  <!-- ── RECEIPT TICKER (fixed bottom) ── -->
+  <div class="receipt" id="receipt" aria-label="Tom's live physiological stats" aria-live="off">
+    <div class="receipt-item r-heart">
+      <span class="r-val" id="r-beats">0</span>
+      <span class="r-key">Heartbeats</span>
+    </div>
+    <div class="receipt-item r-dopamine">
+      <span class="r-val" id="r-dopamine">0</span>
+      <span class="r-key">Dopamine events</span>
+    </div>
+    <div class="receipt-item r-cortisol">
+      <span class="r-val" id="r-cortisol">0</span>
+      <span class="r-key">Cortisol spikes</span>
+    </div>
+    <div class="receipt-item r-time">
+      <span class="r-val" id="r-time">0:00</span>
+      <span class="r-key">Since the bet</span>
+    </div>
+  </div>
 
   <header class="site-header" id="site-header">
     <div class="header-inner">
@@ -943,6 +1249,107 @@
       <p class="scale-source">American Sports Fanship Survey, Siena College Research Institute / St. Bonaventure University, April 2026</p>
     </section>
 
+    <!-- ── ADDICTION SCREEN ── -->
+    <section class="addiction-test reveal" id="addiction-test">
+      <div class="test-inner">
+        <span class="test-eyebrow">Problem Gambling Severity Index</span>
+        <h2 class="test-title">Is This Tom?<br>Or Is This You?</h2>
+        <p class="test-sub">8 questions. 60 seconds. Clinically validated.</p>
+        <div class="test-rule" aria-hidden="true"></div>
+
+        <div class="test-q">
+          <span class="test-q-text"><span class="test-q-num">01.</span>Have you bet more than you could really afford to lose?</span>
+          <div class="test-options" role="group" aria-label="Answer options for question 1">
+            <button type="button" class="test-opt" data-q="0" data-v="0">Never</button>
+            <button type="button" class="test-opt" data-q="0" data-v="1">Sometimes</button>
+            <button type="button" class="test-opt" data-q="0" data-v="2">Most of the time</button>
+            <button type="button" class="test-opt" data-q="0" data-v="3">Almost always</button>
+          </div>
+        </div>
+
+        <div class="test-q">
+          <span class="test-q-text"><span class="test-q-num">02.</span>Have you needed to gamble with larger amounts to get the same excitement?</span>
+          <div class="test-options" role="group" aria-label="Answer options for question 2">
+            <button type="button" class="test-opt" data-q="1" data-v="0">Never</button>
+            <button type="button" class="test-opt" data-q="1" data-v="1">Sometimes</button>
+            <button type="button" class="test-opt" data-q="1" data-v="2">Most of the time</button>
+            <button type="button" class="test-opt" data-q="1" data-v="3">Almost always</button>
+          </div>
+        </div>
+
+        <div class="test-q">
+          <span class="test-q-text"><span class="test-q-num">03.</span>When you lost money gambling, did you go back another day to try to win it back?</span>
+          <div class="test-options" role="group" aria-label="Answer options for question 3">
+            <button type="button" class="test-opt" data-q="2" data-v="0">Never</button>
+            <button type="button" class="test-opt" data-q="2" data-v="1">Sometimes</button>
+            <button type="button" class="test-opt" data-q="2" data-v="2">Most of the time</button>
+            <button type="button" class="test-opt" data-q="2" data-v="3">Almost always</button>
+          </div>
+        </div>
+
+        <div class="test-q">
+          <span class="test-q-text"><span class="test-q-num">04.</span>Have you borrowed money or sold anything to fund gambling?</span>
+          <div class="test-options" role="group" aria-label="Answer options for question 4">
+            <button type="button" class="test-opt" data-q="3" data-v="0">Never</button>
+            <button type="button" class="test-opt" data-q="3" data-v="1">Sometimes</button>
+            <button type="button" class="test-opt" data-q="3" data-v="2">Most of the time</button>
+            <button type="button" class="test-opt" data-q="3" data-v="3">Almost always</button>
+          </div>
+        </div>
+
+        <div class="test-q">
+          <span class="test-q-text"><span class="test-q-num">05.</span>Has gambling caused you health problems, including stress or anxiety?</span>
+          <div class="test-options" role="group" aria-label="Answer options for question 5">
+            <button type="button" class="test-opt" data-q="4" data-v="0">Never</button>
+            <button type="button" class="test-opt" data-q="4" data-v="1">Sometimes</button>
+            <button type="button" class="test-opt" data-q="4" data-v="2">Most of the time</button>
+            <button type="button" class="test-opt" data-q="4" data-v="3">Almost always</button>
+          </div>
+        </div>
+
+        <div class="test-q">
+          <span class="test-q-text"><span class="test-q-num">06.</span>Has gambling caused financial problems for you or your household?</span>
+          <div class="test-options" role="group" aria-label="Answer options for question 6">
+            <button type="button" class="test-opt" data-q="5" data-v="0">Never</button>
+            <button type="button" class="test-opt" data-q="5" data-v="1">Sometimes</button>
+            <button type="button" class="test-opt" data-q="5" data-v="2">Most of the time</button>
+            <button type="button" class="test-opt" data-q="5" data-v="3">Almost always</button>
+          </div>
+        </div>
+
+        <div class="test-q">
+          <span class="test-q-text"><span class="test-q-num">07.</span>Have you felt you might have a problem with gambling?</span>
+          <div class="test-options" role="group" aria-label="Answer options for question 7">
+            <button type="button" class="test-opt" data-q="6" data-v="0">Never</button>
+            <button type="button" class="test-opt" data-q="6" data-v="1">Sometimes</button>
+            <button type="button" class="test-opt" data-q="6" data-v="2">Most of the time</button>
+            <button type="button" class="test-opt" data-q="6" data-v="3">Almost always</button>
+          </div>
+        </div>
+
+        <div class="test-q">
+          <span class="test-q-text"><span class="test-q-num">08.</span>Have you felt guilty about the way you gamble or what happens when you gamble?</span>
+          <div class="test-options" role="group" aria-label="Answer options for question 8">
+            <button type="button" class="test-opt" data-q="7" data-v="0">Never</button>
+            <button type="button" class="test-opt" data-q="7" data-v="1">Sometimes</button>
+            <button type="button" class="test-opt" data-q="7" data-v="2">Most of the time</button>
+            <button type="button" class="test-opt" data-q="7" data-v="3">Almost always</button>
+          </div>
+        </div>
+
+        <button type="button" class="test-submit" id="test-submit" disabled>See My Result</button>
+
+        <div class="test-result" id="test-result" aria-live="polite">
+          <div class="result-bar-wrap" aria-hidden="true">
+            <div class="result-bar" id="result-bar"></div>
+          </div>
+          <p class="result-verdict" id="result-verdict"></p>
+          <p class="result-body" id="result-body"></p>
+          <a href="tel:18005224700" class="result-helpline" id="result-helpline">National Problem Gambling Helpline &mdash; 1-800-522-4700 &mdash; Free &bull; Confidential &bull; 24/7</a>
+        </div>
+      </div>
+    </section>
+
     <!-- ── PAGE CTA ── -->
     <section class="paper page-cta reveal">
       <div class="page-cta-inner">
@@ -975,6 +1382,172 @@
   </footer>
 
   <script src="../assets/js/main.js"></script>
+
+  <!-- Body map + receipt ticker + addiction test -->
+  <script>
+  (function () {
+
+    /* ── 1. BODY MAP ── */
+    var map = document.getElementById('body-map');
+    var chapterLabel = document.getElementById('bm-chapter');
+    var chapters = {
+      'eyes':        { region: 'bm-eyes',    label: 'Eyes' },
+      'brain':       { region: 'bm-brain',   label: 'Brain' },
+      'heart':       { region: 'bm-heart',   label: 'Heart' },
+      'bloodstream': { region: 'bm-blood',   label: 'Bloodstream' },
+      'good-sense':  { region: 'bm-adrenal', label: 'Cortisol' },
+      'the-loop':    { region: 'bm-loop',    label: 'The Loop' }
+    };
+
+    function activateRegion(key) {
+      map.querySelectorAll('.bm-region').forEach(function (r) { r.classList.remove('bm-active'); });
+      var conf = chapters[key];
+      if (!conf) return;
+      var el = document.getElementById(conf.region);
+      if (el) el.classList.add('bm-active');
+      if (chapterLabel) chapterLabel.textContent = conf.label;
+    }
+
+    if (map && 'IntersectionObserver' in window) {
+      var chapterObs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting && chapters[e.target.id]) {
+            activateRegion(e.target.id);
+            map.classList.add('bm-visible');
+          }
+        });
+      }, { threshold: 0.35 });
+
+      Object.keys(chapters).forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) chapterObs.observe(el);
+      });
+
+      /* Hide when outside the chapter zone */
+      var hideObs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            map.querySelectorAll('.bm-region').forEach(function (r) { r.classList.remove('bm-active'); });
+            map.classList.remove('bm-visible');
+            if (chapterLabel) chapterLabel.textContent = '';
+          }
+        });
+      }, { threshold: 0.4 });
+
+      ['film-leader', 'meet-tom', 'video-reel', 'dark-stat', 'addiction-test'].forEach(function (cls) {
+        var el = document.querySelector('.' + cls) || document.getElementById(cls);
+        if (el) hideObs.observe(el);
+      });
+      var cta = document.querySelector('.page-cta');
+      if (cta) hideObs.observe(cta);
+    }
+
+    /* ── 2. RECEIPT TICKER ── */
+    var receipt = document.getElementById('receipt');
+    var eyesSection = document.getElementById('eyes');
+    var started = false;
+    var startTime = null;
+
+    var beatsEl   = document.getElementById('r-beats');
+    var dopEl     = document.getElementById('r-dopamine');
+    var cortEl    = document.getElementById('r-cortisol');
+    var timeEl    = document.getElementById('r-time');
+
+    function tickReceipt() {
+      if (!startTime) return;
+      var elapsed = (Date.now() - startTime) / 1000;
+      var beats    = Math.floor((elapsed / 60) * 98);
+      var dopamine = Math.floor(elapsed / 90) + 1;
+      var cortisol = Math.floor(elapsed / 180) + 1;
+      var mins = Math.floor(elapsed / 60);
+      var secs = Math.floor(elapsed % 60);
+      if (beatsEl) beatsEl.textContent = beats.toLocaleString();
+      if (dopEl)   dopEl.textContent   = dopamine;
+      if (cortEl)  cortEl.textContent  = cortisol;
+      if (timeEl)  timeEl.textContent  = mins + ':' + (secs < 10 ? '0' : '') + secs;
+      requestAnimationFrame(tickReceipt);
+    }
+
+    if (receipt && eyesSection && 'IntersectionObserver' in window) {
+      var receiptObs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting && !started) {
+            started = true;
+            startTime = Date.now();
+            receipt.classList.add('r-visible');
+            tickReceipt();
+          }
+        });
+      }, { threshold: 0.4 });
+      receiptObs.observe(eyesSection);
+    }
+
+    /* ── 3. ADDICTION TEST ── */
+    var answers = {};
+    var TOTAL = 8;
+
+    document.querySelectorAll('.test-opt').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var q = this.dataset.q;
+        var v = parseInt(this.dataset.v, 10);
+        answers[q] = v;
+        document.querySelectorAll('.test-opt[data-q="' + q + '"]').forEach(function (b) { b.classList.remove('selected'); });
+        this.classList.add('selected');
+        var submitBtn = document.getElementById('test-submit');
+        if (submitBtn && Object.keys(answers).length === TOTAL) submitBtn.disabled = false;
+      });
+    });
+
+    var submitBtn = document.getElementById('test-submit');
+    if (submitBtn) {
+      submitBtn.addEventListener('click', function () {
+        var score = Object.values(answers).reduce(function (a, b) { return a + b; }, 0);
+        var pct   = Math.round((score / (TOTAL * 3)) * 100);
+        var verdict, body, color, showHelp;
+
+        if (score === 0) {
+          verdict  = 'No gambling problems detected.';
+          body     = 'Your answers suggest gambling is not currently a problem. The industry is engineered to change that over time. Awareness is the first defense.';
+          color    = '#53D337';
+          showHelp = false;
+        } else if (score <= 2) {
+          verdict  = 'Low risk.';
+          body     = 'Some gambling without significant harm, for now. The structural features that create addiction (variable rewards, micro-betting, always-on apps) are working on you regardless of today\'s score.';
+          color    = '#F5C518';
+          showHelp = false;
+        } else if (score <= 7) {
+          verdict  = 'Moderate risk.';
+          body     = 'Gambling appears to be causing some real problems. This is the range where most people never seek help, and where the industry is most profitable. It is worth talking to someone.';
+          color    = '#E67E22';
+          showHelp = true;
+        } else {
+          verdict  = 'Problem gambling.';
+          body     = 'Your score indicates a significant gambling problem. You are not alone. About 6 million Americans are in this category. Treatment works. The helpline below is free, confidential, and available right now.';
+          color    = '#C0392B';
+          showHelp = true;
+        }
+
+        var verdictEl = document.getElementById('result-verdict');
+        var bodyEl    = document.getElementById('result-body');
+        var bar       = document.getElementById('result-bar');
+        var helpline  = document.getElementById('result-helpline');
+        var resultEl  = document.getElementById('test-result');
+
+        if (verdictEl) verdictEl.textContent = verdict;
+        if (bodyEl)    bodyEl.textContent    = body;
+        if (bar)       bar.style.background  = color;
+        if (helpline)  helpline.classList.toggle('show', showHelp);
+        if (resultEl)  resultEl.classList.add('show');
+
+        setTimeout(function () { if (bar) bar.style.width = pct + '%'; }, 60);
+        if (resultEl) resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+        this.disabled = true;
+      });
+    }
+
+  })();
+  </script>
 
   <!-- Floating dust particles -->
   <script>
