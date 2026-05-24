@@ -622,85 +622,78 @@
     /* ── BODY MAP SIDEBAR ── */
     .body-map {
       position: fixed;
-      right: 1.25rem;
+      right: 1.5rem;
       top: 50%;
       transform: translateY(-50%);
-      width: 68px;
+      width: 96px;
       z-index: 15;
       opacity: 0;
       transition: opacity 0.5s ease;
       pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
     }
     .body-map.bm-visible { opacity: 1; }
     .body-map svg { width: 100%; display: block; }
-    .bm-base { opacity: 0.15; }
+    .bm-base { opacity: 0.22; }
     .bm-region {
-      opacity: 0.08;
-      transition: opacity 0.45s, filter 0.45s;
+      opacity: 0.1;
+      transition: opacity 0.4s, filter 0.4s;
     }
     .bm-region.bm-active {
       opacity: 1;
-      filter: drop-shadow(0 0 5px var(--bm-c, #fff));
+      filter: drop-shadow(0 0 5px var(--bm-c, #fff)) drop-shadow(0 0 14px var(--bm-c, #fff));
     }
-    .bm-label-wrap { text-align: center; margin-top: 5px; }
     .bm-chapter {
       font-family: 'Special Elite', monospace;
-      font-size: 0.42rem;
-      letter-spacing: 0.35em;
+      font-size: 0.54rem;
+      letter-spacing: 0.28em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.28);
+      color: rgba(255,255,255,0.45);
       display: block;
+      text-align: center;
       min-height: 1em;
     }
     @media (max-width: 960px) { .body-map { display: none; } }
 
-    /* ── RECEIPT TICKER ── */
-    .receipt {
+    /* ── MOBILE CHAPTER PILL ── */
+    .bm-pill {
       position: fixed;
-      bottom: 0; left: 0; right: 0;
-      background: rgba(4,4,4,0.95);
-      backdrop-filter: blur(6px);
+      bottom: 1.25rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: rgba(6,6,6,0.92);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 100px;
+      padding: 0.5rem 1.25rem 0.5rem 0.9rem;
       display: flex;
-      align-items: stretch;
-      z-index: 20;
-      transform: translateY(100%);
-      transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);
-      border-top: 1px solid rgba(255,255,255,0.07);
-    }
-    .receipt.r-visible { transform: translateY(0); }
-    .receipt-item {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      padding: 0.55rem 0.75rem;
-      border-right: 1px solid rgba(255,255,255,0.06);
-      gap: 2px;
+      gap: 0.6rem;
+      z-index: 15;
+      pointer-events: none;
+      transition: transform 0.45s cubic-bezier(0.16,1,0.3,1);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
     }
-    .receipt-item:last-child { border-right: none; }
-    .r-val {
-      font-family: 'Special Elite', monospace;
-      font-size: clamp(0.9rem, 2vw, 1.3rem);
-      color: #fff;
-      line-height: 1;
-      font-variant-numeric: tabular-nums;
-      letter-spacing: 0.04em;
+    .bm-pill.pill-visible { transform: translateX(-50%) translateY(0); }
+    .pill-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: #fff;
+      flex-shrink: 0;
+      transition: background 0.3s;
     }
-    .r-key {
+    .pill-label {
       font-family: 'Special Elite', monospace;
-      font-size: 0.42rem;
-      letter-spacing: 0.32em;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.28);
+      color: rgba(255,255,255,0.8);
+      white-space: nowrap;
     }
-    .r-heart .r-val   { color: #E87070; }
-    .r-dopamine .r-val { color: #53D337; }
-    .r-cortisol .r-val { color: #E67E22; }
-    .r-time .r-val    { color: rgba(255,255,255,0.65); }
-    @media (max-width: 480px) {
-      .r-key { font-size: 0.37rem; letter-spacing: 0.2em; }
-    }
+    @media (min-width: 961px) { .bm-pill { display: none; } }
 
     /* ── ADDICTION SCREEN ── */
     .addiction-test {
@@ -853,81 +846,68 @@
 
   <div id="reading-progress" aria-hidden="true"></div>
 
-  <!-- ── BODY MAP (fixed sidebar) ── -->
+  <!-- ── BODY MAP (fixed sidebar, desktop) ── -->
   <div class="body-map" id="body-map" role="img" aria-label="Tom's body with active organ highlighted">
-    <svg viewBox="0 0 80 175" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <svg viewBox="0 0 100 210" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <!-- Ghost base figure -->
-      <g class="bm-base" stroke="#666" stroke-linecap="round">
-        <circle cx="40" cy="18" r="13" stroke-width="1"/>
-        <line x1="40" y1="31" x2="40" y2="38" stroke-width="1"/>
-        <line x1="40" y1="38" x2="40" y2="113" stroke-width="0.8"/>
-        <line x1="40" y1="46" x2="20" y2="75" stroke-width="1"/>
-        <line x1="40" y1="46" x2="60" y2="72" stroke-width="1"/>
-        <line x1="40" y1="113" x2="27" y2="153" stroke-width="1"/>
-        <line x1="40" y1="113" x2="53" y2="153" stroke-width="1"/>
-        <rect x="59" y="68" width="11" height="17" rx="2" stroke-width="0.8"/>
+      <g class="bm-base" stroke="#888" stroke-linecap="round">
+        <circle cx="50" cy="22" r="16" stroke-width="1.5"/>
+        <line x1="50" y1="38" x2="50" y2="46" stroke-width="1.5"/>
+        <line x1="50" y1="46" x2="50" y2="130" stroke-width="1.2"/>
+        <line x1="50" y1="56" x2="22" y2="90" stroke-width="1.5"/>
+        <line x1="50" y1="56" x2="74" y2="86" stroke-width="1.5"/>
+        <line x1="50" y1="130" x2="33" y2="178" stroke-width="1.5"/>
+        <line x1="50" y1="130" x2="67" y2="178" stroke-width="1.5"/>
+        <rect x="73" y="81" width="13" height="20" rx="2" stroke-width="1.2"/>
       </g>
-      <!-- EYES -->
+      <!-- EYES: dilated pupils -->
       <g class="bm-region" id="bm-eyes" style="--bm-c:#F5C518">
-        <circle cx="35" cy="15" r="2.5" stroke="#F5C518" stroke-width="1.4"/>
-        <circle cx="35" cy="15" r="1" fill="#F5C518"/>
-        <circle cx="45" cy="15" r="2.5" stroke="#F5C518" stroke-width="1.4"/>
-        <circle cx="45" cy="15" r="1" fill="#F5C518"/>
+        <circle cx="43" cy="19" r="5" stroke="#F5C518" stroke-width="2"/>
+        <circle cx="43" cy="19" r="2" fill="#F5C518"/>
+        <circle cx="57" cy="19" r="5" stroke="#F5C518" stroke-width="2"/>
+        <circle cx="57" cy="19" r="2" fill="#F5C518"/>
       </g>
-      <!-- BRAIN -->
+      <!-- BRAIN: wrinkled blob -->
       <g class="bm-region" id="bm-brain" style="--bm-c:#E87070">
-        <path d="M31 14 Q33 7 40 7 Q47 7 49 14 Q52 19 47 22 Q40 25 33 22 Q28 19 31 14Z" stroke="#E87070" stroke-width="1.2" fill="rgba(232,112,112,0.14)"/>
-        <path d="M37 10 Q39 13 37 17" stroke="#E87070" stroke-width="0.6" opacity="0.7"/>
-        <path d="M43 10 Q41 13 43 17" stroke="#E87070" stroke-width="0.6" opacity="0.7"/>
+        <path d="M34 18 Q36 8 50 8 Q64 8 66 18 Q70 27 64 31 Q50 35 36 31 Q30 27 34 18Z" stroke="#E87070" stroke-width="1.8" fill="rgba(232,112,112,0.2)"/>
+        <path d="M45 11 Q47 17 45 22" stroke="#E87070" stroke-width="1" opacity="0.8"/>
+        <path d="M55 11 Q53 17 55 22" stroke="#E87070" stroke-width="1" opacity="0.8"/>
+        <path d="M38 15 Q41 19 38 23" stroke="#E87070" stroke-width="0.7" opacity="0.6"/>
       </g>
       <!-- HEART -->
       <g class="bm-region" id="bm-heart" style="--bm-c:#C0392B">
-        <path d="M37 53 Q34 49 31 51 Q28 55 31 59 L37 65 L43 59 Q46 55 43 51 Q40 49 37 53Z" stroke="#C0392B" stroke-width="1.3" fill="rgba(192,57,43,0.18)"/>
+        <path d="M47 64 Q43 57 37 61 Q31 66 36 72 L47 82 L58 72 Q63 66 57 61 Q51 57 47 64Z" stroke="#C0392B" stroke-width="2" fill="rgba(192,57,43,0.25)"/>
       </g>
-      <!-- BLOODSTREAM -->
+      <!-- BLOODSTREAM: aorta + branches -->
       <g class="bm-region" id="bm-blood" style="--bm-c:#3498DB">
-        <path d="M40 65 Q43 72 41 82 Q39 92 41 102 Q43 109 40 113" stroke="#3498DB" stroke-width="1.3" stroke-dasharray="3 2"/>
-        <path d="M37 68 Q29 77 27 90 Q25 102 29 111" stroke="#3498DB" stroke-width="0.7" stroke-dasharray="2 2"/>
-        <path d="M43 68 Q51 77 53 90 Q55 102 51 111" stroke="#3498DB" stroke-width="0.7" stroke-dasharray="2 2"/>
-        <path d="M39 48 Q28 59 22 71" stroke="#3498DB" stroke-width="0.7" stroke-dasharray="2 2"/>
-        <path d="M41 48 Q52 57 58 68" stroke="#3498DB" stroke-width="0.7" stroke-dasharray="2 2"/>
+        <path d="M50 82 Q54 93 51 107 Q48 119 51 128" stroke="#3498DB" stroke-width="2" stroke-dasharray="4 3"/>
+        <path d="M46 85 Q36 97 33 114 Q30 128 34 136" stroke="#3498DB" stroke-width="1.1" stroke-dasharray="3 2"/>
+        <path d="M54 85 Q64 97 67 114 Q70 128 66 136" stroke="#3498DB" stroke-width="1.1" stroke-dasharray="3 2"/>
+        <path d="M48 58 Q34 70 24 85" stroke="#3498DB" stroke-width="1.1" stroke-dasharray="3 2"/>
+        <path d="M52 58 Q66 68 74 82" stroke="#3498DB" stroke-width="1.1" stroke-dasharray="3 2"/>
       </g>
-      <!-- ADRENAL / CORTISOL -->
+      <!-- ADRENAL GLANDS + kidneys -->
       <g class="bm-region" id="bm-adrenal" style="--bm-c:#E67E22">
-        <ellipse cx="33" cy="83" rx="4.5" ry="3" stroke="#E67E22" stroke-width="1.2" fill="rgba(230,126,34,0.2)" transform="rotate(-15 33 83)"/>
-        <ellipse cx="47" cy="83" rx="4.5" ry="3" stroke="#E67E22" stroke-width="1.2" fill="rgba(230,126,34,0.2)" transform="rotate(15 47 83)"/>
+        <ellipse cx="39" cy="98" rx="7" ry="4.5" stroke="#E67E22" stroke-width="1.8" fill="rgba(230,126,34,0.25)" transform="rotate(-18 39 98)"/>
+        <ellipse cx="61" cy="98" rx="7" ry="4.5" stroke="#E67E22" stroke-width="1.8" fill="rgba(230,126,34,0.25)" transform="rotate(18 61 98)"/>
+        <path d="M36 103 Q31 112 34 120 Q37 125 41 120 Q44 112 40 104Z" stroke="#E67E22" stroke-width="1" fill="rgba(230,126,34,0.12)" opacity="0.75"/>
+        <path d="M64 103 Q69 112 66 120 Q63 125 59 120 Q56 112 60 104Z" stroke="#E67E22" stroke-width="1" fill="rgba(230,126,34,0.12)" opacity="0.75"/>
       </g>
-      <!-- THE LOOP -->
+      <!-- THE LOOP: circular arrows framing figure -->
       <g class="bm-region" id="bm-loop" style="--bm-c:#53D337">
-        <path d="M54 16 Q74 50 70 95 Q66 125 53 143 Q47 152 40 155" stroke="#53D337" stroke-width="1.1" stroke-dasharray="3 2" fill="none"/>
-        <path d="M26 16 Q6 50 10 95 Q14 125 27 143 Q33 152 40 155" stroke="#53D337" stroke-width="1.1" stroke-dasharray="3 2" fill="none"/>
-        <path d="M50 19 L54 16 L52 21" stroke="#53D337" stroke-width="1.1" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M30 19 L26 16 L28 21" stroke="#53D337" stroke-width="1.1" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M68 22 Q90 60 86 112 Q82 148 67 168 Q59 178 50 181" stroke="#53D337" stroke-width="1.6" stroke-dasharray="5 3" fill="none"/>
+        <path d="M32 22 Q10 60 14 112 Q18 148 33 168 Q41 178 50 181" stroke="#53D337" stroke-width="1.6" stroke-dasharray="5 3" fill="none"/>
+        <path d="M63 27 L68 22 L65 28" stroke="#53D337" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M37 27 L32 22 L35 28" stroke="#53D337" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
       </g>
     </svg>
-    <div class="bm-label-wrap">
-      <span class="bm-chapter" id="bm-chapter"></span>
-    </div>
+    <span class="bm-chapter" id="bm-chapter"></span>
   </div>
 
-  <!-- ── RECEIPT TICKER (fixed bottom) ── -->
-  <div class="receipt" id="receipt" aria-label="Tom's live physiological stats" aria-live="off">
-    <div class="receipt-item r-heart">
-      <span class="r-val" id="r-beats">0</span>
-      <span class="r-key">Heartbeats</span>
-    </div>
-    <div class="receipt-item r-dopamine">
-      <span class="r-val" id="r-dopamine">0</span>
-      <span class="r-key">Dopamine events</span>
-    </div>
-    <div class="receipt-item r-cortisol">
-      <span class="r-val" id="r-cortisol">0</span>
-      <span class="r-key">Cortisol spikes</span>
-    </div>
-    <div class="receipt-item r-time">
-      <span class="r-val" id="r-time">0:00</span>
-      <span class="r-key">Since the bet</span>
-    </div>
+  <!-- ── MOBILE CHAPTER PILL ── -->
+  <div class="bm-pill" id="bm-pill" aria-hidden="true">
+    <span class="pill-dot" id="pill-dot"></span>
+    <span class="pill-label" id="pill-label"></span>
   </div>
 
   <header class="site-header" id="site-header">
@@ -1387,34 +1367,54 @@
   <script>
   (function () {
 
-    /* ── 1. BODY MAP ── */
-    var map = document.getElementById('body-map');
-    var chapterLabel = document.getElementById('bm-chapter');
+    /* ── 1. BODY MAP + MOBILE PILL ── */
+    var map       = document.getElementById('body-map');
+    var pill      = document.getElementById('bm-pill');
+    var pillDot   = document.getElementById('pill-dot');
+    var pillLabel = document.getElementById('pill-label');
+    var chapLabel = document.getElementById('bm-chapter');
+
     var chapters = {
-      'eyes':        { region: 'bm-eyes',    label: 'Eyes' },
-      'brain':       { region: 'bm-brain',   label: 'Brain' },
-      'heart':       { region: 'bm-heart',   label: 'Heart' },
-      'bloodstream': { region: 'bm-blood',   label: 'Bloodstream' },
-      'good-sense':  { region: 'bm-adrenal', label: 'Cortisol' },
-      'the-loop':    { region: 'bm-loop',    label: 'The Loop' }
+      'eyes':        { region: 'bm-eyes',    label: 'Eyes',        color: '#F5C518' },
+      'brain':       { region: 'bm-brain',   label: 'Brain',       color: '#E87070' },
+      'heart':       { region: 'bm-heart',   label: 'Heart',       color: '#C0392B' },
+      'bloodstream': { region: 'bm-blood',   label: 'Bloodstream', color: '#3498DB' },
+      'good-sense':  { region: 'bm-adrenal', label: 'Cortisol',    color: '#E67E22' },
+      'the-loop':    { region: 'bm-loop',    label: 'The Loop',    color: '#53D337' }
     };
 
-    function activateRegion(key) {
-      map.querySelectorAll('.bm-region').forEach(function (r) { r.classList.remove('bm-active'); });
+    function activateChapter(key) {
       var conf = chapters[key];
       if (!conf) return;
-      var el = document.getElementById(conf.region);
-      if (el) el.classList.add('bm-active');
-      if (chapterLabel) chapterLabel.textContent = conf.label;
+      /* sidebar */
+      if (map) {
+        map.querySelectorAll('.bm-region').forEach(function (r) { r.classList.remove('bm-active'); });
+        var reg = document.getElementById(conf.region);
+        if (reg) reg.classList.add('bm-active');
+        if (chapLabel) chapLabel.textContent = conf.label;
+        map.classList.add('bm-visible');
+      }
+      /* mobile pill */
+      if (pill) {
+        if (pillDot)   pillDot.style.background  = conf.color;
+        if (pillLabel) pillLabel.textContent      = conf.label;
+        pill.classList.add('pill-visible');
+      }
     }
 
-    if (map && 'IntersectionObserver' in window) {
+    function deactivate() {
+      if (map) {
+        map.querySelectorAll('.bm-region').forEach(function (r) { r.classList.remove('bm-active'); });
+        map.classList.remove('bm-visible');
+        if (chapLabel) chapLabel.textContent = '';
+      }
+      if (pill) pill.classList.remove('pill-visible');
+    }
+
+    if ('IntersectionObserver' in window) {
       var chapterObs = new IntersectionObserver(function (entries) {
         entries.forEach(function (e) {
-          if (e.isIntersecting && chapters[e.target.id]) {
-            activateRegion(e.target.id);
-            map.classList.add('bm-visible');
-          }
+          if (e.isIntersecting) activateChapter(e.target.id);
         });
       }, { threshold: 0.35 });
 
@@ -1423,15 +1423,8 @@
         if (el) chapterObs.observe(el);
       });
 
-      /* Hide when outside the chapter zone */
       var hideObs = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          if (e.isIntersecting) {
-            map.querySelectorAll('.bm-region').forEach(function (r) { r.classList.remove('bm-active'); });
-            map.classList.remove('bm-visible');
-            if (chapterLabel) chapterLabel.textContent = '';
-          }
-        });
+        entries.forEach(function (e) { if (e.isIntersecting) deactivate(); });
       }, { threshold: 0.4 });
 
       ['film-leader', 'meet-tom', 'video-reel', 'dark-stat', 'addiction-test'].forEach(function (cls) {
@@ -1442,47 +1435,7 @@
       if (cta) hideObs.observe(cta);
     }
 
-    /* ── 2. RECEIPT TICKER ── */
-    var receipt = document.getElementById('receipt');
-    var eyesSection = document.getElementById('eyes');
-    var started = false;
-    var startTime = null;
-
-    var beatsEl   = document.getElementById('r-beats');
-    var dopEl     = document.getElementById('r-dopamine');
-    var cortEl    = document.getElementById('r-cortisol');
-    var timeEl    = document.getElementById('r-time');
-
-    function tickReceipt() {
-      if (!startTime) return;
-      var elapsed = (Date.now() - startTime) / 1000;
-      var beats    = Math.floor((elapsed / 60) * 98);
-      var dopamine = Math.floor(elapsed / 90) + 1;
-      var cortisol = Math.floor(elapsed / 180) + 1;
-      var mins = Math.floor(elapsed / 60);
-      var secs = Math.floor(elapsed % 60);
-      if (beatsEl) beatsEl.textContent = beats.toLocaleString();
-      if (dopEl)   dopEl.textContent   = dopamine;
-      if (cortEl)  cortEl.textContent  = cortisol;
-      if (timeEl)  timeEl.textContent  = mins + ':' + (secs < 10 ? '0' : '') + secs;
-      requestAnimationFrame(tickReceipt);
-    }
-
-    if (receipt && eyesSection && 'IntersectionObserver' in window) {
-      var receiptObs = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          if (e.isIntersecting && !started) {
-            started = true;
-            startTime = Date.now();
-            receipt.classList.add('r-visible');
-            tickReceipt();
-          }
-        });
-      }, { threshold: 0.4 });
-      receiptObs.observe(eyesSection);
-    }
-
-    /* ── 3. ADDICTION TEST ── */
+    /* ── 2. ADDICTION TEST ── */
     var answers = {};
     var TOTAL = 8;
 
