@@ -575,6 +575,32 @@
       margin-top: 1.5rem;
     }
 
+    /* ── CHAPTER PROGRESS STRIP ── */
+    #chapter-strip {
+      position: fixed;
+      top: var(--header-h, 64px);
+      left: 0; right: 0;
+      height: 3px;
+      display: flex;
+      gap: 2px;
+      z-index: 200;
+      pointer-events: none;
+    }
+    .cs-seg {
+      flex: 1;
+      background: rgba(255,255,255,0.06);
+      position: relative;
+      overflow: hidden;
+    }
+    .cs-fill {
+      position: absolute;
+      inset: 0;
+      background: var(--sepia);
+      transform-origin: left center;
+      transform: scaleX(0);
+      will-change: transform;
+    }
+
     /* ── PAGE CTA ── */
     .page-cta { padding: clamp(4rem, 8vw, 7rem) 0; }
     .page-cta-inner {
@@ -769,6 +795,14 @@
 <body>
 
   <div id="reading-progress" aria-hidden="true"></div>
+  <div id="chapter-strip" aria-hidden="true">
+    <div class="cs-seg"><div class="cs-fill" id="cs-eyes"></div></div>
+    <div class="cs-seg"><div class="cs-fill" id="cs-brain"></div></div>
+    <div class="cs-seg"><div class="cs-fill" id="cs-heart"></div></div>
+    <div class="cs-seg"><div class="cs-fill" id="cs-blood"></div></div>
+    <div class="cs-seg"><div class="cs-fill" id="cs-sense"></div></div>
+    <div class="cs-seg"><div class="cs-fill" id="cs-loop"></div></div>
+  </div>
 
 
   <header class="site-header" id="site-header">
@@ -873,7 +907,7 @@
         <span class="reel-eyebrow">VEFILM Explainer &bull; 1 Min 27 Sec</span>
         <div class="video-frame">
           <div class="video-inner">
-            <video controls playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;" aria-label="How Gambling Affects Your Body — ALL IN by VEFILM">
+            <video controls playsinline preload="metadata" poster="../assets/img/how-gambling-poster.jpg" style="width:100%;height:100%;object-fit:cover;" aria-label="How Gambling Affects Your Body — ALL IN by VEFILM">
               <source src="../assets/video/how-gambling.mp4" type="video/mp4">
             </video>
           </div>
@@ -1041,7 +1075,7 @@
 
     <!-- ── DARK STAT ── -->
     <section class="dark-stat">
-      <span class="ds-num" aria-label="One in five">1 in 5</span>
+      <span class="ds-num" id="stat-1in5" aria-label="One in five">1 in 5</span>
       <span class="ds-denom">people with a gambling problem</span>
       <p class="ds-label">will attempt suicide in their lifetime. The highest rate of any addictive disorder. Higher than alcohol. Higher than opioids. Higher than anything else studied.</p>
       <p class="ds-source">National Council on Problem Gambling, 2025</p>
@@ -1080,7 +1114,7 @@
 
     <!-- ── THE SCALE ── -->
     <section class="the-scale reveal">
-      <span class="scale-big" aria-label="Fifty-two percent">52%</span>
+      <span class="scale-big" id="stat-52" aria-label="Fifty-two percent">52%</span>
       <span class="scale-unit">of American men 18 to 49</span>
       <p class="scale-body">have an active sports betting account. Tom is not the exception. Tom is the statistical majority. This is what happens inside the majority of American men’s bodies on any given game day.</p>
       <p class="scale-source">American Sports Fanship Survey, Siena College Research Institute / St. Bonaventure University, April 2026</p>
@@ -1287,6 +1321,94 @@
         this.disabled = true;
       });
     }
+
+  })();
+  </script>
+
+  <!-- Chapter strip + count-up + typewriter -->
+  <script>
+  (function () {
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ── CHAPTER PROGRESS STRIP ── */
+    var chIds   = ['eyes','brain','heart','bloodstream','good-sense','the-loop'];
+    var fillIds = ['cs-eyes','cs-brain','cs-heart','cs-blood','cs-sense','cs-loop'];
+    var chSections = chIds.map(function(id){ return document.getElementById(id); });
+    var chFills    = fillIds.map(function(id){ return document.getElementById(id); });
+
+    function updateStrip() {
+      chSections.forEach(function(sec, i) {
+        if (!sec || !chFills[i]) return;
+        var rect = sec.getBoundingClientRect();
+        var progress = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+        progress = Math.max(0, Math.min(1, progress));
+        chFills[i].style.transform = 'scaleX(' + progress + ')';
+      });
+    }
+    window.addEventListener('scroll', updateStrip, { passive: true });
+    updateStrip();
+
+    if (reduced) return;
+
+    /* ── COUNT-UP: 52% ── */
+    var stat52   = document.getElementById('stat-52');
+    var stat1in5 = document.getElementById('stat-1in5');
+
+    function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+
+    function countUpPct(el, to, duration) {
+      var start = null;
+      el.textContent = '0%';
+      function step(ts) {
+        if (!start) start = ts;
+        var p = Math.min((ts - start) / duration, 1);
+        el.textContent = Math.round(easeOutCubic(p) * to) + '%';
+        if (p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+
+    function countDown1in5(el, from, to, stepMs) {
+      var val = from;
+      el.textContent = '1 in ' + val;
+      var iv = setInterval(function() {
+        val--;
+        el.textContent = '1 in ' + val;
+        if (val <= to) { clearInterval(iv); el.textContent = '1 in ' + to; }
+      }, stepMs);
+    }
+
+    var statObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (!entry.isIntersecting) return;
+        statObs.unobserve(entry.target);
+        if (entry.target === stat52)   countUpPct(stat52, 52, 1400);
+        if (entry.target === stat1in5) countDown1in5(stat1in5, 20, 5, 60);
+      });
+    }, { threshold: 0.5 });
+
+    if (stat52)   statObs.observe(stat52);
+    if (stat1in5) statObs.observe(stat1in5);
+
+    /* ── TYPEWRITER: narrator kicker lines ── */
+    var kickers = document.querySelectorAll('.narrator-kicker');
+    var kickObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (!entry.isIntersecting) return;
+        kickObs.unobserve(entry.target);
+        var el   = entry.target;
+        var text = el.textContent.trim();
+        el.textContent = '';
+        var i = 0;
+        var iv = setInterval(function() {
+          el.textContent += text[i];
+          i++;
+          if (i >= text.length) clearInterval(iv);
+        }, 38);
+      });
+    }, { threshold: 0.6 });
+
+    kickers.forEach(function(k) { kickObs.observe(k); });
 
   })();
   </script>
