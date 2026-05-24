@@ -33,13 +33,14 @@
     /* ── TITLE CARD VIDEO ── */
     .title-card-video {
       position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
+      inset: -20px; /* bleed past edges so blur doesn't show white fringe */
+      width: calc(100% + 40px);
+      height: calc(100% + 40px);
       object-fit: cover;
-      opacity: 0.22;
+      opacity: 0.28;
       z-index: 0;
       pointer-events: none;
+      filter: blur(14px) sepia(0.5);
     }
 
     /* ── FLOATING DUST CANVAS ── */
