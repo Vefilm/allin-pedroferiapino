@@ -575,6 +575,11 @@
       margin-top: 1.5rem;
     }
 
+    /* ── VIDEO FULLSCREEN — preserve portrait, no crop ── */
+    .video-inner video:fullscreen          { object-fit: contain !important; background: #000; }
+    .video-inner video:-webkit-full-screen { object-fit: contain !important; background: #000; }
+    .video-inner video:-moz-full-screen    { object-fit: contain !important; background: #000; }
+
     /* ── CHAPTER PROGRESS STRIP ── */
     #chapter-strip {
       position: fixed;
