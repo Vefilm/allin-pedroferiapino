@@ -1,6 +1,15 @@
 {
-  "last_updated": "2026-05-20",
+  "last_updated": "2026-06-13",
   "events": [
+    {
+      "date": "2026-02-12",
+      "date_display": "February 12, 2026",
+      "title": "Israeli Air Force Major and Civilian Charged — First International Prediction Market Prosecution",
+      "body": "Israeli prosecutors charge an Israeli Air Force major and a civilian for using classified military intelligence about planned IDF strikes on Iran to win more than $150,000 on Polymarket. The pair allegedly accessed nonpublic operational information weeks before the strikes, placed bets on their timing and outcome, and profited before Israeli authorities detected the trades. The case predates the American Van Dyke prosecution by more than two months and marks the first criminal charges anywhere in the world for prediction market insider trading using classified government information. Polymarket's Iran-strike markets had drawn over $239 million in total volume — a target worth pursuing for anyone with inside access.",
+      "source": "Bloomberg, February 12, 2026; Times of Israel, February 12, 2026; Jerusalem Post, February 2026; Benzinga, February 2026.",
+      "source_url": "https://www.timesofisrael.com/liveblog_entry/idf-reservist-and-civilian-indicted-for-using-classified-info-to-place-bets-on-polymarket/",
+      "source_link_text": "Read Source"
+    },
     {
       "date": "2026-03-24",
       "date_display": "March 24, 2026",
@@ -8,6 +17,15 @@
       "body": "The Public Health Advocacy Institute files suit in the Court of Common Pleas of Philadelphia County against FanDuel, DraftKings, Genius Sports, and the National Football League. Named plaintiffs are Terry Thompson and Christopher Sage. The complaint calls the sportsbook apps \"unreasonably dangerous products intentionally designed to maximize addiction.\" Case No. 260303384.",
       "source": "PHAI press release, March 24, 2026; Philadelphia Inquirer, March 30, 2026.",
       "source_url": "https://phai.org/phai-files-landmark-lawsuit-against-draftkings-nfl-geniussports/",
+      "source_link_text": "Read Source"
+    },
+    {
+      "date": "2026-04-02",
+      "date_display": "April 2, 2026",
+      "title": "Federal Government Sues Three States to Shield Prediction Markets",
+      "body": "The CFTC and US Department of Justice file simultaneous lawsuits against Connecticut, Arizona, and Illinois — all three had issued cease-and-desist orders against Kalshi and Polymarket for operating what they called illegal online sportsbooks. The CFTC seeks declaratory judgments that the Commodity Exchange Act gives the federal government exclusive jurisdiction over prediction market contracts, preempting state gambling law. Arizona had also filed criminal charges against Kalshi the prior month. Connecticut Attorney General William Tong accuses the Trump administration of \"recycling industry arguments\" rejected by district courts. The suits mark the first time the federal government has taken the affirmative position of legally protecting prediction market operators from state regulation — the same operators in which Donald Trump Jr. holds financial positions.",
+      "source": "ABC News, April 2, 2026; Washington Post, April 2, 2026; PBS News, April 2, 2026; CBS Chicago, April 2, 2026; Norton Rose Fulbright legal analysis.",
+      "source_url": "https://abcnews.com/US/wireStory/federal-government-sues-states-regulation-prediction-markets-131670626",
       "source_link_text": "Read Source"
     },
     {
@@ -83,6 +101,24 @@
       "source_link_text": "Read Source"
     },
     {
+      "date": "2026-05-18",
+      "date_display": "May 18, 2026",
+      "title": "Minnesota Becomes First State to Ban Prediction Markets",
+      "body": "Governor Tim Walz signs SF 4760 into law, making Minnesota the first US state to explicitly ban prediction markets. The law makes it a felony (up to 5 years in prison, $10,000 fine) to create, operate, manage, or advertise prediction market platforms like Kalshi and Polymarket. It also exposes banks, payment processors, media organizations, and sports leagues to criminal liability for providing services or data to these platforms. The Minnesota Senate passed the bill 56-10 and the House 100-32. The law takes effect August 1, 2026. AG Keith Ellison defended the law: \"Prediction markets are designed to be addictive and prey especially on young people and low-income folks.\"",
+      "source": "CBS News Minnesota, May 19, 2026; The Hill, May 20, 2026; Washington Examiner, May 20, 2026; CFTC.gov press release 9233-26.",
+      "source_url": "https://www.cbsnews.com/minnesota/news/cftc-lawsuit-minnesota-prediction-market-felony-law/",
+      "source_link_text": "Read Source"
+    },
+    {
+      "date": "2026-05-19",
+      "date_display": "May 19, 2026",
+      "title": "CFTC and DOJ Sue Minnesota — Federal v. State Jurisdictional War Escalates",
+      "body": "Less than 24 hours after Minnesota's prediction market ban becomes law, the CFTC and US Department of Justice file suit against the State of Minnesota, Governor Tim Walz, and state officials (CFTC v. State of Minnesota, No. 0:26-cv-02661, D. Minn.). CFTC Chairman Mike Selig states: \"This Minnesota law turns lawful operators and participants in prediction markets into felons overnight.\" The federal government argues the Commodity Exchange Act gives the CFTC exclusive jurisdiction over prediction market contracts as federally regulated derivatives. The case, assigned to Judge Laura Provinzino in St. Paul, is expected to potentially reach the US Supreme Court. The CFTC has also sued Illinois, Arizona, and Connecticut over similar state-level prediction market restrictions, making this the central regulatory war of 2026.",
+      "source": "CFTC.gov Press Release 9233-26, May 19, 2026; The Hill, May 20, 2026; Yahoo Finance, May 20, 2026; The Block, May 20, 2026.",
+      "source_url": "https://www.cftc.gov/PressRoom/PressReleases/9233-26",
+      "source_link_text": "Official CFTC Press Release"
+    },
+    {
       "date": "2026-05-20",
       "date_display": "May 20, 2026",
       "title": "Senate Hearing: Prediction Market Firms Take Two Hours of Direct Fire",
@@ -98,6 +134,42 @@
       "body": "Ten companies must deliver written responses and youth-marketing data to Congress. This data will document exactly how FanDuel, DraftKings, Kalshi, Polymarket, and six other operators have targeted 18-to-24-year-olds. It is, potentially, the documentary equivalent of the internal tobacco industry research.",
       "source": "Bettors Insider, May 13, 2026.",
       "source_url": "https://foushee.house.gov/imo/media/doc/letter_to_prediction_market_and_sports_betting_ceos.pdf",
+      "source_link_text": "Read Source"
+    },
+    {
+      "date": "2026-06-02",
+      "date_display": "June 2, 2026",
+      "title": "Colorado Governor Signs First-in-Nation Sports Betting Deposit Cap Into Law",
+      "body": "Governor Jared Polis signs SB 26-131, making Colorado the first state in the country to impose a statutory daily deposit cap on sports betting platforms. The law limits bettors to six deposits per 24-hour period, bans credit card deposits entirely, and prohibits push notifications and text messages soliciting bets. Operators and affiliates are also barred from targeting users under 21 with advertising, and from using marketing language like \"bonus bet\" or \"no sweat.\" The law takes effect August 12, 2026. Colorado becomes the template other states are watching.",
+      "source": "Colorado Politics, June 2, 2026; Colorado Springs Gazette, June 2, 2026; SCCG Management, June 4, 2026; RotoWire, June 2026.",
+      "source_url": "https://www.coloradopolitics.com/2026/06/02/gov-jared-polis-signs-law-imposing-new-limits-on-sports-betting-in-colorado/",
+      "source_link_text": "Read Source"
+    },
+    {
+      "date": "2026-06-02",
+      "date_display": "June 2, 2026",
+      "title": "George Santos Under Federal Investigation for Insider Trading on Kalshi",
+      "body": "CNN and NPR report that former Rep. George Santos is under federal investigation by the CFTC — and potentially the DOJ — for allegedly using his access to insider political information to profit on Kalshi. On February 23, Santos publicly posted \"I'll be in the gallery\" for Trump's State of the Union, sending Kalshi odds of his attendance surging to 75%. He did not attend. Three sources with direct knowledge of his trades told NPR he had been betting against himself the entire time, walking away with profits in the tens of thousands. Kalshi flagged Santos to the DOJ and CFTC after detecting the suspicious trades. The case marks the first political insider-trading investigation on a prediction market platform — and involves a platform on which Donald Trump Jr. serves as a paid strategic advisor.",
+      "source": "CNN Politics, June 2, 2026; NPR, June 2, 2026; ABC News, June 2, 2026; Newsweek, June 2026; PlayUSA.",
+      "source_url": "https://www.cnn.com/2026/06/02/politics/george-santos-investigation-alleged-insider-trading-kalshi",
+      "source_link_text": "Read Source"
+    },
+    {
+      "date": "2026-06-08",
+      "date_display": "June 8, 2026",
+      "title": "Van Dyke Pleads Not Guilty — Case Moves Toward Trial",
+      "body": "Gannon Ken Van Dyke, the US Army Special Forces Master Sergeant indicted in April for using classified intelligence about the Maduro capture to win $410,000 on Polymarket, pleads not guilty at his pretrial conference in the Southern District of New York. He is released on $250,000 bail with travel restricted to portions of New York, North Carolina, California, and points necessary to travel between them. The case is the first federal insider-trading prosecution involving a prediction market. The judge ordered Van Dyke to return for a continued pretrial conference. The question of who else with classified access has placed similar bets and has not yet been caught remains open.",
+      "source": "PBS News, June 2026; Time, April 24, 2026; CNBC, April 23, 2026; DOJ Office of Public Affairs.",
+      "source_url": "https://www.pbs.org/newshour/nation/u-s-soldier-pleads-not-guilty-to-using-maduro-raid-intel-to-win-400000-on-polymarket",
+      "source_link_text": "Read Source"
+    },
+    {
+      "date": "2026-06-11",
+      "date_display": "June 11, 2026",
+      "title": "CFTC Releases First Proposed Rules for Prediction Markets",
+      "body": "The Commodity Futures Trading Commission releases its first proposed regulatory framework for prediction markets — two days before today. The CFTC would permit most sports event contracts: moneylines, point spreads, game totals, and player props. It would prohibit contracts it considers too granular or manipulable: next-pitch outcomes, next-play call, officiating decisions, and markets on sports below the collegiate level. The proposed rules do not address the addiction and public-health dimensions of the platforms at all. The framework arrives while the CFTC is simultaneously suing four states (CT, AZ, IL, MN) to block state-level regulation of the same platforms. Prediction market traders currently assign 64% odds that the Supreme Court will accept a sports event contract case before the end of 2026.",
+      "source": "Covers.com, June 2026; Sportico, June 2026; Front Office Sports, June 2026; Arnold Ventures analysis.",
+      "source_url": "https://www.covers.com/industry/prediction-market-new-rules-proposed-cftc-sports-betting-allowed-june-2026",
       "source_link_text": "Read Source"
     },
     {
