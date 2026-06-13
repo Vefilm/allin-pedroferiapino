@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Players — ALL IN</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <style>
+
+    /* ── GATE ── */
+    .gate {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: var(--black);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .gate-inner {
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+    .gate-wordmark {
+      font-family: var(--font-serif);
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      display: block;
+      margin-bottom: 0.35rem;
+    }
+    .gate-label {
+      font-family: var(--font-sans);
+      font-size: 0.5625rem;
+      font-weight: 700;
+      letter-spacing: 0.45em;
+      text-transform: uppercase;
+      color: var(--red);
+      display: block;
+      margin-bottom: 3rem;
+    }
+    .gate-prompt {
+      font-family: var(--font-sans);
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .gate-input {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--white);
+      font-family: 'Courier New', monospace;
+      font-size: 1.125rem;
+      letter-spacing: 0.18em;
+      padding: 0.9rem 1.25rem;
+      text-align: center;
+      outline: none;
+      transition: border-color 0.2s;
+      -webkit-text-security: disc;
+    }
+    .gate-input:focus {
+      border-color: rgba(177,18,38,0.6);
+    }
+    .gate-btn {
+      width: 100%;
+      margin-top: 0.75rem;
+      background: var(--red);
+      color: var(--white);
+      font-family: var(--font-sans);
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      border: none;
+      padding: 0.9rem 1.25rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .gate-btn:hover { background: #8f0e1e; }
+    .gate-error {
+      margin-top: 0.9rem;
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      color: var(--red);
+      letter-spacing: 0.1em;
+      min-height: 1.2em;
+    }
+    .gate-rule {
+      width: 40px;
+      height: 2px;
+      background: var(--red);
+      margin: 0 auto 2.5rem;
+    }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      padding: clamp(8rem, 14vw, 12rem) 0 clamp(3rem, 6vw, 5rem);
+      border-bottom: 3px solid var(--red);
+    }
+    .page-hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      line-height: 1.05;
+      margin-bottom: 1.25rem;
+    }
+
+    /* ── SECTION ── */
+    .roster-section {
+      padding: clamp(3rem, 6vw, 5rem) 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .section-label {
+      font-family: var(--font-sans);
+      font-size: 0.5625rem;
+      font-weight: 700;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: var(--red);
+      display: block;
+      margin-bottom: 0.75rem;
+    }
+    .roster-section h2 {
+      font-size: clamp(1.375rem, 3vw, 2rem);
+      margin-bottom: 2.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    /* ── CONTACT CARD ── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    @media (min-width: 640px) {
+      .contact-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (min-width: 960px) {
+      .contact-grid { grid-template-columns: 1fr 1fr 1fr; }
+    }
+    .contact-card {
+      background: var(--ink);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-top: 3px solid rgba(177,18,38,0.25);
+      padding: 1.5rem;
+      transition: border-top-color 0.2s;
+    }
+    .contact-card:hover { border-top-color: var(--red); }
+    .contact-card.priority { border-top-color: var(--red); }
+    .card-name {
+      font-family: var(--font-serif);
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 0.3rem;
+    }
+    .card-role {
+      font-family: var(--font-sans);
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 1.1rem;
+      display: block;
+    }
+    .card-divider {
+      height: 1px;
+      background: rgba(255,255,255,0.07);
+      margin-bottom: 1.1rem;
+    }
+    .info-row {
+      display: flex;
+      gap: 0.65rem;
+      margin-bottom: 0.5rem;
+      align-items: flex-start;
+    }
+    .info-label {
+      font-family: var(--font-sans);
+      font-size: 0.5625rem;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.22);
+      flex-shrink: 0;
+      width: 52px;
+      padding-top: 0.15rem;
+    }
+    .info-value {
+      font-family: var(--font-sans);
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.72);
+      line-height: 1.45;
+      word-break: break-all;
+    }
+    .info-value a {
+      color: rgba(255,255,255,0.72);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      text-decoration-color: rgba(255,255,255,0.2);
+    }
+    .info-value a:hover { color: var(--white); }
+    .card-note {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      font-family: var(--font-sans);
+      font-size: 0.8125rem;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.38);
+      font-style: italic;
+    }
+
+    /* ── VIP HOST / LEGAL CARDS (wider, 2-col) ── */
+    @media (min-width: 640px) {
+      .contact-grid-2 { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ── PRIORITY SECTION ── */
+    .priority-section {
+      padding: clamp(4rem, 8vw, 7rem) 0;
+    }
+    .priority-section h2 {
+      font-size: clamp(2rem, 5vw, 3.25rem);
+      margin-bottom: 0.75rem;
+    }
+    .priority-intro {
+      font-size: 1.0625rem;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 3rem;
+    }
+    .priority-tier {
+      margin-bottom: 3rem;
+    }
+    .tier-label {
+      font-family: var(--font-sans);
+      font-size: 0.5625rem;
+      font-weight: 700;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: var(--red);
+      display: block;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--red);
+    }
+    .priority-item {
+      display: flex;
+      gap: 1.25rem;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      align-items: flex-start;
+    }
+    .priority-num {
+      font-family: 'Courier New', monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--red);
+      flex-shrink: 0;
+      width: 24px;
+      padding-top: 0.1rem;
+    }
+    .priority-body {}
+    .priority-name {
+      font-family: var(--font-serif);
+      font-size: 1.0625rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.3rem;
+    }
+    .priority-why {
+      font-family: var(--font-sans);
+      font-size: 0.9375rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.58);
+    }
+    .speak-likely {
+      display: inline-block;
+      font-family: var(--font-sans);
+      font-size: 0.5rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      padding: 0.15rem 0.5rem;
+      margin-bottom: 0.3rem;
+      position: relative;
+      top: -1px;
+    }
+    .speak-yes { background: rgba(34,197,94,0.15); color: #4ade80; }
+    .speak-possible { background: rgba(234,179,8,0.12); color: #facc15; }
+    .speak-no { background: rgba(177,18,38,0.12); color: rgba(177,18,38,0.8); }
+
+  </style>
+</head>
+<body>
+
+  <!-- ── GATE ── -->
+  <div class="gate" id="gate" role="dialog" aria-modal="true" aria-label="Access required">
+    <div class="gate-inner">
+      <span class="gate-wordmark">ALL IN</span>
+      <span class="gate-label">Internal Access Only</span>
+      <div class="gate-rule"></div>
+      <span class="gate-prompt">Enter access code</span>
+      <input class="gate-input" id="gate-input" type="password" autocomplete="off" spellcheck="false" autofocus>
+      <button class="gate-btn" id="gate-btn">Enter</button>
+      <p class="gate-error" id="gate-error" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <div id="reading-progress" aria-hidden="true"></div>
+
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <a class="wordmark" href="../">ALL IN</a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="../the-story/">The Story</a>
+        <a href="../who-this-follows/">Who This Follows</a>
+        <a href="../the-fix/">The Fix</a>
+        <a href="../why-now/">Why Now</a>
+        <a href="../sources/">Sources</a>
+        <a href="../pitch/">For Producers</a>
+        <a href="../your-body/">Your Body</a>
+      </nav>
+      <a class="site-link" href="https://www.pedroferiapino.com" target="_blank" rel="noopener">pedroferiapino.com</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Open navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <nav class="mobile-nav" id="mobile-nav" aria-hidden="true">
+    <a href="../">Home</a>
+    <a href="../the-story/">The Story</a>
+    <a href="../who-this-follows/">Who This Follows</a>
+    <a href="../the-fix/">The Fix</a>
+    <a href="../why-now/">Why Now</a>
+    <a href="../sources/">Sources</a>
+    <a href="../pitch/">For Producers</a>
+    <a href="../your-body/">Your Body</a>
+    <a href="../contact/">Contact</a>
+  </nav>
+
+  <main>
+
+    <!-- ── HERO ── -->
+    <section class="page-hero reveal">
+      <div class="container-prose">
+        <p class="eyebrow">Internal — The Players</p>
+        <h1>The Players</h1>
+        <p class="synopsis" style="margin-bottom:0;">Every player in this story. Every available contact. For internal production use only. Do not distribute.</p>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         01 — SURVIVORS & PLAINTIFFS
+    ══════════════════════════════════════════════════ -->
+    <section class="roster-section reveal">
+      <div class="container-prose">
+        <span class="section-label">01</span>
+        <h2>Survivors &amp; Plaintiffs</h2>
+        <div class="contact-grid">
+
+          <div class="contact-card priority">
+            <div class="card-name">Andrew Douglas</div>
+            <span class="card-role">Gambling addiction survivor — Rolling Stone / CNN / CBS</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">Route</span><span class="info-value">Paul Solotaroff (Rolling Stone) — muckrack.com/paul-solotaroff</span></div>
+            <div class="info-row"><span class="info-label">Also</span><span class="info-value">Mark Gottlieb, PHAI — mark@phai.org</span></div>
+            <div class="info-row"><span class="info-label">Note</span><span class="info-value">Father Gordon Douglas appeared with him at Capitol Hill SAFE Bet Act press conference — same route</span></div>
+          </div>
+
+          <div class="contact-card">
+            <div class="card-name">Terry Thompson</div>
+            <span class="card-role">Named plaintiff — Sage &amp; Thompson v. DraftKings et al.</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">Atty 1</span><span class="info-value">Alan Tauber — (215) 575-0702 / atauberlaw.com</span></div>
+            <div class="info-row"><span class="info-label">Atty 2</span><span class="info-value">Mark Gottlieb, PHAI — mark@phai.org / (617) 373-8487</span></div>
+            <div class="info-row"><span class="info-label">Case</span><span class="info-value">No. 260303384, Court of Common Pleas, Philadelphia County</span></div>
+            <div class="card-note">Finance exec. Wagered $22M+. Lost $1.8M. VIP host called him hundreds of times. Took out second and third mortgages. Checked into psychiatric facility Feb 2026.</div>
+          </div>
+
+          <div class="contact-card">
+            <div class="card-name">Christopher Sage</div>
+            <span class="card-role">Named plaintiff — Sage &amp; Thompson v. DraftKings et al.</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">Atty 1</span><span class="info-value">Alan Tauber — (215) 575-0702 / atauberlaw.com</span></div>
+            <div class="info-row"><span class="info-label">Atty 2</span><span class="info-value">Mark Gottlieb, PHAI — mark@phai.org / (617) 373-8487</span></div>
+            <div class="info-row"><span class="info-label">Case</span><span class="info-value">No. 260303384, Court of Common Pleas, Philadelphia County</span></div>
+            <div class="card-note">Delaware County, PA. Lost $130,300+ via FanDuel. Less public-facing than Thompson so far.</div>
+          </div>
+
+          <div class="contact-card">
+            <div class="card-name">Rob Minnick (Rob ODAAT)</div>
+            <span class="card-role">Recovery advocate — content creator, WRAL documentary March 2026</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">LinkedIn</span><span class="info-value"><a href="https://linkedin.com/in/robminnick23" target="_blank" rel="noopener">linkedin.com/in/robminnick23</a></span></div>
+            <div class="info-row"><span class="info-label">Web</span><span class="info-value"><a href="https://odaatgamblingawareness.com" target="_blank" rel="noopener">odaatgamblingawareness.com</a></span></div>
+            <div class="info-row"><span class="info-label">Also</span><span class="info-value"><a href="https://gamfin.org/rob" target="_blank" rel="noopener">gamfin.org/rob</a></span></div>
+            <div class="card-note">Six-year addiction. Online and casino. Featured in WRAL's The Gamble. Millions of followers. Already a media presence — very likely to say yes.</div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         02 — ADVOCATES & EXPERTS
+    ══════════════════════════════════════════════════ -->
+    <section class="roster-section reveal">
+      <div class="container-prose">
+        <span class="section-label">02</span>
+        <h2>Advocates &amp; Experts</h2>
+        <div class="contact-grid">
+
+          <div class="contact-card priority">
+            <div class="card-name">Harry Levant</div>
+            <span class="card-role">Director of Gambling Policy, PHAI / Northeastern University School of Law</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">Email</span><span class="info-value"><a href="mailto:harry@phai.org">harry@phai.org</a></span></div>
+            <div class="info-row"><span class="info-label">Phone</span><span class="info-value">(484) 209-3853</span></div>
+            <div class="info-row"><span class="info-label">Web</span><span class="info-value"><a href="https://harrylevant.com" target="_blank" rel="noopener">harrylevant.com</a> (contact form)</span></div>
+            <div class="info-row"><span class="info-label">LinkedIn</span><span class="info-value">Harry Levant LP.D, MA PCC, ICGC-I</span></div>
+            <div class="card-note">Former Philadelphia criminal defense attorney who lost his law license to gambling addiction. Now the leading public-health voice on gambling in the US. Testifies 40 weeks/year. Testified before Senate May 20, 2026.</div>
+          </div>
+
+          <div class="contact-card priority">
+            <div class="card-name">Mark Gottlieb</div>
+            <span class="card-role">Executive Director, PHAI / Northeastern University School of Law</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">Email</span><span class="info-value"><a href="mailto:mark@phai.org">mark@phai.org</a></span></div>
+            <div class="info-row"><span class="info-label">Phone</span><span class="info-value">(617) 373-8487</span></div>
+            <div class="info-row"><span class="info-label">Web</span><span class="info-value"><a href="https://phai.org" target="_blank" rel="noopener">phai.org</a></span></div>
+            <div class="card-note">The operational hub. Controls access to Levant, the plaintiffs (Thompson, Sage), Daynard, and PHAI's full legal and research team. First email to send.</div>
+          </div>
+
+          <div class="contact-card">
+            <div class="card-name">Richard Daynard</div>
+            <span class="card-role">President, PHAI / University Distinguished Professor of Law, Northeastern</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">Faculty</span><span class="info-value"><a href="https://law.northeastern.edu/faculty/daynard/" target="_blank" rel="noopener">law.northeastern.edu/faculty/daynard</a></span></div>
+            <div class="info-row"><span class="info-label">Through</span><span class="info-value">PHAI — mark@phai.org / (617) 373-8487</span></div>
+            <div class="card-note">The man who beat Big Tobacco and Big Opioids. At 81 he is now targeting sports betting. The historical frame of the entire story.</div>
+          </div>
+
+          <div class="contact-card">
+            <div class="card-name">Gambling with Lives</div>
+            <span class="card-role">UK charity — bereaved families, gambling-related suicide</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">Email</span><span class="info-value"><a href="mailto:info@gamblingwithlives.org">info@gamblingwithlives.org</a></span></div>
+            <div class="info-row"><span class="info-label">Web</span><span class="info-value"><a href="https://gamblingwithlives.org" target="_blank" rel="noopener">gamblingwithlives.org</a></span></div>
+            <div class="card-note">Founded 2018 by families who lost loved ones to gambling suicide. UK Parliament documented hundreds of gambling-related suicides annually. Model for what American families are about to go through at scale.</div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         03 — PLAINTIFF ATTORNEYS
+    ══════════════════════════════════════════════════ -->
+    <section class="roster-section reveal">
+      <div class="container-prose">
+        <span class="section-label">03</span>
+        <h2>Plaintiff Attorneys</h2>
+        <div class="contact-grid contact-grid-2">
+
+          <div class="contact-card">
+            <div class="card-name">Alan Tauber</div>
+            <span class="card-role">Lead Plaintiff Attorney — Tauber Law, Philadelphia</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">Phone</span><span class="info-value">(215) 575-0702</span></div>
+            <div class="info-row"><span class="info-label">Web</span><span class="info-value"><a href="https://atauberlaw.com" target="_blank" rel="noopener">atauberlaw.com</a></span></div>
+            <div class="info-row"><span class="info-label">Address</span><span class="info-value">2 Penn Center, Suite 900, Philadelphia, PA 19102</span></div>
+            <div class="card-note">Co-counsel with PHAI on Sage &amp; Thompson. First to name individual VIP hosts as defendants. Gateway to both plaintiffs.</div>
+          </div>
+
+          <div class="contact-card">
+            <div class="card-name">Mark Gottlieb</div>
+            <span class="card-role">PHAI Co-Counsel — see Advocates section for full contact</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">Email</span><span class="info-value"><a href="mailto:mark@phai.org">mark@phai.org</a></span></div>
+            <div class="info-row"><span class="info-label">Phone</span><span class="info-value">(617) 373-8487</span></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         04 — LEGISLATORS — SENATE
+    ══════════════════════════════════════════════════ -->
+    <section class="roster-section reveal">
+      <div class="container-prose">
+        <span class="section-label">04</span>
+        <h2>Legislators — Senate</h2>
+        <div class="contact-grid">
+
+          <div class="contact-card priority">
+            <div class="card-name">Sen. Marsha Blackburn (R-TN)</div>
+            <span class="card-role">Chair, May 20 Senate hearing — Senate Commerce Subcommittee</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">DC</span><span class="info-value">(202) 224-3344</span></div>
+            <div class="info-row"><span class="info-label">Nashville</span><span class="info-value">(629) 800-6600</span></div>
+            <div class="info-row"><span class="info-label">Web</span><span class="info-value"><a href="https://blackburn.senate.gov/email-me" target="_blank" rel="noopener">blackburn.senate.gov/email-me</a></span></div>
+          </div>
+
+          <div class="contact-card priority">
+            <div class="card-name">Sen. John Hickenlooper (D-CO)</div>
+            <span class="card-role">"Hounds of hell" / BETS OFF co-sponsor / Colorado signed deposit cap</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">Denver</span><span class="info-value">(303) 244-1628</span></div>
+            <div class="info-row"><span class="info-label">Email</span><span class="info-value"><a href="mailto:casework@hickenlooper.senate.gov">casework@hickenlooper.senate.gov</a></span></div>
+            <div class="info-row"><span class="info-label">Web</span><span class="info-value"><a href="https://hickenlooper.senate.gov" target="_blank" rel="noopener">hickenlooper.senate.gov</a></span></div>
+          </div>
+
+          <div class="contact-card">
+            <div class="card-name">Sen. Chris Murphy (D-CT)</div>
+            <span class="card-role">BETS OFF Act — ban wagering on government actions, war, assassination</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">Hartford</span><span class="info-value">(860) 549-8463</span></div>
+            <div class="info-row"><span class="info-label">Web</span><span class="info-value"><a href="https://murphy.senate.gov/contact" target="_blank" rel="noopener">murphy.senate.gov/contact</a></span></div>
+          </div>
+
+          <div class="contact-card">
+            <div class="card-name">Sen. Richard Blumenthal (D-CT)</div>
+            <span class="card-role">SAFE Bet Act / signed youth marketing letters</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">Hartford</span><span class="info-value">(860) 258-6940</span></div>
+            <div class="info-row"><span class="info-label">Web</span><span class="info-value"><a href="https://blumenthal.senate.gov/contact" target="_blank" rel="noopener">blumenthal.senate.gov/contact</a></span></div>
+          </div>
+
+          <div class="contact-card">
+            <div class="card-name">Sen. Adam Schiff (D-CA)</div>
+            <span class="card-role">Prediction Markets Are Gambling Act — bipartisan with Curtis</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">LA</span><span class="info-value">(310) 235-0966</span></div>
+            <div class="info-row"><span class="info-label">Web</span><span class="info-value"><a href="https://schiff.senate.gov" target="_blank" rel="noopener">schiff.senate.gov</a></span></div>
+          </div>
+
+          <div class="contact-card">
+            <div class="card-name">Sen. John Curtis (R-UT)</div>
+            <span class="card-role">Prediction Markets Are Gambling Act — bipartisan with Schiff</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">DC</span><span class="info-value">(202) 224-5444</span></div>
+            <div class="info-row"><span class="info-label">Web</span><span class="info-value"><a href="https://curtis.senate.gov" target="_blank" rel="noopener">curtis.senate.gov</a></span></div>
+          </div>
+
+          <div class="contact-card">
+            <div class="card-name">Sen. Ted Cruz (R-TX)</div>
+            <span class="card-role">Commerce Committee Chair — entered match-fixing cases into Senate record May 20</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">DC</span><span class="info-value">(202) 224-5922</span></div>
+            <div class="info-row"><span class="info-label">Austin</span><span class="info-value">(512) 916-5834</span></div>
+            <div class="info-row"><span class="info-label">Houston</span><span class="info-value">(713) 718-3057</span></div>
+            <div class="info-row"><span class="info-label">Web</span><span class="info-value"><a href="https://cruz.senate.gov/contact" target="_blank" rel="noopener">cruz.senate.gov/contact</a></span></div>
+          </div>
+
+          <div class="contact-card">
+            <div class="card-name">Sen. Bernie Moreno (R-OH)</div>
+            <span class="card-role">Sponsored the Senate's unanimous ban-from-prediction-markets resolution</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">DC</span><span class="info-value">(202) 224-2315</span></div>
+            <div class="info-row"><span class="info-label">Columbus</span><span class="info-value">(614) 469-2083</span></div>
+            <div class="info-row"><span class="info-label">Web</span><span class="info-value"><a href="https://moreno.senate.gov" target="_blank" rel="noopener">moreno.senate.gov</a></span></div>
+          </div>
+
+          <div class="contact-card">
+            <div class="card-name">Sen. Alex Padilla (D-CA)</div>
+            <span class="card-role">Authored staff-coverage amendment to Senate prediction market ban</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">DC</span><span class="info-value">(202) 224-3553</span></div>
+            <div class="info-row"><span class="info-label">Web</span><span class="info-value"><a href="https://padilla.senate.gov/contact" target="_blank" rel="noopener">padilla.senate.gov/contact</a></span></div>
+          </div>
+
+          <div class="contact-card priority">
+            <div class="card-name">Sen. Elizabeth Warren (D-MA)</div>
+            <span class="card-role">June 5 letter to CFTC — flagged Trump Jr. conflicts, 80% enforcement drop</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">DC</span><span class="info-value">(202) 224-4543</span></div>
+            <div class="info-row"><span class="info-label">Web</span><span class="info-value"><a href="https://warren.senate.gov/contact" target="_blank" rel="noopener">warren.senate.gov/contact</a></span></div>
+            <div class="card-note">Demanded records by June 18 on CFTC's communications with prediction market firms and staffers placed on leave. Connected Trump Jr.'s Polymarket approval to CFTC enforcement collapse.</div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         05 — LEGISLATORS — HOUSE
+    ══════════════════════════════════════════════════ -->
+    <section class="roster-section reveal">
+      <div class="container-prose">
+        <span class="section-label">05</span>
+        <h2>Legislators — House</h2>
+        <div class="contact-grid">
+
+          <div class="contact-card">
+            <div class="card-name">Rep. Paul Tonko (D-NY)</div>
+            <span class="card-role">SAFE Bet Act — stood on Capitol Hill with Andrew Douglas</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">DC</span><span class="info-value">(202) 225-5076</span></div>
+            <div class="info-row"><span class="info-label">Albany</span><span class="info-value">(518) 843-3400</span></div>
+            <div class="info-row"><span class="info-label">Web</span><span class="info-value"><a href="https://tonko.house.gov" target="_blank" rel="noopener">tonko.house.gov</a></span></div>
+          </div>
+
+          <div class="contact-card">
+            <div class="card-name">Rep. Valerie Foushee (D-NC)</div>
+            <span class="card-role">Led letters demanding youth marketing data from 10 companies</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">DC</span><span class="info-value">(202) 225-1784</span></div>
+            <div class="info-row"><span class="info-label">Durham</span><span class="info-value">(919) 967-7924</span></div>
+            <div class="info-row"><span class="info-label">Web</span><span class="info-value"><a href="https://foushee.house.gov" target="_blank" rel="noopener">foushee.house.gov</a></span></div>
+          </div>
+
+          <div class="contact-card">
+            <div class="card-name">Rep. Greg Casar (D-TX)</div>
+            <span class="card-role">BETS OFF Act co-sponsor — represents part of Austin</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">DC</span><span class="info-value">(202) 225-5645</span></div>
+            <div class="info-row"><span class="info-label">Austin</span><span class="info-value">(512) 872-9990</span></div>
+            <div class="info-row"><span class="info-label">Web</span><span class="info-value"><a href="https://casar.house.gov" target="_blank" rel="noopener">casar.house.gov</a></span></div>
+          </div>
+
+          <div class="contact-card">
+            <div class="card-name">Rep. Blake Moore (R-UT)</div>
+            <span class="card-role">Gambling Disorder Health Study Act — bipartisan with Goldman (May 21)</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">DC</span><span class="info-value">(202) 225-0453</span></div>
+            <div class="info-row"><span class="info-label">Web</span><span class="info-value"><a href="https://blakemoore.house.gov" target="_blank" rel="noopener">blakemoore.house.gov</a></span></div>
+          </div>
+
+          <div class="contact-card">
+            <div class="card-name">Rep. Dan Goldman (D-NY)</div>
+            <span class="card-role">Gambling Disorder Health Study Act — bipartisan with Moore (May 21)</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">DC</span><span class="info-value">(202) 225-7944</span></div>
+            <div class="info-row"><span class="info-label">Web</span><span class="info-value"><a href="https://goldman.house.gov" target="_blank" rel="noopener">goldman.house.gov</a></span></div>
+          </div>
+
+          <div class="contact-card">
+            <div class="card-name">Rep. Betty McCollum (D-MN)</div>
+            <span class="card-role">Signed May 11 youth marketing letters to 10 companies</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">DC</span><span class="info-value">(202) 225-6631</span></div>
+            <div class="info-row"><span class="info-label">Web</span><span class="info-value"><a href="https://mccollum.house.gov" target="_blank" rel="noopener">mccollum.house.gov</a></span></div>
+          </div>
+
+          <div class="contact-card">
+            <div class="card-name">Rep. Kevin Mullin (D-CA)</div>
+            <span class="card-role">Signed May 11 youth marketing letters to 10 companies</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">DC</span><span class="info-value">(202) 225-3531</span></div>
+            <div class="info-row"><span class="info-label">Web</span><span class="info-value"><a href="https://mullin.house.gov" target="_blank" rel="noopener">mullin.house.gov</a></span></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         06 — ATTORNEYS GENERAL
+    ══════════════════════════════════════════════════ -->
+    <section class="roster-section reveal">
+      <div class="container-prose">
+        <span class="section-label">06</span>
+        <h2>Attorneys General</h2>
+        <div class="contact-grid contact-grid-2">
+
+          <div class="contact-card priority">
+            <div class="card-name">AG Letitia James (NY)</div>
+            <span class="card-role">New York Attorney General</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">General</span><span class="info-value">1-800-771-7755</span></div>
+            <div class="info-row"><span class="info-label">Press</span><span class="info-value"><a href="https://ag.ny.gov/press-releases" target="_blank" rel="noopener">ag.ny.gov/press-releases</a></span></div>
+            <div class="info-row"><span class="info-label">Contact</span><span class="info-value"><a href="https://ag.ny.gov/contact-attorney-general-letitia-james" target="_blank" rel="noopener">ag.ny.gov/contact</a></span></div>
+            <div class="card-note">Signed 41 AGs letter AND separately sued Coinbase and Gemini over prediction markets AND jointly defended state enforcement actions with Gov. Hochul. Most active AG on this issue.</div>
+          </div>
+
+          <div class="contact-card">
+            <div class="card-name">AG William Tong (CT)</div>
+            <span class="card-role">Connecticut Attorney General</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">Web</span><span class="info-value"><a href="https://portal.ct.gov/ag" target="_blank" rel="noopener">portal.ct.gov/ag</a></span></div>
+            <div class="card-note">Fighting federal preemption. Called Trump administration lawsuit "recycling industry arguments" rejected in district courts across the country.</div>
+          </div>
+
+          <div class="contact-card">
+            <div class="card-name">AG Keith Ellison (MN)</div>
+            <span class="card-role">Minnesota Attorney General</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">Web</span><span class="info-value"><a href="https://ag.state.mn.us" target="_blank" rel="noopener">ag.state.mn.us</a></span></div>
+            <div class="card-note">Defended Minnesota's felony ban on prediction markets. Stated platforms "are designed to be addictive and prey especially on young people and low-income folks."</div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         07 — THE REGULATOR
+    ══════════════════════════════════════════════════ -->
+    <section class="roster-section reveal">
+      <div class="container-prose">
+        <span class="section-label">07</span>
+        <h2>The Regulator</h2>
+        <div class="contact-grid contact-grid-2">
+
+          <div class="contact-card">
+            <div class="card-name">Michael Selig</div>
+            <span class="card-role">Chairman, Commodity Futures Trading Commission (CFTC)</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">Press</span><span class="info-value"><a href="mailto:media@cftc.gov">media@cftc.gov</a></span></div>
+            <div class="info-row"><span class="info-label">Phone</span><span class="info-value">(202) 418-5080</span></div>
+            <div class="info-row"><span class="info-label">Web</span><span class="info-value"><a href="https://cftc.gov" target="_blank" rel="noopener">cftc.gov</a></span></div>
+            <div class="card-note">Confirmed CFTC Chairman Dec 2025 by Trump. Suing four states (CT, AZ, IL, MN) to protect Kalshi and Polymarket. CFTC enforcement dropped from 58 actions to 11 under his leadership. CFTC approved Polymarket after Trump Jr. investment. Warren demanded records by June 18.</div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         08 — INDUSTRY (DEFENDANTS)
+    ══════════════════════════════════════════════════ -->
+    <section class="roster-section reveal">
+      <div class="container-prose">
+        <span class="section-label">08</span>
+        <h2>Industry — Defendants &amp; Platform Operators</h2>
+        <div class="contact-grid">
+
+          <div class="contact-card">
+            <div class="card-name">Tarek Mansour</div>
+            <span class="card-role">Co-founder &amp; CEO, Kalshi — CFTC-regulated prediction market</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">Email</span><span class="info-value"><a href="mailto:tarek@kalshi.com">tarek@kalshi.com</a></span></div>
+            <div class="info-row"><span class="info-label">Phone</span><span class="info-value">(617) 909-1097</span></div>
+            <div class="info-row"><span class="info-label">Address</span><span class="info-value">594 Broadway, Rm 407, New York, NY 10012</span></div>
+            <div class="card-note">Platform on which Donald Trump Jr. serves as paid strategic advisor. Suspended 3 congressional candidates in April 2026 for insider trading on their own races. George Santos investigation also originated on Kalshi.</div>
+          </div>
+
+          <div class="contact-card">
+            <div class="card-name">FanDuel</div>
+            <span class="card-role">Named defendant — Sage &amp; Thompson v. DraftKings et al.</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">Press</span><span class="info-value"><a href="mailto:press@fanduel.com">press@fanduel.com</a></span></div>
+            <div class="info-row"><span class="info-label">Press hub</span><span class="info-value"><a href="https://press.fanduel.com" target="_blank" rel="noopener">press.fanduel.com</a></span></div>
+            <div class="card-note">VIP host Bryttanni Morgan named as individual defendant. Corporate comms will route through legal immediately.</div>
+          </div>
+
+          <div class="contact-card">
+            <div class="card-name">DraftKings</div>
+            <span class="card-role">Named defendant — Sage &amp; Thompson v. DraftKings et al.</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">IR/Press</span><span class="info-value"><a href="https://ir.draftkings.com" target="_blank" rel="noopener">ir.draftkings.com</a></span></div>
+            <div class="info-row"><span class="info-label">Address</span><span class="info-value">222 Berkeley St, Boston, MA 02116</span></div>
+          </div>
+
+          <div class="contact-card">
+            <div class="card-name">Genius Sports</div>
+            <span class="card-role">Named defendant — exclusive NFL data distributor, NFL second-largest shareholder</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">Press</span><span class="info-value"><a href="mailto:press@geniussports.com">press@geniussports.com</a></span></div>
+            <div class="info-row"><span class="info-label">Web</span><span class="info-value"><a href="https://geniussports.com" target="_blank" rel="noopener">geniussports.com</a></span></div>
+            <div class="card-note">Powers 98%+ of legal US sports betting market. $125M in microbet commissions in 2025. NFL extended and expanded partnership through 2029.</div>
+          </div>
+
+          <div class="contact-card">
+            <div class="card-name">National Football League (NFL)</div>
+            <span class="card-role">Named defendant — second-largest Genius Sports shareholder</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">Press</span><span class="info-value"><a href="https://nfl.com/media" target="_blank" rel="noopener">nfl.com/media</a></span></div>
+            <div class="info-row"><span class="info-label">Contact</span><span class="info-value">Brendon Plack, SVP Government Affairs — through NFL Communications</span></div>
+            <div class="card-note">NFL declined all comment on lawsuit. Brendon Plack wrote to CFTC May 15 asking to ban manipulable contracts — while the NFL holds equity stake in Genius Sports, which profits from every microbet.</div>
+          </div>
+
+          <div class="contact-card">
+            <div class="card-name">Donald Trump Jr.</div>
+            <span class="card-role">Paid strategic advisor, Kalshi — Investor &amp; advisory board, Polymarket</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">Firm</span><span class="info-value">1789 Capital — "double-digit millions" into Polymarket</span></div>
+            <div class="info-row"><span class="info-label">Note</span><span class="info-value">No public press contact. Statements issued through his personal spokesman.</span></div>
+            <div class="card-note">Holds financial positions in both dominant prediction market platforms while his father's administration sues states to protect those platforms. No federal law requires divestiture or disclosure.</div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         09 — INDUSTRY LOBBY / OPPOSITION
+    ══════════════════════════════════════════════════ -->
+    <section class="roster-section reveal">
+      <div class="container-prose">
+        <span class="section-label">09</span>
+        <h2>Industry Lobby &amp; Opposition</h2>
+        <div class="contact-grid">
+
+          <div class="contact-card">
+            <div class="card-name">Sean Patrick Maloney</div>
+            <span class="card-role">CEO &amp; President, Coalition for Prediction Markets</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">Press</span><span class="info-value"><a href="mailto:press@coalitionpredictionmarkets.com">press@coalitionpredictionmarkets.com</a></span></div>
+            <div class="info-row"><span class="info-label">Web</span><span class="info-value"><a href="https://coalitionforpredictionmarkets.com" target="_blank" rel="noopener">coalitionforpredictionmarkets.com</a></span></div>
+            <div class="card-note">Former Democratic congressman (NY-18), former DCCC Chair. The industry's most credible face. Testified at May 20 Senate hearing. Appointed Jan 2026.</div>
+          </div>
+
+          <div class="contact-card">
+            <div class="card-name">Patrick McHenry</div>
+            <span class="card-role">Senior Advisor, Coalition for Prediction Markets</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">Press</span><span class="info-value"><a href="mailto:press@coalitionpredictionmarkets.com">press@coalitionpredictionmarkets.com</a></span></div>
+            <div class="info-row"><span class="info-label">Team</span><span class="info-value"><a href="https://coalitionforpredictionmarkets.com/team" target="_blank" rel="noopener">coalitionforpredictionmarkets.com/team</a></span></div>
+            <div class="card-note">Former Republican House Financial Services Committee Chair. Testified at May 20 Senate hearing. The bipartisan wrapper the industry built around itself.</div>
+          </div>
+
+          <div class="contact-card">
+            <div class="card-name">Bill Miller</div>
+            <span class="card-role">President &amp; CEO, American Gaming Association</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">Press</span><span class="info-value"><a href="mailto:pa@americangaming.org">pa@americangaming.org</a></span></div>
+            <div class="info-row"><span class="info-label">Web</span><span class="info-value"><a href="https://americangaming.org" target="_blank" rel="noopener">americangaming.org</a></span></div>
+            <div class="card-note">Industry's primary trade association. Testified at May 20 Senate hearing as industry defender. 30+ years on Capitol Hill before joining AGA in 2019.</div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         10 — NAMED VIP HOSTS (DEFENDANTS)
+    ══════════════════════════════════════════════════ -->
+    <section class="roster-section reveal">
+      <div class="container-prose">
+        <span class="section-label">10</span>
+        <h2>Named VIP Hosts — Lawsuit Defendants</h2>
+        <p style="font-size:0.9375rem;line-height:1.75;color:rgba(255,255,255,0.55);margin-bottom:2rem;">All five are named defendants in Sage &amp; Thompson v. DraftKings et al. (No. 260303384). First time in US history that individual VIP hosts have been sued alongside their employers. Route to all five is through plaintiff attorneys only — direct outreach will be intercepted by corporate counsel.</p>
+        <div class="contact-grid">
+
+          <div class="contact-card">
+            <div class="card-name">Bryttanni Morgan</div>
+            <span class="card-role">FanDuel VIP Host — named defendant</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">Route</span><span class="info-value">Alan Tauber — (215) 575-0702 / atauberlaw.com</span></div>
+            <div class="card-note">Assigned to Terry Thompson. Messaged him hundreds of times. Sent $500 Champagne and Eagles/Flyers/Sixers tickets. Called his decision to walk away "an emergency." Paid based on Thompson's losses.</div>
+          </div>
+
+          <div class="contact-card">
+            <div class="card-name">Michael Sonbeek</div>
+            <span class="card-role">FanDuel VIP Host — named defendant</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">Route</span><span class="info-value">Alan Tauber — (215) 575-0702 / atauberlaw.com</span></div>
+          </div>
+
+          <div class="contact-card">
+            <div class="card-name">Dyleisha Lewis</div>
+            <span class="card-role">DraftKings VIP Host — named defendant</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">Route</span><span class="info-value">Alan Tauber — (215) 575-0702 / atauberlaw.com</span></div>
+          </div>
+
+          <div class="contact-card">
+            <div class="card-name">Peter Donahue</div>
+            <span class="card-role">DraftKings VIP Host — named defendant</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">Route</span><span class="info-value">Alan Tauber — (215) 575-0702 / atauberlaw.com</span></div>
+          </div>
+
+          <div class="contact-card">
+            <div class="card-name">Shaun Gordon</div>
+            <span class="card-role">DraftKings VIP Host — named defendant</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">Route</span><span class="info-value">Alan Tauber — (215) 575-0702 / atauberlaw.com</span></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         11 — MEDIA / JOURNALIST ROUTES
+    ══════════════════════════════════════════════════ -->
+    <section class="roster-section reveal">
+      <div class="container-prose">
+        <span class="section-label">11</span>
+        <h2>Media Routes</h2>
+        <div class="contact-grid contact-grid-2">
+
+          <div class="contact-card">
+            <div class="card-name">Paul Solotaroff</div>
+            <span class="card-role">Contributing Editor, Rolling Stone — wrote Andrew Douglas story</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">Muck Rack</span><span class="info-value"><a href="https://muckrack.com/paul-solotaroff" target="_blank" rel="noopener">muckrack.com/paul-solotaroff</a></span></div>
+            <div class="info-row"><span class="info-label">RS page</span><span class="info-value"><a href="https://rollingstone.com/author/paul-solotaroff/" target="_blank" rel="noopener">rollingstone.com/author/paul-solotaroff</a></span></div>
+            <div class="card-note">Primary route to Andrew Douglas. Solotaroff has a relationship with him and his father. Award-winning investigative journalist.</div>
+          </div>
+
+          <div class="contact-card">
+            <div class="card-name">Eli Senor</div>
+            <span class="card-role">Co-author, Rolling Stone gambling addiction piece with Solotaroff</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">Muck Rack</span><span class="info-value"><a href="https://muckrack.com" target="_blank" rel="noopener">muckrack.com — search Eli Senor</a></span></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         12 — CRIMINAL CASES (NON-COOPERATIVE)
+    ══════════════════════════════════════════════════ -->
+    <section class="roster-section reveal">
+      <div class="container-prose">
+        <span class="section-label">12</span>
+        <h2>Criminal Cases — Non-Cooperative</h2>
+        <div class="contact-grid">
+
+          <div class="contact-card">
+            <div class="card-name">Gannon Ken Van Dyke</div>
+            <span class="card-role">US Army Special Forces MSgt — indicted SDNY, pleaded not guilty June 8</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">Status</span><span class="info-value">Active federal criminal case. $250K bail. Travel restricted.</span></div>
+            <div class="info-row"><span class="info-label">Case</span><span class="info-value">SDNY — Fort Bragg, NC. 13 Polymarket bets. $33K wagered, $410K won.</span></div>
+            <div class="card-note">Will not speak. His attorney is public record via SDNY court docket. The case itself is the story.</div>
+          </div>
+
+          <div class="contact-card">
+            <div class="card-name">George Santos</div>
+            <span class="card-role">Former US Rep. — under CFTC &amp; possible DOJ investigation, Kalshi</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">Status</span><span class="info-value">Federal investigation active as of June 2, 2026. Santos denies wrongdoing.</span></div>
+            <div class="card-note">Allegedly bet against his own attendance at Trump's State of the Union while publicly saying he'd attend. Pocket tens of thousands. Will not cooperate.</div>
+          </div>
+
+          <div class="contact-card">
+            <div class="card-name">Israeli Air Force Major (unnamed)</div>
+            <span class="card-role">IDF reservist — indicted Israel, February 12, 2026</span>
+            <div class="card-divider"></div>
+            <div class="info-row"><span class="info-label">Status</span><span class="info-value">Name not publicly released by Israeli authorities.</span></div>
+            <div class="info-row"><span class="info-label">Co-accused</span><span class="info-value">Unnamed civilian co-defendant.</span></div>
+            <div class="card-note">Used classified intel on IDF strikes on Iran to win $150K+ on Polymarket. First global precedent — predates Van Dyke by 10 weeks. Prosecution in Israel.</div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         PRIORITY — OUTREACH STRATEGY
+    ══════════════════════════════════════════════════ -->
+    <section class="priority-section reveal">
+      <div class="container-prose">
+        <p class="eyebrow">Outreach Strategy</p>
+        <h2>Who to Contact First.<br>Who Will Speak.</h2>
+        <p class="priority-intro">Ranked by likelihood of participation and strategic value to the film. Green = almost certain yes. Yellow = possible, needs approach. Red = will not cooperate.</p>
+
+        <div class="priority-tier">
+          <span class="tier-label">Tier 1 — Contact Immediately</span>
+
+          <div class="priority-item">
+            <span class="priority-num">01</span>
+            <div class="priority-body">
+              <div class="priority-name"><span class="speak-likely speak-yes">Will Speak</span> Mark Gottlieb — PHAI Executive Director</div>
+              <p class="priority-why">One email opens access to the entire PHAI ecosystem: Levant, Andrew Douglas, both plaintiffs (Thompson, Sage), Daynard, and the legal team. This is the first contact, period. mark@phai.org / (617) 373-8487.</p>
+            </div>
+          </div>
+
+          <div class="priority-item">
+            <span class="priority-num">02</span>
+            <div class="priority-body">
+              <div class="priority-name"><span class="speak-likely speak-yes">Will Speak</span> Harry Levant — PHAI Director of Gambling Policy</div>
+              <p class="priority-why">Testifies before legislatures 40 weeks a year. Just appeared before the US Senate. Actively seeks this visibility — it is his job. Will say yes immediately. harry@phai.org / (484) 209-3853.</p>
+            </div>
+          </div>
+
+          <div class="priority-item">
+            <span class="priority-num">03</span>
+            <div class="priority-body">
+              <div class="priority-name"><span class="speak-likely speak-yes">Will Speak</span> Andrew Douglas — Survivor, cold open</div>
+              <p class="priority-why">Already on camera with Rolling Stone, CNN, and CBS under his own name. Stood on Capitol Hill at a press conference. Has said publicly he hopes "someone hears it before a bunch of people die." Contact through Paul Solotaroff at Rolling Stone or Mark Gottlieb at PHAI.</p>
+            </div>
+          </div>
+
+          <div class="priority-item">
+            <span class="priority-num">04</span>
+            <div class="priority-body">
+              <div class="priority-name"><span class="speak-likely speak-yes">Will Speak</span> Rob Minnick (Rob ODAAT) — Recovery advocate</div>
+              <p class="priority-why">Already a full media presence with millions of followers. Featured in a 2026 documentary. Runs a public gambling awareness platform. Easiest yes on the list. odaatgamblingawareness.com / linkedin.com/in/robminnick23.</p>
+            </div>
+          </div>
+
+          <div class="priority-item">
+            <span class="priority-num">05</span>
+            <div class="priority-body">
+              <div class="priority-name"><span class="speak-likely speak-yes">Will Speak</span> Sen. John Hickenlooper — Colorado</div>
+              <p class="priority-why">Most media-forward senator on this issue. Freshest quote ("unleashing the hounds of hell"). His state just became the first to sign a deposit cap into law. Maximum news peg right now. (303) 244-1628.</p>
+            </div>
+          </div>
+
+          <div class="priority-item">
+            <span class="priority-num">06</span>
+            <div class="priority-body">
+              <div class="priority-name"><span class="speak-likely speak-yes">Will Speak</span> Gambling with Lives — UK charity</div>
+              <p class="priority-why">Bereaved families organization. They exist to talk about this. They run a full media engagement operation. The international angle proves this is not a uniquely American problem — it is wherever these apps are allowed. info@gamblingwithlives.org.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="priority-tier">
+          <span class="tier-label">Tier 2 — High Value, Need Careful Approach</span>
+
+          <div class="priority-item">
+            <span class="priority-num">07</span>
+            <div class="priority-body">
+              <div class="priority-name"><span class="speak-likely speak-possible">Possible</span> Terry Thompson — Named plaintiff</div>
+              <p class="priority-why">Chose to be a public plaintiff — that indicates willingness. Spoke to Philadelphia Inquirer. But active litigation means his attorneys control what he can say. Approach through Tauber Law, not directly. (215) 575-0702.</p>
+            </div>
+          </div>
+
+          <div class="priority-item">
+            <span class="priority-num">08</span>
+            <div class="priority-body">
+              <div class="priority-name"><span class="speak-likely speak-possible">Possible</span> Richard Daynard — PHAI President</div>
+              <p class="priority-why">81 years old and going to war with another industry after taking down tobacco and opioids. The historical frame of the story. Accessible through PHAI. law.northeastern.edu/faculty/daynard.</p>
+            </div>
+          </div>
+
+          <div class="priority-item">
+            <span class="priority-num">09</span>
+            <div class="priority-body">
+              <div class="priority-name"><span class="speak-likely speak-possible">Possible</span> Sen. Marsha Blackburn (R-TN)</div>
+              <p class="priority-why">Republican who chaired the hearing and let Cruz, Hickenlooper, and Schiff light into the industry for two hours. The bipartisan angle matters — this is not a partisan story. Her participation proves it. (202) 224-3344.</p>
+            </div>
+          </div>
+
+          <div class="priority-item">
+            <span class="priority-num">10</span>
+            <div class="priority-body">
+              <div class="priority-name"><span class="speak-likely speak-possible">Possible</span> Sen. Elizabeth Warren (D-MA)</div>
+              <p class="priority-why">Sent a letter to CFTC five days ago demanding records. Has made the Trump Jr. conflict of interest explicit in writing. Highly media-active. This story is exactly on her beat. (202) 224-4543.</p>
+            </div>
+          </div>
+
+          <div class="priority-item">
+            <span class="priority-num">11</span>
+            <div class="priority-body">
+              <div class="priority-name"><span class="speak-likely speak-possible">Possible</span> AG Letitia James (NY)</div>
+              <p class="priority-why">Separately sued two companies over prediction markets. Most aggressive AG in the country on this issue. Her office runs an active press operation. ag.ny.gov / 1-800-771-7755.</p>
+            </div>
+          </div>
+
+          <div class="priority-item">
+            <span class="priority-num">12</span>
+            <div class="priority-body">
+              <div class="priority-name"><span class="speak-likely speak-possible">Possible</span> VIP Hosts — Bryttanni Morgan and others</div>
+              <p class="priority-why">Named defendants in a federal lawsuit. Their job was designed by a corporation to maximize addiction. Some may want to tell their side. Approach only through plaintiff attorneys — direct contact will be shut down by corporate counsel immediately.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="priority-tier">
+          <span class="tier-label">Tier 3 — On Record Only / Will Not Cooperate</span>
+
+          <div class="priority-item">
+            <span class="priority-num">—</span>
+            <div class="priority-body">
+              <div class="priority-name"><span class="speak-likely speak-no">Will Not Cooperate</span> FanDuel / DraftKings / NFL / Genius Sports</div>
+              <p class="priority-why">Active defendants in a lawsuit. All communications route through legal. The NFL declined all comment in March 2026. Request on-record statements as a paper trail — do not expect camera.</p>
+            </div>
+          </div>
+
+          <div class="priority-item">
+            <span class="priority-num">—</span>
+            <div class="priority-body">
+              <div class="priority-name"><span class="speak-likely speak-no">Will Not Cooperate</span> Gannon Van Dyke / George Santos</div>
+              <p class="priority-why">Both under active federal investigation or prosecution. Neither will speak. Their cases are the story — not their commentary.</p>
+            </div>
+          </div>
+
+          <div class="priority-item">
+            <span class="priority-num">—</span>
+            <div class="priority-body">
+              <div class="priority-name"><span class="speak-likely speak-no">Will Not Cooperate</span> Donald Trump Jr. / Tarek Mansour / Kalshi</div>
+              <p class="priority-why">Trump Jr. has stated he doesn't bet and hasn't lobbied officials on behalf of these companies. Kalshi's PR operation is active but will not speak to addiction framing. Send formal request for record — document the non-response.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container-wide">
+      <div class="footer-inner">
+        <p class="footer-credit">A documentary by Pedro Feria Pino / VEFILM. &copy; 2026. Internal use only — do not distribute.</p>
+        <div class="footer-links">
+          <a href="../">Home</a>
+          <a href="../the-fix/">The Fix</a>
+          <a href="../who-this-follows/">Who This Follows</a>
+          <a href="../contact/">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+  <script>
+  (function () {
+    var PASS_HASH = '86df0e7dd055c2d23a4d5c1e9af8c1378e4d4f5f5c4867451e0843ec8fc98c2'; // SHA-256 of "allin2026"
+    var SESSION_KEY = 'allin_contacts_auth';
+
+    function sha256(str) {
+      var buffer = new TextEncoder().encode(str);
+      return crypto.subtle.digest('SHA-256', buffer).then(function (hash) {
+        return Array.from(new Uint8Array(hash))
+          .map(function (b) { return b.toString(16).padStart(2, '0'); })
+          .join('');
+      });
+    }
+
+    function unlock() {
+      var gate = document.getElementById('gate');
+      gate.style.opacity = '0';
+      gate.style.transition = 'opacity 0.4s ease';
+      setTimeout(function () { gate.style.display = 'none'; }, 400);
+      sessionStorage.setItem(SESSION_KEY, '1');
+    }
+
+    function attempt() {
+      var val = document.getElementById('gate-input').value.trim().toLowerCase();
+      var err = document.getElementById('gate-error');
+      if (!val) return;
+      sha256(val).then(function (hash) {
+        if (hash === PASS_HASH) {
+          unlock();
+        } else {
+          err.textContent = 'Incorrect access code.';
+          document.getElementById('gate-input').value = '';
+          document.getElementById('gate-input').focus();
+        }
+      });
+    }
+
+    if (sessionStorage.getItem(SESSION_KEY) === '1') {
+      document.getElementById('gate').style.display = 'none';
+    }
+
+    document.getElementById('gate-btn').addEventListener('click', attempt);
+    document.getElementById('gate-input').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') attempt();
+      document.getElementById('gate-error').textContent = '';
+    });
+  })();
+  </script>
+
+</body>
+</html>

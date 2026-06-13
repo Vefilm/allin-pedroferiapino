@@ -1454,7 +1454,8 @@
     var ctx = canvas.getContext('2d');
     var W, H;
     var particles = [];
-    var N = 55;
+    var isMobile = window.innerWidth < 768;
+    var N = isMobile ? 20 : 55;
 
     function resize() {
       W = canvas.width  = window.innerWidth;
