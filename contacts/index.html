@@ -1121,16 +1121,10 @@
   <script src="../assets/js/main.js"></script>
   <script>
   (function () {
-    var PASS_HASH = 'b6f797d7b5b2c663c1bf017731b37ee4580c358c594717ce8f6e6b1106c3efdb'; // SHA-256 of "allin2026"
     var SESSION_KEY = 'allin_contacts_auth';
 
-    function sha256(str) {
-      var buffer = new TextEncoder().encode(str);
-      return crypto.subtle.digest('SHA-256', buffer).then(function (hash) {
-        return Array.from(new Uint8Array(hash))
-          .map(function (b) { return b.toString(16).padStart(2, '0'); })
-          .join('');
-      });
+    function check(val) {
+      return btoa(val) === 'YWxsaW4yMDI2';
     }
 
     function unlock() {
@@ -1145,15 +1139,13 @@
       var val = document.getElementById('gate-input').value.trim().toLowerCase();
       var err = document.getElementById('gate-error');
       if (!val) return;
-      sha256(val).then(function (hash) {
-        if (hash === PASS_HASH) {
-          unlock();
-        } else {
-          err.textContent = 'Incorrect access code.';
-          document.getElementById('gate-input').value = '';
-          document.getElementById('gate-input').focus();
-        }
-      });
+      if (check(val)) {
+        unlock();
+      } else {
+        err.textContent = 'Incorrect access code.';
+        document.getElementById('gate-input').value = '';
+        document.getElementById('gate-input').focus();
+      }
     }
 
     if (sessionStorage.getItem(SESSION_KEY) === '1') {
