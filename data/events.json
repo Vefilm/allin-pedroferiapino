@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-06-13",
+  "last_updated": "2026-06-15",
   "events": [
     {
       "date": "2026-02-12",
@@ -8,6 +8,15 @@
       "body": "Israeli prosecutors charge an Israeli Air Force major and a civilian for using classified military intelligence about planned IDF strikes on Iran to win more than $150,000 on Polymarket. The pair allegedly accessed nonpublic operational information weeks before the strikes, placed bets on their timing and outcome, and profited before Israeli authorities detected the trades. The case predates the American Van Dyke prosecution by more than two months and marks the first criminal charges anywhere in the world for prediction market insider trading using classified government information. Polymarket's Iran-strike markets had drawn over $239 million in total volume — a target worth pursuing for anyone with inside access.",
       "source": "Bloomberg, February 12, 2026; Times of Israel, February 12, 2026; Jerusalem Post, February 2026; Benzinga, February 2026.",
       "source_url": "https://www.timesofisrael.com/liveblog_entry/idf-reservist-and-civilian-indicted-for-using-classified-info-to-place-bets-on-polymarket/",
+      "source_link_text": "Read Source"
+    },
+    {
+      "date": "2026-03-23",
+      "date_display": "March 23, 2026",
+      "title": "$800 Million Polymarket Oil Trade — 15 Minutes Before Trump's Iran Announcement",
+      "body": "At approximately 6:50 AM ET, an anonymous trader places roughly $800 million in oil futures contracts on Polymarket, betting oil prices will fall. Fifteen minutes later, President Trump posts on Truth Social about progress in Iran nuclear talks. Oil drops approximately 10%. The position generates an estimated $2–4 million in profit. Blockchain analytics firm Bubblemaps traces the transactions and tells CBS News: 'We think this will multiply from here.' Commodities whistleblower attorney David Kovel, speaking to 60 Minutes, states: 'Any trader right now is highly suspicious' — and that whoever placed the trade appeared to know the announcement was coming. The trade is first reported publicly in the CBS News 60 Minutes investigation, broadcast May 17, 2026. It is not an isolated incident.",
+      "source": "CBS News / 60 Minutes, May 17, 2026; Senate Banking Committee letter to CFTC, April 9, 2026.",
+      "source_url": "https://www.cbsnews.com/news/betting-on-iran-war-insider-trading-concerns-prediction-markets-60-minutes/",
       "source_link_text": "Read Source"
     },
     {
@@ -26,6 +35,24 @@
       "body": "The CFTC and US Department of Justice file simultaneous lawsuits against Connecticut, Arizona, and Illinois — all three had issued cease-and-desist orders against Kalshi and Polymarket for operating what they called illegal online sportsbooks. The CFTC seeks declaratory judgments that the Commodity Exchange Act gives the federal government exclusive jurisdiction over prediction market contracts, preempting state gambling law. Arizona had also filed criminal charges against Kalshi the prior month. Connecticut Attorney General William Tong accuses the Trump administration of \"recycling industry arguments\" rejected by district courts. The suits mark the first time the federal government has taken the affirmative position of legally protecting prediction market operators from state regulation — the same operators in which Donald Trump Jr. holds financial positions.",
       "source": "ABC News, April 2, 2026; Washington Post, April 2, 2026; PBS News, April 2, 2026; CBS Chicago, April 2, 2026; Norton Rose Fulbright legal analysis.",
       "source_url": "https://abcnews.com/US/wireStory/federal-government-sues-states-regulation-prediction-markets-131670626",
+      "source_link_text": "Read Source"
+    },
+    {
+      "date": "2026-04-07",
+      "date_display": "April 7, 2026",
+      "title": "Second Oil Trade — $950 Million, Same Pattern, Three Weeks Before 60 Minutes Airs",
+      "body": "A second anomalous oil futures position — approximately $950 million, larger than the March 23 trade — appears on Polymarket ahead of another Trump administration announcement about Iran. The trade follows the same pattern: a large bet on falling oil prices placed shortly before a Trump communication about Iran diplomacy moves the market. This trade is placed three weeks before CBS News 60 Minutes airs its report on the March 23 trade. Whoever placed it watched the first $800 million position generate an estimated $2–4 million in profit, saw that trade get reported on national television, and did it again — at larger scale. On April 9, the Senate Banking Committee writes to CFTC Chairman Selig demanding answers on both oil trades. The April 30 response deadline passes without public disclosure of any CFTC investigation.",
+      "source": "CBS News / 60 Minutes, May 17, 2026; Senate Banking Committee letter to CFTC, April 9, 2026; Elizabeth Warren letter to CFTC, June 10, 2026.",
+      "source_url": "https://www.cbsnews.com/news/betting-on-iran-war-insider-trading-concerns-prediction-markets-60-minutes/",
+      "source_link_text": "Read Source"
+    },
+    {
+      "date": "2026-04-09",
+      "date_display": "April 9, 2026",
+      "title": "Senate Banking Committee Demands Answers on Both Oil Trades",
+      "body": "The Senate Banking Committee writes to CFTC Chairman Brian Selig demanding answers on both the March 23 ($800 million) and April 7 ($950 million) Polymarket oil trades. The letter asks whether the CFTC has opened investigations into either trade, what steps are being taken to identify the traders, and how the agency is responding to what the committee calls a pattern of apparent insider trading tied to presidential announcements. The deadline for Selig's response is April 30, 2026. No public response or investigation announcement follows by that date.",
+      "source": "Senate Banking Committee letter to CFTC Chairman Selig, April 9, 2026; Elizabeth Warren letter to CFTC, June 10, 2026.",
+      "source_url": "https://www.warren.senate.gov/",
       "source_link_text": "Read Source"
     },
     {
@@ -128,11 +155,29 @@
       "source_link_text": "Official Senate Hearing Record"
     },
     {
+      "date": "2026-05-22",
+      "date_display": "May 22, 2026",
+      "title": "House Oversight Committee Opens Formal Investigation into Polymarket and Kalshi",
+      "body": "House Oversight Committee Chairman James Comer (R-KY) launches a formal congressional investigation into Polymarket and Kalshi, sending document requests to both companies' CEOs — Shayne Coplan at Polymarket and Tarek Mansour at Kalshi. The requests seek information about the companies' ownership structures, their relationships with the Trump family, any communications with the administration, and what steps they have taken to prevent insider trading on their platforms. The deadline for document production is June 5, 2026. The investigation marks the first formal House inquiry into prediction market operators — and comes from the Republican-controlled committee, not the Democratic minority, underscoring the bipartisan nature of congressional concern.",
+      "source": "House Oversight Committee, May 22, 2026; CNBC, April 15, 2026.",
+      "source_url": "https://oversight.house.gov/",
+      "source_link_text": "Read Source"
+    },
+    {
+      "date": "2026-05-27",
+      "date_display": "May 27, 2026",
+      "title": "Google Engineer Charged — $1.2M Profit Using Confidential Company Data on Polymarket",
+      "body": "Michele Spagnuolo, a software engineer at Google, is charged with commodities fraud, wire fraud, and money laundering for allegedly using Google's confidential internal \"Year in Search\" data — which the company closely guards until its annual year-end release — to place $2.7 million in wagers on Polymarket and profit approximately $1.2 million. Prosecutors allege Spagnuolo accessed the data through his position at Google and used it to predict with unusual accuracy which search terms and events would dominate public interest, then bet accordingly. The case extends the \"Eddie Murphy Rule\" framework — previously applied to Van Dyke's use of classified military intelligence — to corporate insiders with access to material non-public business information. The CFTC's enforcement priority on prediction market insider trading has now produced two prosecutions. Neither involves the $800M or $950M oil futures trades.",
+      "source": "DOJ press release, May 27, 2026; CFTC enforcement action, May 27, 2026.",
+      "source_url": "https://www.justice.gov/",
+      "source_link_text": "Read Source"
+    },
+    {
       "date": "2026-05-29",
       "date_display": "May 29, 2026",
-      "title": "Marketing Data Due to Congress",
-      "body": "Ten companies must deliver written responses and youth-marketing data to Congress. This data will document exactly how FanDuel, DraftKings, Kalshi, Polymarket, and six other operators have targeted 18-to-24-year-olds. It is, potentially, the documentary equivalent of the internal tobacco industry research.",
-      "source": "Bettors Insider, May 13, 2026.",
+      "title": "Youth-Marketing Data Deadline Reaches Congress",
+      "body": "The May 29 deadline passes for ten companies to deliver written responses and youth-marketing data to Congress. The data covers how FanDuel, DraftKings, Kalshi, Polymarket, bet365, BetMGM, Caesars, Fanatics, PrizePicks, and Robinhood have marketed to adults aged 18 to 24. This data is potentially the documentary equivalent of the internal tobacco industry research — the first time Congress may have internal records of how these platforms targeted young adults. Whether all ten companies complied fully, and what the data reveals, is an open question as of the date of this publication.",
+      "source": "Bettors Insider, May 13, 2026; Congress letter, May 11, 2026.",
       "source_url": "https://foushee.house.gov/imo/media/doc/letter_to_prediction_market_and_sports_betting_ceos.pdf",
       "source_link_text": "Read Source"
     },
@@ -157,17 +202,26 @@
     {
       "date": "2026-06-08",
       "date_display": "June 8, 2026",
-      "title": "Van Dyke Pleads Not Guilty — Case Moves Toward Trial",
-      "body": "Gannon Ken Van Dyke, the US Army Special Forces Master Sergeant indicted in April for using classified intelligence about the Maduro capture to win $410,000 on Polymarket, pleads not guilty at his pretrial conference in the Southern District of New York. He is released on $250,000 bail with travel restricted to portions of New York, North Carolina, California, and points necessary to travel between them. The case is the first federal insider-trading prosecution involving a prediction market. The judge ordered Van Dyke to return for a continued pretrial conference. The question of who else with classified access has placed similar bets and has not yet been caught remains open.",
-      "source": "PBS News, June 2026; Time, April 24, 2026; CNBC, April 23, 2026; DOJ Office of Public Affairs.",
+      "title": "Van Dyke Pleads Not Guilty — Trial Set for December 7",
+      "body": "Gannon Ken Van Dyke, the US Army Special Forces Master Sergeant indicted in April for using classified intelligence about the Maduro capture to win $410,000 on Polymarket, pleads not guilty at his pretrial conference in the Southern District of New York. He is released on $250,000 bail with travel restricted to portions of New York, North Carolina, California, and points necessary to travel between them. The court sets December 7, 2026 as the trial date — making Van Dyke's case the first prediction market insider trading prosecution to go to trial in US history. The question of who else with classified access has placed similar bets and has not yet been caught remains open. A Defense Department source told 60 Minutes that Van Dyke was \"just a small fish\" and that \"dozens more\" cases may exist.",
+      "source": "PBS News, June 2026; Time, April 24, 2026; CNBC, April 23, 2026; DOJ Office of Public Affairs; CBS News / 60 Minutes, May 17, 2026.",
       "source_url": "https://www.pbs.org/newshour/nation/u-s-soldier-pleads-not-guilty-to-using-maduro-raid-intel-to-win-400000-on-polymarket",
+      "source_link_text": "Read Source"
+    },
+    {
+      "date": "2026-06-10",
+      "date_display": "June 10, 2026",
+      "title": "Warren Demands CFTC Records on Both Oil Trades — Deadline June 18",
+      "body": "Senator Elizabeth Warren writes to CFTC Chairman Brian Selig demanding records on both Polymarket oil futures trades — the $800 million position on March 23 and the $950 million position on April 7 — and answers about whether any investigation has been opened. Warren's letter sets a June 18, 2026 deadline for Selig's response. The letter notes that the Senate Banking Committee wrote to the CFTC on April 9 with the same questions and received no substantive response by the April 30 deadline. Warren writes that the two trades, totaling approximately $1.75 billion in combined positions, represent a pattern that demands explanation. The June 18 deadline falls eight days after the letter's date.",
+      "source": "Sen. Elizabeth Warren letter to CFTC Chairman Selig, June 10, 2026.",
+      "source_url": "https://www.warren.senate.gov/",
       "source_link_text": "Read Source"
     },
     {
       "date": "2026-06-11",
       "date_display": "June 11, 2026",
       "title": "CFTC Releases First Proposed Rules for Prediction Markets",
-      "body": "The Commodity Futures Trading Commission releases its first proposed regulatory framework for prediction markets — two days before today. The CFTC would permit most sports event contracts: moneylines, point spreads, game totals, and player props. It would prohibit contracts it considers too granular or manipulable: next-pitch outcomes, next-play call, officiating decisions, and markets on sports below the collegiate level. The proposed rules do not address the addiction and public-health dimensions of the platforms at all. The framework arrives while the CFTC is simultaneously suing four states (CT, AZ, IL, MN) to block state-level regulation of the same platforms. Prediction market traders currently assign 64% odds that the Supreme Court will accept a sports event contract case before the end of 2026.",
+      "body": "The Commodity Futures Trading Commission releases its first proposed regulatory framework for prediction markets. The CFTC would permit most sports event contracts: moneylines, point spreads, game totals, and player props. It would prohibit contracts it considers too granular or manipulable: next-pitch outcomes, next-play call, officiating decisions, and markets on sports below the collegiate level. The proposed rules do not address the addiction and public-health dimensions of the platforms at all. The framework arrives while the CFTC is simultaneously suing four states (CT, AZ, IL, MN) to block state-level regulation of the same platforms. Prediction market traders currently assign 64% odds that the Supreme Court will accept a sports event contract case before the end of 2026.",
       "source": "Covers.com, June 2026; Sportico, June 2026; Front Office Sports, June 2026; Arnold Ventures analysis.",
       "source_url": "https://www.covers.com/industry/prediction-market-new-rules-proposed-cftc-sports-betting-allowed-june-2026",
       "source_link_text": "Read Source"
