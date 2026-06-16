@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script>if(sessionStorage.getItem("allin_site_auth")!=="1"){document.documentElement.style.visibility="hidden";}</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Players — ALL IN</title>
@@ -1228,7 +1229,7 @@
   <script src="../assets/js/main.js"></script>
   <script>
   (function () {
-    var SESSION_KEY = 'allin_contacts_auth';
+    var SESSION_KEY = 'allin_site_auth';
 
     function check(val) {
       return btoa(val) === 'YWxsaW4yMDI2';
