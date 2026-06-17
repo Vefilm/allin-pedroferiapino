@@ -502,6 +502,28 @@
  font-style: italic; font-family: Calibri, Arial, sans-serif;
  }
 
+ /* ── FLOATING TOOLTIP ─────── */
+ .pm-tooltip {
+ position: fixed;
+ width: 260px;
+ background: #0f0f0f;
+ border: 1px solid rgba(177,18,38,0.45);
+ box-shadow: 0 8px 40px rgba(0,0,0,0.8), 0 0 24px rgba(177,18,38,0.12);
+ padding: 1rem 1.125rem;
+ z-index: 9999;
+ display: none;
+ max-height: 220px;
+ overflow-y: auto;
+ opacity: 0;
+ transition: opacity 0.18s ease;
+ scrollbar-width: thin;
+ scrollbar-color: rgba(177,18,38,0.28) transparent;
+ pointer-events: auto;
+ }
+ .pm-tooltip::-webkit-scrollbar { width: 3px; }
+ .pm-tooltip::-webkit-scrollbar-track { background: transparent; }
+ .pm-tooltip::-webkit-scrollbar-thumb { background: rgba(177,18,38,0.28); border-radius: 2px; }
+
  /* ── NAV PILL ─────────────── */
  .nav-research-link {
  color: var(--red) !important;
@@ -766,15 +788,6 @@
  </div><!-- /pm-tl-nodes -->
  </div><!-- /pm-tl-canvas -->
  </div><!-- /pm-tl-scroll -->
- <div class="pm-tl-panel" id="pm-tl-panel">
- <div class="pm-tl-placeholder">Hover any event node to expand</div>
- <div class="pm-tl-panel-content">
- <span class="pm-panel-date" id="pm-panel-date"></span>
- <div class="pm-panel-title" id="pm-panel-title"></div>
- <p class="pm-panel-body" id="pm-panel-body"></p>
- <div class="pm-panel-src" id="pm-panel-src"></div>
- </div>
- </div>
  <div style="padding:0 2rem 1.5rem;border-top:1px solid rgba(255,255,255,0.04);margin-top:0;">
  <p style="font-size:0.8rem;color:rgba(255,255,255,0.28);margin:1rem 0 0;font-family:Georgia,serif;font-style:italic;"><strong style="color:rgba(255,255,255,0.45);font-style:normal;">Figure 3 The Polymarket Causal Sequence.</strong> Documented events, Nov 2024 – Dec 2026. Sources: CNBC, Fortune, Polymarket PRNewswire, DOJ press release, Senate confirmation record. The probes were dropped before Don Jr. invested frame as documented pattern, not proven quid pro quo.</p>
  </div>
@@ -1050,16 +1063,75 @@
   { date:"April 23-24, 2026", title:"Van Dyke Indicted", body:"Army Special Forces Master Sgt. Gannon Ken Van Dyke charged by DOJ. He bet approximately $33,000 on the capture of Maduro during Operation Absolute Resolve (January 3, 2026) using classified intelligence from his role. Profit: $409,881. Created his Polymarket account December 26, 2025. Attempted to delete it after the operation. Pleaded not guilty.", src:"DOJ press release - Apr 23, 2026" },
   { date:"December 7, 2026", title:"Van Dyke Trial", body:"First prediction market insider trading case to go to trial in United States history. Trial is filming-window material. If proceedings are public, this is the documentary's closing act, still unfolding as this film is being made.", src:"Court calendar - pending" }
  ];
- var nodes = document.querySelectorAll('.pm-node');
- var panel = document.getElementById('pm-tl-panel');
- var dateEl=document.getElementById('pm-panel-date'), titleEl=document.getElementById('pm-panel-title'), bodyEl=document.getElementById('pm-panel-body'), srcEl=document.getElementById('pm-panel-src');
- function showPanel(i){var d=PM_DATA[i];dateEl.textContent=d.date;titleEl.textContent=d.title;bodyEl.textContent=d.body;srcEl.textContent=d.src;panel.classList.add('has-content');nodes.forEach(function(n){n.classList.remove('is-active');});nodes[i].classList.add('is-active');}
- function hidePanel(){panel.classList.remove('has-content');nodes.forEach(function(n){n.classList.remove('is-active');});}
- nodes.forEach(function(node,i){
-  node.addEventListener('mouseenter',function(){showPanel(i);});
-  node.addEventListener('mouseleave',function(){hidePanel();});
-  node.addEventListener('touchstart',function(e){e.preventDefault();this.classList.contains('is-active')?hidePanel():showPanel(i);},{passive:false});
- });
+ (function(){
+  var nodes = document.querySelectorAll('.pm-node');
+  var hideTimer;
+
+  var tt = document.createElement('div');
+  tt.className = 'pm-tooltip';
+  tt.innerHTML =
+   '<span class="pm-detail-date" id="tt-date"></span>' +
+   '<div class="pm-detail-title" id="tt-title"></div>' +
+   '<p class="pm-detail-body" id="tt-body"></p>' +
+   '<div class="pm-detail-src" id="tt-src"></div>';
+  document.body.appendChild(tt);
+
+  var ttDate  = document.getElementById('tt-date');
+  var ttTitle = document.getElementById('tt-title');
+  var ttBody  = document.getElementById('tt-body');
+  var ttSrc   = document.getElementById('tt-src');
+
+  function showTip(node, i) {
+   clearTimeout(hideTimer);
+   var d = PM_DATA[i];
+   ttDate.textContent  = d.date;
+   ttTitle.textContent = d.title;
+   ttBody.textContent  = d.body;
+   ttSrc.textContent   = d.src;
+
+   var dot  = node.querySelector('.pm-dot-wrap');
+   var rect = dot.getBoundingClientRect();
+   var ttW  = 260;
+   var gap  = 14;
+
+   tt.style.display = 'block';
+   tt.style.opacity = '0';
+   var ttH = tt.offsetHeight;
+
+   var below = (i % 2 === 0);
+   var top   = below ? rect.bottom + gap : rect.top - ttH - gap;
+   var left  = rect.left + rect.width / 2 - ttW / 2;
+   left = Math.max(8, Math.min(left, window.innerWidth - ttW - 8));
+
+   tt.style.left = left + 'px';
+   tt.style.top  = top  + 'px';
+   tt.style.opacity = '1';
+
+   nodes.forEach(function(n){ n.classList.remove('is-active'); });
+   node.classList.add('is-active');
+  }
+
+  function hideTip() {
+   hideTimer = setTimeout(function(){
+    tt.style.opacity = '0';
+    setTimeout(function(){ tt.style.display = 'none'; }, 200);
+    nodes.forEach(function(n){ n.classList.remove('is-active'); });
+   }, 120);
+  }
+
+  nodes.forEach(function(node, i){
+   if (!PM_DATA[i]) return;
+   node.addEventListener('mouseenter', function(){ showTip(node, i); });
+   node.addEventListener('mouseleave', function(){ hideTip(); });
+   node.addEventListener('touchstart', function(e){
+    e.preventDefault();
+    node.classList.contains('is-active') ? hideTip() : showTip(node, i);
+   }, {passive:false});
+  });
+
+  tt.addEventListener('mouseenter', function(){ clearTimeout(hideTimer); });
+  tt.addEventListener('mouseleave', function(){ hideTip(); });
+ })();
  </script>
  <script src="../assets/js/main.js"></script>
 
