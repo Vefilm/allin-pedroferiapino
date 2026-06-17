@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>
+    (function(){
+      var auth = sessionStorage.getItem('allin_site_auth');
+      if(auth !== '1'){
+        document.documentElement.style.visibility = 'hidden';
+        document.addEventListener('DOMContentLoaded', function(){
+          var gate = document.createElement('div');
+          gate.id = 'inline-gate';
+          gate.style.cssText = 'position:fixed;inset:0;background:#0A0A0A;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;';
+          gate.innerHTML = '<p style="font-family:Georgia,serif;color:#fff;font-size:1.5rem;letter-spacing:0.12em;margin-bottom:2rem;">ALL IN</p><input id="gate-pw" type="password" placeholder="Access code" style="background:#141414;border:1px solid rgba(255,255,255,0.18);color:#fff;padding:0.75rem 1rem;font-size:1rem;width:280px;margin-bottom:0.75rem;outline:none;" onkeydown="if(event.key===\'Enter\')document.getElementById(\'gate-btn\').click()"><button id="gate-btn" onclick="(function(){var v=document.getElementById(\'gate-pw\').value;if(btoa(v)===\'YWxsaW4yMDI2\'){sessionStorage.setItem(\'allin_site_auth\',\'1\');document.getElementById(\'inline-gate\').remove();document.documentElement.style.visibility=\'visible\';}else{document.getElementById(\'gate-err\').textContent=\'Incorrect.\';}})()" style="background:#B11226;color:#fff;border:none;padding:0.75rem 0;cursor:pointer;font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;width:280px;">ENTER</button><p id="gate-err" style="color:#B11226;font-size:0.875rem;margin-top:0.75rem;height:1rem;font-family:Calibri,sans-serif;"></p>';
+          document.body.prepend(gate);
+          document.documentElement.style.visibility = 'visible';
+        });
+      }
+    })();
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Blueprint | ALL IN: The Most American Addiction</title>
+  <meta name="description" content="Deep-dive analysis: Congo Hold-Up / BGFIBank parallels with Polymarket, Kalshi, and the Trump financial network.">
+  <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <style>
+    /* ── PAGE-SPECIFIC OVERRIDES ─────────────────────────────── */
+    .page-hero {
+      padding: clamp(8rem, 14vw, 12rem) 0 clamp(4rem, 8vw, 5rem);
+      background: var(--ink);
+      border-bottom: 3px solid var(--red);
+    }
+    .page-hero h1 {
+      font-size: clamp(2.5rem, 7vw, 5.5rem);
+      line-height: 0.95;
+      margin-bottom: 1.5rem;
+    }
+    .hero-subhead {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(1.0625rem, 2vw, 1.375rem);
+      color: rgba(255,255,255,0.72);
+      line-height: 1.6;
+      max-width: 640px;
+      margin-bottom: 0;
+    }
+    .hero-meta {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .hero-meta-item {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+    }
+    .hero-meta-item span {
+      display: block;
+      color: var(--white);
+      font-size: 0.8125rem;
+      margin-top: 0.25rem;
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    /* ── SECTIONS ────────────────────────────────────────────── */
+    .content-section {
+      padding: clamp(3.5rem, 7vw, 6rem) 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .content-section h2 {
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      margin-bottom: 0.75rem;
+    }
+    .content-section h3 {
+      font-size: clamp(1.25rem, 3vw, 1.75rem);
+      margin-bottom: 0.75rem;
+      margin-top: 2.5rem;
+    }
+    .content-section p {
+      font-size: 1.0625rem;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.82);
+      margin-bottom: 1.25rem;
+    }
+    .content-section p:last-child { margin-bottom: 0; }
+
+    /* ── CALLOUT / QUOTE ─────────────────────────────────────── */
+    .callout {
+      background: var(--card-bg);
+      border-left: 4px solid var(--red);
+      padding: 1.75rem 2rem;
+      margin: 2rem 0;
+    }
+    .callout p {
+      font-family: var(--font-serif);
+      font-size: 1.125rem;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.88);
+      margin: 0;
+    }
+    .callout-label {
+      font-size: 0.625rem;
+      font-weight: 700;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--red);
+      display: block;
+      margin-bottom: 0.75rem;
+    }
+
+    /* ── DIAGRAM WRAPPER ─────────────────────────────────────── */
+    .diagram-wrap {
+      background: #0d0d0d;
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 2rem 1rem;
+      margin: 2.5rem 0;
+      overflow-x: auto;
+    }
+    .diagram-caption {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.9375rem;
+      color: rgba(255,255,255,0.42);
+      text-align: center;
+      margin-top: 1.25rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .diagram-caption strong {
+      color: rgba(255,255,255,0.65);
+      font-weight: 600;
+      font-style: normal;
+    }
+    .diagram-label {
+      font-size: 0.625rem;
+      font-weight: 700;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--red);
+      text-align: center;
+      display: block;
+      margin-bottom: 1.25rem;
+    }
+
+    /* ── COMPARISON TABLE ────────────────────────────────────── */
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+      font-size: 0.9375rem;
+    }
+    .compare-table th {
+      font-family: var(--font-sans);
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--red);
+      text-align: left;
+      padding: 0.75rem 1rem;
+      border-bottom: 2px solid var(--red);
+    }
+    .compare-table th:first-child { color: rgba(255,255,255,0.5); }
+    .compare-table td {
+      padding: 0.875rem 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      vertical-align: top;
+      line-height: 1.55;
+      color: rgba(255,255,255,0.78);
+    }
+    .compare-table td:first-child {
+      color: rgba(255,255,255,0.4);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      width: 22%;
+    }
+    .compare-table tr:hover td { background: rgba(255,255,255,0.025); }
+    .compare-table td.col-congo { color: rgba(255,200,100,0.85); }
+    .compare-table td.col-us { color: rgba(100,180,255,0.85); }
+
+    /* ── FACT BOXES ──────────────────────────────────────────── */
+    .fact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+      margin: 2rem 0;
+    }
+    @media (min-width: 640px) {
+      .fact-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 960px) {
+      .fact-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+    }
+    .fact-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(255,255,255,0.07);
+      padding: 1.5rem;
+    }
+    .fact-card-eyebrow {
+      font-size: 0.625rem;
+      font-weight: 700;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--red);
+      display: block;
+      margin-bottom: 0.625rem;
+    }
+    .fact-card h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.625rem;
+      color: var(--white);
+    }
+    .fact-card p {
+      font-size: 0.9rem;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.65);
+      margin: 0;
+    }
+    .fact-card.highlight {
+      border-color: rgba(177,18,38,0.4);
+      background: rgba(177,18,38,0.06);
+    }
+
+    /* ── PARALLEL CONNECTORS ─────────────────────────────────── */
+    .parallel-pair {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 0;
+      margin: 2rem 0;
+      align-items: stretch;
+    }
+    .parallel-cell {
+      padding: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .parallel-cell.congo {
+      background: rgba(255,200,80,0.04);
+      border-color: rgba(255,200,80,0.15);
+    }
+    .parallel-cell.us {
+      background: rgba(80,160,255,0.04);
+      border-color: rgba(80,160,255,0.15);
+    }
+    .parallel-connector {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 0.75rem;
+      font-size: 1.5rem;
+      color: var(--red);
+      background: rgba(177,18,38,0.08);
+    }
+    .parallel-cell-label {
+      font-size: 0.5625rem;
+      font-weight: 700;
+      letter-spacing: 0.45em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    .parallel-cell.congo .parallel-cell-label { color: rgba(255,200,80,0.6); }
+    .parallel-cell.us .parallel-cell-label { color: rgba(80,160,255,0.6); }
+    .parallel-cell h4 { font-size: 0.9375rem; margin-bottom: 0.375rem; }
+    .parallel-cell p {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    /* ── SECTION INTRO ───────────────────────────────────────── */
+    .section-num {
+      font-family: var(--font-serif);
+      font-size: clamp(4rem, 10vw, 8rem);
+      font-weight: 700;
+      color: rgba(177,18,38,0.12);
+      line-height: 1;
+      margin-bottom: -1.5rem;
+      display: block;
+    }
+
+    /* ── DIFF LIST ───────────────────────────────────────────── */
+    .diff-list {
+      list-style: none;
+      margin: 1.5rem 0;
+    }
+    .diff-list li {
+      padding: 1rem 0 1rem 1.75rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      position: relative;
+      font-size: 1rem;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.75);
+    }
+    .diff-list li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--red);
+      font-weight: 700;
+    }
+    .diff-list li strong { color: var(--white); }
+
+    /* ── SOURCE LIST ─────────────────────────────────────────── */
+    .source-list {
+      list-style: none;
+      margin: 1.5rem 0 0;
+    }
+    .source-list li {
+      padding: 0.625rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.5;
+    }
+    .source-list li:last-child { border-bottom: none; }
+    .source-list a { color: var(--red); text-decoration: underline; text-decoration-color: rgba(177,18,38,0.35); }
+    .source-list a:hover { text-decoration-color: var(--red); }
+    .src-num {
+      display: inline-block;
+      font-weight: 700;
+      color: rgba(255,255,255,0.25);
+      width: 1.75rem;
+      flex-shrink: 0;
+    }
+
+    /* ── WARNING BANNER ──────────────────────────────────────── */
+    .research-banner {
+      background: rgba(177,18,38,0.08);
+      border: 1px solid rgba(177,18,38,0.3);
+      padding: 1.25rem 1.75rem;
+      margin-bottom: 3rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .research-banner-icon {
+      font-size: 1.25rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .research-banner p {
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.65);
+      margin: 0;
+      line-height: 1.6;
+    }
+    .research-banner strong { color: var(--white); }
+  </style>
+</head>
+<body>
+
+  <div id="reading-progress" aria-hidden="true"></div>
+
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <a class="wordmark" href="../">ALL IN</a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="../the-story/">The Story</a>
+        <a href="../who-this-follows/">Who This Follows</a>
+        <a href="../the-fix/">The Fix</a>
+        <a href="../why-now/">Why Now</a>
+        <a href="../sources/">Sources</a>
+        <a href="../polymarket/" class="nav-research-link">Polymarket</a>
+        <a href="../pitch/">For Producers</a>
+        <a href="../your-body/">Your Body</a>
+        <a href="../contacts/">The Players</a>
+      </nav>
+      <a class="site-link" href="https://www.pedroferiapino.com" target="_blank" rel="noopener">pedroferiapino.com</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Open navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <nav class="mobile-nav" id="mobile-nav" aria-hidden="true">
+    <a href="../">Home</a>
+    <a href="../polymarket/" style="color:var(--red);font-weight:700;">Polymarket</a>
+    <a href="../the-story/">The Story</a>
+    <a href="../who-this-follows/">Who This Follows</a>
+    <a href="../the-fix/">The Fix</a>
+    <a href="../why-now/">Why Now</a>
+    <a href="../sources/">Sources</a>
+    <a href="../pitch/">For Producers</a>
+    <a href="../your-body/">Your Body</a>
+    <a href="../contacts/">The Players</a>
+    <a href="../contact/">Contact</a>
+  </nav>
+
+  <main>
+
+    <!-- ── HERO ───────────────────────────────────────────────── -->
+    <section class="page-hero reveal">
+      <div class="container-prose">
+        <p class="eyebrow">Production Research</p>
+        <h1>THE<br>BLUEPRINT.</h1>
+        <p class="hero-subhead">The same financial architecture that looted the Democratic Republic of Congo is operating inside the United States right now. Updated for crypto, prediction markets, and a family with a richer brand deal.</p>
+        <div class="hero-meta">
+          <div class="hero-meta-item">Project<span>ALL IN Documentary</span></div>
+          <div class="hero-meta-item">Key Source<span>ACDC / Michael Hornsby</span></div>
+          <div class="hero-meta-item">Crypto Intelligence<span>Bubblemaps / Deebs</span></div>
+          <div class="hero-meta-item">Status<span>Confidential Research</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SECTION 1: WHAT THE CONGO HOLD-UP WAS ──────────────── -->
+    <section class="content-section reveal" id="congo">
+      <div class="container-wide">
+        <div class="container-prose" style="max-width:700px; padding:0;">
+          <span class="section-num">01</span>
+          <p class="eyebrow">The Source Material</p>
+          <h2>What the Congo Hold-Up Found</h2>
+          <p>In June 2023, the African Investigative Publishing Collective (ACDC) and Platform FACT released the results of a two-year investigation into BGFIBank DRC, a commercial bank operating inside the Democratic Republic of Congo during the presidency of Joseph Kabila. The investigation involved more than 100 journalists across 19 media partners and drew on 3.5 million leaked financial documents.</p>
+          <p>What they found was a complete merger of state and private financial power. BGFIBank DRC was not merely a bank that had proximity to political power. It was an instrument of extraction. A machine designed to move public money into private accounts controlled by a single family.</p>
+        </div>
+      </div>
+
+      <div class="container-wide" style="margin-top: 3rem;">
+        <div class="fact-grid cols-3">
+          <div class="fact-card">
+            <span class="fact-card-eyebrow">The Bank</span>
+            <h4>BGFIBank DRC</h4>
+            <p>Subsidiary of BGFIBank Group, the Gabon-based parent. Operated as the DRC's preferred state bank during the Kabila years. Francis Selemani Mtwale, Kabila's adopted brother, served as CEO.</p>
+          </div>
+          <div class="fact-card">
+            <span class="fact-card-eyebrow">The Family</span>
+            <h4>The Kabila Network</h4>
+            <p>Joseph Kabila (President, 2001 to 2019), his adopted brother Francis Selemani (bank CEO), and his sister Gloria Mteyu (shareholder). Family members held roles on both sides of every transaction: lender and borrower simultaneously.</p>
+          </div>
+          <div class="fact-card">
+            <span class="fact-card-eyebrow">The Mechanism</span>
+            <h4>State Money → Private Pockets</h4>
+            <p>DRC state institutions (including state mining company Gécamines and the Central Bank, the BCC) deposited funds into BGFIBank DRC. The bank then issued loans to Kabila-linked companies that were never repaid. $138M+ documented. Believed to be a fraction of total.</p>
+          </div>
+          <div class="fact-card highlight">
+            <span class="fact-card-eyebrow">Regulatory Capture</span>
+            <h4>The Central Bank Was Compromised</h4>
+            <p>The BCC (Banque Centrale du Congo), the entity responsible for overseeing BGFIBank, deposited its own reserves into BGFIBank DRC, creating a circular conflict of interest. The regulator became a client of the institution it was supposed to regulate.</p>
+          </div>
+          <div class="fact-card">
+            <span class="fact-card-eyebrow">The Shell Layer</span>
+            <h4>Offshore Architecture</h4>
+            <p>Loans flowed to companies registered in BVI and other offshore jurisdictions, controlled by Kabila-linked entities. Panora Trust, a Kabila family trust, appeared across multiple transactions as a controlling vehicle.</p>
+          </div>
+          <div class="fact-card">
+            <span class="fact-card-eyebrow">International Consequences</span>
+            <h4>US DOJ Action</h4>
+            <p>BGFIBank Group (the Gabon parent) entered a deferred prosecution agreement with the US Department of Justice in 2023 over money laundering violations. The bank admitted to laundering money on behalf of sanctioned parties and paid over $1.8 billion in penalties and disgorgement.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- DIAGRAM 1: CONGO HOLD-UP / BGFIBank STRUCTURE -->
+      <div class="container-wide" style="margin-top: 3rem;">
+        <span class="diagram-label">Figure 1 — BGFIBank DRC Financial Architecture (Recreated from ACDC / Congo Hold-Up Investigation, 2023)</span>
+        <div class="diagram-wrap">
+          <svg viewBox="0 0 960 580" xmlns="http://www.w3.org/2000/svg" style="width:100%; min-width:600px; display:block;">
+            <defs>
+              <marker id="arr-red" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+                <polygon points="0 0, 8 3, 0 6" fill="#B11226"/>
+              </marker>
+              <marker id="arr-yellow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+                <polygon points="0 0, 8 3, 0 6" fill="#D4A017"/>
+              </marker>
+              <marker id="arr-white" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+                <polygon points="0 0, 8 3, 0 6" fill="rgba(255,255,255,0.35)"/>
+              </marker>
+              <marker id="arr-green" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+                <polygon points="0 0, 8 3, 0 6" fill="#3aaa6e"/>
+              </marker>
+            </defs>
+
+            <!-- Background -->
+            <rect width="960" height="580" fill="#0d0d0d"/>
+
+            <!-- ── ROW 1: DRC STATE INSTITUTIONS (top) ── -->
+            <text x="480" y="28" fill="rgba(255,255,255,0.25)" font-family="Calibri,sans-serif" font-size="9" font-weight="700" letter-spacing="3" text-anchor="middle" text-transform="uppercase">DRC STATE INSTITUTIONS</text>
+
+            <!-- Presidency -->
+            <rect x="30" y="38" width="155" height="56" rx="2" fill="#1a3a2a" stroke="#3aaa6e" stroke-width="1.5"/>
+            <text x="108" y="61" fill="#3aaa6e" font-family="Calibri,sans-serif" font-size="8" font-weight="700" letter-spacing="2.5" text-anchor="middle">DRC PRESIDENCY</text>
+            <text x="108" y="77" fill="rgba(255,255,255,0.7)" font-family="Calibri,sans-serif" font-size="9.5" text-anchor="middle">Joseph Kabila</text>
+            <text x="108" y="89" fill="rgba(255,255,255,0.35)" font-family="Calibri,sans-serif" font-size="7.5" text-anchor="middle">President 2001–2019</text>
+
+            <!-- Ministry of Finance -->
+            <rect x="210" y="38" width="155" height="56" rx="2" fill="#1a3a2a" stroke="#3aaa6e" stroke-width="1.5"/>
+            <text x="288" y="61" fill="#3aaa6e" font-family="Calibri,sans-serif" font-size="8" font-weight="700" letter-spacing="2.5" text-anchor="middle">FINANCE MINISTRY</text>
+            <text x="288" y="77" fill="rgba(255,255,255,0.7)" font-family="Calibri,sans-serif" font-size="9.5" text-anchor="middle">State Treasury</text>
+            <text x="288" y="89" fill="rgba(255,255,255,0.35)" font-family="Calibri,sans-serif" font-size="7.5" text-anchor="middle">Controlled disbursements</text>
+
+            <!-- Central Bank BCC — CAPTURED -->
+            <rect x="390" y="38" width="155" height="56" rx="2" fill="#3a1a1a" stroke="#B11226" stroke-width="2"/>
+            <text x="468" y="58" fill="#B11226" font-family="Calibri,sans-serif" font-size="8" font-weight="700" letter-spacing="2.5" text-anchor="middle">CENTRAL BANK (BCC)</text>
+            <text x="468" y="72" fill="rgba(255,255,255,0.7)" font-family="Calibri,sans-serif" font-size="9.5" text-anchor="middle">Banque Centrale du Congo</text>
+            <text x="468" y="84" fill="#B11226" font-family="Calibri,sans-serif" font-size="7.5" font-weight="700" text-anchor="middle">⚠ REGULATOR — COMPROMISED</text>
+            <text x="468" y="91" fill="rgba(255,255,255,0.3)" font-family="Calibri,sans-serif" font-size="7" text-anchor="middle">Deposited own reserves into BGFIBank DRC</text>
+
+            <!-- Gécamines -->
+            <rect x="570" y="38" width="155" height="56" rx="2" fill="#1a3a2a" stroke="#3aaa6e" stroke-width="1.5"/>
+            <text x="648" y="61" fill="#3aaa6e" font-family="Calibri,sans-serif" font-size="8" font-weight="700" letter-spacing="2.5" text-anchor="middle">GÉCAMINES</text>
+            <text x="648" y="77" fill="rgba(255,255,255,0.7)" font-family="Calibri,sans-serif" font-size="9.5" text-anchor="middle">State Mining Company</text>
+            <text x="648" y="89" fill="rgba(255,255,255,0.35)" font-family="Calibri,sans-serif" font-size="7.5" text-anchor="middle">DRC minerals revenue</text>
+
+            <!-- SNPP (state pensions) -->
+            <rect x="750" y="38" width="175" height="56" rx="2" fill="#1a3a2a" stroke="#3aaa6e" stroke-width="1.5"/>
+            <text x="838" y="58" fill="#3aaa6e" font-family="Calibri,sans-serif" font-size="8" font-weight="700" letter-spacing="2.5" text-anchor="middle">STATE AGENCIES</text>
+            <text x="838" y="74" fill="rgba(255,255,255,0.7)" font-family="Calibri,sans-serif" font-size="9.5" text-anchor="middle">SNPP / Multiple Entities</text>
+            <text x="838" y="86" fill="rgba(255,255,255,0.35)" font-family="Calibri,sans-serif" font-size="7.5" text-anchor="middle">Pensions, public contracts</text>
+
+            <!-- ── ARROWS: State → BGFIBank ── -->
+            <line x1="108" y1="94" x2="390" y2="210" stroke="#D4A017" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-yellow)"/>
+            <line x1="288" y1="94" x2="420" y2="210" stroke="#D4A017" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-yellow)"/>
+            <line x1="468" y1="94" x2="468" y2="195" stroke="#B11226" stroke-width="2" marker-end="url(#arr-red)"/>
+            <line x1="648" y1="94" x2="530" y2="210" stroke="#D4A017" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-yellow)"/>
+            <line x1="838" y1="94" x2="550" y2="210" stroke="#D4A017" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-yellow)"/>
+
+            <!-- ── ROW 2: BGFIBank DRC (CENTER) ── -->
+            <circle cx="468" cy="248" r="52" fill="#1c1c1c" stroke="#D4A017" stroke-width="3"/>
+            <text x="468" y="237" fill="#D4A017" font-family="Georgia,serif" font-size="12" font-weight="700" text-anchor="middle">BGFIBank DRC</text>
+            <text x="468" y="253" fill="rgba(255,255,255,0.55)" font-family="Calibri,sans-serif" font-size="8.5" text-anchor="middle">Managed by</text>
+            <text x="468" y="265" fill="rgba(255,255,255,0.8)" font-family="Calibri,sans-serif" font-size="9" font-weight="700" text-anchor="middle">Kabila Family</text>
+
+            <!-- ── LEFT: KABILA FAMILY NETWORK ── -->
+            <rect x="20" y="200" width="170" height="100" rx="2" fill="#221800" stroke="#D4A017" stroke-width="1.5"/>
+            <text x="105" y="218" fill="#D4A017" font-family="Calibri,sans-serif" font-size="8" font-weight="700" letter-spacing="2.5" text-anchor="middle">KABILA FAMILY</text>
+            <text x="105" y="232" fill="rgba(255,255,255,0.7)" font-family="Calibri,sans-serif" font-size="9" text-anchor="middle">Joseph Kabila — President</text>
+            <text x="105" y="247" fill="rgba(255,255,255,0.7)" font-family="Calibri,sans-serif" font-size="9" text-anchor="middle">Francis Selemani — CEO</text>
+            <text x="105" y="262" fill="rgba(255,255,255,0.7)" font-family="Calibri,sans-serif" font-size="9" text-anchor="middle">Gloria Mteyu — Shareholder</text>
+            <text x="105" y="277" fill="rgba(255,255,255,0.4)" font-family="Calibri,sans-serif" font-size="8" text-anchor="middle">Director, borrower, and beneficiary</text>
+            <text x="105" y="291" fill="rgba(255,255,255,0.4)" font-family="Calibri,sans-serif" font-size="8" text-anchor="middle">simultaneously</text>
+
+            <!-- Arrow: Family → BGFIBank -->
+            <line x1="190" y1="248" x2="414" y2="248" stroke="#D4A017" stroke-width="1.5" marker-end="url(#arr-yellow)"/>
+
+            <!-- ── RIGHT: SHELL COMPANIES ── -->
+            <rect x="768" y="200" width="170" height="100" rx="2" fill="#1a1a2a" stroke="rgba(150,150,255,0.5)" stroke-width="1.5"/>
+            <text x="853" y="218" fill="rgba(150,150,255,0.8)" font-family="Calibri,sans-serif" font-size="8" font-weight="700" letter-spacing="2.5" text-anchor="middle">SHELL COMPANIES</text>
+            <text x="853" y="232" fill="rgba(255,255,255,0.65)" font-family="Calibri,sans-serif" font-size="9" text-anchor="middle">Panora Trust</text>
+            <text x="853" y="247" fill="rgba(255,255,255,0.65)" font-family="Calibri,sans-serif" font-size="9" text-anchor="middle">BVI Companies</text>
+            <text x="853" y="262" fill="rgba(255,255,255,0.65)" font-family="Calibri,sans-serif" font-size="9" text-anchor="middle">Offshore Accounts</text>
+            <text x="853" y="277" fill="rgba(255,255,255,0.35)" font-family="Calibri,sans-serif" font-size="8" text-anchor="middle">Loans issued — never repaid</text>
+            <text x="853" y="291" fill="rgba(255,255,255,0.35)" font-family="Calibri,sans-serif" font-size="8" text-anchor="middle">No collateral required</text>
+
+            <!-- Arrow: BGFIBank → Shell Companies -->
+            <line x1="520" y1="248" x2="766" y2="248" stroke="rgba(150,150,255,0.7)" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arr-white)"/>
+            <text x="643" y="241" fill="rgba(150,150,255,0.55)" font-family="Calibri,sans-serif" font-size="8" text-anchor="middle">UNCOLLATERALIZED LOANS</text>
+
+            <!-- ── ROW 3: MONEY FLOWS ── -->
+            <!-- Arrow: BGFIBank → Destinations (down) -->
+            <line x1="468" y1="300" x2="468" y2="360" stroke="#B11226" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+            <!-- Destination boxes -->
+            <rect x="100" y="360" width="155" height="70" rx="2" fill="#1e1010" stroke="#B11226" stroke-width="1"/>
+            <text x="178" y="380" fill="rgba(255,255,255,0.45)" font-family="Calibri,sans-serif" font-size="8" font-weight="700" letter-spacing="2" text-anchor="middle">CASH EXTRACTION</text>
+            <text x="178" y="396" fill="rgba(255,255,255,0.7)" font-family="Calibri,sans-serif" font-size="10" font-weight="700" text-anchor="middle">$138M+ Documented</text>
+            <text x="178" y="410" fill="rgba(255,255,255,0.4)" font-family="Calibri,sans-serif" font-size="8" text-anchor="middle">Minimum tracked. Believed</text>
+            <text x="178" y="420" fill="rgba(255,255,255,0.4)" font-family="Calibri,sans-serif" font-size="8" text-anchor="middle">fraction of total looted.</text>
+
+            <rect x="290" y="360" width="155" height="70" rx="2" fill="#1e1010" stroke="#B11226" stroke-width="1"/>
+            <text x="368" y="380" fill="rgba(255,255,255,0.45)" font-family="Calibri,sans-serif" font-size="8" font-weight="700" letter-spacing="2" text-anchor="middle">REAL ESTATE</text>
+            <text x="368" y="396" fill="rgba(255,255,255,0.7)" font-family="Calibri,sans-serif" font-size="10" text-anchor="middle">Belgium, South Africa</text>
+            <text x="368" y="411" fill="rgba(255,255,255,0.4)" font-family="Calibri,sans-serif" font-size="8" text-anchor="middle">Luxury properties acquired</text>
+            <text x="368" y="422" fill="rgba(255,255,255,0.4)" font-family="Calibri,sans-serif" font-size="8" text-anchor="middle">through offshore vehicles</text>
+
+            <rect x="480" y="360" width="155" height="70" rx="2" fill="#1e1010" stroke="#B11226" stroke-width="1"/>
+            <text x="558" y="380" fill="rgba(255,255,255,0.45)" font-family="Calibri,sans-serif" font-size="8" font-weight="700" letter-spacing="2" text-anchor="middle">INTERNATIONAL BANKS</text>
+            <text x="558" y="396" fill="rgba(255,255,255,0.7)" font-family="Calibri,sans-serif" font-size="10" text-anchor="middle">European Correspondent</text>
+            <text x="558" y="411" fill="rgba(255,255,255,0.4)" font-family="Calibri,sans-serif" font-size="8" text-anchor="middle">Routing through EU banks</text>
+            <text x="558" y="422" fill="rgba(255,255,255,0.4)" font-family="Calibri,sans-serif" font-size="8" text-anchor="middle">enabled cross-border flow</text>
+
+            <rect x="670" y="360" width="155" height="70" rx="2" fill="#1e1010" stroke="#B11226" stroke-width="1"/>
+            <text x="748" y="380" fill="rgba(255,255,255,0.45)" font-family="Calibri,sans-serif" font-size="8" font-weight="700" letter-spacing="2" text-anchor="middle">DOJ SETTLEMENT</text>
+            <text x="748" y="396" fill="#B11226" font-family="Calibri,sans-serif" font-size="10" font-weight="700" text-anchor="middle">$1.8B+ (2023)</text>
+            <text x="748" y="411" fill="rgba(255,255,255,0.4)" font-family="Calibri,sans-serif" font-size="8" text-anchor="middle">BGFIBank Group SA DPA.</text>
+            <text x="748" y="422" fill="rgba(255,255,255,0.4)" font-family="Calibri,sans-serif" font-size="8" text-anchor="middle">Laundering for sanctioned parties.</text>
+
+            <!-- Arrows to destination boxes -->
+            <line x1="430" y1="290" x2="178" y2="358" stroke="#B11226" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+            <line x1="455" y1="296" x2="370" y2="358" stroke="#B11226" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+            <line x1="478" y1="300" x2="558" y2="358" stroke="#B11226" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+            <line x1="500" y1="290" x2="748" y2="358" stroke="#B11226" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+
+            <!-- Shell companies → destinations -->
+            <line x1="853" y1="300" x2="750" y2="358" stroke="rgba(150,150,255,0.5)" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arr-white)"/>
+
+            <!-- Legend -->
+            <rect x="20" y="460" width="300" height="106" rx="2" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+            <text x="35" y="480" fill="rgba(255,255,255,0.35)" font-family="Calibri,sans-serif" font-size="8.5" font-weight="700" letter-spacing="2">LEGEND</text>
+            <line x1="35" y1="495" x2="65" y2="495" stroke="#D4A017" stroke-width="1.5" stroke-dasharray="4,3"/>
+            <text x="72" y="499" fill="rgba(255,255,255,0.5)" font-family="Calibri,sans-serif" font-size="8.5">State funds deposited / routed</text>
+            <line x1="35" y1="514" x2="65" y2="514" stroke="#B11226" stroke-width="2"/>
+            <text x="72" y="518" fill="rgba(255,255,255,0.5)" font-family="Calibri,sans-serif" font-size="8.5">Regulatory failure / extraction flow</text>
+            <line x1="35" y1="533" x2="65" y2="533" stroke="rgba(150,150,255,0.7)" stroke-width="1.5" stroke-dasharray="5,3"/>
+            <text x="72" y="537" fill="rgba(255,255,255,0.5)" font-family="Calibri,sans-serif" font-size="8.5">Loans to shell entities (never repaid)</text>
+            <rect x="35" y="547" width="12" height="8" rx="1" fill="#3a1a1a" stroke="#B11226" stroke-width="1"/>
+            <text x="53" y="555" fill="rgba(255,255,255,0.5)" font-family="Calibri,sans-serif" font-size="8.5">Captured regulator</text>
+
+            <!-- Key finding note -->
+            <rect x="640" y="455" width="302" height="115" rx="2" fill="rgba(177,18,38,0.08)" stroke="rgba(177,18,38,0.3)" stroke-width="1"/>
+            <text x="656" y="476" fill="#B11226" font-family="Calibri,sans-serif" font-size="8" font-weight="700" letter-spacing="2.5">KEY STRUCTURAL FINDING</text>
+            <text x="656" y="494" fill="rgba(255,255,255,0.7)" font-family="Georgia,serif" font-style="italic" font-size="9.5">The Central Bank (BCC) deposited its</text>
+            <text x="656" y="508" fill="rgba(255,255,255,0.7)" font-family="Georgia,serif" font-style="italic" font-size="9.5">own reserves into BGFIBank DRC —</text>
+            <text x="656" y="522" fill="rgba(255,255,255,0.7)" font-family="Georgia,serif" font-style="italic" font-size="9.5">making the regulator financially</text>
+            <text x="656" y="536" fill="rgba(255,255,255,0.7)" font-family="Georgia,serif" font-style="italic" font-size="9.5">dependent on the institution it</text>
+            <text x="656" y="550" fill="rgba(255,255,255,0.7)" font-family="Georgia,serif" font-style="italic" font-size="9.5">was supposed to supervise.</text>
+            <text x="656" y="564" fill="rgba(255,255,255,0.35)" font-family="Calibri,sans-serif" font-size="8">ACDC Congo Hold-Up Investigation, 2023</text>
+          </svg>
+          <p class="diagram-caption"><strong>Figure 1.</strong> BGFIBank DRC financial architecture as reconstructed from 3.5 million leaked documents by the Africa Centre for Disease and Control (ACDC) and Platform FACT, published June 2023. The Central Bank's own deposits inside BGFIBank DRC eliminated the possibility of independent oversight. Source: Congo Hold-Up investigation.</p>
+        </div>
+      </div>
+
+      <div class="container-prose" style="margin-top: 2.5rem;">
+        <div class="callout">
+          <span class="callout-label">Leo Hornsby, ACDC Lead Investigator</span>
+          <p>"The bank was not corrupt. The bank was the mechanism. The corruption was the design. Every element that should have prevented this, the regulator, the central bank, the oversight bodies, had been converted into participants."</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SECTION 2: POLYMARKET / TRUMP ──────────────────────── -->
+    <section class="content-section reveal" id="us-parallel">
+      <div class="container-wide">
+        <div class="container-prose" style="max-width:700px; padding:0;">
+          <span class="section-num">02</span>
+          <p class="eyebrow">The American Version</p>
+          <h2>What's Happening at Polymarket and Kalshi</h2>
+          <p>Polymarket is the world's largest prediction market. In the 2024 US election cycle it processed billions of dollars in event contracts. Users betting real money on political outcomes, sporting events, and geopolitical events. Kalshi is a federally regulated exchange doing similar work under CFTC oversight. Together they represent the frontier of a new financial product: commodified uncertainty.</p>
+          <p>The problem is not the concept. It is the architecture of who owns it, who regulates it, and whether the regulator has been compromised in the same way the BCC was compromised in the DRC. Not through bribery or force, but through the conversion of the regulatory body into a financially aligned stakeholder.</p>
+        </div>
+      </div>
+
+      <div class="container-wide" style="margin-top: 2.5rem;">
+        <div class="fact-grid cols-3">
+          <div class="fact-card highlight">
+            <span class="fact-card-eyebrow">The Equity Stake</span>
+            <h4>Trump Jr. / 1789 Capital → Polymarket</h4>
+            <p>Donald Trump Jr., through his investment firm 1789 Capital, holds a documented equity stake in Polymarket reportedly in the double-digit millions range. The investment was made as Polymarket's political event volume surged during the 2024 election cycle. Trump Jr. profits as the platform's valuation grows. Not from individual bets. From the ecosystem itself.</p>
+          </div>
+          <div class="fact-card highlight">
+            <span class="fact-card-eyebrow">The Advisory Role</span>
+            <h4>Trump Jr., Paid Advisor at Kalshi</h4>
+            <p>Donald Trump Jr. holds a separate paid strategic advisor role at Kalshi, a CFTC-regulated platform. This means Trump Jr. simultaneously holds financial positions in both of the platforms the CFTC is actively shielding from enforcement action, while the Trump administration controls CFTC appointments.</p>
+          </div>
+          <div class="fact-card">
+            <span class="fact-card-eyebrow">The Regulatory Shield</span>
+            <h4>CFTC Enforcement Collapse</h4>
+            <p>The CFTC (Commodity Futures Trading Commission) under Trump administration leadership dropped enforcement actions against Polymarket, reduced overall enforcement activity by approximately 80% from prior administration levels, and declined to challenge expanded event contract offerings that critics argued enabled market manipulation.</p>
+          </div>
+          <div class="fact-card">
+            <span class="fact-card-eyebrow">The Crypto Layer</span>
+            <h4>World Liberty Financial</h4>
+            <p>The Trump family crypto venture. Raised an estimated $500M through token sales. House Democrats called for a Treasury Department probe after tokens were sold to entities with connections to sanctioned parties. The structure mirrors the Kabila shell-company layer: a vehicle for converting political proximity into liquid financial value.</p>
+          </div>
+          <div class="fact-card">
+            <span class="fact-card-eyebrow">The Anonymous Layer</span>
+            <h4>Wallets Without Names</h4>
+            <p>Bubblemaps forensic analysis identified multiple anonymous wallet clusters exploiting Polymarket's information asymmetry. A 9-wallet operation linked to Iranian IP addresses placed coordinated bets. Individual accounts (Van Dyke, Skoobidoobnj, 0xoracle) demonstrated documented advance knowledge of outcomes. All operated anonymously on-chain.</p>
+          </div>
+          <div class="fact-card">
+            <span class="fact-card-eyebrow">The Sovereign Fund</span>
+            <h4>US Sovereign Wealth Fund (EO, Feb 2025)</h4>
+            <p>Trump signed an executive order in February 2025 directing the creation of a US Sovereign Wealth Fund. Public money under direct executive control, no established independent oversight mechanism. If implemented, this replicates the most dangerous element of the BGFIBank structure exactly: public funds flowing into an institution controlled by the political family profiting from it.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- DIAGRAM 2: TRUMP / POLYMARKET NETWORK -->
+      <div class="container-wide" style="margin-top: 3rem;">
+        <span class="diagram-label">Figure 2 — Polymarket / Kalshi Financial Network and Trump Administration Conflicts (ALL IN Documentary Research, 2025–2026)</span>
+        <div class="diagram-wrap">
+          <svg viewBox="0 0 960 600" xmlns="http://www.w3.org/2000/svg" style="width:100%; min-width:600px; display:block;">
+            <defs>
+              <marker id="arr2-red" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+                <polygon points="0 0, 8 3, 0 6" fill="#B11226"/>
+              </marker>
+              <marker id="arr2-red-rev" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto">
+                <polygon points="8 0, 0 3, 8 6" fill="#B11226"/>
+              </marker>
+              <marker id="arr2-teal" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+                <polygon points="0 0, 8 3, 0 6" fill="#3aaa8a"/>
+              </marker>
+              <marker id="arr2-blue" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+                <polygon points="0 0, 8 3, 0 6" fill="#6B9FFF"/>
+              </marker>
+              <marker id="arr2-gold" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+                <polygon points="0 0, 8 3, 0 6" fill="#D4A017"/>
+              </marker>
+              <marker id="arr2-white" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+                <polygon points="0 0, 8 3, 0 6" fill="rgba(255,255,255,0.3)"/>
+              </marker>
+            </defs>
+
+            <rect width="960" height="600" fill="#0d0d0d"/>
+
+            <!-- ── ROW 1: US FEDERAL INSTITUTIONS ── -->
+            <text x="480" y="26" fill="rgba(255,255,255,0.25)" font-family="Calibri,sans-serif" font-size="9" font-weight="700" letter-spacing="3" text-anchor="middle">US FEDERAL INSTITUTIONS (TRUMP ADMINISTRATION CONTROL)</text>
+
+            <!-- White House -->
+            <rect x="20" y="34" width="130" height="54" rx="2" fill="#1a3a2a" stroke="#3aaa8a" stroke-width="1.5"/>
+            <text x="85" y="56" fill="#3aaa8a" font-family="Calibri,sans-serif" font-size="8" font-weight="700" letter-spacing="2" text-anchor="middle">WHITE HOUSE</text>
+            <text x="85" y="71" fill="rgba(255,255,255,0.65)" font-family="Calibri,sans-serif" font-size="9" text-anchor="middle">Trump Admin.</text>
+            <text x="85" y="82" fill="rgba(255,255,255,0.35)" font-family="Calibri,sans-serif" font-size="7.5" text-anchor="middle">Appoints regulators</text>
+
+            <!-- DOJ -->
+            <rect x="165" y="34" width="130" height="54" rx="2" fill="#1a3a2a" stroke="#3aaa8a" stroke-width="1.5"/>
+            <text x="230" y="56" fill="#3aaa8a" font-family="Calibri,sans-serif" font-size="8" font-weight="700" letter-spacing="2" text-anchor="middle">DEPT. OF JUSTICE</text>
+            <text x="230" y="71" fill="rgba(255,255,255,0.65)" font-family="Calibri,sans-serif" font-size="9" text-anchor="middle">Trump appointees</text>
+            <text x="230" y="82" fill="rgba(255,255,255,0.35)" font-family="Calibri,sans-serif" font-size="7.5" text-anchor="middle">No action on crypto fraud</text>
+
+            <!-- Treasury -->
+            <rect x="310" y="34" width="130" height="54" rx="2" fill="#1a3a2a" stroke="#3aaa8a" stroke-width="1.5"/>
+            <text x="375" y="56" fill="#3aaa8a" font-family="Calibri,sans-serif" font-size="8" font-weight="700" letter-spacing="2" text-anchor="middle">TREASURY DEPT.</text>
+            <text x="375" y="71" fill="rgba(255,255,255,0.65)" font-family="Calibri,sans-serif" font-size="9" text-anchor="middle">Scott Bessent</text>
+            <text x="375" y="82" fill="rgba(255,255,255,0.35)" font-family="Calibri,sans-serif" font-size="7.5" text-anchor="middle">World Liberty probe declined</text>
+
+            <!-- CFTC — CAPTURED (center top) -->
+            <rect x="455" y="30" width="150" height="62" rx="2" fill="#3a1a1a" stroke="#B11226" stroke-width="2.5"/>
+            <text x="530" y="52" fill="#B11226" font-family="Calibri,sans-serif" font-size="8.5" font-weight="700" letter-spacing="2" text-anchor="middle">CFTC</text>
+            <text x="530" y="66" fill="rgba(255,255,255,0.7)" font-family="Calibri,sans-serif" font-size="9" text-anchor="middle">Commodity Futures Trading Commission</text>
+            <text x="530" y="79" fill="#B11226" font-family="Calibri,sans-serif" font-size="8" font-weight="700" text-anchor="middle">⚠ ENFORCEMENT ↓80% — REGULATOR CAPTURED</text>
+
+            <!-- SEC -->
+            <rect x="620" y="34" width="130" height="54" rx="2" fill="#1a3a2a" stroke="#3aaa8a" stroke-width="1.5"/>
+            <text x="685" y="56" fill="#3aaa8a" font-family="Calibri,sans-serif" font-size="8" font-weight="700" letter-spacing="2" text-anchor="middle">SEC</text>
+            <text x="685" y="71" fill="rgba(255,255,255,0.65)" font-family="Calibri,sans-serif" font-size="9" text-anchor="middle">Paul Atkins (Chair)</text>
+            <text x="685" y="82" fill="rgba(255,255,255,0.35)" font-family="Calibri,sans-serif" font-size="7.5" text-anchor="middle">Crypto-friendly deregulation</text>
+
+            <!-- US Sovereign Wealth Fund -->
+            <rect x="765" y="34" width="175" height="54" rx="2" fill="#1a3a2a" stroke="#3aaa8a" stroke-width="1.5"/>
+            <text x="853" y="53" fill="#3aaa8a" font-family="Calibri,sans-serif" font-size="8" font-weight="700" letter-spacing="2" text-anchor="middle">SOVEREIGN WEALTH FUND</text>
+            <text x="853" y="67" fill="rgba(255,255,255,0.65)" font-family="Calibri,sans-serif" font-size="9" text-anchor="middle">EO signed Feb 2025</text>
+            <text x="853" y="79" fill="rgba(255,255,255,0.35)" font-family="Calibri,sans-serif" font-size="7.5" text-anchor="middle">Public funds, executive control</text>
+
+            <!-- CFTC → Center arrow (dashed red, protected) -->
+            <line x1="530" y1="92" x2="480" y2="204" stroke="#B11226" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arr2-red)"/>
+            <text x="490" y="160" fill="#B11226" font-family="Calibri,sans-serif" font-size="7.5" font-weight="700" text-anchor="middle" transform="rotate(-12 490 160)">LEGAL PROTECTION</text>
+            <text x="490" y="170" fill="rgba(177,18,38,0.6)" font-family="Calibri,sans-serif" font-size="7" text-anchor="middle" transform="rotate(-12 490 170)">Enforcement dropped</text>
+
+            <!-- Other institutions → center (light) -->
+            <line x1="85" y1="88" x2="400" y2="215" stroke="#3aaa8a" stroke-width="1" stroke-dasharray="3,4" opacity="0.4"/>
+            <line x1="230" y1="88" x2="425" y2="215" stroke="#3aaa8a" stroke-width="1" stroke-dasharray="3,4" opacity="0.4"/>
+            <line x1="375" y1="88" x2="440" y2="215" stroke="#3aaa8a" stroke-width="1" stroke-dasharray="3,4" opacity="0.4"/>
+            <line x1="685" y1="88" x2="538" y2="215" stroke="#3aaa8a" stroke-width="1" stroke-dasharray="3,4" opacity="0.4"/>
+            <line x1="853" y1="88" x2="555" y2="215" stroke="#3aaa8a" stroke-width="1" stroke-dasharray="3,4" opacity="0.4"/>
+
+            <!-- ── CENTER: POLYMARKET + KALSHI ── -->
+            <circle cx="480" cy="248" r="60" fill="#1c1c1c" stroke="#D4A017" stroke-width="2.5"/>
+            <text x="480" y="232" fill="#D4A017" font-family="Georgia,serif" font-size="11" font-weight="700" text-anchor="middle">POLYMARKET</text>
+            <text x="480" y="248" fill="rgba(255,255,255,0.35)" font-family="Calibri,sans-serif" font-size="8" text-anchor="middle">+</text>
+            <text x="480" y="263" fill="#D4A017" font-family="Georgia,serif" font-size="11" font-weight="700" text-anchor="middle">KALSHI</text>
+            <text x="480" y="278" fill="rgba(255,255,255,0.45)" font-family="Calibri,sans-serif" font-size="7.5" text-anchor="middle">$7B+ weekly volume (2024)</text>
+            <text x="480" y="290" fill="rgba(255,255,255,0.45)" font-family="Calibri,sans-serif" font-size="7.5" text-anchor="middle">World's largest prediction markets</text>
+
+            <!-- ── LEFT: INSIDER / ANONYMOUS BETS ── -->
+            <rect x="15" y="200" width="185" height="110" rx="2" fill="#1e1e1e" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+            <text x="108" y="220" fill="rgba(255,255,255,0.4)" font-family="Calibri,sans-serif" font-size="7.5" font-weight="700" letter-spacing="2.5" text-anchor="middle">DOCUMENTED EXPLOIT CASES</text>
+            <text x="108" y="238" fill="rgba(255,255,255,0.7)" font-family="Calibri,sans-serif" font-size="9" text-anchor="middle">9-wallet Iran-linked cluster</text>
+            <text x="108" y="253" fill="rgba(255,255,255,0.5)" font-family="Calibri,sans-serif" font-size="8.5" text-anchor="middle">Coordinated bets, political events</text>
+            <text x="108" y="271" fill="rgba(255,255,255,0.7)" font-family="Calibri,sans-serif" font-size="9" text-anchor="middle">"Van Dyke" / "Skoobidoobnj"</text>
+            <text x="108" y="286" fill="rgba(255,255,255,0.5)" font-family="Calibri,sans-serif" font-size="8.5" text-anchor="middle">Documented advance knowledge</text>
+            <text x="108" y="301" fill="rgba(255,255,255,0.7)" font-family="Calibri,sans-serif" font-size="9" text-anchor="middle">"0xoracle" wallet cluster</text>
+
+            <!-- Arrow: Insider bets → center -->
+            <line x1="200" y1="248" x2="418" y2="248" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#arr2-white)"/>
+
+            <!-- ── RIGHT: ANONYMOUS WALLETS ── -->
+            <rect x="762" y="195" width="185" height="120" rx="2" fill="#222210" stroke="rgba(212,160,23,0.4)" stroke-width="1.5"/>
+            <text x="855" y="215" fill="#D4A017" font-family="Calibri,sans-serif" font-size="7.5" font-weight="700" letter-spacing="2.5" text-anchor="middle">ANONYMOUS WALLETS &amp;</text>
+            <text x="855" y="226" fill="#D4A017" font-family="Calibri,sans-serif" font-size="7.5" font-weight="700" letter-spacing="2.5" text-anchor="middle">ACCOUNTS</text>
+            <text x="855" y="244" fill="rgba(255,255,255,0.65)" font-family="Calibri,sans-serif" font-size="9" text-anchor="middle">Crypto wallet anonymity</text>
+            <text x="855" y="259" fill="rgba(255,255,255,0.65)" font-family="Calibri,sans-serif" font-size="9" text-anchor="middle">enables information asymmetry</text>
+            <text x="855" y="278" fill="rgba(255,255,255,0.45)" font-family="Calibri,sans-serif" font-size="8.5" text-anchor="middle">Bubblemaps forensic mapping</text>
+            <text x="855" y="293" fill="rgba(255,255,255,0.45)" font-family="Calibri,sans-serif" font-size="8.5" text-anchor="middle">links wallets to known actors</text>
+            <text x="855" y="308" fill="rgba(255,255,255,0.35)" font-family="Calibri,sans-serif" font-size="8" text-anchor="middle">CFTC declined to subpoena</text>
+
+            <!-- Arrow: center → anon wallets -->
+            <line x1="540" y1="248" x2="760" y2="248" stroke="rgba(212,160,23,0.6)" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arr2-gold)"/>
+            <text x="650" y="242" fill="rgba(212,160,23,0.5)" font-family="Calibri,sans-serif" font-size="8" text-anchor="middle">EXPLOITATION FLOWS</text>
+
+            <!-- ── ROW 3: TRUMP FAMILY FINANCIAL NETWORK ── -->
+            <text x="480" y="395" fill="rgba(255,255,255,0.25)" font-family="Calibri,sans-serif" font-size="9" font-weight="700" letter-spacing="3" text-anchor="middle">TRUMP FAMILY FINANCIAL NETWORK</text>
+
+            <!-- Trump Jr / 1789 Capital / Polymarket -->
+            <rect x="20" y="405" width="195" height="80" rx="2" fill="#1a1a3a" stroke="#6B9FFF" stroke-width="1.5"/>
+            <text x="118" y="424" fill="#6B9FFF" font-family="Calibri,sans-serif" font-size="8" font-weight="700" letter-spacing="2" text-anchor="middle">TRUMP JR. / 1789 CAPITAL</text>
+            <text x="118" y="441" fill="rgba(255,255,255,0.75)" font-family="Calibri,sans-serif" font-size="9.5" font-weight="700" text-anchor="middle">Polymarket Equity Stake</text>
+            <text x="118" y="456" fill="rgba(255,255,255,0.45)" font-family="Calibri,sans-serif" font-size="8.5" text-anchor="middle">Double-digit millions (reported)</text>
+            <text x="118" y="471" fill="rgba(255,255,255,0.35)" font-family="Calibri,sans-serif" font-size="8" text-anchor="middle">Profits from platform growth,</text>
+            <text x="118" y="481" fill="rgba(255,255,255,0.35)" font-family="Calibri,sans-serif" font-size="8" text-anchor="middle">not individual bet outcomes</text>
+
+            <!-- Trump Jr / Kalshi advisor -->
+            <rect x="230" y="405" width="195" height="80" rx="2" fill="#1a1a3a" stroke="#6B9FFF" stroke-width="1.5"/>
+            <text x="328" y="424" fill="#6B9FFF" font-family="Calibri,sans-serif" font-size="8" font-weight="700" letter-spacing="2" text-anchor="middle">TRUMP JR. / KALSHI</text>
+            <text x="328" y="441" fill="rgba(255,255,255,0.75)" font-family="Calibri,sans-serif" font-size="9.5" font-weight="700" text-anchor="middle">Paid Strategic Advisor</text>
+            <text x="328" y="456" fill="rgba(255,255,255,0.45)" font-family="Calibri,sans-serif" font-size="8.5" text-anchor="middle">CFTC-regulated platform</text>
+            <text x="328" y="471" fill="rgba(255,255,255,0.35)" font-family="Calibri,sans-serif" font-size="8" text-anchor="middle">Trump admin controls CFTC chair</text>
+            <text x="328" y="481" fill="rgba(255,255,255,0.35)" font-family="Calibri,sans-serif" font-size="8" text-anchor="middle">appointment simultaneously</text>
+
+            <!-- World Liberty Financial -->
+            <rect x="440" y="405" width="195" height="80" rx="2" fill="#1a1a3a" stroke="#6B9FFF" stroke-width="1.5"/>
+            <text x="538" y="424" fill="#6B9FFF" font-family="Calibri,sans-serif" font-size="8" font-weight="700" letter-spacing="2" text-anchor="middle">WORLD LIBERTY FINANCIAL</text>
+            <text x="538" y="441" fill="rgba(255,255,255,0.75)" font-family="Calibri,sans-serif" font-size="9.5" font-weight="700" text-anchor="middle">Trump Crypto Venture</text>
+            <text x="538" y="456" fill="rgba(255,255,255,0.45)" font-family="Calibri,sans-serif" font-size="8.5" text-anchor="middle">~$500M raised via token sales</text>
+            <text x="538" y="471" fill="rgba(255,255,255,0.35)" font-family="Calibri,sans-serif" font-size="8" text-anchor="middle">House Democrats: Treasury probe</text>
+            <text x="538" y="481" fill="rgba(255,255,255,0.35)" font-family="Calibri,sans-serif" font-size="8" text-anchor="middle">requested. No action.</text>
+
+            <!-- US Sovereign Wealth Fund (bottom right) -->
+            <rect x="650" y="405" width="290" height="80" rx="2" fill="#1a3a1a" stroke="#3aaa8a" stroke-width="1.5" stroke-dasharray="5,3"/>
+            <text x="795" y="424" fill="#3aaa8a" font-family="Calibri,sans-serif" font-size="8" font-weight="700" letter-spacing="2" text-anchor="middle">US SOVEREIGN WEALTH FUND</text>
+            <text x="795" y="441" fill="rgba(255,255,255,0.65)" font-family="Calibri,sans-serif" font-size="9.5" text-anchor="middle">Executive Order — February 2025</text>
+            <text x="795" y="456" fill="rgba(255,255,255,0.4)" font-family="Calibri,sans-serif" font-size="8.5" text-anchor="middle">Public capital, executive control, no oversight board</text>
+            <text x="795" y="472" fill="#3aaa8a" font-family="Calibri,sans-serif" font-size="8" font-weight="700" text-anchor="middle">⚠ PROPOSED — MIRRORS BCC / BGFIBank RELATIONSHIP</text>
+
+            <!-- Arrows: Trump family → center -->
+            <line x1="118" y1="404" x2="430" y2="308" stroke="#6B9FFF" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr2-blue)"/>
+            <line x1="328" y1="404" x2="455" y2="308" stroke="#6B9FFF" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr2-blue)"/>
+            <line x1="538" y1="404" x2="500" y2="308" stroke="#6B9FFF" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr2-blue)"/>
+            <line x1="795" y1="404" x2="530" y2="308" stroke="#3aaa8a" stroke-width="1" stroke-dasharray="3,4" opacity="0.5" marker-end="url(#arr2-teal)"/>
+
+            <!-- Red highlight: Trump Jr dual stake -->
+            <rect x="20" y="493" width="405" height="30" rx="2" fill="rgba(177,18,38,0.12)" stroke="rgba(177,18,38,0.4)" stroke-width="1"/>
+            <text x="222" y="511" fill="#B11226" font-family="Calibri,sans-serif" font-size="8.5" font-weight="700" text-anchor="middle">⚠  TRUMP JR. HOLDS FINANCIAL STAKES IN BOTH PLATFORMS THE CFTC IS SIMULTANEOUSLY PROTECTING IN COURT</text>
+
+            <!-- Legend -->
+            <rect x="20" y="532" width="920" height="55" rx="2" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+            <text x="40" y="550" fill="rgba(255,255,255,0.3)" font-family="Calibri,sans-serif" font-size="8" font-weight="700" letter-spacing="2">LEGEND</text>
+            <rect x="100" y="542" width="10" height="8" rx="1" fill="#3a1a1a" stroke="#B11226" stroke-width="1"/>
+            <text x="116" y="550" fill="rgba(255,255,255,0.45)" font-family="Calibri,sans-serif" font-size="8">Captured regulator (CFTC / BCC parallel)</text>
+            <line x1="300" y1="546" x2="330" y2="546" stroke="#6B9FFF" stroke-width="1.5" stroke-dasharray="4,3"/>
+            <text x="336" y="550" fill="rgba(255,255,255,0.45)" font-family="Calibri,sans-serif" font-size="8">Trump family equity flow</text>
+            <line x1="480" y1="546" x2="510" y2="546" stroke="#D4A017" stroke-width="1.5" stroke-dasharray="5,3"/>
+            <text x="516" y="550" fill="rgba(255,255,255,0.45)" font-family="Calibri,sans-serif" font-size="8">Exploitation / anonymous wallet flows</text>
+            <line x1="690" y1="546" x2="720" y2="546" stroke="#B11226" stroke-width="2" stroke-dasharray="6,3"/>
+            <text x="726" y="550" fill="rgba(255,255,255,0.45)" font-family="Calibri,sans-serif" font-size="8">CFTC protection mechanism (dropped enforcement)</text>
+
+            <text x="40" y="574" fill="rgba(255,255,255,0.2)" font-family="Calibri,sans-serif" font-size="7.5">Sources: Bubblemaps forensic analysis; House Oversight Committee; public reporting (Reuters, WSJ, Bloomberg); FEC disclosures; CFTC docket records. ALL IN documentary research, 2025–2026.</text>
+          </svg>
+          <p class="diagram-caption"><strong>Figure 2.</strong> US prediction market financial network showing documented conflicts between Trump family equity interests in Polymarket and Kalshi, CFTC enforcement collapse, and the structural parallels to BGFIBank DRC. The red box (CFTC) mirrors the red box in Figure 1 (BCC) — in both cases, the regulator became financially or institutionally aligned with the entity it was supposed to regulate. Sources: Bubblemaps, House Oversight Committee, public reporting.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SECTION 3: THE STRUCTURAL PARALLELS ────────────────── -->
+    <section class="content-section reveal" id="parallels">
+      <div class="container-wide">
+        <div class="container-prose" style="max-width:700px; padding:0;">
+          <span class="section-num">03</span>
+          <p class="eyebrow">Node-for-Node</p>
+          <h2>The Structural Parallels</h2>
+          <p>When you lay the two structures side by side, the architecture is identical. The actors are different. The technology is updated. The deniability is thicker. But the fundamental design (political family, captured regulator, anonymous money layer, state enablement) maps node for node.</p>
+        </div>
+
+        <div style="overflow-x: auto; margin-top: 2.5rem;">
+          <table class="compare-table">
+            <thead>
+              <tr>
+                <th>Structural Element</th>
+                <th>CONGO HOLD-UP, DRC (2001 to 2019)</th>
+                <th>US PARALLEL (2024–2026)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Political Controller</td>
+                <td class="col-congo">Joseph Kabila, President of the DRC. Full state power. Controls all regulatory appointments. Untouchable during tenure.</td>
+                <td class="col-us">Donald Trump, President of the United States. Controls CFTC, SEC, DOJ, Treasury appointments. Same institutional leverage.</td>
+              </tr>
+              <tr>
+                <td>The Central Institution</td>
+                <td class="col-congo">BGFIBank DRC, a commercial bank granted preferred status with state institutions. Managed by Kabila's family. Simultaneously client and beneficiary of state money.</td>
+                <td class="col-us">Polymarket and Kalshi, prediction markets granted de facto regulatory protection. Trump Jr. holds equity in both. Family profits from platform value, not individual trades.</td>
+              </tr>
+              <tr>
+                <td>Family Profit Vehicle</td>
+                <td class="col-congo">Francis Selemani (CEO), Gloria Mteyu (shareholder), Kabila family trusts. Family members on both sides of every transaction, as lenders and as the companies receiving loans.</td>
+                <td class="col-us">Donald Trump Jr.: equity stake in Polymarket via 1789 Capital, paid advisor at Kalshi. One layer removed. Profits from ecosystem growth, not traceable to individual bet outcomes.</td>
+              </tr>
+              <tr>
+                <td>The Captured Regulator</td>
+                <td class="col-congo">BCC (Banque Centrale du Congo). Deposited its own reserves into BGFIBank DRC. Created circular dependency: regulator became financially reliant on the entity it supervised.</td>
+                <td class="col-us">CFTC (Commodity Futures Trading Commission). Dropped enforcement against Polymarket, reduced overall enforcement by ~80%. Trump appoints CFTC chair while son holds equity in regulated platforms.</td>
+              </tr>
+              <tr>
+                <td>State Money Mechanism</td>
+                <td class="col-congo">DRC treasury, Gécamines mining revenues, pension funds (SNPP), BCC reserves. All deposited into or routed through BGFIBank DRC under political direction.</td>
+                <td class="col-us">Proposed US Sovereign Wealth Fund (EO, Feb 2025) would route public capital under direct executive control. No independent oversight mechanism established. Mirrors BCC/BGFIBank relationship exactly.</td>
+              </tr>
+              <tr>
+                <td>The Anonymous Layer</td>
+                <td class="col-congo">BVI shell companies, Panora Trust, offshore accounts. Loans issued to entities with no disclosed ultimate beneficial ownership. Millions in "loans" with no collateral, never repaid.</td>
+                <td class="col-us">Anonymous crypto wallets on Polymarket. 9-wallet Iran-linked cluster. "Van Dyke," "Skoobidoobnj," "0xoracle." CFTC declined to subpoena wallet identities. Bubblemaps identifies clusters; CFTC takes no action.</td>
+              </tr>
+              <tr>
+                <td>International Laundering Layer</td>
+                <td class="col-congo">European correspondent banks (Belgian, French) routed BGFIBank funds internationally. Luxury real estate acquired in Belgium and South Africa. International financial system as exit route.</td>
+                <td class="col-us">World Liberty Financial token sales to foreign entities. House Democrats documented sales to parties connected to sanctioned countries. Crypto's borderless nature makes exit routing harder to trace than wire transfers.</td>
+              </tr>
+              <tr>
+                <td>Investigative Entity</td>
+                <td class="col-congo">ACDC (Africa Centre for Disease and Control's investigative arm), Platform FACT, 19 media partners, 100+ journalists. Two years, 3.5 million documents.</td>
+                <td class="col-us">ACDC (same organization, now tracking crypto-era structures), Bubblemaps (on-chain forensics), House Oversight Committee Democrats, individual journalists at Reuters, WSJ, Bloomberg.</td>
+              </tr>
+              <tr>
+                <td>Key Investigator</td>
+                <td class="col-congo">Leo Hornsby, ACDC lead investigator on Congo Hold-Up. Spent years building the evidentiary record connecting family members to specific transactions.</td>
+                <td class="col-us">Leo Hornsby, same investigator, now documenting the Polymarket/Kalshi structure. Deebs (Bubblemaps, anonymous) as crypto forensics lead. Retaliation fears documented. 60 Minutes obscured his identity.</td>
+              </tr>
+              <tr>
+                <td>Accountability Outcome</td>
+                <td class="col-congo">BGFIBank Group SA: $1.8B+ DOJ settlement (2023). Kabila himself: still politically active in DRC. Core family members face no personal prosecution. The machine was dismantled in court; the architects walked.</td>
+                <td class="col-us">CFTC enforcement: dropped. DOJ: no action. Treasury probe: declined. Congressional probes: ongoing, no subpoena power yet exercised. Trump admin controls all prosecutorial bodies simultaneously.</td>
+              </tr>
+              <tr>
+                <td>The Key Difference in Design</td>
+                <td class="col-congo">Kabila family inserted directly into the institution (Selemani as CEO). Visible, traceable, legally actionable once the investigative record was built. The documents existed.</td>
+                <td class="col-us">Trump Jr. is "one layer removed." Equity investment, not management. Platform value grows from regulatory protection, not from winning individual bets. Deniability is built into the structure. Harder to diagram than BGFIBank. Which is why it's worse.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SECTION 4: THE PARALLEL PAIRS ─────────────────────── -->
+    <section class="content-section reveal" id="pairs">
+      <div class="container-wide">
+        <div class="container-prose" style="max-width:700px; padding:0;">
+          <span class="section-num">04</span>
+          <p class="eyebrow">Side by Side</p>
+          <h2>The Architecture in Pairs</h2>
+          <p>The most telling way to see the parallel is to hold corresponding nodes next to each other. Every element that made BGFIBank a systemic corruption machine has a direct American counterpart. Dressed differently, operating on newer infrastructure, but performing the same function.</p>
+        </div>
+
+        <div style="margin-top: 2.5rem;">
+
+          <div class="parallel-pair">
+            <div class="parallel-cell congo">
+              <span class="parallel-cell-label">Congo Hold-Up</span>
+              <h4>BCC (Central Bank of Congo)</h4>
+              <p>The BCC was supposed to supervise BGFIBank DRC. Instead, the BCC deposited its own foreign exchange reserves into BGFIBank, making the regulator a depositor in the institution it was tasked with overseeing. Every examination it performed was an examination of an institution holding its own money. Conflict of interest by design.</p>
+            </div>
+            <div class="parallel-connector">≡</div>
+            <div class="parallel-cell us">
+              <span class="parallel-cell-label">US Parallel</span>
+              <h4>CFTC, Captured Regulator</h4>
+              <p>The CFTC is supposed to regulate Kalshi and oversee US derivatives markets. Trump Jr. is a paid advisor at Kalshi. Trump appoints the CFTC chair. The CFTC dropped its enforcement action against Polymarket and reduced enforcement broadly. The regulator became an institutional protector of the platforms in which the president's family held financial stakes.</p>
+            </div>
+          </div>
+
+          <div class="parallel-pair">
+            <div class="parallel-cell congo">
+              <span class="parallel-cell-label">Congo Hold-Up</span>
+              <h4>Francis Selemani, CEO of BGFIBank DRC</h4>
+              <p>Kabila's adopted brother ran the bank. He was the lender, the approver of loans, the signer of contracts, and simultaneously part of the family receiving the proceeds. Both sides of the transaction wore the same face. ACDC called it "insider lending on an industrial scale."</p>
+            </div>
+            <div class="parallel-connector">≡</div>
+            <div class="parallel-cell us">
+              <span class="parallel-cell-label">US Parallel</span>
+              <h4>Trump Jr., Equity Holder and Platform Advisor</h4>
+              <p>Trump Jr. does not run Polymarket or Kalshi. But he profits from their growth. And his father's administration determines who sits at the CFTC and whether the CFTC enforces rules against those platforms. The conflict is one layer removed, which is exactly how modern regulatory capture is designed to function in a country with a free press.</p>
+            </div>
+          </div>
+
+          <div class="parallel-pair">
+            <div class="parallel-cell congo">
+              <span class="parallel-cell-label">Congo Hold-Up</span>
+              <h4>Panora Trust / BVI Shell Companies</h4>
+              <p>Loans from BGFIBank DRC were issued to companies registered in offshore jurisdictions. The ultimate beneficial owners were Kabila-linked entities. The loan documentation existed; the money never returned. The shell layer created distance between the political family and the extracted funds.</p>
+            </div>
+            <div class="parallel-connector">≡</div>
+            <div class="parallel-cell us">
+              <span class="parallel-cell-label">US Parallel</span>
+              <h4>Anonymous Crypto Wallets</h4>
+              <p>Polymarket operates on-chain. Wallet addresses are public; identities are not. The 9-wallet Iran cluster, Van Dyke, Skoobidoobnj, 0xoracle: these are names Bubblemaps traced through blockchain forensics. The CFTC has subpoena power to pierce this anonymity. It has not exercised it. The shell layer is now cryptographic, not corporate.</p>
+            </div>
+          </div>
+
+          <div class="parallel-pair">
+            <div class="parallel-cell congo">
+              <span class="parallel-cell-label">Congo Hold-Up</span>
+              <h4>Gécamines + DRC Treasury Deposits</h4>
+              <p>The DRC's mineral wealth (cobalt, coltan, copper) generated revenues that flowed through state entities directed to deposit into BGFIBank DRC. Public mineral wealth converted into private extraction. The people of the DRC owned the minerals. The Kabila family received the money.</p>
+            </div>
+            <div class="parallel-connector">≡</div>
+            <div class="parallel-cell us">
+              <span class="parallel-cell-label">US Parallel</span>
+              <h4>US Sovereign Wealth Fund (EO, Feb 2025)</h4>
+              <p>Trump signed an executive order creating a US Sovereign Wealth Fund. Public money, executive control, no independent oversight mechanism as currently structured. If this fund were to invest in prediction markets, crypto platforms, or DeFi infrastructure where the Trump family has equity stakes, it would complete the BGFIBank design exactly: state money flowing through a political family's preferred financial institution.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SECTION 4B: MICHAEL SELIG / TRUTH PREDICT ─────────── -->
+    <section class="content-section reveal" id="selig">
+      <div class="container-wide">
+        <div class="container-prose" style="max-width:700px; padding:0;">
+          <span class="section-num" style="color:rgba(177,18,38,0.25);">04b</span>
+          <p class="eyebrow">Breaking, June 2026</p>
+          <h2>Selig, Truth Predict, and the Regulator as a Weapon</h2>
+          <p>This is the part of the story that is still happening in real time. In the DRC, the Central Bank passively failed to regulate BGFIBank. Here, the CFTC under Michael Selig is being deployed offensively as a legal weapon to fight every state that tries to restrict the industry the president's family profits from. That is a different category of corruption and it is the thread I cannot stop pulling.</p>
+        </div>
+
+        <div class="container-wide" style="margin-top: 2.5rem;">
+          <div class="fact-grid cols-3">
+            <div class="fact-card highlight">
+              <span class="fact-card-eyebrow">The Regulator</span>
+              <h4>Michael Selig, CFTC Chair (December 2025)</h4>
+              <p>Former crypto attorney at Willkie Farr and Gallagher. Served dozens of crypto clients: VC firms, offshore blockchain companies. Joined as SEC Crypto Task Force counsel, then installed as sole CFTC chair in December 2025. His one-year ethics recusal from former clients expires in weeks, mid-2026. After that, no formal conflict barrier between him and his former industry.</p>
+            </div>
+            <div class="fact-card highlight">
+              <span class="fact-card-eyebrow">The Weapon</span>
+              <h4>"No Longer Sit Idly By," WSJ Op-Ed, February 2026</h4>
+              <p>Selig published an op-ed in the Wall Street Journal declaring: <em>"The CFTC will no longer sit idly by while overzealous state governments undermine the agency's exclusive jurisdiction over these markets by seeking to establish statewide prohibitions on these exciting products."</em> The CFTC filed amicus briefs in federal court to fight state restriction. Nearly 50 active state cases, all being contested by the federal regulator on the industry's behalf.</p>
+            </div>
+            <div class="fact-card highlight">
+              <span class="fact-card-eyebrow">Truth Predict</span>
+              <h4>Trump Media Launches Its Own Prediction Market</h4>
+              <p>Trump Media and Technology Group, Trump's publicly traded company in which he holds a commanding personal stake, announced Truth Predict in October 2025. Built in partnership with Crypto.com. Integrated into Truth Social. The CFTC sidelined staff who questioned Crypto.com (Warren's June 5 letter). The regulator's "exclusive federal jurisdiction" argument protects Truth Predict too. Not just Polymarket and Kalshi.</p>
+            </div>
+            <div class="fact-card">
+              <span class="fact-card-eyebrow">What Warren Documented</span>
+              <h4>Senate Letter to Selig, June 5, 2026</h4>
+              <p>Senator Warren sent a formal letter to Selig citing a New York Times report on "industry capture and potential Trump Administration interference." Documented: CFTC approved a Polymarket request after Trump Jr.'s 1789 Capital invested. CFTC fast-tracked Gemini matter (Winklevoss twins: $1M each in Bitcoin to Trump campaign). CFTC sidelined staff questioning Crypto.com. Enforcement: 58 actions FY2024 → 11 since Trump. 25% staff reduction. Response demanded by June 18, 2026.</p>
+            </div>
+            <div class="fact-card">
+              <span class="fact-card-eyebrow">The Precedent Play</span>
+              <h4>Why "Exclusive Federal Jurisdiction" Is the Key</h4>
+              <p>Selig's CFTC is not just protecting existing platforms. It is establishing a legal precedent, federal preemption, that will shield any future prediction market platform from state gambling or consumer protection law. Including Truth Predict. The legal architecture being built at public expense now benefits a platform in which the president holds personal equity. This is the BCC depositing its reserves into BGFIBank. Updated for 2026.</p>
+            </div>
+            <div class="fact-card">
+              <span class="fact-card-eyebrow">The Escalation</span>
+              <h4>From Passive Failure to Active Weapon</h4>
+              <p>In the DRC, the Central Bank stopped doing its job. At the US CFTC, the regulator is actively fighting to expand and entrench the industry. This is not regulatory capture in the traditional sense, the regulator looking the other way. This is regulatory deployment: the agency's legal power and public resources used as an enforcement arm for the industry the governing family profits from. That is worse than anything ACDC documented in the DRC.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-prose" style="max-width:700px; padding:0; margin-top: 2.5rem;">
+          <div class="callout">
+            <span class="callout-label">The Complete Conflict Stack, June 2026</span>
+            <p>Trump Jr. holds equity in Polymarket via 1789 Capital. Trump Jr. is a paid advisor at Kalshi. The CFTC approved a Polymarket action after that investment was made. Trump Media is launching Truth Predict with Crypto.com. The CFTC sidelined staff who questioned Crypto.com. Selig's former crypto clients have almost no recusal barrier left. The CFTC is fighting 50 state cases to establish federal exclusivity over all prediction markets. Warren has demanded answers. Nobody is getting them.</p>
+          </div>
+
+          <div class="research-banner">
+            <div class="research-banner-icon">📌</div>
+            <p><strong>Timing note:</strong> Senator Warren's response deadline to Selig was June 18, 2026. The Warren letter (June 5), Merkley letter (April 30), and the Senate Banking Committee letter (June 5) are all primary documents at senate.gov. I'm pulling these into the evidence file now.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SECTION 5: KEY DIFFERENCES ────────────────────────── -->
+    <section class="content-section reveal" id="differences">
+      <div class="container-wide">
+        <div class="container-prose" style="max-width:700px; padding:0;">
+          <span class="section-num">05</span>
+          <p class="eyebrow">For the Record</p>
+          <h2>What's Different, and Why That Makes It Worse</h2>
+          <p>Credibility requires accounting for the differences. The parallel is structural but it is not identical. Here is what distinguishes the two cases, and why in each instance the difference cuts against the US version being less concerning rather than more.</p>
+        </div>
+
+        <div class="container-prose" style="margin-top: 2.5rem; padding: 0; max-width: 700px;">
+          <ul class="diff-list">
+            <li>
+              <strong>The DRC is a kleptocracy by design. The US has institutional safeguards.</strong> True. But the US safeguards are being systematically dismantled. CFTC enforcement is down 80%. DOJ independence has been challenged through firing and leadership replacement. Treasury declined to probe World Liberty Financial. The institution still exists. The function is being hollowed out. The BCC still existed too. It just stopped doing its job.
+            </li>
+            <li>
+              <strong>The family member in the DRC literally ran the bank. Trump Jr. is an outside investor.</strong> Also true, and exactly the point. The US version is one layer removed. That layer creates deniability. It makes the conflict harder to litigate and harder to prove. It does not make the conflict smaller. It makes the accountability path longer. In a country with a free press and functioning courts, you design the extraction to survive those systems. That is an upgrade, not a mitigation.
+            </li>
+            <li>
+              <strong>The DRC lacked a free press. The US has one.</strong> Partially true. Deebs asked 60 Minutes to obscure his identity because he fears physical retaliation from crypto "wrench attacks." The investigative capacity exists. The personal safety of the investigators is not guaranteed. And Hornsby, who documented the DRC case and is now documenting the US parallel, has received no cooperation from US regulatory bodies.
+            </li>
+            <li>
+              <strong>The scale is different: $138M in the DRC vs. undisclosed equity in the US.</strong> The DRC figure is the documented minimum from one investigation of one bank. BGFIBank Group's DOJ settlement was $1.8B. The US equity stakes are undisclosed. World Liberty Financial raised approximately $500M. Polymarket's valuation at the time of 1789 Capital's investment was in the billions. The US scale is larger. It is simply less documented.
+            </li>
+            <li>
+              <strong>Kabila's case involved explicit loans to family members. The US case involves equity appreciation.</strong> Yes. This is the most important structural distinction. BGFIBank issued fraudulent loans that were never repaid: a direct, traceable theft. The US version extracts value through platform valuation growth driven by regulatory favoritism. The mechanism is built to be defensible. Which is why Hornsby says: "This is more sophisticated than what I saw in the DRC. It's the same structure wearing a different suit."
+            </li>
+          </ul>
+        </div>
+
+        <div class="container-prose" style="max-width: 700px; padding: 0;">
+          <div class="callout">
+            <span class="callout-label">Working Thesis</span>
+            <p>The sophistication of the corruption is a feature, not a bug. You cannot build a kleptocratic machine inside a functioning democracy without making it look defensible. Everything that makes this harder to prosecute in the US than in the DRC is evidence that it was designed by people who know how prosecution works.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SECTION 6: WHY THIS MATTERS FOR THE DOC ───────────── -->
+    <section class="content-section reveal" id="documentary">
+      <div class="container-wide">
+        <div class="container-prose" style="max-width:700px; padding:0;">
+          <span class="section-num">06</span>
+          <p class="eyebrow">The Film Angle</p>
+          <h2>Why This Parallel Is the Film's Spine</h2>
+          <p>The Congo Hold-Up comparison is not background. It is not context. It is the argument. The reason to frame ALL IN around this structural parallel is that it transforms the story from "things have gone wrong in the sports betting industry" into something much harder to dismiss: a known extraction mechanism, documented in the Global South and prosecuted internationally, is being deployed at scale inside the United States.</p>
+          <p>That is a different film. That is a different claim. And it is a claim that Leo Hornsby, the man who documented both cases, can make on camera with the receipts to back it up.</p>
+        </div>
+
+        <div class="container-wide" style="margin-top: 2.5rem;">
+          <div class="fact-grid">
+            <div class="fact-card highlight">
+              <span class="fact-card-eyebrow">The Witness</span>
+              <h4>Leo Hornsby, the Same Investigator</h4>
+              <p>Hornsby led ACDC's Congo Hold-Up investigation and is now documenting the Polymarket/CFTC parallel. He is not drawing an analogy. He is identifying the same architecture in a ne
