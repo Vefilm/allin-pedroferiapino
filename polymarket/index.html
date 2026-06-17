@@ -1,1095 +1,1097 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script>
-    (function(){
-      var auth = sessionStorage.getItem('allin_site_auth');
-      if(auth !== '1'){
-        document.documentElement.style.visibility = 'hidden';
-        document.addEventListener('DOMContentLoaded', function(){
-          var gate = document.createElement('div');
-          gate.id = 'inline-gate';
-          gate.style.cssText = 'position:fixed;inset:0;background:#0A0A0A;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;';
-          gate.innerHTML = '<p style="font-family:Georgia,serif;color:#fff;font-size:1.5rem;letter-spacing:0.12em;margin-bottom:2rem;">ALL IN</p><input id="gate-pw" type="password" placeholder="Access code" style="background:#141414;border:1px solid rgba(255,255,255,0.18);color:#fff;padding:0.75rem 1rem;font-size:1rem;width:280px;margin-bottom:0.75rem;outline:none;" onkeydown="if(event.key===\'Enter\')document.getElementById(\'gate-btn\').click()"><button id="gate-btn" onclick="(function(){var v=document.getElementById(\'gate-pw\').value;if(btoa(v)===\'YWxsaW4yMDI2\'){sessionStorage.setItem(\'allin_site_auth\',\'1\');document.getElementById(\'inline-gate\').remove();document.documentElement.style.visibility=\'visible\';}else{document.getElementById(\'gate-err\').textContent=\'Incorrect.\';}})()" style="background:#B11226;color:#fff;border:none;padding:0.75rem 0;cursor:pointer;font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;width:280px;">ENTER</button><p id="gate-err" style="color:#B11226;font-size:0.875rem;margin-top:0.75rem;height:1rem;font-family:Calibri,sans-serif;"></p>';
-          document.body.prepend(gate);
-          document.documentElement.style.visibility = 'visible';
-        });
-      }
-    })();
-  </script>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Polymarket | ALL IN: The Most American Addiction</title>
-  <meta name="description" content="The offshore prediction market at the center of the Trump financial network. Research compiled June 2026.">
-  <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
-  <link rel="stylesheet" href="../assets/css/main.css">
-  <style>
-    .page-hero {
-      padding: clamp(8rem, 14vw, 12rem) 0 clamp(4rem, 8vw, 5rem);
-      background: var(--ink);
-      border-bottom: 3px solid var(--red);
-    }
-    .page-hero h1 {
-      font-size: clamp(2.5rem, 7vw, 5.5rem);
-      line-height: 0.95;
-      margin-bottom: 1.5rem;
-    }
-    .hero-subhead {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-size: clamp(1.0625rem, 2vw, 1.375rem);
-      color: rgba(255,255,255,0.72);
-      line-height: 1.6;
-      max-width: 640px;
-    }
-    .hero-meta {
-      display: flex;
-      gap: 2rem;
-      flex-wrap: wrap;
-      margin-top: 2rem;
-      padding-top: 2rem;
-      border-top: 1px solid rgba(255,255,255,0.1);
-    }
-    .hero-meta-item {
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.45);
-    }
-    .hero-meta-item span {
-      display: block;
-      color: var(--white);
-      font-size: 0.8125rem;
-      margin-top: 0.25rem;
-      font-weight: 400;
-      text-transform: none;
-      letter-spacing: 0;
-    }
-    .content-section {
-      padding: clamp(3.5rem, 7vw, 6rem) 0;
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-    }
-    .content-section h2 {
-      font-size: clamp(1.75rem, 4vw, 2.75rem);
-      margin-bottom: 0.75rem;
-    }
-    .content-section h3 {
-      font-size: clamp(1.125rem, 2.5vw, 1.5rem);
-      margin-bottom: 0.625rem;
-      margin-top: 2.5rem;
-      color: var(--white);
-    }
-    .content-section p {
-      font-size: 1.0625rem;
-      line-height: 1.8;
-      color: rgba(255,255,255,0.82);
-      margin-bottom: 1.25rem;
-    }
-    .content-section p:last-child { margin-bottom: 0; }
-    .section-num {
-      font-family: var(--font-serif);
-      font-size: clamp(4rem, 10vw, 8rem);
-      font-weight: 700;
-      color: rgba(177,18,38,0.12);
-      line-height: 1;
-      margin-bottom: -1.5rem;
-      display: block;
-    }
-    .callout {
-      background: var(--card-bg);
-      border-left: 4px solid var(--red);
-      padding: 1.75rem 2rem;
-      margin: 2rem 0;
-    }
-    .callout p {
-      font-family: var(--font-serif);
-      font-size: 1.125rem;
-      line-height: 1.65;
-      color: rgba(255,255,255,0.88);
-      margin: 0;
-    }
-    .callout-label {
-      font-size: 0.625rem;
-      font-weight: 700;
-      letter-spacing: 0.4em;
-      text-transform: uppercase;
-      color: var(--red);
-      display: block;
-      margin-bottom: 0.75rem;
-    }
-    .diagram-wrap {
-      background: #0d0d0d;
-      border: 1px solid rgba(255,255,255,0.08);
-      padding: 2rem 1rem;
-      margin: 2.5rem 0;
-      overflow-x: auto;
-    }
-    .diagram-caption {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-size: 0.9375rem;
-      color: rgba(255,255,255,0.42);
-      text-align: center;
-      margin-top: 1.25rem;
-      padding-top: 1.25rem;
-      border-top: 1px solid rgba(255,255,255,0.06);
-    }
-    .diagram-label {
-      font-size: 0.625rem;
-      font-weight: 700;
-      letter-spacing: 0.4em;
-      text-transform: uppercase;
-      color: var(--red);
-      text-align: center;
-      display: block;
-      margin-bottom: 1.25rem;
-    }
-    .fact-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.25rem;
-      margin: 2rem 0;
-    }
-    @media (min-width: 600px) { .fact-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (min-width: 960px) { .fact-grid.cols-3 { grid-template-columns: repeat(3, 1fr); } }
-    .fact-card {
-      background: var(--card-bg);
-      border: 1px solid rgba(255,255,255,0.07);
-      padding: 1.5rem;
-    }
-    .fact-card.highlight { border-color: rgba(177,18,38,0.4); background: rgba(177,18,38,0.06); }
-    .fact-card.gold { border-color: rgba(255,200,80,0.25); background: rgba(255,200,80,0.04); }
-    .fact-card-eyebrow {
-      font-size: 0.625rem;
-      font-weight: 700;
-      letter-spacing: 0.4em;
-      text-transform: uppercase;
-      color: var(--red);
-      display: block;
-      margin-bottom: 0.625rem;
-    }
-    .fact-card h4 {
-      font-size: 1rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      color: var(--white);
-    }
-    .fact-card .big-num {
-      font-family: var(--font-serif);
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--white);
-      display: block;
-      margin-bottom: 0.375rem;
-    }
-    .fact-card p { font-size: 0.875rem; line-height: 1.6; color: rgba(255,255,255,0.6); margin: 0; }
-    .diff-list { list-style: none; margin: 1.5rem 0; }
-    .diff-list li {
-      padding: 0.875rem 0 0.875rem 1.75rem;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      position: relative;
-      font-size: 1rem;
-      line-height: 1.65;
-      color: rgba(255,255,255,0.75);
-    }
-    .diff-list li::before { content: '—'; position: absolute; left: 0; color: var(--red); font-weight: 700; }
-    .diff-list li strong { color: var(--white); }
+ <script>
+ (function(){
+ var auth = sessionStorage.getItem('allin_site_auth');
+ if(auth !== '1'){
+ document.documentElement.style.visibility = 'hidden';
+ document.addEventListener('DOMContentLoaded', function(){
+ var gate = document.createElement('div');
+ gate.id = 'inline-gate';
+ gate.style.cssText = 'position:fixed;inset:0;background:#0A0A0A;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;';
+ gate.innerHTML = '<p style="font-family:Georgia,serif;color:#fff;font-size:1.5rem;letter-spacing:0.12em;margin-bottom:2rem;">ALL IN</p><input id="gate-pw" type="password" placeholder="Access code" style="background:#141414;border:1px solid rgba(255,255,255,0.18);color:#fff;padding:0.75rem 1rem;font-size:1rem;width:280px;margin-bottom:0.75rem;outline:none;" onkeydown="if(event.key===\'Enter\')document.getElementById(\'gate-btn\').click()"><button id="gate-btn" onclick="(function(){var v=document.getElementById(\'gate-pw\').value;if(btoa(v)===\'YWxsaW4yMDI2\'){sessionStorage.setItem(\'allin_site_auth\',\'1\');document.getElementById(\'inline-gate\').remove();document.documentElement.style.visibility=\'visible\';}else{document.getElementById(\'gate-err\').textContent=\'Incorrect.\';}})()" style="background:#B11226;color:#fff;border:none;padding:0.75rem 0;cursor:pointer;font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;width:280px;">ENTER</button><p id="gate-err" style="color:#B11226;font-size:0.875rem;margin-top:0.75rem;height:1rem;font-family:Calibri,sans-serif;"></p>';
+ document.body.prepend(gate);
+ document.documentElement.style.visibility = 'visible';
+ });
+ }
+ })();
+ </script>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Polymarket | ALL IN: The Most American Addiction</title>
+ <meta name="description" content="The offshore prediction market at the center of the Trump financial network. Research compiled June 2026.">
+ <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+ <link rel="stylesheet" href="../assets/css/main.css">
+ <style>
+ .page-hero {
+ padding: clamp(8rem, 14vw, 12rem) 0 clamp(4rem, 8vw, 5rem);
+ background: var(--ink);
+ border-bottom: 3px solid var(--red);
+ }
+ .page-hero h1 {
+ font-size: clamp(2.5rem, 7vw, 5.5rem);
+ line-height: 0.95;
+ margin-bottom: 1.5rem;
+ }
+ .hero-subhead {
+ font-family: var(--font-serif);
+ font-style: italic;
+ font-size: clamp(1.0625rem, 2vw, 1.375rem);
+ color: rgba(255,255,255,0.72);
+ line-height: 1.6;
+ max-width: 640px;
+ }
+ .hero-meta {
+ display: flex;
+ gap: 2rem;
+ flex-wrap: wrap;
+ margin-top: 2rem;
+ padding-top: 2rem;
+ border-top: 1px solid rgba(255,255,255,0.1);
+ }
+ .hero-meta-item {
+ font-size: 0.75rem;
+ font-weight: 600;
+ letter-spacing: 0.08em;
+ text-transform: uppercase;
+ color: rgba(255,255,255,0.45);
+ }
+ .hero-meta-item span {
+ display: block;
+ color: var(--white);
+ font-size: 0.8125rem;
+ margin-top: 0.25rem;
+ font-weight: 400;
+ text-transform: none;
+ letter-spacing: 0;
+ }
+ .content-section {
+ padding: clamp(3.5rem, 7vw, 6rem) 0;
+ border-bottom: 1px solid rgba(255,255,255,0.07);
+ }
+ .content-section h2 {
+ font-size: clamp(1.75rem, 4vw, 2.75rem);
+ margin-bottom: 0.75rem;
+ }
+ .content-section h3 {
+ font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+ margin-bottom: 0.625rem;
+ margin-top: 2.5rem;
+ color: var(--white);
+ }
+ .content-section p {
+ font-size: 1.0625rem;
+ line-height: 1.8;
+ color: rgba(255,255,255,0.82);
+ margin-bottom: 1.25rem;
+ }
+ .content-section p:last-child { margin-bottom: 0; }
+ .section-num {
+ font-family: var(--font-serif);
+ font-size: clamp(4rem, 10vw, 8rem);
+ font-weight: 700;
+ color: rgba(177,18,38,0.12);
+ line-height: 1;
+ margin-bottom: -1.5rem;
+ display: block;
+ }
+ .callout {
+ background: var(--card-bg);
+ border-left: 4px solid var(--red);
+ padding: 1.75rem 2rem;
+ margin: 2rem 0;
+ }
+ .callout p {
+ font-family: var(--font-serif);
+ font-size: 1.125rem;
+ line-height: 1.65;
+ color: rgba(255,255,255,0.88);
+ margin: 0;
+ }
+ .callout-label {
+ font-size: 0.625rem;
+ font-weight: 700;
+ letter-spacing: 0.4em;
+ text-transform: uppercase;
+ color: var(--red);
+ display: block;
+ margin-bottom: 0.75rem;
+ }
+ .diagram-wrap {
+ background: #0d0d0d;
+ border: 1px solid rgba(255,255,255,0.08);
+ padding: 2rem 1rem;
+ margin: 2.5rem 0;
+ overflow-x: auto;
+ }
+ .diagram-caption {
+ font-family: var(--font-serif);
+ font-style: italic;
+ font-size: 0.9375rem;
+ color: rgba(255,255,255,0.42);
+ text-align: center;
+ margin-top: 1.25rem;
+ padding-top: 1.25rem;
+ border-top: 1px solid rgba(255,255,255,0.06);
+ }
+ .diagram-label {
+ font-size: 0.625rem;
+ font-weight: 700;
+ letter-spacing: 0.4em;
+ text-transform: uppercase;
+ color: var(--red);
+ text-align: center;
+ display: block;
+ margin-bottom: 1.25rem;
+ }
+ .fact-grid {
+ display: grid;
+ grid-template-columns: 1fr;
+ gap: 1.25rem;
+ margin: 2rem 0;
+ }
+ @media (min-width: 600px) { .fact-grid { grid-template-columns: repeat(2, 1fr); } }
+ @media (min-width: 960px) { .fact-grid.cols-3 { grid-template-columns: repeat(3, 1fr); } }
+ .fact-card {
+ background: var(--card-bg);
+ border: 1px solid rgba(255,255,255,0.07);
+ padding: 1.5rem;
+ }
+ .fact-card.highlight { border-color: rgba(177,18,38,0.4); background: rgba(177,18,38,0.06); }
+ .fact-card.gold { border-color: rgba(255,200,80,0.25); background: rgba(255,200,80,0.04); }
+ .fact-card-eyebrow {
+ font-size: 0.625rem;
+ font-weight: 700;
+ letter-spacing: 0.4em;
+ text-transform: uppercase;
+ color: var(--red);
+ display: block;
+ margin-bottom: 0.625rem;
+ }
+ .fact-card h4 {
+ font-size: 1rem;
+ font-weight: 700;
+ margin-bottom: 0.5rem;
+ color: var(--white);
+ }
+ .fact-card .big-num {
+ font-family: var(--font-serif);
+ font-size: 2rem;
+ font-weight: 700;
+ color: var(--white);
+ display: block;
+ margin-bottom: 0.375rem;
+ }
+ .fact-card p { font-size: 0.875rem; line-height: 1.6; color: rgba(255,255,255,0.6); margin: 0; }
+ .diff-list { list-style: none; margin: 1.5rem 0; }
+ .diff-list li {
+ padding: 0.875rem 0 0.875rem 1.75rem;
+ border-bottom: 1px solid rgba(255,255,255,0.06);
+ position: relative;
+ font-size: 1rem;
+ line-height: 1.65;
+ color: rgba(255,255,255,0.75);
+ }
+ .diff-list li::before { content: ''; position: absolute; left: 0; color: var(--red); font-weight: 700; }
+ .diff-list li strong { color: var(--white); }
 
-    /* ── INVESTOR GRID ───────────────────────────────────── */
-    .investor-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1px;
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.07);
-      margin: 2rem 0;
-    }
-    @media (min-width: 600px) { .investor-grid { grid-template-columns: repeat(2,1fr); } }
-    @media (min-width: 900px) { .investor-grid { grid-template-columns: repeat(3,1fr); } }
-    .investor-cell {
-      background: var(--card-bg);
-      padding: 1.25rem 1.5rem;
-    }
-    .investor-cell.anchor { background: rgba(177,18,38,0.08); }
-    .investor-role {
-      font-size: 0.5625rem;
-      font-weight: 700;
-      letter-spacing: 0.4em;
-      text-transform: uppercase;
-      color: var(--red);
-      display: block;
-      margin-bottom: 0.375rem;
-    }
-    .investor-name {
-      font-family: var(--font-serif);
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 0.25rem;
-    }
-    .investor-detail { font-size: 0.8125rem; color: rgba(255,255,255,0.5); line-height: 1.5; }
+ /* ── INVESTOR GRID ───────────────────────────────────── */
+ .investor-grid {
+ display: grid;
+ grid-template-columns: 1fr;
+ gap: 1px;
+ background: rgba(255,255,255,0.07);
+ border: 1px solid rgba(255,255,255,0.07);
+ margin: 2rem 0;
+ }
+ @media (min-width: 600px) { .investor-grid { grid-template-columns: repeat(2,1fr); } }
+ @media (min-width: 900px) { .investor-grid { grid-template-columns: repeat(3,1fr); } }
+ .investor-cell {
+ background: var(--card-bg);
+ padding: 1.25rem 1.5rem;
+ }
+ .investor-cell.anchor { background: rgba(177,18,38,0.08); }
+ .investor-role {
+ font-size: 0.5625rem;
+ font-weight: 700;
+ letter-spacing: 0.4em;
+ text-transform: uppercase;
+ color: var(--red);
+ display: block;
+ margin-bottom: 0.375rem;
+ }
+ .investor-name {
+ font-family: var(--font-serif);
+ font-size: 1rem;
+ font-weight: 700;
+ color: var(--white);
+ margin-bottom: 0.25rem;
+ }
+ .investor-detail { font-size: 0.8125rem; color: rgba(255,255,255,0.5); line-height: 1.5; }
 
-    /* ── TRIANGLE NODES ──────────────────────────────────── */
-    .triangle-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.25rem;
-      margin: 2rem 0;
-    }
-    @media (min-width: 700px) { .triangle-grid { grid-template-columns: repeat(3,1fr); } }
-    .triangle-node {
-      border: 1px solid rgba(177,18,38,0.3);
-      background: rgba(177,18,38,0.04);
-      padding: 1.75rem 1.5rem;
-    }
-    .triangle-node-num {
-      font-family: var(--font-serif);
-      font-size: 3rem;
-      color: rgba(177,18,38,0.2);
-      line-height: 1;
-      margin-bottom: -0.5rem;
-      display: block;
-    }
-    .triangle-node h4 { font-size: 1.0625rem; font-weight: 700; color: var(--white); margin-bottom: 0.5rem; }
-    .triangle-node p { font-size: 0.875rem; line-height: 1.6; color: rgba(255,255,255,0.6); margin: 0; }
-    .triangle-node .mechanism { font-size: 0.625rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--red); display: block; margin-bottom: 0.5rem; }
+ /* ── TRIANGLE NODES ──────────────────────────────────── */
+ .triangle-grid {
+ display: grid;
+ grid-template-columns: 1fr;
+ gap: 1.25rem;
+ margin: 2rem 0;
+ }
+ @media (min-width: 700px) { .triangle-grid { grid-template-columns: repeat(3,1fr); } }
+ .triangle-node {
+ border: 1px solid rgba(177,18,38,0.3);
+ background: rgba(177,18,38,0.04);
+ padding: 1.75rem 1.5rem;
+ }
+ .triangle-node-num {
+ font-family: var(--font-serif);
+ font-size: 3rem;
+ color: rgba(177,18,38,0.2);
+ line-height: 1;
+ margin-bottom: -0.5rem;
+ display: block;
+ }
+ .triangle-node h4 { font-size: 1.0625rem; font-weight: 700; color: var(--white); margin-bottom: 0.5rem; }
+ .triangle-node p { font-size: 0.875rem; line-height: 1.6; color: rgba(255,255,255,0.6); margin: 0; }
+ .triangle-node .mechanism { font-size: 0.625rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--red); display: block; margin-bottom: 0.5rem; }
 
-    /* ── SOURCE LIST ─────────────────────────────────────── */
-    .source-list { list-style: none; margin: 1.5rem 0 0; }
-    .source-list li {
-      padding: 0.75rem 0;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      font-size: 0.875rem;
-      color: rgba(255,255,255,0.55);
-      line-height: 1.55;
-    }
-    .source-list li strong { color: rgba(255,255,255,0.85); }
+ /* ── SOURCE LIST ─────────────────────────────────────── */
+ .source-list { list-style: none; margin: 1.5rem 0 0; }
+ .source-list li {
+ padding: 0.75rem 0;
+ border-bottom: 1px solid rgba(255,255,255,0.06);
+ font-size: 0.875rem;
+ color: rgba(255,255,255,0.55);
+ line-height: 1.55;
+ }
+ .source-list li strong { color: rgba(255,255,255,0.85); }
 
-    /* ── STATUS BADGE ────────────────────────────────────── */
-    .status-badge {
-      display: inline-block;
-      font-size: 0.5625rem;
-      font-weight: 700;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      padding: 0.25rem 0.625rem;
-      margin-left: 0.5rem;
-      vertical-align: middle;
-    }
-    .status-charged { background: rgba(177,18,38,0.2); color: #B11226; }
-    .status-unverified { background: rgba(255,200,80,0.12); color: rgba(255,200,80,0.8); }
-    .status-confirmed { background: rgba(80,200,80,0.12); color: rgba(80,200,80,0.8); }
+ /* ── STATUS BADGE ────────────────────────────────────── */
+ .status-badge {
+ display: inline-block;
+ font-size: 0.5625rem;
+ font-weight: 700;
+ letter-spacing: 0.3em;
+ text-transform: uppercase;
+ padding: 0.25rem 0.625rem;
+ margin-left: 0.5rem;
+ vertical-align: middle;
+ }
+ .status-charged { background: rgba(177,18,38,0.2); color: #B11226; }
+ .status-unverified { background: rgba(255,200,80,0.12); color: rgba(255,200,80,0.8); }
+ .status-confirmed { background: rgba(80,200,80,0.12); color: rgba(80,200,80,0.8); }
 
-    /* ── SCENE CALLOUT ───────────────────────────────────── */
-    .scene-box {
-      border: 2px solid var(--red);
-      padding: 2.5rem 2rem;
-      margin: 2rem 0;
-      position: relative;
-    }
-    .scene-box::before {
-      content: 'STRONGEST SCENE';
-      position: absolute;
-      top: -0.625rem;
-      left: 1.5rem;
-      background: var(--ink);
-      padding: 0 0.5rem;
-      font-size: 0.5625rem;
-      font-weight: 700;
-      letter-spacing: 0.4em;
-      color: var(--red);
-    }
-    .scene-box p {
-      font-size: 1.0625rem;
-      line-height: 1.75;
-      color: rgba(255,255,255,0.82);
-      margin-bottom: 1rem;
-    }
-    .scene-box p:last-child { margin-bottom: 0; }
+ /* ── SCENE CALLOUT ───────────────────────────────────── */
+ .scene-box {
+ border: 2px solid var(--red);
+ padding: 2.5rem 2rem;
+ margin: 2rem 0;
+ position: relative;
+ }
+ .scene-box::before {
+ content: 'STRONGEST SCENE';
+ position: absolute;
+ top: -0.625rem;
+ left: 1.5rem;
+ background: var(--ink);
+ padding: 0 0.5rem;
+ font-size: 0.5625rem;
+ font-weight: 700;
+ letter-spacing: 0.4em;
+ color: var(--red);
+ }
+ .scene-box p {
+ font-size: 1.0625rem;
+ line-height: 1.75;
+ color: rgba(255,255,255,0.82);
+ margin-bottom: 1rem;
+ }
+ .scene-box p:last-child { margin-bottom: 0; }
 
-    /* ── INTERACTIVE POLYMARKET TIMELINE ──────────────── */
-    .pm-tl-outer {
-      background: #070707;
-      border: 1px solid rgba(255,255,255,0.06);
-      overflow: hidden;
-      position: relative;
-    }
-    .pm-tl-scroll {
-      overflow-x: auto;
-      padding: 2.5rem 2rem;
-      -webkit-overflow-scrolling: touch;
-    }
-    .pm-tl-canvas {
-      min-width: 840px;
-      height: 380px;
-      position: relative;
-    }
-    .pm-tl-line {
-      position: absolute;
-      left: 20px;
-      right: 20px;
-      top: 50%;
-      height: 2px;
-      transform: translateY(-50%);
-      background: linear-gradient(90deg,
-        transparent 0%, rgba(177,18,38,0.4) 3%,
-        rgba(177,18,38,0.9) 50%,
-        rgba(177,18,38,0.4) 97%, transparent 100%
-      );
-      box-shadow: 0 0 8px rgba(177,18,38,0.5), 0 0 20px rgba(177,18,38,0.18);
-      overflow: hidden;
-    }
-    .pm-tl-scan {
-      position: absolute;
-      top: -1px;
-      width: 80px;
-      height: 4px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.9), rgba(177,18,38,0.5), transparent);
-      animation: pm-scan-move 5s ease-in-out infinite;
-      filter: blur(1px);
-    }
-    @keyframes pm-scan-move {
-      0%   { left: -80px; opacity: 0; }
-      8%   { opacity: 1; }
-      92%  { opacity: 1; }
-      100% { left: calc(100% + 80px); opacity: 0; }
-    }
-    .pm-tl-nodes {
-      position: absolute;
-      top: 0; left: 20px; right: 20px;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .pm-node {
-      position: relative;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 114px;
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-    /* Glow ring behind dot */
-    .pm-dot-wrap {
-      position: relative;
-      z-index: 3;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .pm-dot-ring {
-      position: absolute;
-      border-radius: 50%;
-      background: transparent;
-      border: 1px solid rgba(177,18,38,0.35);
-      animation: pm-ring-pulse 2.5s ease-in-out infinite;
-    }
-    @keyframes pm-ring-pulse {
-      0%, 100% { transform: scale(1); opacity: 0.6; }
-      50%       { transform: scale(2.2); opacity: 0; }
-    }
-    .pm-dot {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: #B11226;
-      position: relative;
-      z-index: 2;
-      transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease;
-      box-shadow: 0 0 6px #B11226, 0 0 14px rgba(177,18,38,0.65), 0 0 30px rgba(177,18,38,0.25);
-      animation: pm-glow-pulse 2.5s ease-in-out infinite;
-    }
-    .pm-dot--lg  { width: 20px; height: 20px; }
-    .pm-dot--dim {
-      background: #383838;
-      box-shadow: 0 0 4px rgba(80,80,80,0.3);
-      animation: none;
-    }
-    .pm-dot--dim ~ .pm-dot-ring { display: none; }
-    @keyframes pm-glow-pulse {
-      0%, 100% { box-shadow: 0 0 6px #B11226, 0 0 14px rgba(177,18,38,0.65), 0 0 30px rgba(177,18,38,0.22); }
-      50%       { box-shadow: 0 0 12px #ff1a35, 0 0 26px rgba(177,18,38,0.88), 0 0 52px rgba(177,18,38,0.38); }
-    }
-    .pm-node:nth-child(1) .pm-dot { animation-delay:    0s; }
-    .pm-node:nth-child(1) .pm-dot-ring { animation-delay:    0s; }
-    .pm-node:nth-child(2) .pm-dot { animation-delay: -0.4s; }
-    .pm-node:nth-child(2) .pm-dot-ring { animation-delay: -0.4s; }
-    .pm-node:nth-child(3) .pm-dot { animation-delay: -0.8s; }
-    .pm-node:nth-child(3) .pm-dot-ring { animation-delay: -0.8s; }
-    .pm-node:nth-child(4) .pm-dot { animation-delay: -1.2s; }
-    .pm-node:nth-child(4) .pm-dot-ring { animation-delay: -1.2s; }
-    .pm-node:nth-child(5) .pm-dot { animation-delay: -1.6s; }
-    .pm-node:nth-child(5) .pm-dot-ring { animation-delay: -1.6s; }
-    .pm-node:nth-child(6) .pm-dot { animation-delay: -2.0s; }
-    .pm-node:nth-child(6) .pm-dot-ring { animation-delay: -2.0s; }
+ /* ── INTERACTIVE POLYMARKET TIMELINE ──────────────── */
+ .pm-tl-outer {
+ background: #070707;
+ border: 1px solid rgba(255,255,255,0.06);
+ overflow: hidden;
+ position: relative;
+ }
+ .pm-tl-scroll {
+ overflow-x: auto;
+ padding: 2.5rem 2rem;
+ -webkit-overflow-scrolling: touch;
+ scrollbar-width: none;
+ -ms-overflow-style: none;
+ }
+ .pm-tl-scroll::-webkit-scrollbar { display: none; }
+ .pm-tl-canvas {
+ min-width: 840px;
+ height: 380px;
+ position: relative;
+ }
+ .pm-tl-line {
+ position: absolute;
+ left: 20px;
+ right: 20px;
+ top: 50%;
+ height: 2px;
+ transform: translateY(-50%);
+ background: linear-gradient(90deg,
+ transparent 0%, rgba(177,18,38,0.4) 3%,
+ rgba(177,18,38,0.9) 50%,
+ rgba(177,18,38,0.4) 97%, transparent 100%
+ );
+ box-shadow: 0 0 8px rgba(177,18,38,0.5), 0 0 20px rgba(177,18,38,0.18);
+ overflow: hidden;
+ }
+ .pm-tl-scan {
+ position: absolute;
+ top: -1px;
+ width: 80px;
+ height: 4px;
+ background: linear-gradient(90deg, transparent, rgba(255,255,255,0.9), rgba(177,18,38,0.5), transparent);
+ animation: pm-scan-move 5s ease-in-out infinite;
+ filter: blur(1px);
+ }
+ @keyframes pm-scan-move {
+ 0% { left: -80px; opacity: 0; }
+ 8% { opacity: 1; }
+ 92% { opacity: 1; }
+ 100% { left: calc(100% + 80px); opacity: 0; }
+ }
+ .pm-tl-nodes {
+ position: absolute;
+ top: 0; left: 20px; right: 20px;
+ height: 100%;
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ }
+ .pm-node {
+ position: relative;
+ height: 100%;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ width: 114px;
+ cursor: pointer;
+ flex-shrink: 0;
+ }
+ /* Glow ring behind dot */
+ .pm-dot-wrap {
+ position: relative;
+ z-index: 3;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ }
+ .pm-dot-ring {
+ position: absolute;
+ border-radius: 50%;
+ background: transparent;
+ border: 1px solid rgba(177,18,38,0.35);
+ animation: pm-ring-pulse 2.5s ease-in-out infinite;
+ }
+ @keyframes pm-ring-pulse {
+ 0%, 100% { transform: scale(1); opacity: 0.6; }
+ 50% { transform: scale(2.2); opacity: 0; }
+ }
+ .pm-dot {
+ width: 14px;
+ height: 14px;
+ border-radius: 50%;
+ background: #B11226;
+ position: relative;
+ z-index: 2;
+ transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease;
+ box-shadow: 0 0 6px #B11226, 0 0 14px rgba(177,18,38,0.65), 0 0 30px rgba(177,18,38,0.25);
+ animation: pm-glow-pulse 2.5s ease-in-out infinite;
+ }
+ .pm-dot--lg { width: 20px; height: 20px; }
+ .pm-dot--dim {
+ background: #383838;
+ box-shadow: 0 0 4px rgba(80,80,80,0.3);
+ animation: none;
+ }
+ .pm-dot--dim ~ .pm-dot-ring { display: none; }
+ @keyframes pm-glow-pulse {
+ 0%, 100% { box-shadow: 0 0 6px #B11226, 0 0 14px rgba(177,18,38,0.65), 0 0 30px rgba(177,18,38,0.22); }
+ 50% { box-shadow: 0 0 12px #ff1a35, 0 0 26px rgba(177,18,38,0.88), 0 0 52px rgba(177,18,38,0.38); }
+ }
+ .pm-node:nth-child(1) .pm-dot { animation-delay: 0s; }
+ .pm-node:nth-child(1) .pm-dot-ring { animation-delay: 0s; }
+ .pm-node:nth-child(2) .pm-dot { animation-delay: -0.4s; }
+ .pm-node:nth-child(2) .pm-dot-ring { animation-delay: -0.4s; }
+ .pm-node:nth-child(3) .pm-dot { animation-delay: -0.8s; }
+ .pm-node:nth-child(3) .pm-dot-ring { animation-delay: -0.8s; }
+ .pm-node:nth-child(4) .pm-dot { animation-delay: -1.2s; }
+ .pm-node:nth-child(4) .pm-dot-ring { animation-delay: -1.2s; }
+ .pm-node:nth-child(5) .pm-dot { animation-delay: -1.6s; }
+ .pm-node:nth-child(5) .pm-dot-ring { animation-delay: -1.6s; }
+ .pm-node:nth-child(6) .pm-dot { animation-delay: -2.0s; }
+ .pm-node:nth-child(6) .pm-dot-ring { animation-delay: -2.0s; }
 
-    .pm-label {
-      position: absolute;
-      width: 114px;
-      text-align: center;
-      pointer-events: none;
-      transition: opacity 0.2s ease;
-    }
-    .pm-label--above { bottom: calc(50% + 18px); padding-bottom: 2px; }
-    .pm-label--below { top:    calc(50% + 18px); padding-top:    2px; }
-    .pm-label-date {
-      font-size: 9px; font-weight: 700; letter-spacing: 0.12em;
-      text-transform: uppercase; color: rgba(255,255,255,0.28);
-      margin-bottom: 4px; font-family: Calibri, Arial, sans-serif;
-    }
-    .pm-label-title {
-      font-size: 11px; font-weight: 700; line-height: 1.25;
-      color: rgba(255,255,255,0.82); font-family: Calibri, Arial, sans-serif;
-    }
+ .pm-label {
+ position: absolute;
+ width: 114px;
+ text-align: center;
+ pointer-events: none;
+ transition: opacity 0.2s ease;
+ }
+ .pm-label--above { bottom: calc(50% + 18px); padding-bottom: 2px; }
+ .pm-label--below { top: calc(50% + 18px); padding-top: 2px; }
+ .pm-label-date {
+ font-size: 9px; font-weight: 700; letter-spacing: 0.12em;
+ text-transform: uppercase; color: rgba(255,255,255,0.28);
+ margin-bottom: 4px; font-family: Calibri, Arial, sans-serif;
+ }
+ .pm-label-title {
+ font-size: 11px; font-weight: 700; line-height: 1.25;
+ color: rgba(255,255,255,0.82); font-family: Calibri, Arial, sans-serif;
+ }
 
-    /* ── HOVER DETAIL CARD ──── */
-    .pm-detail {
-      position: absolute;
-      width: 195px;
-      left: 50%; transform: translateX(-50%) translateY(5px);
-      background: #0f0f0f;
-      border: 1px solid rgba(177,18,38,0.45);
-      box-shadow: 0 8px 40px rgba(0,0,0,0.75), 0 0 24px rgba(177,18,38,0.1);
-      padding: 1rem 1.125rem;
-      z-index: 30;
-      opacity: 0;
-      transition: opacity 0.22s ease, transform 0.22s ease;
-      pointer-events: none;
-    }
-    .pm-detail--above {
-      bottom: calc(50% + 26px);
-      transform: translateX(-50%) translateY(-5px);
-    }
-    .pm-detail--below {
-      top: calc(50% + 26px);
-    }
-    .pm-detail--wide { width: 230px; }
-    .pm-node.is-active .pm-detail {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-      pointer-events: auto;
-    }
-    .pm-node.is-active .pm-dot {
-      transform: scale(1.65);
-      box-shadow: 0 0 18px #ff1a35, 0 0 40px rgba(177,18,38,0.95),
-                  0 0 80px rgba(177,18,38,0.45), 0 0 130px rgba(177,18,38,0.15);
-      animation: none;
-    }
-    .pm-node.is-active .pm-dot-ring { animation: none; opacity: 0; }
-    .pm-node.is-active .pm-label { opacity: 0.3; }
-    .pm-detail-date {
-      font-size: 9px; font-weight: 700; letter-spacing: 0.22em;
-      text-transform: uppercase; color: #B11226; display: block;
-      margin-bottom: 0.4rem; font-family: Calibri, Arial, sans-serif;
-    }
-    .pm-detail-title {
-      font-size: 13px; font-weight: 700; color: #fff;
-      margin-bottom: 0.5rem; line-height: 1.3; font-family: Georgia, serif;
-    }
-    .pm-detail-body {
-      font-size: 11px; line-height: 1.6; color: rgba(255,255,255,0.6);
-      margin-bottom: 0.5rem; font-family: Calibri, Arial, sans-serif;
-    }
-    .pm-detail-src {
-      font-size: 9px; color: rgba(255,255,255,0.28);
-      font-style: italic; font-family: Calibri, Arial, sans-serif;
-    }
+ /* ── HOVER DETAIL CARD ──── */
+ .pm-detail {
+ position: absolute;
+ width: 195px;
+ left: 50%; transform: translateX(-50%) translateY(5px);
+ background: #0f0f0f;
+ border: 1px solid rgba(177,18,38,0.45);
+ box-shadow: 0 8px 40px rgba(0,0,0,0.75), 0 0 24px rgba(177,18,38,0.1);
+ padding: 1rem 1.125rem;
+ z-index: 30;
+ opacity: 0;
+ transition: opacity 0.22s ease, transform 0.22s ease;
+ pointer-events: none;
+ }
+ .pm-detail--above {
+ bottom: calc(50% + 26px);
+ transform: translateX(-50%) translateY(-5px);
+ }
+ .pm-detail--below {
+ top: calc(50% + 26px);
+ }
+ .pm-detail--wide { width: 230px; }
+ .pm-node.is-active .pm-detail {
+ opacity: 1;
+ transform: translateX(-50%) translateY(0);
+ pointer-events: auto;
+ }
+ .pm-node.is-active .pm-dot {
+ transform: scale(1.65);
+ box-shadow: 0 0 18px #ff1a35, 0 0 40px rgba(177,18,38,0.95),
+ 0 0 80px rgba(177,18,38,0.45), 0 0 130px rgba(177,18,38,0.15);
+ animation: none;
+ }
+ .pm-node.is-active .pm-dot-ring { animation: none; opacity: 0; }
+ .pm-node.is-active .pm-label { opacity: 0.3; }
+ .pm-detail-date {
+ font-size: 9px; font-weight: 700; letter-spacing: 0.22em;
+ text-transform: uppercase; color: #B11226; display: block;
+ margin-bottom: 0.4rem; font-family: Calibri, Arial, sans-serif;
+ }
+ .pm-detail-title {
+ font-size: 13px; font-weight: 700; color: #fff;
+ margin-bottom: 0.5rem; line-height: 1.3; font-family: Georgia, serif;
+ }
+ .pm-detail-body {
+ font-size: 11px; line-height: 1.6; color: rgba(255,255,255,0.6);
+ margin-bottom: 0.5rem; font-family: Calibri, Arial, sans-serif;
+ }
+ .pm-detail-src {
+ font-size: 9px; color: rgba(255,255,255,0.28);
+ font-style: italic; font-family: Calibri, Arial, sans-serif;
+ }
 
-    /* ── NAV PILL ─────────────── */
-    .nav-research-link {
-      color: var(--red) !important;
-      font-weight: 700 !important;
-      border: 1px solid rgba(177,18,38,0.4);
-      padding: 0.2rem 0.6rem !important;
-      border-radius: 2px;
-      transition: background 0.2s ease, border-color 0.2s ease;
-    }
-    .nav-research-link:hover {
-      background: rgba(177,18,38,0.12);
-      border-color: rgba(177,18,38,0.7);
-    }
-  </style>
+ /* ── NAV PILL ─────────────── */
+ .nav-research-link {
+ color: var(--red) !important;
+ font-weight: 700 !important;
+ border: 1px solid rgba(177,18,38,0.4);
+ padding: 0.2rem 0.6rem !important;
+ border-radius: 2px;
+ transition: background 0.2s ease, border-color 0.2s ease;
+ }
+ .nav-research-link:hover {
+ background: rgba(177,18,38,0.12);
+ border-color: rgba(177,18,38,0.7);
+ }
+ </style>
 </head>
 <body>
 
-  <header class="site-header" id="site-header">
-    <div class="header-inner container-wide">
-      <a class="wordmark" href="../">ALL IN</a>
-      <nav class="site-nav" aria-label="Main navigation">
-        <a href="../the-story/">The Story</a>
-        <a href="../who-this-follows/">Who This Follows</a>
-        <a href="../the-fix/">The Fix</a>
-        <a href="../why-now/">Why Now</a>
-        <a href="../sources/">Sources</a>
-        <a href="./" class="nav-research-link">Polymarket</a>
-        <a href="../pitch/">For Producers</a>
-        <a href="../your-body/">Your Body</a>
-        <a href="../contacts/">The Players</a>
-      </nav>
-      <a class="site-link" href="https://www.pedroferiapino.com" target="_blank" rel="noopener">pedroferiapino.com</a>
-      <button class="nav-toggle" id="nav-toggle" aria-label="Open navigation menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </header>
+ <header class="site-header" id="site-header">
+ <div class="header-inner container-wide">
+ <a class="wordmark" href="../">ALL IN</a>
+ <nav class="site-nav" aria-label="Main navigation">
+ <a href="../the-story/">The Story</a>
+ <a href="../who-this-follows/">Who This Follows</a>
+ <a href="../the-fix/">The Fix</a>
+ <a href="../why-now/">Why Now</a>
+ <a href="../sources/">Sources</a>
+ <a href="./" class="nav-research-link">Polymarket</a>
+ <a href="../pitch/">For Producers</a>
+ <a href="../your-body/">Your Body</a>
+ <a href="../contacts/">The Players</a>
+ </nav>
+ <a class="site-link" href="https://www.pedroferiapino.com" target="_blank" rel="noopener">pedroferiapino.com</a>
+ <button class="nav-toggle" id="nav-toggle" aria-label="Open navigation menu" aria-expanded="false">
+ <span></span><span></span><span></span>
+ </button>
+ </div>
+ </header>
 
-  <nav class="mobile-nav" id="mobile-nav" aria-hidden="true">
-    <a href="../">Home</a>
-    <a href="./" style="color:var(--red);font-weight:700;">Polymarket</a>
-    <a href="../the-story/">The Story</a>
-    <a href="../who-this-follows/">Who This Follows</a>
-    <a href="../the-fix/">The Fix</a>
-    <a href="../why-now/">Why Now</a>
-    <a href="../sources/">Sources</a>
-    <a href="../pitch/">For Producers</a>
-    <a href="../your-body/">Your Body</a>
-    <a href="../contacts/">The Players</a>
-    <a href="../contact/">Contact</a>
-  </nav>
+ <nav class="mobile-nav" id="mobile-nav" aria-hidden="true">
+ <a href="../">Home</a>
+ <a href="./" style="color:var(--red);font-weight:700;">Polymarket</a>
+ <a href="../the-story/">The Story</a>
+ <a href="../who-this-follows/">Who This Follows</a>
+ <a href="../the-fix/">The Fix</a>
+ <a href="../why-now/">Why Now</a>
+ <a href="../sources/">Sources</a>
+ <a href="../pitch/">For Producers</a>
+ <a href="../your-body/">Your Body</a>
+ <a href="../contacts/">The Players</a>
+ <a href="../contact/">Contact</a>
+ </nav>
 
-  <main>
+ <main>
 
-    <!-- ── HERO ─────────────────────────────────────────────── -->
-    <section class="page-hero reveal">
-      <div class="container-prose">
-        <p class="eyebrow">Production Research — Confidential</p>
-        <h1>POLY-<br>MARKET.</h1>
-        <p class="hero-subhead">An offshore prediction platform that bought a federal license, dropped a criminal investigation, attracted the president's son, and became the mechanism through which classified national security operations were converted into personal profit. This is not a crypto story. This is the movie.</p>
-        <div class="hero-meta">
-          <div class="hero-meta-item">Project<span>ALL IN Documentary</span></div>
-          <div class="hero-meta-item">Valuation<span>$15B (early 2026)</span></div>
-          <div class="hero-meta-item">Key Investigator<span>ACDC / Michael Hornsby</span></div>
-          <div class="hero-meta-item">Status<span>One defendant charged. Others pending.</span></div>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- ── SECTION 01: WHAT IT IS ────────────────────────────── -->
-    <section class="content-section reveal" id="primer">
-      <div class="container-wide">
-        <div class="container-prose" style="max-width:700px;padding:0;">
-          <span class="section-num">01</span>
-          <p class="eyebrow">The Primer</p>
-          <h2>What Polymarket Is</h2>
-          <p>Polymarket is a prediction market platform, founded in 2020, where users buy and sell contracts on the outcome of real-world events: elections, military operations, economic decisions, sports. It is nominally offshore, structured through Cayman Islands entities, and after a 2022 CFTC settlement — a $1.4 million penalty plus an agreement to block U.S. users — it continued operating at scale while American bettors used VPNs to access it freely.</p>
-          <p>In 2024, Polymarket processed an estimated $8 billion or more in election-cycle bets. Its prediction on the 2024 presidential race became more widely cited in media coverage than traditional polling. The platform was not a fringe product. It was the most influential political forecasting instrument in the country, operating outside U.S. jurisdiction, generating no U.S. tax revenue, and subject to almost no regulatory oversight during the election that determined who would regulate it.</p>
-          <p>In July 2025 — the same month the DOJ and CFTC quietly closed their investigations into the platform with no charges filed — Polymarket acquired QCEX, a company holding active CFTC licenses as a designated contract market and derivatives clearing organization, for $112 million. It bought its way back into the United States legally. Five weeks later, the president's son's investment fund announced a "double-digit million" equity stake. Two months after that, the parent company of the New York Stock Exchange committed up to $2 billion at a $9 billion valuation. By early 2026, Polymarket's valuation had reached $15 billion. It relaunched inside the United States in December 2025.</p>
-        </div>
-
-        <div class="fact-grid cols-3" style="margin-top:3rem;">
-          <div class="fact-card">
-            <span class="fact-card-eyebrow">Founded</span>
-            <span class="big-num">2020</span>
-            <p>Launched by Shayne Coplan, who retains founder control. Nominally offshore via Cayman Islands structure post-2022 CFTC settlement.</p>
-          </div>
-          <div class="fact-card">
-            <span class="fact-card-eyebrow">2024 Election Volume</span>
-            <span class="big-num">$8B+</span>
-            <p>Estimated bets processed during the 2024 election cycle. More influential than traditional polling in media coverage. Operating outside U.S. jurisdiction.</p>
-          </div>
-          <div class="fact-card highlight">
-            <span class="fact-card-eyebrow">Current Valuation</span>
-            <span class="big-num">$15B</span>
-            <p>From a $1.4M CFTC fine in 2022 to a $15B valuation in early 2026. NYSE's parent company is the largest strategic backer.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+ <!-- ── HERO ─────────────────────────────────────────────── -->
+ <section class="page-hero reveal">
+ <div class="container-prose">
+ <p class="eyebrow">Production Research Confidential</p>
+ <h1>POLY-<br>MARKET.</h1>
+ <p class="hero-subhead">An offshore prediction platform that bought a federal license, dropped a criminal investigation, attracted the president's son, and became the mechanism through which classified national security operations were converted into personal profit. This is not a crypto story. This is the movie.</p>
+ <div class="hero-meta">
+ <div class="hero-meta-item">Project<span>ALL IN Documentary</span></div>
+ <div class="hero-meta-item">Valuation<span>$15B (early 2026)</span></div>
+ <div class="hero-meta-item">Status<span>One defendant charged. Others pending.</span></div>
+ </div>
+ </div>
+ </section>
 
 
-    <!-- ── SECTION 02: THE CAP TABLE ─────────────────────────── -->
-    <section class="content-section reveal" id="cap-table">
-      <div class="container-wide">
-        <div class="container-prose" style="max-width:700px;padding:0;">
-          <span class="section-num">02</span>
-          <p class="eyebrow">The Ownership</p>
-          <h2>Who Owns It</h2>
-          <p>Polymarket is a private offshore entity. Its full cap table is not public. What has been disclosed or reported is enough to understand what kind of asset this became, and for whom.</p>
-        </div>
+ <!-- ── SECTION 01: WHAT IT IS ────────────────────────────── -->
+ <section class="content-section reveal" id="primer">
+ <div class="container-wide">
+ <div class="container-prose" style="max-width:700px;padding:0;">
+ <span class="section-num">01</span>
+ <p class="eyebrow">The Primer</p>
+ <h2>What Polymarket Is</h2>
+ <p>Polymarket is a prediction market platform, founded in 2020, where users buy and sell contracts on the outcome of real-world events: elections, military operations, economic decisions, sports. It is nominally offshore, structured through Cayman Islands entities, and after a 2022 CFTC settlement a $1.4 million penalty plus an agreement to block U.S. users it continued operating at scale while American bettors used VPNs to access it freely.</p>
+ <p>In 2024, Polymarket processed an estimated $8 billion or more in election-cycle bets. Its prediction on the 2024 presidential race became more widely cited in media coverage than traditional polling. The platform was not a fringe product. It was the most influential political forecasting instrument in the country, operating outside U.S. jurisdiction, generating no U.S. tax revenue, and subject to almost no regulatory oversight during the election that determined who would regulate it.</p>
+ <p>In July 2025 the same month the DOJ and CFTC quietly closed their investigations into the platform with no charges filed Polymarket acquired QCEX, a company holding active CFTC licenses as a designated contract market and derivatives clearing organization, for $112 million. It bought its way back into the United States legally. Five weeks later, the president's son's investment fund announced a "double-digit million" equity stake. Two months after that, the parent company of the New York Stock Exchange committed up to $2 billion at a $9 billion valuation. By early 2026, Polymarket's valuation had reached $15 billion. It relaunched inside the United States in December 2025.</p>
+ </div>
 
-        <div class="investor-grid" style="margin-top:2.5rem;">
-          <div class="investor-cell anchor">
-            <span class="investor-role">Anchor Investor — Series B + 2025 Round Lead</span>
-            <div class="investor-name">Founders Fund / Peter Thiel</div>
-            <div class="investor-detail">Led Polymarket's $45M Series B and the subsequent ~$150-200M 2025 round. Thiel is the oldest, deepest political-financial tie — predating Trump Jr. by more than a year. His pattern: invest in platforms that benefit from deregulation while maintaining proximity to Republican administrations.</div>
-          </div>
-          <div class="investor-cell anchor">
-            <span class="investor-role">Strategic Investor + Advisory Board</span>
-            <div class="investor-name">1789 Capital / Donald Trump Jr.</div>
-            <div class="investor-detail">"Double-digit millions" to "tens of millions" — reported, not filed. Don Jr. joined the advisory board (not the full board of directors) in August 2025 as an unpaid adviser. Announced five weeks after the DOJ and CFTC closed their investigations with no charges. He is simultaneously a paid strategic adviser to Kalshi, Polymarket's primary rival — both CFTC-regulated.</div>
-          </div>
-          <div class="investor-cell anchor">
-            <span class="investor-role">Largest Strategic Backer — $2B Committed</span>
-            <div class="investor-name">Intercontinental Exchange / NYSE Parent</div>
-            <div class="investor-detail">In October 2025, ICE — the parent company of the New York Stock Exchange — committed up to $2 billion, valuing Polymarket at approximately $9 billion. This is the institutional-legitimacy turn: the same exchange that runs the New York Stock Exchange is the largest strategic backer of an offshore prediction market. By early 2026, valuation reached $15B.</div>
-          </div>
-          <div class="investor-cell">
-            <span class="investor-role">Venture Investor</span>
-            <div class="investor-name">Point72 Ventures / Steve Cohen</div>
-            <div class="investor-detail">Steve Cohen's venture arm. Cohen is one of the largest hedge fund managers in the world. Wall Street's fingerprints are not incidental — they are the story of what Polymarket became.</div>
-          </div>
-          <div class="investor-cell">
-            <span class="investor-role">Crypto Infrastructure</span>
-            <div class="investor-name">Coinbase Ventures</div>
-            <div class="investor-detail">Coinbase's institutional venture arm. The crypto exchange is itself a politically connected entity that benefited from the Trump administration's reversal of enforcement posture.</div>
-          </div>
-          <div class="investor-cell">
-            <span class="investor-role">Crypto Capital</span>
-            <div class="investor-name">Dragonfly / Ribbit Capital / Others</div>
-            <div class="investor-detail">Dragonfly (crypto-focused), Ribbit Capital, Valor, SV Angel, 1confirmation. Polymarket disclosed roughly $205 million in previously undisclosed funding over two years immediately before the ICE deal — a retroactive legitimacy construction.</div>
-          </div>
-        </div>
-
-        <div class="callout" style="margin-top:2rem;">
-          <span class="callout-label">On Camera</span>
-          <p>The cap table is the visual. Thiel (deregulation patron), Steve Cohen (Wall Street), Coinbase (crypto establishment), NYSE's parent (the institutional turn), and the president's son — all on one ownership slide. Put them on screen in the order they got in and let the timeline speak.</p>
-        </div>
-      </div>
-    </section>
+ <div class="fact-grid cols-3" style="margin-top:3rem;">
+ <div class="fact-card">
+ <span class="fact-card-eyebrow">Founded</span>
+ <span class="big-num">2020</span>
+ <p>Launched by Shayne Coplan, who retains founder control. Nominally offshore via Cayman Islands structure post-2022 CFTC settlement.</p>
+ </div>
+ <div class="fact-card">
+ <span class="fact-card-eyebrow">2024 Election Volume</span>
+ <span class="big-num">$8B+</span>
+ <p>Estimated bets processed during the 2024 election cycle. More influential than traditional polling in media coverage. Operating outside U.S. jurisdiction.</p>
+ </div>
+ <div class="fact-card highlight">
+ <span class="fact-card-eyebrow">Current Valuation</span>
+ <span class="big-num">$15B</span>
+ <p>From a $1.4M CFTC fine in 2022 to a $15B valuation in early 2026. NYSE's parent company is the largest strategic backer.</p>
+ </div>
+ </div>
+ </div>
+ </section>
 
 
-    <!-- ── SECTION 03: THE TIMELINE ──────────────────────────── -->
-    <section class="content-section reveal" id="timeline">
-      <div class="container-wide">
-        <div class="container-prose" style="max-width:700px;padding:0;">
-          <span class="section-num">03</span>
-          <p class="eyebrow">The Spine</p>
-          <h2>The Causal Sequence</h2>
-          <p>Every date below is sourced. The sequence is the argument. No individual event requires inference — the pattern is in the record.</p>
-        </div>
+ <!-- ── SECTION 02: THE CAP TABLE ─────────────────────────── -->
+ <section class="content-section reveal" id="cap-table">
+ <div class="container-wide">
+ <div class="container-prose" style="max-width:700px;padding:0;">
+ <span class="section-num">02</span>
+ <p class="eyebrow">The Ownership</p>
+ <h2>Who Owns It</h2>
+ <p>Polymarket is a private offshore entity. Its full cap table is not public. What has been disclosed or reported is enough to understand what kind of asset this became, and for whom.</p>
+ </div>
 
-        <!-- ── INTERACTIVE TIMELINE ─────────────────── -->
-        <div class="pm-tl-outer" style="margin-top:2.5rem;">
-          <div style="padding:1.5rem 2rem 0.5rem;">
-            <span class="diagram-label" style="text-align:left;display:block;margin-bottom:0.25rem;">Figure — The Documented Timeline</span>
-            <p style="font-size:0.8rem;color:rgba(255,255,255,0.32);margin:0;font-style:italic;">Hover each event node to expand. Every date is on the record.</p>
-          </div>
-          <div class="pm-tl-scroll">
-            <div class="pm-tl-canvas">
+ <div class="investor-grid" style="margin-top:2.5rem;">
+ <div class="investor-cell anchor">
+ <span class="investor-role">Anchor Investor Series B + 2025 Round Lead</span>
+ <div class="investor-name">Founders Fund / Peter Thiel</div>
+ <div class="investor-detail">Led Polymarket's $45M Series B and the subsequent ~$150-200M 2025 round. Thiel is the oldest, deepest political-financial tie predating Trump Jr. by more than a year. His pattern: invest in platforms that benefit from deregulation while maintaining proximity to Republican administrations.</div>
+ </div>
+ <div class="investor-cell anchor">
+ <span class="investor-role">Strategic Investor + Advisory Board</span>
+ <div class="investor-name">1789 Capital / Donald Trump Jr.</div>
+ <div class="investor-detail">"Double-digit millions" to "tens of millions" reported, not filed. Don Jr. joined the advisory board (not the full board of directors) in August 2025 as an unpaid adviser. Announced five weeks after the DOJ and CFTC closed their investigations with no charges. He is simultaneously a paid strategic adviser to Kalshi, Polymarket's primary rival both CFTC-regulated.</div>
+ </div>
+ <div class="investor-cell anchor">
+ <span class="investor-role">Largest Strategic Backer $2B Committed</span>
+ <div class="investor-name">Intercontinental Exchange / NYSE Parent</div>
+ <div class="investor-detail">In October 2025, ICE the parent company of the New York Stock Exchange committed up to $2 billion, valuing Polymarket at approximately $9 billion. This is the institutional-legitimacy turn: the same exchange that runs the New York Stock Exchange is the largest strategic backer of an offshore prediction market. By early 2026, valuation reached $15B.</div>
+ </div>
+ <div class="investor-cell">
+ <span class="investor-role">Venture Investor</span>
+ <div class="investor-name">Point72 Ventures / Steve Cohen</div>
+ <div class="investor-detail">Steve Cohen's venture arm. Cohen is one of the largest hedge fund managers in the world. Wall Street's fingerprints are not incidental they are the story of what Polymarket became.</div>
+ </div>
+ <div class="investor-cell">
+ <span class="investor-role">Crypto Infrastructure</span>
+ <div class="investor-name">Coinbase Ventures</div>
+ <div class="investor-detail">Coinbase's institutional venture arm. The crypto exchange is itself a politically connected entity that benefited from the Trump administration's reversal of enforcement posture.</div>
+ </div>
+ <div class="investor-cell">
+ <span class="investor-role">Crypto Capital</span>
+ <div class="investor-name">Dragonfly / Ribbit Capital / Others</div>
+ <div class="investor-detail">Dragonfly (crypto-focused), Ribbit Capital, Valor, SV Angel, 1confirmation. Polymarket disclosed roughly $205 million in previously undisclosed funding over two years immediately before the ICE deal a retroactive legitimacy construction.</div>
+ </div>
+ </div>
 
-              <div class="pm-tl-line">
-                <div class="pm-tl-scan"></div>
-              </div>
-
-              <div class="pm-tl-nodes">
-
-                <!-- NODE 1: NOV 2024 — FBI RAID -->
-                <div class="pm-node">
-                  <div class="pm-label pm-label--above">
-                    <div class="pm-label-date">Nov 2024</div>
-                    <div class="pm-label-title">FBI<br>RAID</div>
-                  </div>
-                  <div class="pm-dot-wrap">
-                    <div class="pm-dot-ring" style="width:28px;height:28px;"></div>
-                    <div class="pm-dot pm-dot--key"></div>
-                  </div>
-                  <div class="pm-detail pm-detail--below">
-                    <span class="pm-detail-date">November 13, 2024</span>
-                    <div class="pm-detail-title">FBI Raids Polymarket CEO</div>
-                    <p class="pm-detail-body">Agents arrive at Shayne Coplan's SoHo apartment at ~6 AM. Phone and devices seized. Not arrested. No charges filed. Biden DOJ criminal probe into whether the platform violated its 2022 CFTC settlement by allowing US users.</p>
-                    <div class="pm-detail-src">CNBC, NBC News, CoinDesk — Nov 13–14, 2024</div>
-                  </div>
-                </div>
-
-                <!-- NODE 2: JUL 2025 — PROBES DROPPED + QCEX -->
-                <div class="pm-node">
-                  <div class="pm-label pm-label--below">
-                    <div class="pm-label-date">Jul 2025</div>
-                    <div class="pm-label-title">PROBES<br>DROPPED</div>
-                  </div>
-                  <div class="pm-dot-wrap">
-                    <div class="pm-dot-ring" style="width:28px;height:28px;"></div>
-                    <div class="pm-dot pm-dot--key"></div>
-                  </div>
-                  <div class="pm-detail pm-detail--above">
-                    <span class="pm-detail-date">July 15–16, 2025</span>
-                    <div class="pm-detail-title">DOJ + CFTC Close — No Charges</div>
-                    <p class="pm-detail-body">Both investigations closed simultaneously. No charges filed. Same month: Polymarket acquires QCEX (CFTC-licensed DCM + DCO) for $112M — buying its way back into the US legally. The license is purchased before the investments arrive.</p>
-                    <div class="pm-detail-src">CNBC, Unchained — Jul 15–16, 2025</div>
-                  </div>
-                </div>
-
-                <!-- NODE 3: AUG 2025 — DON JR -->
-                <div class="pm-node">
-                  <div class="pm-label pm-label--above">
-                    <div class="pm-label-date">Aug 2025</div>
-                    <div class="pm-label-title">DON JR.<br>INVESTS</div>
-                  </div>
-                  <div class="pm-dot-wrap">
-                    <div class="pm-dot-ring" style="width:28px;height:28px;"></div>
-                    <div class="pm-dot pm-dot--key"></div>
-                  </div>
-                  <div class="pm-detail pm-detail--below">
-                    <span class="pm-detail-date">August 26, 2025</span>
-                    <div class="pm-detail-title">1789 Capital / Trump Jr.</div>
-                    <p class="pm-detail-body">"Double-digit millions" stake — reported, not filed. Don Jr. joins advisory board (unpaid). Five weeks after DOJ + CFTC dropped investigations. He is simultaneously a paid strategic adviser to Kalshi, Polymarket's primary rival. Both CFTC-regulated.</p>
-                    <div class="pm-detail-src">CNBC, Polymarket PRNewswire — Aug 26, 2025</div>
-                  </div>
-                </div>
-
-                <!-- NODE 4: OCT 2025 — ICE + SELIG + TRUTH PREDICT (BIG) -->
-                <div class="pm-node">
-                  <div class="pm-label pm-label--below">
-                    <div class="pm-label-date">Oct 2025</div>
-                    <div class="pm-label-title">ICE $2B<br>SELIG NOM.<br>TRUTH PREDICT</div>
-                  </div>
-                  <div class="pm-dot-wrap">
-                    <div class="pm-dot-ring" style="width:36px;height:36px;"></div>
-                    <div class="pm-dot pm-dot--lg pm-dot--key"></div>
-                  </div>
-                  <div class="pm-detail pm-detail--above pm-detail--wide">
-                    <span class="pm-detail-date">October 2025</span>
-                    <div class="pm-detail-title">Three Events. One Month.</div>
-                    <p class="pm-detail-body">ICE (NYSE parent) commits up to $2B, valuing Polymarket at ~$9B. Trump nominates Michael Selig as CFTC Chair. Truth Predict announced: Trump Media + Crypto.com launch competing prediction platform inside Truth Social — regulated by the same CFTC.</p>
-                    <div class="pm-detail-src">Fortune (Oct 7), CoinDesk (Oct 28), Blockworks — Oct 2025</div>
-                  </div>
-                </div>
-
-                <!-- NODE 5: DEC 2025 — SELIG CONFIRMED + RELAUNCH -->
-                <div class="pm-node">
-                  <div class="pm-label pm-label--above">
-                    <div class="pm-label-date">Dec 2025</div>
-                    <div class="pm-label-title">SELIG<br>CONFIRMED</div>
-                  </div>
-                  <div class="pm-dot-wrap">
-                    <div class="pm-dot-ring" style="width:28px;height:28px;"></div>
-                    <div class="pm-dot pm-dot--key"></div>
-                  </div>
-                  <div class="pm-detail pm-detail--below">
-                    <span class="pm-detail-date">December 18–22, 2025</span>
-                    <div class="pm-detail-title">Selig Sworn In. US Relaunch.</div>
-                    <p class="pm-detail-body">Senate confirms Selig 53–43 as 16th CFTC Chair. Former Willkie Farr crypto attorney. Clients included Crypto.com (Truth Predict's partner). Ethics recusal expires mid-2026. Polymarket relaunches in US via invite-only sports app the same month.</p>
-                    <div class="pm-detail-src">Senate confirmation record — Dec 2025</div>
-                  </div>
-                </div>
-
-                <!-- NODE 6: APR 2026 — VAN DYKE INDICTED -->
-                <div class="pm-node">
-                  <div class="pm-label pm-label--below">
-                    <div class="pm-label-date">Apr 2026</div>
-                    <div class="pm-label-title">VAN DYKE<br>INDICTED</div>
-                  </div>
-                  <div class="pm-dot-wrap">
-                    <div class="pm-dot-ring" style="width:28px;height:28px;"></div>
-                    <div class="pm-dot pm-dot--key"></div>
-                  </div>
-                  <div class="pm-detail pm-detail--above">
-                    <span class="pm-detail-date">April 23–24, 2026</span>
-                    <div class="pm-detail-title">The Soldier</div>
-                    <p class="pm-detail-body">Army SF Master Sgt. Gannon Ken Van Dyke charged. Bet ~$33K on Maduro capture (Operation Absolute Resolve, Jan 3 2026) using classified intel. Profit: $409,881. Created account Dec 26, tried to delete it after. Pleaded not guilty. One of nine suspicious accounts on the platform.</p>
-                    <div class="pm-detail-src">DOJ press release — Apr 23, 2026</div>
-                  </div>
-                </div>
-
-                <!-- NODE 7: DEC 2026 — TRIAL -->
-                <div class="pm-node">
-                  <div class="pm-label pm-label--above">
-                    <div class="pm-label-date">Dec 7, 2026</div>
-                    <div class="pm-label-title" style="color:rgba(255,255,255,0.42);">VAN DYKE<br>TRIAL</div>
-                  </div>
-                  <div class="pm-dot-wrap">
-                    <div class="pm-dot pm-dot--dim"></div>
-                  </div>
-                  <div class="pm-detail pm-detail--below">
-                    <span class="pm-detail-date">December 7, 2026</span>
-                    <div class="pm-detail-title">First Trial — In Real Time</div>
-                    <p class="pm-detail-body">First prediction market insider trading case to reach trial in US history. Filming-window material. If proceedings are public, this is the documentary's closing act — still unfolding as this film is being made.</p>
-                    <div class="pm-detail-src">Court calendar — pending</div>
-                  </div>
-                </div>
-
-              </div><!-- /pm-tl-nodes -->
-            </div><!-- /pm-tl-canvas -->
-          </div><!-- /pm-tl-scroll -->
-          <div style="padding:0 2rem 1.5rem;border-top:1px solid rgba(255,255,255,0.04);margin-top:0;">
-            <p style="font-size:0.8rem;color:rgba(255,255,255,0.28);margin:1rem 0 0;font-family:Georgia,serif;font-style:italic;"><strong style="color:rgba(255,255,255,0.45);font-style:normal;">Figure 3 — The Polymarket Causal Sequence.</strong> Documented events, Nov 2024 – Dec 2026. Sources: CNBC, Fortune, Polymarket PRNewswire, DOJ press release, Senate confirmation record. The probes were dropped before Don Jr. invested — frame as documented pattern, not proven quid pro quo.</p>
-          </div>
-        </div>
-
-        <div class="callout">
-          <span class="callout-label">The Weakest Link — Read Before Camera</span>
-          <p>The probes were dropped in July 2025. Don Jr.'s investment was announced in August 2025 — after the closure, not before. "They dropped it because he invested" is not supportable on the public timeline. The defensible claim is the pattern: an administration that systematically dropped crypto enforcement against firms in its family's financial orbit, documented by the New York Times and three Senate letters. Frame it as documented capture, not a specific quid pro quo, and the argument is bulletproof.</p>
-        </div>
-      </div>
-    </section>
+ <div class="callout" style="margin-top:2rem;">
+ <span class="callout-label">On Camera</span>
+ <p>The cap table is the visual. Thiel (deregulation patron), Steve Cohen (Wall Street), Coinbase (crypto establishment), NYSE's parent (the institutional turn), and the president's son all on one ownership slide. Put them on screen in the order they got in and let the timeline speak.</p>
+ </div>
+ </div>
+ </section>
 
 
-    <!-- ── SECTION 04: THE CAPTURE MECHANISM ─────────────────── -->
-    <section class="content-section reveal" id="capture">
-      <div class="container-wide">
-        <div class="container-prose" style="max-width:700px;padding:0;">
-          <span class="section-num">04</span>
-          <p class="eyebrow">The Mechanism</p>
-          <h2>How the Regulator Was Deployed</h2>
-          <p>In December 2025, Trump's DOJ and CFTC having already closed their investigations, Michael Selig was confirmed as CFTC Chair, 53 to 43. Selig is 36. He is a former attorney at Willkie Farr and Gallagher, where he represented dozens of crypto clients. His ethics recusal from matters involving former clients expires mid-2026. His former clients include Crypto.com — the same company now building Truth Predict, the Trump family's own prediction platform inside Truth Social.</p>
-          <p>Selig is not a passive regulator. In February 2026, he published a Wall Street Journal op-ed: "The CFTC will no longer sit idly by while overzealous state governments undermine the agency's exclusive jurisdiction over these markets." He cited approximately 50 active cases. He filed amicus briefs. He sued states. The CFTC did not fail to act — it actively deployed federal regulatory power to protect specific platforms.</p>
-          <p>What the CFTC did not do: investigate $1.75 billion in oil futures trades timed to Trump-Iran ceasefire announcements. Enforcement actions fell from 58 in fiscal year 2024 to 11 since Trump took office. The agency's Chicago enforcement office went from approximately 20 lawyers to zero.</p>
-        </div>
+ <!-- ── SECTION 03: THE TIMELINE ──────────────────────────── -->
+ <section class="content-section reveal" id="timeline">
+ <div class="container-wide">
+ <div class="container-prose" style="max-width:700px;padding:0;">
+ <span class="section-num">03</span>
+ <p class="eyebrow">The Spine</p>
+ <h2>The Causal Sequence</h2>
+ <p>Every date below is sourced. The sequence is the argument. No individual event requires inference the pattern is in the record.</p>
+ </div>
 
-        <div class="callout" style="margin-top:2.5rem;">
-          <span class="callout-label">New York Times — December 2025 (Documented)</span>
-          <p>The New York Times reported that career CFTC staff flagged three Trump-connected firms — Polymarket (weak fraud protections), Crypto.com (small-bettor fairness concerns), and Gemini (launching before passing CFTC review) — and were overruled. Acting Chair Caroline Pham and senior counsel Brigitte Weyls intervened to clear the paths over staff objections. Pham subsequently went to MoonPay. Weyls went to Gemini Titan. The staff who raised the concerns were placed on leave or pushed out. This is the captured-regulator node of the parallel, documented by the paper of record — not inferred.</p>
-        </div>
+ <!-- ── INTERACTIVE TIMELINE ─────────────────── -->
+ <div class="pm-tl-outer" style="margin-top:2.5rem;">
+ <div style="padding:1.5rem 2rem 0.5rem;">
+ <span class="diagram-label" style="text-align:left;display:block;margin-bottom:0.25rem;">Figure The Documented Timeline</span>
+ <p style="font-size:0.8rem;color:rgba(255,255,255,0.32);margin:0;font-style:italic;">Hover each event node to expand. Every date is on the record.</p>
+ </div>
+ <div class="pm-tl-scroll">
+ <div class="pm-tl-canvas">
 
-        <div class="fact-grid cols-3" style="margin-top:2rem;">
-          <div class="fact-card highlight">
-            <span class="fact-card-eyebrow">Enforcement Collapse</span>
-            <span class="big-num">58 → 11</span>
-            <p>CFTC enforcement actions: 58 in FY2024 down to 11 since Trump took office. Chicago enforcement office: ~20 lawyers to zero.</p>
-          </div>
-          <div class="fact-card">
-            <span class="fact-card-eyebrow">The Revolving Door</span>
-            <h4>Pham → MoonPay<br>Weyls → Gemini Titan</h4>
-            <p>The two officials who cleared Polymarket, Crypto.com, and Gemini over staff objections both left for crypto-industry positions. NYT documented.</p>
-          </div>
-          <div class="fact-card">
-            <span class="fact-card-eyebrow">Selig — The Conflict Stack</span>
-            <h4>Recusal Expires Mid-2026</h4>
-            <p>Former Willkie Farr crypto attorney. Former clients include Crypto.com (Truth Predict partner). Ethics recusal expires mid-2026 — meaning he can soon vote on matters involving his former clients.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+ <div class="pm-tl-line">
+ <div class="pm-tl-scan"></div>
+ </div>
 
+ <div class="pm-tl-nodes">
 
-    <!-- ── SECTION 05: THE THREE-NODE TRIANGLE ───────────────── -->
-    <section class="content-section reveal" id="triangle">
-      <div class="container-wide">
-        <div class="container-prose" style="max-width:700px;padding:0;">
-          <span class="section-num">05</span>
-          <p class="eyebrow">The Structure</p>
-          <h2>Three Nodes. One Regulator.</h2>
-          <p>The corruption argument is not a line — it is a triangle. Three separate firms, three separate mechanisms of benefit, all regulated by the same CFTC chair. Each node is independently documented. Together, they describe a regulatory posture that serves the financial interests of the people who installed the regulator.</p>
-        </div>
+ <!-- NODE 1: NOV 2024 FBI RAID -->
+ <div class="pm-node">
+ <div class="pm-label pm-label--above">
+ <div class="pm-label-date">Nov 2024</div>
+ <div class="pm-label-title">FBI<br>RAID</div>
+ </div>
+ <div class="pm-dot-wrap">
+ <div class="pm-dot-ring" style="width:28px;height:28px;"></div>
+ <div class="pm-dot pm-dot--key"></div>
+ </div>
+ <div class="pm-detail pm-detail--below">
+ <span class="pm-detail-date">November 13, 2024</span>
+ <div class="pm-detail-title">FBI Raids Polymarket CEO</div>
+ <p class="pm-detail-body">Agents arrive at Shayne Coplan's SoHo apartment at ~6 AM. Phone and devices seized. Not arrested. No charges filed. Biden DOJ criminal probe into whether the platform violated its 2022 CFTC settlement by allowing US users.</p>
+ <div class="pm-detail-src">CNBC, NBC News, CoinDesk Nov 13–14, 2024</div>
+ </div>
+ </div>
 
-        <div class="triangle-grid" style="margin-top:2.5rem;">
-          <div class="triangle-node">
-            <span class="triangle-node-num">1</span>
-            <span class="mechanism">Equity + Advisory</span>
-            <h4>Polymarket</h4>
-            <p>Donald Trump Jr.'s firm 1789 Capital holds a reported "double-digit million" to "tens of millions" equity stake. Don Jr. sits on the advisory board as an unpaid adviser. The CFTC — run by his father's appointee — oversees the platform. CFTC dropped its investigation weeks before the investment was announced.</p>
-          </div>
-          <div class="triangle-node">
-            <span class="triangle-node-num">2</span>
-            <span class="mechanism">Family Platform + Regulatory Clear</span>
-            <h4>Crypto.com / Truth Predict</h4>
-            <p>Crypto.com dropped its SEC fight the same day its CEO met Trump at Mar-a-Lago. CFTC career staff who questioned Crypto.com's prediction-market product were sidelined. Crypto.com is now the financial plumbing of Truth Predict — the Trump family's own betting platform inside Truth Social, where Trump personally holds a significant financial stake.</p>
-          </div>
-          <div class="triangle-node">
-            <span class="triangle-node-num">3</span>
-            <span class="mechanism">Donation + Penalty Vacated</span>
-            <h4>Gemini / Winklevoss</h4>
-            <p>Cameron and Tyler Winklevoss each gave $1 million in Bitcoin to Trump's inauguration fund. Gemini was among the firms CFTC career staff flagged for launching before passing review. After Selig took office, he moved to vacate Gemini's $5 million CFTC penalty. Three firms. Three mechanisms. One regulator.</p>
-          </div>
-        </div>
+ <!-- NODE 2: JUL 2025 PROBES DROPPED + QCEX -->
+ <div class="pm-node">
+ <div class="pm-label pm-label--below">
+ <div class="pm-label-date">Jul 2025</div>
+ <div class="pm-label-title">PROBES<br>DROPPED</div>
+ </div>
+ <div class="pm-dot-wrap">
+ <div class="pm-dot-ring" style="width:28px;height:28px;"></div>
+ <div class="pm-dot pm-dot--key"></div>
+ </div>
+ <div class="pm-detail pm-detail--above">
+ <span class="pm-detail-date">July 15–16, 2025</span>
+ <div class="pm-detail-title">DOJ + CFTC Close No Charges</div>
+ <p class="pm-detail-body">Both investigations closed simultaneously. No charges filed. Same month: Polymarket acquires QCEX (CFTC-licensed DCM + DCO) for $112M buying its way back into the US legally. The license is purchased before the investments arrive.</p>
+ <div class="pm-detail-src">CNBC, Unchained Jul 15–16, 2025</div>
+ </div>
+ </div>
 
-        <div class="callout">
-          <span class="callout-label">The Question for Camera</span>
-          <p>Is this three separate coincidences, or is it a pattern? A defense lawyer would say coincidences. A fact-checker would note that none of the three constitutes a documented quid pro quo. The film's job is to put the pattern on screen and let the viewer draw the conclusion. The pattern is bulletproof — every element above is independently sourced. Don't reach for intent. The sequence speaks.</p>
-        </div>
-      </div>
-    </section>
+ <!-- NODE 3: AUG 2025 DON JR -->
+ <div class="pm-node">
+ <div class="pm-label pm-label--above">
+ <div class="pm-label-date">Aug 2025</div>
+ <div class="pm-label-title">DON JR.<br>INVESTS</div>
+ </div>
+ <div class="pm-dot-wrap">
+ <div class="pm-dot-ring" style="width:28px;height:28px;"></div>
+ <div class="pm-dot pm-dot--key"></div>
+ </div>
+ <div class="pm-detail pm-detail--below">
+ <span class="pm-detail-date">August 26, 2025</span>
+ <div class="pm-detail-title">1789 Capital / Trump Jr.</div>
+ <p class="pm-detail-body">"Double-digit millions" stake reported, not filed. Don Jr. joins advisory board (unpaid). Five weeks after DOJ + CFTC dropped investigations. He is simultaneously a paid strategic adviser to Kalshi, Polymarket's primary rival. Both CFTC-regulated.</p>
+ <div class="pm-detail-src">CNBC, Polymarket PRNewswire Aug 26, 2025</div>
+ </div>
+ </div>
 
+ <!-- NODE 4: OCT 2025 ICE + SELIG + TRUTH PREDICT (BIG) -->
+ <div class="pm-node">
+ <div class="pm-label pm-label--below">
+ <div class="pm-label-date">Oct 2025</div>
+ <div class="pm-label-title">ICE $2B<br>SELIG NOM.<br>TRUTH PREDICT</div>
+ </div>
+ <div class="pm-dot-wrap">
+ <div class="pm-dot-ring" style="width:36px;height:36px;"></div>
+ <div class="pm-dot pm-dot--lg pm-dot--key"></div>
+ </div>
+ <div class="pm-detail pm-detail--above pm-detail--wide">
+ <span class="pm-detail-date">October 2025</span>
+ <div class="pm-detail-title">Three Events. One Month.</div>
+ <p class="pm-detail-body">ICE (NYSE parent) commits up to $2B, valuing Polymarket at ~$9B. Trump nominates Michael Selig as CFTC Chair. Truth Predict announced: Trump Media + Crypto.com launch competing prediction platform inside Truth Social regulated by the same CFTC.</p>
+ <div class="pm-detail-src">Fortune (Oct 7), CoinDesk (Oct 28), Blockworks Oct 2025</div>
+ </div>
+ </div>
 
-    <!-- ── SECTION 06: THE ORACLE PROBLEM ────────────────────── -->
-    <section class="content-section reveal" id="oracle">
-      <div class="container-wide">
-        <div class="container-prose" style="max-width:700px;padding:0;">
-          <span class="section-num">06</span>
-          <p class="eyebrow">The Mechanism of Fraud</p>
-          <h2>The Oracle Problem</h2>
-          <p>Prediction markets require someone or something to determine who won. Polymarket delegates this to the UMA Protocol's Optimistic Oracle. Here is how it works: a proposed outcome is posted; if undisputed within a window, it stands; if disputed, it goes to a vote of UMA token-holders, who are economically incentivized to vote with the majority. The design means that whoever holds enough UMA tokens can, in principle, decide the truth.</p>
-          <p>This is not theory. In June and July 2025, a Polymarket market on whether Ukrainian President Zelensky would wear a suit before July drew approximately $242 million in volume. The market first resolved YES. Then after nine days and repeated disputes, it flipped to NO — even though the BBC, Reuters, and other news organizations documented his NATO-summit outfit as a suit. Reporting found that UMA "whales" voted approximately 23 million UMA tokens (roughly $25 million at the time) to push the contested result. Polymarket itself publicly challenged the resolution. The oracle had overridden the apparent facts.</p>
-        </div>
+ <!-- NODE 5: DEC 2025 SELIG CONFIRMED + RELAUNCH -->
+ <div class="pm-node">
+ <div class="pm-label pm-label--above">
+ <div class="pm-label-date">Dec 2025</div>
+ <div class="pm-label-title">SELIG<br>CONFIRMED</div>
+ </div>
+ <div class="pm-dot-wrap">
+ <div class="pm-dot-ring" style="width:28px;height:28px;"></div>
+ <div class="pm-dot pm-dot--key"></div>
+ </div>
+ <div class="pm-detail pm-detail--below">
+ <span class="pm-detail-date">December 18–22, 2025</span>
+ <div class="pm-detail-title">Selig Sworn In. US Relaunch.</div>
+ <p class="pm-detail-body">Senate confirms Selig 53–43 as 16th CFTC Chair. Former Willkie Farr crypto attorney. Clients included Crypto.com (Truth Predict's partner). Ethics recusal expires mid-2026. Polymarket relaunches in US via invite-only sports app the same month.</p>
+ <div class="pm-detail-src">Senate confirmation record Dec 2025</div>
+ </div>
+ </div>
 
-        <div class="callout" style="margin-top:2rem;">
-          <span class="callout-label">The Cinematic Case</span>
-          <p>Tens of millions of dollars and the "truth" of a market were decided by a token-holder vote over whether a jacket is a suit. This is not an edge case — it is the mechanism. The thing that determines outcomes is itself buyable. Show it on screen with the BBC and Reuters photos of the jacket alongside the blockchain vote record. The audience will understand immediately what kind of system this is.</p>
-        </div>
+ <!-- NODE 6: APR 2026 VAN DYKE INDICTED -->
+ <div class="pm-node">
+ <div class="pm-label pm-label--below">
+ <div class="pm-label-date">Apr 2026</div>
+ <div class="pm-label-title">VAN DYKE<br>INDICTED</div>
+ </div>
+ <div class="pm-dot-wrap">
+ <div class="pm-dot-ring" style="width:28px;height:28px;"></div>
+ <div class="pm-dot pm-dot--key"></div>
+ </div>
+ <div class="pm-detail pm-detail--above">
+ <span class="pm-detail-date">April 23–24, 2026</span>
+ <div class="pm-detail-title">The Soldier</div>
+ <p class="pm-detail-body">Army SF Master Sgt. Gannon Ken Van Dyke charged. Bet ~$33K on Maduro capture (Operation Absolute Resolve, Jan 3 2026) using classified intel. Profit: $409,881. Created account Dec 26, tried to delete it after. Pleaded not guilty. One of nine suspicious accounts on the platform.</p>
+ <div class="pm-detail-src">DOJ press release Apr 23, 2026</div>
+ </div>
+ </div>
 
-        <div class="fact-grid" style="margin-top:2rem;">
-          <div class="fact-card">
-            <span class="fact-card-eyebrow">The Zelensky Suit Market</span>
-            <span class="big-num">$242M</span>
-            <p>Volume in a market on whether Zelensky would wear a suit. Resolved YES. Flipped to NO nine days later after a ~$25M token-holder vote against what the BBC and Reuters reported. Polymarket challenged its own oracle's result.</p>
-          </div>
-          <div class="fact-card">
-            <span class="fact-card-eyebrow">The 0xoracle Cluster</span>
-            <h4>Unverified — Flag Clearly</h4>
-            <p>A "0xoracle" wallet cluster identified in Deebs/Bubblemaps analysis as potentially connected to oracle participants. Not independently verified in public reporting. Do not assert on camera without a confirming document. Keep as a research thread.</p>
-          </div>
-        </div>
+ <!-- NODE 7: DEC 2026 TRIAL -->
+ <div class="pm-node">
+ <div class="pm-label pm-label--above">
+ <div class="pm-label-date">Dec 7, 2026</div>
+ <div class="pm-label-title" style="color:rgba(255,255,255,0.42);">VAN DYKE<br>TRIAL</div>
+ </div>
+ <div class="pm-dot-wrap">
+ <div class="pm-dot pm-dot--dim"></div>
+ </div>
+ <div class="pm-detail pm-detail--below">
+ <span class="pm-detail-date">December 7, 2026</span>
+ <div class="pm-detail-title">First Trial In Real Time</div>
+ <p class="pm-detail-body">First prediction market insider trading case to reach trial in US history. Filming-window material. If proceedings are public, this is the documentary's closing act still unfolding as this film is being made.</p>
+ <div class="pm-detail-src">Court calendar pending</div>
+ </div>
+ </div>
 
-        <div class="container-prose" style="max-width:700px;padding:0;margin-top:2rem;">
-          <h3>What ACDC Found — The Numbers That Matter</h3>
-          <p>The Anti-Corruption Data Collective's April 2026 report "Insider Risks in Polymarket Political Markets" found that defense-related prediction markets on Polymarket won approximately 51.8% of the time — compared to roughly 14% for general political markets. Approximately $1.8 million flowed to wallets that bet on military operations before those operations became public knowledge. This is the quantitative spine. It is the number that makes the argument statistical, not anecdotal.</p>
-        </div>
-      </div>
-    </section>
+ </div><!-- /pm-tl-nodes -->
+ </div><!-- /pm-tl-canvas -->
+ </div><!-- /pm-tl-scroll -->
+ <div style="padding:0 2rem 1.5rem;border-top:1px solid rgba(255,255,255,0.04);margin-top:0;">
+ <p style="font-size:0.8rem;color:rgba(255,255,255,0.28);margin:1rem 0 0;font-family:Georgia,serif;font-style:italic;"><strong style="color:rgba(255,255,255,0.45);font-style:normal;">Figure 3 The Polymarket Causal Sequence.</strong> Documented events, Nov 2024 – Dec 2026. Sources: CNBC, Fortune, Polymarket PRNewswire, DOJ press release, Senate confirmation record. The probes were dropped before Don Jr. invested frame as documented pattern, not proven quid pro quo.</p>
+ </div>
+ </div>
 
-
-    <!-- ── SECTION 07: THE SOLDIER ───────────────────────────── -->
-    <section class="content-section reveal" id="soldier">
-      <div class="container-wide">
-        <div class="container-prose" style="max-width:700px;padding:0;">
-          <span class="section-num">07</span>
-          <p class="eyebrow">The Strongest Scene</p>
-          <h2>The Soldier</h2>
-        </div>
-
-        <div class="scene-box" style="margin-top:2.5rem;">
-          <p>Open on the Maduro capture. January 3, 2026. Operation Absolute Resolve. A real United States Special Forces mission. Then reveal that one of the men who helped plan and execute it — Army Special Forces Master Sergeant Gannon Ken Van Dyke — had created a Polymarket account on December 26, 2025, eight days before the raid.</p>
-          <p>He placed a series of bets on Maduro's removal. The day before the operation, he placed approximately half a dozen more. He turned roughly $33,000 into $409,881. Then he tried to delete his Polymarket account.</p>
-          <p>The DOJ charged him in April 2026: unlawful use of confidential government information, theft of nonpublic information, commodities fraud, wire fraud, unlawful monetary transactions. He pleaded not guilty. Trial date: December 7, 2026 — the first prediction market insider trading case to go to trial in United States history.</p>
-          <p>Why this is the strongest scene: it is fully on the record — DOJ press release, Washington Post, NPR, CBS, CNBC. It requires no speculation. It collapses the film's entire thesis into one human story. The betting market did not just take a kid's lunch money on a parlay. It let a soldier convert a classified national security operation into a personal payday on a platform the president's son co-owns and the president's regulator is fighting 50 states to protect.</p>
-          <p>And Van Dyke is one of nine accounts. The Bubblemaps/ACDC analysis found eight additional wallets with a 98% win rate on US military operation bets, $2.4 million in total profit. He is the one who got caught. The others remain on the platform, unidentified, still active.</p>
-        </div>
-
-        <div class="fact-grid cols-3" style="margin-top:2rem;">
-          <div class="fact-card highlight">
-            <span class="fact-card-eyebrow">Defendant</span>
-            <h4>Sgt. Gannon Ken Van Dyke</h4>
-            <p>US Army Special Forces Master Sergeant. Age 38. Participated in planning Operation Absolute Resolve (Maduro capture, Venezuela, Jan 3 2026). 13 bets on Polymarket. $409,881 profit on a $33K stake. Tried to delete account after.</p>
-          </div>
-          <div class="fact-card">
-            <span class="fact-card-eyebrow">The Broader Pattern</span>
-            <h4>9 Wallets. 98% Win Rate.</h4>
-            <p>Bubblemaps / Deebs analysis (presented to 60 Minutes): a 9-wallet cluster with $2.4M profit and a 98% win rate on US military operation bets. Van Dyke is charged. The other eight accounts remain active and unidentified.</p>
-          </div>
-          <div class="fact-card">
-            <span class="fact-card-eyebrow">Trial Date</span>
-            <h4>December 7, 2026</h4>
-            <p>First prediction market insider trading case to go to trial in US history. Trial is filming-window material. If this case proceeds, it will be the documentary's closing act in real time.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- ── SECTION 08: THE LEGAL BATTLE ──────────────────────── -->
-    <section class="content-section reveal" id="legal">
-      <div class="container-wide">
-        <div class="container-prose" style="max-width:700px;padding:0;">
-          <span class="section-num">08</span>
-          <p class="eyebrow">The Legal Front</p>
-          <h2>Fifty States vs. One Regulator</h2>
-          <p>The legal battle over prediction markets is the largest federal-state regulatory conflict in recent American history, and it is being fought on a single question: are sports event bets on Polymarket and Kalshi gambling, subject to state law — or are they futures contracts on future events, subject only to the CFTC?</p>
-          <p>Selig's answer, in his WSJ op-ed and in dozens of amicus briefs: futures contracts. The CFTC has exclusive jurisdiction under the Commodity Exchange Act. State gambling laws are preempted by Dodd-Frank. The Third Circuit Court of Appeals agreed in April 2026 — in a divided, appealable ruling — that CFTC jurisdiction over sports event contracts is likely exclusive. The case is Supreme Court-bound.</p>
-          <p>The states' answer: technically true, legally misleading. In practice, the vast majority of business on these platforms is sports event betting. Calling a Super Bowl bet a "futures contract" does not change what it is. A bipartisan coalition that grew from 34 to 39 attorneys general plus Washington DC filed amicus briefs defending state authority. New York AG Letitia James joined. The CFTC responded by suing New York. Arizona went further — filing criminal charges against the platforms.</p>
-        </div>
-
-        <div class="callout" style="margin-top:2rem;">
-          <span class="callout-label">The 18/21 Gap — The Film's Human Consequence</span>
-          <p>State gambling laws require participants to be 21 or older. Prediction markets set their floor at 18 — because they are not legally classified as gambling. A 19-year-old who cannot open a FanDuel account in most states can legally bet on the same game through Polymarket. The "futures contract" classification does not just protect the platforms from state regulation. It creates a younger, less protected class of bettor. The film starts with young men losing money to sports betting. This is how the same demographic gets in through a different door — three years younger, with no state protections, on a platform the president's son holds equity in.</p>
-        </div>
-
-        <ul class="diff-list" style="margin-top:2rem;">
-          <li><strong>39 AGs + DC</strong> filed amicus briefs defending state authority over prediction markets. Bipartisan coalition.</li>
-          <li><strong>Third Circuit (April 2026)</strong> held CFTC jurisdiction likely exclusive — divided ruling, still appealable. Supreme Court-bound.</li>
-          <li><strong>Arizona</strong> filed criminal charges against Kalshi and Polymarket. The first criminal state action.</li>
-          <li><strong>CFTC sued New York</strong> directly to block state enforcement. The federal regulator suing the states is the op-ed made operational.</li>
-          <li><strong>Senate (April 2026)</strong> unanimously passed a rule banning senators and staff from betting on Kalshi and Polymarket. Pushed by Sen. Bernie Moreno (R-OH). Effective immediately. The people writing the rules had to pass a rule to stop themselves from using the platforms they regulate.</li>
-          <li><strong>House lagging.</strong> Rep. Bryan Steil drafting a broader ban. Rep. Ritchie Torres introduced the Campaign Funds Integrity Act (up to 5 years' prison for using campaign funds on prediction markets). Schiff/Curtis bipartisan bill targets sports wagers specifically on CFTC-regulated markets.</li>
-          <li><strong>DraftKings + FanDuel</strong> quit the American Gaming Association and hired lobbyists specifically on "matters related to prediction markets." The sportsbooks are not the villain's rival — they are becoming the villain.</li>
-        </ul>
-      </div>
-    </section>
+ <div class="callout">
+ <span class="callout-label">The Weakest Link Read Before Camera</span>
+ <p>The probes were dropped in July 2025. Don Jr.'s investment was announced in August 2025 after the closure, not before. "They dropped it because he invested" is not supportable on the public timeline. The defensible claim is the pattern: an administration that systematically dropped crypto enforcement against firms in its family's financial orbit, documented by the New York Times and three Senate letters. Frame it as documented capture, not a specific quid pro quo, and the argument is bulletproof.</p>
+ </div>
+ </div>
+ </section>
 
 
-    <!-- ── SECTION 09: WHY THIS CLOSES THE FILM ──────────────── -->
-    <section class="content-section reveal" id="spine">
-      <div class="container-wide">
-        <div class="container-prose" style="max-width:700px;padding:0;">
-          <span class="section-num">09</span>
-          <p class="eyebrow">The Through-Line</p>
-          <h2>Why This Is the Film's Closing Argument</h2>
-          <p>The documentary begins with a young man losing money on DraftKings. He is not an edge case — he is the product. The app is engineered to find him and keep him. The regulatory void that allowed the industry to expand without meaningful check was not accidental. It was lobbied for, litigated, and politically protected.</p>
-          <p>Polymarket is where that story arrives. The young man on DraftKings and the classified Army mission on Polymarket are not two stories. They share a regulator. They share a legal argument. They share a political patron. The "futures contract" classification that protects Polymarket from state gambling law is the same classification that lets an 18-year-old bet on the same game his older brother can't legally bet on at a sportsbook. The enforcement collapse that left nine wallets with a 98% win rate on military operations untouched is the same enforcement collapse that let a soldier convert a classified mission into a payday.</p>
-          <p>The CFTC chair who is fighting 50 states to protect these platforms is a former crypto attorney whose recusal from his former clients expires as this film is being made. His former clients include the company building the president's family's own prediction platform. The president's son holds equity in the platform the soldier bet on. The NYSE's parent company committed $2 billion to it.</p>
-          <p>This is not a film about gambling. It is a film about how the architecture of extraction works — how it starts with a kid's credit card, moves through a regulatory void, arrives at Wall Street, and ends with a Special Forces sergeant sitting in front of a federal judge. The betting victim and the corruption story are the same story. They always were.</p>
-        </div>
-      </div>
-    </section>
+ <!-- ── SECTION 04: THE CAPTURE MECHANISM ─────────────────── -->
+ <section class="content-section reveal" id="capture">
+ <div class="container-wide">
+ <div class="container-prose" style="max-width:700px;padding:0;">
+ <span class="section-num">04</span>
+ <p class="eyebrow">The Mechanism</p>
+ <h2>How the Regulator Was Deployed</h2>
+ <p>In December 2025, Trump's DOJ and CFTC having already closed their investigations, Michael Selig was confirmed as CFTC Chair, 53 to 43. Selig is 36. He is a former attorney at Willkie Farr and Gallagher, where he represented dozens of crypto clients. His ethics recusal from matters involving former clients expires mid-2026. His former clients include Crypto.com the same company now building Truth Predict, the Trump family's own prediction platform inside Truth Social.</p>
+ <p>Selig is not a passive regulator. In February 2026, he published a Wall Street Journal op-ed: "The CFTC will no longer sit idly by while overzealous state governments undermine the agency's exclusive jurisdiction over these markets." He cited approximately 50 active cases. He filed amicus briefs. He sued states. The CFTC did not fail to act it actively deployed federal regulatory power to protect specific platforms.</p>
+ <p>What the CFTC did not do: investigate $1.75 billion in oil futures trades timed to Trump-Iran ceasefire announcements. Enforcement actions fell from 58 in fiscal year 2024 to 11 since Trump took office. The agency's Chicago enforcement office went from approximately 20 lawyers to zero.</p>
+ </div>
+
+ <div class="callout" style="margin-top:2.5rem;">
+ <span class="callout-label">New York Times December 2025 (Documented)</span>
+ <p>The New York Times reported that career CFTC staff flagged three Trump-connected firms Polymarket (weak fraud protections), Crypto.com (small-bettor fairness concerns), and Gemini (launching before passing CFTC review) and were overruled. Acting Chair Caroline Pham and senior counsel Brigitte Weyls intervened to clear the paths over staff objections. Pham subsequently went to MoonPay. Weyls went to Gemini Titan. The staff who raised the concerns were placed on leave or pushed out. This is the captured-regulator node of the parallel, documented by the paper of record not inferred.</p>
+ </div>
+
+ <div class="fact-grid cols-3" style="margin-top:2rem;">
+ <div class="fact-card highlight">
+ <span class="fact-card-eyebrow">Enforcement Collapse</span>
+ <span class="big-num">58 → 11</span>
+ <p>CFTC enforcement actions: 58 in FY2024 down to 11 since Trump took office. Chicago enforcement office: ~20 lawyers to zero.</p>
+ </div>
+ <div class="fact-card">
+ <span class="fact-card-eyebrow">The Revolving Door</span>
+ <h4>Pham → MoonPay<br>Weyls → Gemini Titan</h4>
+ <p>The two officials who cleared Polymarket, Crypto.com, and Gemini over staff objections both left for crypto-industry positions. NYT documented.</p>
+ </div>
+ <div class="fact-card">
+ <span class="fact-card-eyebrow">Selig The Conflict Stack</span>
+ <h4>Recusal Expires Mid-2026</h4>
+ <p>Former Willkie Farr crypto attorney. Former clients include Crypto.com (Truth Predict partner). Ethics recusal expires mid-2026 meaning he can soon vote on matters involving his former clients.</p>
+ </div>
+ </div>
+ </div>
+ </section>
 
 
-    <!-- ── SOURCES ─────────────────────────────────────────────── -->
-    <section class="content-section reveal" id="sources">
-      <div class="container-wide">
-        <div class="container-prose" style="max-width:700px;padding:0;">
-          <p class="eyebrow">Research Provenance</p>
-          <h2>Sources — All Verified</h2>
-          <p style="font-size:0.9375rem;color:rgba(255,255,255,0.5);">Items flagged as "unverified" should not be stated as fact on camera without independent confirmation. Pull the primary documents marked below for on-screen use.</p>
+ <!-- ── SECTION 05: THE THREE-NODE TRIANGLE ───────────────── -->
+ <section class="content-section reveal" id="triangle">
+ <div class="container-wide">
+ <div class="container-prose" style="max-width:700px;padding:0;">
+ <span class="section-num">05</span>
+ <p class="eyebrow">The Structure</p>
+ <h2>Three Nodes. One Regulator.</h2>
+ <p>The corruption argument is not a line it is a triangle. Three separate firms, three separate mechanisms of benefit, all regulated by the same CFTC chair. Each node is independently documented. Together, they describe a regulatory posture that serves the financial interests of the people who installed the regulator.</p>
+ </div>
 
-          <ul class="source-list">
-            <li><strong>CNBC:</strong> "FBI raids Polymarket CEO Shayne Coplan's home" — Nov 14, 2024</li>
-            <li><strong>CNBC / Unchained:</strong> "Polymarket investigations ended by DOJ, CFTC without charges" — Jul 15–16, 2025</li>
-            <li><strong>CNBC / Fortune:</strong> "ICE commits up to $2B in Polymarket at $9B valuation" — Oct 7, 2025</li>
-            <li><strong>CNBC / Polymarket PRNewswire:</strong> "1789 Capital / Don Jr. invests; joins advisory board" — Aug 26, 2025</li>
-            <li><strong>Blockhead / PRNewswire:</strong> "Polymarket acquires QCEX for $112M" — July 2025</li>
-            <li><strong>CoinDesk / Blockworks:</strong> "Truth Predict announced — DJT + Crypto.com CDNA" — Oct 28, 2025</li>
-            <li><strong>Decrypt / The Defiant:</strong> "Crypto.com drops SEC suit day of Mar-a-Lago meeting" — Dec 16, 2024</li>
-            <li><strong>New York Times (Dec 2025):</strong> CFTC career staff flagged Polymarket, Crypto.com, Gemini — Pham and Weyls cleared paths — Pham to MoonPay, Weyls to Gemini Titan. As reported by The Block and CNN (Apr 26, 2026).</li>
-            <li><strong>Warren letter to Selig — Jun 5, 2026:</strong> CFTC corruption documentation (Polymarket approval timing, Gemini fast-track, Crypto.com staff sidelining). PDF at banking.senate.gov. <em>Pull for on-screen use.</em></li>
-            <li><strong>Warren / Whitehouse / Merkley — Senate Banking Committee letters, Apr 9 + Jun 10, 2026:</strong> Oil trade records demanded. Deadline Jun 18, 2026.</li>
-            <li><strong>DOJ press release — Apr 23–24, 2026:</strong> United States v. Gannon Ken Van Dyke. <em>Pull for on-screen use.</em></li>
-            <li><strong>ACDC — Apr 30, 2026:</strong> "Insider Risks in Polymarket Political Markets" — Kendler-Kretsch and Szakonyi. Defense-related markets: 51.8% win rate vs. ~14% for general political markets. $1.8M in suspicious wallets. acdatacollective.org</li>
-            <li><strong>CBS News / 60 Minutes — May 17, 2026:</strong> Jon Wertheim segment. Bubblemaps/Deebs (identity obscured): 9-wallet cluster, $2.4M profit, 98% win rate.</li>
-            <li><strong>CoinDesk — Jul 7, 2025:</strong> Zelensky suit oracle controversy — $242M volume, UMA whale vote (~23M tokens, ~$25M), resolution flipped against BBC/Reuters reporting.</li>
-            <li><strong>CFTC WSJ op-ed (Michael Selig) — Feb 17, 2026:</strong> "The CFTC will no longer sit idly by..." ~50 active cases cited. Posted on CFTC website (seligstatement021726). <em>Pull for on-screen use.</em></li>
-            <li><strong>Third Circuit — Apr 2026:</strong> Divided ruling on CFTC exclusive jurisdiction over sports event contracts. Appealable.</li>
-            <li><strong>CNBC / PBS / Fox News — Apr 30, 2026:</strong> Senate unanimous self-ban on prediction market betting. Sen. Bernie Moreno (R-OH).</li>
-            <li><strong>NBC News (Arizona) / NY AG press release:</strong> Arizona criminal charges against Kalshi/Polymarket. NY AG Letitia James joins coalition.</li>
-            <li><strong>Accountable.US — Sept 2025:</strong> WLF token sales to North Korean hacking addresses, sanctioned Russian tool, Iranian exchange, Tornado Cash.</li>
-            <li><strong>CNBC / CoinDesk — Feb 2026:</strong> Abu Dhabi / MGX: ~$500M stake in WLF; $2B USD1 stablecoin settlement into Binance.</li>
-            <li><strong>Fortune — Jun 20, 2024:</strong> Jump Crypto CFTC investigation, Kanav Kariya resignation. Status under Trump CFTC: unconfirmed.</li>
-            <li><strong>DJT 8-K, approx. Oct 28, 2025:</strong> Truth Predict announcement. <em>Pull from SEC EDGAR for on-screen document use.</em></li>
-            <li><strong>House Oversight / Comer — May 22, 2026:</strong> Investigation into Kalshi/Polymarket. oversight.house.gov</li>
-          </ul>
+ <div class="triangle-grid" style="margin-top:2.5rem;">
+ <div class="triangle-node">
+ <span class="triangle-node-num">1</span>
+ <span class="mechanism">Equity + Advisory</span>
+ <h4>Polymarket</h4>
+ <p>Donald Trump Jr.'s firm 1789 Capital holds a reported "double-digit million" to "tens of millions" equity stake. Don Jr. sits on the advisory board as an unpaid adviser. The CFTC run by his father's appointee oversees the platform. CFTC dropped its investigation weeks before the investment was announced.</p>
+ </div>
+ <div class="triangle-node">
+ <span class="triangle-node-num">2</span>
+ <span class="mechanism">Family Platform + Regulatory Clear</span>
+ <h4>Crypto.com / Truth Predict</h4>
+ <p>Crypto.com dropped its SEC fight the same day its CEO met Trump at Mar-a-Lago. CFTC career staff who questioned Crypto.com's prediction-market product were sidelined. Crypto.com is now the financial plumbing of Truth Predict the Trump family's own betting platform inside Truth Social, where Trump personally holds a significant financial stake.</p>
+ </div>
+ <div class="triangle-node">
+ <span class="triangle-node-num">3</span>
+ <span class="mechanism">Donation + Penalty Vacated</span>
+ <h4>Gemini / Winklevoss</h4>
+ <p>Cameron and Tyler Winklevoss each gave $1 million in Bitcoin to Trump's inauguration fund. Gemini was among the firms CFTC career staff flagged for launching before passing review. After Selig took office, he moved to vacate Gemini's $5 million CFTC penalty. Three firms. Three mechanisms. One regulator.</p>
+ </div>
+ </div>
 
-          <div style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,0.07);">
-            <p style="font-size:0.8125rem;color:rgba(255,255,255,0.35);font-style:italic;">Research compiled June 2026 from public reporting, government documents, court filings, and company disclosures. Unverified items flagged in context. Primary source documents for on-screen use: Warren Jun 5 letter (PDF), DOJ Van Dyke press release, Selig WSJ op-ed, DJT 8-K (Oct 2025), CFTC 2022 Polymarket settlement order. Project: ALL IN: The Most American Addiction / Pedro Feria Pino / VEFILM.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <footer class="site-footer">
-    <div class="container-wide footer-inner">
-      <div class="footer-col">
-        <p class="wordmark" style="font-size:1.25rem;">ALL IN</p>
-        <p style="color:rgba(255,255,255,0.4);font-size:0.8125rem;margin-top:0.5rem;">The Most American Addiction</p>
-      </div>
-      <p style="color:rgba(255,255,255,0.25);font-size:0.75rem;align-self:flex-end;">Confidential production research. Not for distribution. &copy; 2026 VEFILM.</p>
-    </div>
-  </footer>
+ <div class="callout">
+ <span class="callout-label">The Question for Camera</span>
+ <p>Is this three separate coincidences, or is it a pattern? A defense lawyer would say coincidences. A fact-checker would note that none of the three constitutes a documented quid pro quo. The film's job is to put the pattern on screen and let the viewer draw the conclusion. The pattern is bulletproof every element above is independently sourced. Don't reach for intent. The sequence speaks.</p>
+ </div>
+ </div>
+ </section>
 
 
-  <script>
-    // Interactive timeline hover
-    document.querySelectorAll('.pm-node').forEach(function(node) {
-      node.addEventListener('mouseenter', function() {
-        document.querySelectorAll('.pm-node').forEach(function(n){ n.classList.remove('is-active'); });
-        this.classList.add('is-active');
-      });
-      node.addEventListener('mouseleave', function() {
-        this.classList.remove('is-active');
-      });
-      node.addEventListener('touchstart', function(e) {
-        e.preventDefault();
-        var was = this.classList.contains('is-active');
-        document.querySelectorAll('.pm-node').forEach(function(n){ n.classList.remove('is-active'); });
-        if (!was) this.classList.add('is-active');
-      }, { passive: false });
-    });
-  </script>
-  <script src="../assets/js/main.js"></script>
+ <!-- ── SECTION 06: THE ORACLE PROBLEM ────────────────────── -->
+ <section class="content-section reveal" id="oracle">
+ <div class="container-wide">
+ <div class="container-prose" style="max-width:700px;padding:0;">
+ <span class="section-num">06</span>
+ <p class="eyebrow">The Mechanism of Fraud</p>
+ <h2>The Oracle Problem</h2>
+ <p>Prediction markets require someone or something to determine who won. Polymarket delegates this to the UMA Protocol's Optimistic Oracle. Here is how it works: a proposed outcome is posted; if undisputed within a window, it stands; if disputed, it goes to a vote of UMA token-holders, who are economically incentivized to vote with the majority. The design means that whoever holds enough UMA tokens can, in principle, decide the truth.</p>
+ <p>This is not theory. In June and July 2025, a Polymarket market on whether Ukrainian President Zelensky would wear a suit before July drew approximately $242 million in volume. The market first resolved YES. Then after nine days and repeated disputes, it flipped to NO even though the BBC, Reuters, and other news organizations documented his NATO-summit outfit as a suit. Reporting found that UMA "whales" voted approximately 23 million UMA tokens (roughly $25 million at the time) to push the contested result. Polymarket itself publicly challenged the resolution. The oracle had overridden the apparent facts.</p>
+ </div>
+
+ <div class="callout" style="margin-top:2rem;">
+ <span class="callout-label">The Cinematic Case</span>
+ <p>Tens of millions of dollars and the "truth" of a market were decided by a token-holder vote over whether a jacket is a suit. This is not an edge case it is the mechanism. The thing that determines outcomes is itself buyable. Show it on screen with the BBC and Reuters photos of the jacket alongside the blockchain vote record. The audience will understand immediately what kind of system this is.</p>
+ </div>
+
+ <div class="fact-grid" style="margin-top:2rem;">
+ <div class="fact-card">
+ <span class="fact-card-eyebrow">The Zelensky Suit Market</span>
+ <span class="big-num">$242M</span>
+ <p>Volume in a market on whether Zelensky would wear a suit. Resolved YES. Flipped to NO nine days later after a ~$25M token-holder vote against what the BBC and Reuters reported. Polymarket challenged its own oracle's result.</p>
+ </div>
+ <div class="fact-card">
+ <span class="fact-card-eyebrow">The 0xoracle Cluster</span>
+ <h4>Unverified Flag Clearly</h4>
+ <p>A "0xoracle" wallet cluster identified in Deebs/Bubblemaps analysis as potentially connected to oracle participants. Not independently verified in public reporting. Do not assert on camera without a confirming document. Keep as a research thread.</p>
+ </div>
+ </div>
+
+ <div class="container-prose" style="max-width:700px;padding:0;margin-top:2rem;">
+ <h3>What ACDC Found The Numbers That Matter</h3>
+ <p>The Anti-Corruption Data Collective's April 2026 report "Insider Risks in Polymarket Political Markets" found that defense-related prediction markets on Polymarket won approximately 51.8% of the time compared to roughly 14% for general political markets. Approximately $1.8 million flowed to wallets that bet on military operations before those operations became public knowledge. This is the quantitative spine. It is the number that makes the argument statistical, not anecdotal.</p>
+ </div>
+ </div>
+ </section>
+
+
+ <!-- ── SECTION 07: THE SOLDIER ───────────────────────────── -->
+ <section class="content-section reveal" id="soldier">
+ <div class="container-wide">
+ <div class="container-prose" style="max-width:700px;padding:0;">
+ <span class="section-num">07</span>
+ <p class="eyebrow">The Strongest Scene</p>
+ <h2>The Soldier</h2>
+ </div>
+
+ <div class="scene-box" style="margin-top:2.5rem;">
+ <p>Open on the Maduro capture. January 3, 2026. Operation Absolute Resolve. A real United States Special Forces mission. Then reveal that one of the men who helped plan and execute it Army Special Forces Master Sergeant Gannon Ken Van Dyke had created a Polymarket account on December 26, 2025, eight days before the raid.</p>
+ <p>He placed a series of bets on Maduro's removal. The day before the operation, he placed approximately half a dozen more. He turned roughly $33,000 into $409,881. Then he tried to delete his Polymarket account.</p>
+ <p>The DOJ charged him in April 2026: unlawful use of confidential government information, theft of nonpublic information, commodities fraud, wire fraud, unlawful monetary transactions. He pleaded not guilty. Trial date: December 7, 2026 the first prediction market insider trading case to go to trial in United States history.</p>
+ <p>Why this is the strongest scene: it is fully on the record DOJ press release, Washington Post, NPR, CBS, CNBC. It requires no speculation. It collapses the film's entire thesis into one human story. The betting market did not just take a kid's lunch money on a parlay. It let a soldier convert a classified national security operation into a personal payday on a platform the president's son co-owns and the president's regulator is fighting 50 states to protect.</p>
+ <p>And Van Dyke is one of nine accounts. The Bubblemaps/ACDC analysis found eight additional wallets with a 98% win rate on US military operation bets, $2.4 million in total profit. He is the one who got caught. The others remain on the platform, unidentified, still active.</p>
+ </div>
+
+ <div class="fact-grid cols-3" style="margin-top:2rem;">
+ <div class="fact-card highlight">
+ <span class="fact-card-eyebrow">Defendant</span>
+ <h4>Sgt. Gannon Ken Van Dyke</h4>
+ <p>US Army Special Forces Master Sergeant. Age 38. Participated in planning Operation Absolute Resolve (Maduro capture, Venezuela, Jan 3 2026). 13 bets on Polymarket. $409,881 profit on a $33K stake. Tried to delete account after.</p>
+ </div>
+ <div class="fact-card">
+ <span class="fact-card-eyebrow">The Broader Pattern</span>
+ <h4>9 Wallets. 98% Win Rate.</h4>
+ <p>Bubblemaps / Deebs analysis (presented to 60 Minutes): a 9-wallet cluster with $2.4M profit and a 98% win rate on US military operation bets. Van Dyke is charged. The other eight accounts remain active and unidentified.</p>
+ </div>
+ <div class="fact-card">
+ <span class="fact-card-eyebrow">Trial Date</span>
+ <h4>December 7, 2026</h4>
+ <p>First prediction market insider trading case to go to trial in US history. Trial is filming-window material. If this case proceeds, it will be the documentary's closing act in real time.</p>
+ </div>
+ </div>
+ </div>
+ </section>
+
+
+ <!-- ── SECTION 08: THE LEGAL BATTLE ──────────────────────── -->
+ <section class="content-section reveal" id="legal">
+ <div class="container-wide">
+ <div class="container-prose" style="max-width:700px;padding:0;">
+ <span class="section-num">08</span>
+ <p class="eyebrow">The Legal Front</p>
+ <h2>Fifty States vs. One Regulator</h2>
+ <p>The legal battle over prediction markets is the largest federal-state regulatory conflict in recent American history, and it is being fought on a single question: are sports event bets on Polymarket and Kalshi gambling, subject to state law or are they futures contracts on future events, subject only to the CFTC?</p>
+ <p>Selig's answer, in his WSJ op-ed and in dozens of amicus briefs: futures contracts. The CFTC has exclusive jurisdiction under the Commodity Exchange Act. State gambling laws are preempted by Dodd-Frank. The Third Circuit Court of Appeals agreed in April 2026 in a divided, appealable ruling that CFTC jurisdiction over sports event contracts is likely exclusive. The case is Supreme Court-bound.</p>
+ <p>The states' answer: technically true, legally misleading. In practice, the vast majority of business on these platforms is sports event betting. Calling a Super Bowl bet a "futures contract" does not change what it is. A bipartisan coalition that grew from 34 to 39 attorneys general plus Washington DC filed amicus briefs defending state authority. New York AG Letitia James joined. The CFTC responded by suing New York. Arizona went further filing criminal charges against the platforms.</p>
+ </div>
+
+ <div class="callout" style="margin-top:2rem;">
+ <span class="callout-label">The 18/21 Gap The Film's Human Consequence</span>
+ <p>State gambling laws require participants to be 21 or older. Prediction markets set their floor at 18 because they are not legally classified as gambling. A 19-year-old who cannot open a FanDuel account in most states can legally bet on the same game through Polymarket. The "futures contract" classification does not just protect the platforms from state regulation. It creates a younger, less protected class of bettor. The film starts with young men losing money to sports betting. This is how the same demographic gets in through a different door three years younger, with no state protections, on a platform the president's son holds equity in.</p>
+ </div>
+
+ <ul class="diff-list" style="margin-top:2rem;">
+ <li><strong>39 AGs + DC</strong> filed amicus briefs defending state authority over prediction markets. Bipartisan coalition.</li>
+ <li><strong>Third Circuit (April 2026)</strong> held CFTC jurisdiction likely exclusive divided ruling, still appealable. Supreme Court-bound.</li>
+ <li><strong>Arizona</strong> filed criminal charges against Kalshi and Polymarket. The first criminal state action.</li>
+ <li><strong>CFTC sued New York</strong> directly to block state enforcement. The federal regulator suing the states is the op-ed made operational.</li>
+ <li><strong>Senate (April 2026)</strong> unanimously passed a rule banning senators and staff from betting on Kalshi and Polymarket. Pushed by Sen. Bernie Moreno (R-OH). Effective immediately. The people writing the rules had to pass a rule to stop themselves from using the platforms they regulate.</li>
+ <li><strong>House lagging.</strong> Rep. Bryan Steil drafting a broader ban. Rep. Ritchie Torres introduced the Campaign Funds Integrity Act (up to 5 years' prison for using campaign funds on prediction markets). Schiff/Curtis bipartisan bill targets sports wagers specifically on CFTC-regulated markets.</li>
+ <li><strong>DraftKings + FanDuel</strong> quit the American Gaming Association and hired lobbyists specifically on "matters related to prediction markets." The sportsbooks are not the villain's rival they are becoming the villain.</li>
+ </ul>
+ </div>
+ </section>
+
+
+ <!-- ── SECTION 09: WHY THIS CLOSES THE FILM ──────────────── -->
+ <section class="content-section reveal" id="spine">
+ <div class="container-wide">
+ <div class="container-prose" style="max-width:700px;padding:0;">
+ <span class="section-num">09</span>
+ <p class="eyebrow">The Through-Line</p>
+ <h2>Why This Is the Film's Closing Argument</h2>
+ <p>The documentary begins with a young man losing money on DraftKings. He is not an edge case he is the product. The app is engineered to find him and keep him. The regulatory void that allowed the industry to expand without meaningful check was not accidental. It was lobbied for, litigated, and politically protected.</p>
+ <p>Polymarket is where that story arrives. The young man on DraftKings and the classified Army mission on Polymarket are not two stories. They share a regulator. They share a legal argument. They share a political patron. The "futures contract" classification that protects Polymarket from state gambling law is the same classification that lets an 18-year-old bet on the same game his older brother can't legally bet on at a sportsbook. The enforcement collapse that left nine wallets with a 98% win rate on military operations untouched is the same enforcement collapse that let a soldier convert a classified mission into a payday.</p>
+ <p>The CFTC chair who is fighting 50 states to protect these platforms is a former crypto attorney whose recusal from his former clients expires as this film is being made. His former clients include the company building the president's family's own prediction platform. The president's son holds equity in the platform the soldier bet on. The NYSE's parent company committed $2 billion to it.</p>
+ <p>This is not a film about gambling. It is a film about how the architecture of extraction works how it starts with a kid's credit card, moves through a regulatory void, arrives at Wall Street, and ends with a Special Forces sergeant sitting in front of a federal judge. The betting victim and the corruption story are the same story. They always were.</p>
+ </div>
+ </div>
+ </section>
+
+
+ <!-- ── SOURCES ─────────────────────────────────────────────── -->
+ <section class="content-section reveal" id="sources">
+ <div class="container-wide">
+ <div class="container-prose" style="max-width:700px;padding:0;">
+ <p class="eyebrow">Research Provenance</p>
+ <h2>Sources All Verified</h2>
+ <p style="font-size:0.9375rem;color:rgba(255,255,255,0.5);">Items flagged as "unverified" should not be stated as fact on camera without independent confirmation. Pull the primary documents marked below for on-screen use.</p>
+
+ <ul class="source-list">
+ <li><strong>CNBC:</strong> "FBI raids Polymarket CEO Shayne Coplan's home" Nov 14, 2024</li>
+ <li><strong>CNBC / Unchained:</strong> "Polymarket investigations ended by DOJ, CFTC without charges" Jul 15–16, 2025</li>
+ <li><strong>CNBC / Fortune:</strong> "ICE commits up to $2B in Polymarket at $9B valuation" Oct 7, 2025</li>
+ <li><strong>CNBC / Polymarket PRNewswire:</strong> "1789 Capital / Don Jr. invests; joins advisory board" Aug 26, 2025</li>
+ <li><strong>Blockhead / PRNewswire:</strong> "Polymarket acquires QCEX for $112M" July 2025</li>
+ <li><strong>CoinDesk / Blockworks:</strong> "Truth Predict announced DJT + Crypto.com CDNA" Oct 28, 2025</li>
+ <li><strong>Decrypt / The Defiant:</strong> "Crypto.com drops SEC suit day of Mar-a-Lago meeting" Dec 16, 2024</li>
+ <li><strong>New York Times (Dec 2025):</strong> CFTC career staff flagged Polymarket, Crypto.com, Gemini Pham and Weyls cleared paths Pham to MoonPay, Weyls to Gemini Titan. As reported by The Block and CNN (Apr 26, 2026).</li>
+ <li><strong>Warren letter to Selig Jun 5, 2026:</strong> CFTC corruption documentation (Polymarket approval timing, Gemini fast-track, Crypto.com staff sidelining). PDF at banking.senate.gov. <em>Pull for on-screen use.</em></li>
+ <li><strong>Warren / Whitehouse / Merkley Senate Banking Committee letters, Apr 9 + Jun 10, 2026:</strong> Oil trade records demanded. Deadline Jun 18, 2026.</li>
+ <li><strong>DOJ press release Apr 23–24, 2026:</strong> United States v. Gannon Ken Van Dyke. <em>Pull for on-screen use.</em></li>
+ <li><strong>ACDC Apr 30, 2026:</strong> "Insider Risks in Polymarket Political Markets" Kendler-Kretsch and Szakonyi. Defense-related markets: 51.8% win rate vs. ~14% for general political markets. $1.8M in suspicious wallets. acdatacollective.org</li>
+ <li><strong>CBS News / 60 Minutes May 17, 2026:</strong> Jon Wertheim segment. Bubblemaps/Deebs (identity obscured): 9-wallet cluster, $2.4M profit, 98% win rate.</li>
+ <li><strong>CoinDesk Jul 7, 2025:</strong> Zelensky suit oracle controversy $242M volume, UMA whale vote (~23M tokens, ~$25M), resolution flipped against BBC/Reuters reporting.</li>
+ <li><strong>CFTC WSJ op-ed (Michael Selig) Feb 17, 2026:</strong> "The CFTC will no longer sit idly by..." ~50 active cases cited. Posted on CFTC website (seligstatement021726). <em>Pull for on-screen use.</em></li>
+ <li><strong>Third Circuit Apr 2026:</strong> Divided ruling on CFTC exclusive jurisdiction over sports event contracts. Appealable.</li>
+ <li><strong>CNBC / PBS / Fox News Apr 30, 2026:</strong> Senate unanimous self-ban on prediction market betting. Sen. Bernie Moreno (R-OH).</li>
+ <li><strong>NBC News (Arizona) / NY AG press release:</strong> Arizona criminal charges against Kalshi/Polymarket. NY AG Letitia James joins coalition.</li>
+ <li><strong>Accountable.US Sept 2025:</strong> WLF token sales to North Korean hacking addresses, sanctioned Russian tool, Iranian exchange, Tornado Cash.</li>
+ <li><strong>CNBC / CoinDesk Feb 2026:</strong> Abu Dhabi / MGX: ~$500M stake in WLF; $2B USD1 stablecoin settlement into Binance.</li>
+ <li><strong>Fortune Jun 20, 2024:</strong> Jump Crypto CFTC investigation, Kanav Kariya resignation. Status under Trump CFTC: unconfirmed.</li>
+ <li><strong>DJT 8-K, approx. Oct 28, 2025:</strong> Truth Predict announcement. <em>Pull from SEC EDGAR for on-screen document use.</em></li>
+ <li><strong>House Oversight / Comer May 22, 2026:</strong> Investigation into Kalshi/Polymarket. oversight.house.gov</li>
+ </ul>
+
+ <div style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,0.07);">
+ <p style="font-size:0.8125rem;color:rgba(255,255,255,0.35);font-style:italic;">Research compiled June 2026 from public reporting, government documents, court filings, and company disclosures. Unverified items flagged in context. Primary source documents for on-screen use: Warren Jun 5 letter (PDF), DOJ Van Dyke press release, Selig WSJ op-ed, DJT 8-K (Oct 2025), CFTC 2022 Polymarket settlement order. Project: ALL IN: The Most American Addiction / Pedro Feria Pino / VEFILM.</p>
+ </div>
+ </div>
+ </div>
+ </section>
+
+ </main>
+
+ <footer class="site-footer">
+ <div class="container-wide footer-inner">
+ <div class="footer-col">
+ <p class="wordmark" style="font-size:1.25rem;">ALL IN</p>
+ <p style="color:rgba(255,255,255,0.4);font-size:0.8125rem;margin-top:0.5rem;">The Most American Addiction</p>
+ </div>
+ <p style="color:rgba(255,255,255,0.25);font-size:0.75rem;align-self:flex-end;">Confidential production research. Not for distribution. &copy; 2026 VEFILM.</p>
+ </div>
+ </footer>
+
+
+ <script>
+ // Interactive timeline hover
+ document.querySelectorAll('.pm-node').forEach(function(node) {
+ node.addEventListener('mouseenter', function() {
+ document.querySelectorAll('.pm-node').forEach(function(n){ n.classList.remove('is-active'); });
+ this.classList.add('is-active');
+ });
+ node.addEventListener('mouseleave', function() {
+ this.classList.remove('is-active');
+ });
+ node.addEventListener('touchstart', function(e) {
+ e.preventDefault();
+ var was = this.classList.contains('is-active');
+ document.querySelectorAll('.pm-node').forEach(function(n){ n.classList.remove('is-active'); });
+ if (!was) this.classList.add('is-active');
+ }, { passive: false });
+ });
+ </script>
+ <script src="../assets/js/main.js"></script>
 
 </body>
 </html>
