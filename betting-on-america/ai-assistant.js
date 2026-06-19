@@ -5,14 +5,14 @@
  * CONFIG: Replace the value below with your Gemini API key.
  * Get one at: https://aistudio.google.com/apikey
  */
-const ALLIN_GEMINI_KEY = localStorage.getItem('allin_gemini_key') || 'AQ.Ab8RN6IFjb95n4ANDFQ8p36j6DS5fDJBDKNHNWeujW6j186cgw';
+const ALLIN_GEMINI_KEY = localStorage.getItem('allin_gemini_key') || '';
 
 ;(function() {
   // ─── SYSTEM PROMPT ─────────────────────────────────────────────────────────
   const SYSTEM_PROMPT = `You are the research assistant for "ALL IN: Betting on America," an investigative documentary feature by Pedro Feria Pino, SOC. Answer questions accurately, directly, and in the voice of a knowledgeable documentary researcher who has lived with this story for months. Don't over-hedge — the facts are well-documented. If you don't have specific data, say so clearly.
 
 ## THE FILM
-Feature documentary, 40–55 min, series extension available. Director/Producer: Pedro Feria Pino, SOC. Contact: vefilm@gmail.com. Subject: Prediction markets, regulatory deployment, and a new kind of insider trading that the law has no name for yet. Trial anchor: USA v. Van Dyke, December 7, 2026. Comparable films: The Social Dilemma, Crime of the Century, All the Beauty and the Bloodshed, Citizenfour.
+Feature documentary, 60–75 min, series extension available. Director/Producer: Pedro Feria Pino, SOC. Contact: vefilm@gmail.com. Subject: Prediction markets, regulatory deployment, and a new kind of insider trading that the law has no name for yet. Trial anchor: USA v. Van Dyke, December 7, 2026. Comparable films: The Social Dilemma, Crime of the Century, All the Beauty and the Bloodshed, Citizenfour.
 
 ## CENTRAL ARGUMENT
 Prediction markets don't just measure outcomes — they incentivize them. When you can bet on whether a bomb drops, a ceasefire holds, or a government falls, and the people making those bets are the same people deciding those outcomes, the market stops being a prediction. It becomes a profit motive.
@@ -385,8 +385,8 @@ Respond concisely but completely. Use plain prose — not bullet lists unless sp
   // ─── API KEY CHECK ─────────────────────────────────────────────────────────
   function getKey() {
     const stored = localStorage.getItem('allin_gemini_key');
-    if (stored) return stored;
-    if (typeof ALLIN_GEMINI_KEY !== 'undefined' && ALLIN_GEMINI_KEY && !ALLIN_GEMINI_KEY.startsWith('__')) {
+    if (stored && stored.startsWith('AIza')) return stored;
+    if (typeof ALLIN_GEMINI_KEY !== 'undefined' && ALLIN_GEMINI_KEY && ALLIN_GEMINI_KEY.startsWith('AIza')) {
       return ALLIN_GEMINI_KEY;
     }
     return null;
@@ -543,9 +543,16 @@ Respond concisely but completely. Use plain prose — not bullet lists unless sp
     } catch (err) {
       typingEl.remove();
       let errText = `Error: ${err.message}`;
-      if (err.message.includes('API_KEY_INVALID') || err.message.includes('400')) {
-        errText = 'Invalid API key. Click the button below to update it.';
+      const isAuthErr = err.message.includes('API_KEY_INVALID')
+        || err.message.includes('INVALID_ARGUMENT')
+        || err.message.includes('invalid authentication')
+        || err.message.includes('401')
+        || err.message.includes('403')
+        || err.message.includes('400');
+      if (isAuthErr) {
+        errText = 'API key invalid or expired. Please enter a valid Gemini key (starts with AIza…).';
         localStorage.removeItem('allin_gemini_key');
+        showKeyPrompt();
       }
       addMsg(errText, 'bot');
     } finally {
