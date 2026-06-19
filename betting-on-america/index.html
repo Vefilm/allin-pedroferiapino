@@ -826,10 +826,10 @@ body {
 .law-desc { font-size: 0.8rem; color: var(--text-mid); line-height: 1.55; }
 
 /* ── THE ASK ──────────────────────────────────────────── */
-#panel-ask { background: var(--cream); color: var(--ink); }
-#panel-ask .eyebrow { color: var(--red-deep); }
-#panel-ask .section-title { color: var(--ink); }
-#panel-ask .section-lead { color: rgba(17,17,17,0.7); }
+#panel-ask { background: var(--black); color: var(--white); }
+#panel-ask .eyebrow { color: var(--red); }
+#panel-ask .section-title { color: var(--white); }
+#panel-ask .section-lead { color: var(--text-mid); }
 .ask-grid {
   display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
   margin-top: 3rem;
@@ -930,6 +930,203 @@ body {
   .pm-node:hover .pm-node-label { color: rgba(255,255,255,0.9); }
   .pm-node-label.above { bottom: calc(100% + var(--offset, 12px)); }
   .pm-node-label.below { top:    calc(100% + var(--offset, 12px)); }
+
+/* ══ VISUAL UPGRADE — Rounded, Polished, Next Level ══ */
+
+/* Rounded corners on all card types */
+.stat-card, .char-card, .approach-card, .case-card,
+.investor-card, .law-card, .qw-card, .cold-open,
+.no-name-banner, .acdc-hero, .acdc-stat, .wallets-callout,
+.scene-callout, .deployment-banner, .deadline-banner,
+.sources-block, .pm-tl-outer, .network-embed,
+.oil-trades, .video-wrap, .pull-quote {
+  border-radius: 12px !important;
+}
+.tier-card { border-radius: 0 12px 12px 0 !important; }
+.qw-card { border-radius: 0 0 12px 12px !important; }
+.pull-quote { border-radius: 0 12px 12px 0 !important; }
+.tl-btn { border-radius: 8px !important; }
+.pm-popup { border-radius: 12px !important; }
+.hero-tag { border-radius: 6px !important; }
+.investor-flag { border-radius: 6px !important; }
+.flag-red, .flag-amber, .flag-gold { border-radius: 6px !important; }
+.tier-case { border-radius: 8px !important; }
+.cold-open-label { border-radius: 6px 0 0 0; }
+
+/* Elevated card shadows */
+.stat-card {
+  box-shadow: 0 2px 16px rgba(0,0,0,0.4);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(177,18,38,0.12);
+  border-color: rgba(177,18,38,0.25) !important;
+}
+.stat-num {
+  background: linear-gradient(135deg, var(--red), #E01535);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Character cards — richer hover */
+.char-card {
+  box-shadow: 0 2px 16px rgba(0,0,0,0.4);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
+}
+.char-card:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 12px 40px rgba(177,18,38,0.14) !important;
+  border-color: rgba(177,18,38,0.5) !important;
+}
+
+/* Case cards */
+.case-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.case-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(232,160,74,0.1);
+  border-color: rgba(232,160,74,0.25);
+}
+
+/* Investor cards */
+.investor-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.investor-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.4);
+}
+
+/* Quote wall */
+.qw-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.qw-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(177,18,38,0.1);
+}
+
+/* Cold open — cinematic */
+.cold-open {
+  box-shadow: 0 4px 32px rgba(177,18,38,0.12), inset 0 0 60px rgba(177,18,38,0.03);
+}
+
+/* Section callout blocks */
+.scene-callout {
+  box-shadow: 0 4px 32px rgba(177,18,38,0.1);
+}
+.no-name-banner {
+  box-shadow: 0 4px 32px rgba(177,18,38,0.08);
+}
+
+/* Timeline */
+.pm-tl-outer {
+  box-shadow: 0 4px 32px rgba(0,0,0,0.5);
+}
+.pm-popup {
+  box-shadow: 0 12px 48px rgba(0,0,0,0.9), 0 0 0 1px rgba(177,18,38,0.2) !important;
+}
+
+/* ACDC stats — gradient accent */
+.acdc-stat {
+  background: linear-gradient(135deg, rgba(177,18,38,0.08) 0%, rgba(177,18,38,0.04) 100%) !important;
+  border: 1px solid rgba(177,18,38,0.18) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.acdc-stat:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(177,18,38,0.1);
+}
+.acdc-big {
+  background: linear-gradient(135deg, var(--red), #E01535);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Wallets callout */
+.wallets-callout {
+  background: linear-gradient(135deg, rgba(232,160,74,0.09) 0%, rgba(232,160,74,0.04) 100%) !important;
+}
+
+/* Law cards */
+.law-card {
+  transition: transform 0.2s ease, border-color 0.2s ease;
+  border-top: 2px solid rgba(74,144,217,0.3);
+}
+.law-card:hover {
+  transform: translateY(-2px);
+  border-top-color: var(--blue-cool);
+}
+
+/* Deadline banner — pulsing border */
+.deadline-banner {
+  background: linear-gradient(135deg, rgba(177,18,38,0.1) 0%, rgba(177,18,38,0.04) 100%) !important;
+  box-shadow: 0 0 32px rgba(177,18,38,0.08);
+}
+
+/* Sequence chain dots — larger glow */
+.seq-item::before {
+  box-shadow: 0 0 12px var(--red), 0 0 32px rgba(177,18,38,0.5) !important;
+}
+
+/* Oil trades table */
+.oil-trades { box-shadow: 0 4px 24px rgba(0,0,0,0.4); }
+.oil-amount {
+  background: linear-gradient(135deg, var(--red), #E01535);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* iframe embeds — more cinematic */
+.network-embed {
+  border: 1px solid rgba(177,18,38,0.2) !important;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+}
+
+/* Deployment banner upgrade */
+.deployment-banner {
+  background: linear-gradient(135deg, rgba(177,18,38,0.15) 0%, rgba(10,10,10,0.98) 50%) !important;
+  box-shadow: 0 4px 32px rgba(177,18,38,0.08);
+}
+
+/* Dark band */
+.dark-band { background: linear-gradient(180deg, #070707 0%, #0A0A0A 100%); }
+
+/* Video wrap */
+.video-wrap { box-shadow: 0 8px 40px rgba(0,0,0,0.6); }
+
+/* Section header breathing room */
+.section-title { letter-spacing: -0.02em; }
+
+/* Tier card left border glow on hover */
+.tier-card {
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.tier-card:hover {
+  box-shadow: -4px 0 20px rgba(177,18,38,0.2), 0 4px 24px rgba(0,0,0,0.3);
+}
+
+/* Approach cards */
+.approach-card {
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.approach-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255,255,255,0.15);
+}
+
+/* Pull quote upgrade */
+.pull-quote {
+  background: linear-gradient(135deg, rgba(177,18,38,0.06) 0%, var(--card-bg) 100%) !important;
+  border-left: 3px solid var(--red) !important;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+}
+
 </style>
 </head>
 <body>
@@ -964,8 +1161,8 @@ body {
     <div class="hero-scan"></div>
     <div class="hero-content">
       <p class="hero-eyebrow">A Documentary Feature Film</p>
-      <h1 class="hero-title">ALL IN:<br><span class="the">The Most</span><br>American Addiction</h1>
-      <p class="hero-subtitle">What began as a gambling story became an investigation into the most sophisticated regulatory capture — or rather, regulatory <em>deployment</em> — in modern American history.</p>
+      <h1 class="hero-title">ALL IN:<br><span class="the">Betting on</span><br>America</h1>
+      <p class="hero-subtitle">A feature documentary about prediction markets, intelligence infrastructure, and the architecture of anonymous political betting — built on top of American foreign policy, one anonymous bet at a time.</p>
       <span class="hero-tag">Feature Documentary · 40–55 Min · Series Extension Available</span>
     </div>
   </div>
