@@ -268,6 +268,7 @@ body {
 .char-name {
   font-family: Georgia, serif; font-size: 1.4rem;
   font-weight: 700; margin-bottom: 0.25rem;
+  line-height: 1.25; overflow-wrap: break-word;
 }
 .char-subtitle {
   font-size: 0.78rem; color: var(--text-dim); margin-bottom: 1.25rem;
@@ -356,7 +357,7 @@ body {
   border-left: 3px solid var(--red);
   border-radius: 0 4px 4px 0;
   padding: 1.75rem 2rem;
-  display: grid; grid-template-columns: 120px 1fr; gap: 1.5rem;
+  display: grid; grid-template-columns: minmax(160px, 200px) 1fr; gap: 1.5rem;
   align-items: start;
 }
 .tier-num {
@@ -942,7 +943,7 @@ body {
 .oil-trades, .video-wrap, .pull-quote {
   border-radius: 12px !important;
 }
-.tier-card { border-radius: 0 12px 12px 0 !important; }
+.tier-card { border-radius: 0 12px 12px 0 !important; grid-template-columns: minmax(160px, 200px) 1fr !important; }
 .qw-card { border-radius: 0 0 12px 12px !important; }
 .pull-quote { border-radius: 0 12px 12px 0 !important; }
 .tl-btn { border-radius: 8px !important; }
@@ -1162,7 +1163,7 @@ body {
     <div class="hero-content">
       <p class="hero-eyebrow">A Documentary Feature Film</p>
       <h1 class="hero-title">ALL IN:<br><span class="the">Betting on</span><br>America</h1>
-      <p class="hero-subtitle">A feature documentary about prediction markets, intelligence infrastructure, and the architecture of anonymous political betting — built on top of American foreign policy, one anonymous bet at a time.</p>
+      <p class="hero-subtitle">Polymarket. $54 billion wagered. Zero government ID required. Military insiders betting on operations they're part of. A president's family with equity in the platform. A regulator whose former client is building the family's competing product. And a crime so new the law hasn't named it yet.</p>
       <span class="hero-tag">Feature Documentary · 40–55 Min · Series Extension Available</span>
     </div>
   </div>
@@ -1220,6 +1221,31 @@ body {
      PANEL 02 — THE DANGER
 ════════════════════════════════════════════════════════ -->
 <section id="panel-story" class="panel">
+
+  <!-- ═══ THESIS STATEMENT — THE REAL SUBJECT ═══════════════════════════ -->
+  <div style="background:#08080e; border-bottom:3px solid var(--red); padding:4rem 2rem 3.5rem;">
+    <div style="max-width:1160px; margin:0 auto;">
+      <span class="eyebrow">The Central Argument</span>
+      <h2 style="font-family:Georgia,serif; font-size:clamp(1.9rem,3.2vw,3rem); font-weight:700; line-height:1.18; max-width:920px; margin:0.75rem 0 1.4rem; color:var(--white);">Prediction markets don't just measure outcomes.<br>They incentivize them.</h2>
+      <p style="font-size:1.05rem; color:var(--text-mid); line-height:1.85; max-width:820px; margin-bottom:1.5rem;">When you can bet on whether a bomb drops, a ceasefire holds, or a government falls — and the people making those bets are the same people deciding those outcomes — the market stops being a prediction. It becomes a profit motive.</p>
+      <p style="font-size:1.05rem; color:var(--text-mid); line-height:1.85; max-width:820px;">Polymarket made this possible at scale. <strong style="color:var(--white);">Truth Predict — the platform Trump's family is building on top of their own social network — is what it looks like when the conflict of interest stops being a corruption story and starts being the business model.</strong></p>
+      <div style="display:flex; gap:1.5rem; flex-wrap:wrap; margin-top:2rem;">
+        <div style="padding:1rem 1.5rem; background:rgba(177,18,38,0.12); border:1px solid rgba(177,18,38,0.35); border-radius:4px; min-width:200px;">
+          <div style="font-size:0.58rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--red); margin-bottom:0.4rem;">Polymarket</div>
+          <div style="font-size:0.95rem; font-weight:700; color:var(--white);">$54.4B wagered · 435K markets · No government ID required</div>
+        </div>
+        <div style="padding:1rem 1.5rem; background:rgba(232,160,74,0.08); border:1px solid rgba(232,160,74,0.3); border-radius:4px; min-width:200px;">
+          <div style="font-size:0.58rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--amber); margin-bottom:0.4rem;">Truth Predict</div>
+          <div style="font-size:0.95rem; font-weight:700; color:var(--white);">Trump Media · Crypto.com · Integrated into Truth Social · Oct 2025</div>
+        </div>
+        <div style="padding:1rem 1.5rem; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); border-radius:4px; min-width:200px;">
+          <div style="font-size:0.58rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--text-dim); margin-bottom:0.4rem;">Regulatory Shield</div>
+          <div style="font-size:0.95rem; font-weight:700; color:var(--white);">Selig's CFTC · 58 → 11 enforcement actions · 3 states sued to protect platforms</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
   <!-- ═══ COLD OPEN — THE AIRMAN ══════════════════════════════════════════ -->
   <div style="display:grid; grid-template-columns:1fr 1fr; min-height:520px; background:#050505; border-bottom:1px solid var(--border); overflow:hidden;">
@@ -1401,7 +1427,7 @@ body {
 
 
   <!-- ═══ THE THREE TIERS ══════════════════════════════════════════════════ -->
-    <div class="tier-card" style="border-color:rgba(201,168,76,0.3);">
+    <div class="char-card" style="border:1px solid rgba(201,168,76,0.2); border-left:3px solid var(--gold);">
         <div class="char-head">
           <div class="char-role" style="color:var(--gold);">Tier 3 — They Own the Machine</div>
           <div class="char-name">Trump Jr. · Selig · The Equity Class</div>
@@ -1420,17 +1446,19 @@ body {
 
       <div class="char-card">
         <div class="char-head">
-          <div class="char-role">The Cover Story</div>
-          <div class="char-name">Andrew Douglas · Terry Thompson</div>
-          <div class="char-subtitle">What the public sees. What distracts from what's underneath.</div>
+          <div class="char-role" style="color:var(--amber);">The Entry Point</div>
+          <div class="char-name">The Addiction Crisis</div>
+          <div class="char-subtitle">Andrew Douglas. Terry Thompson. $22M wagered. $1.8M lost. Suicide attempts. Hospital rooms. These stories are real — and they're what the press covers. The platforms want you looking here.</div>
         </div>
         <div class="char-body">
           <ul class="char-facts">
             <li>While media covers addiction — VIP hosts, problem gamblers, suicide rates — the more dangerous infrastructure is being built underneath</li>
             <li>Terry Thompson: $22M wagered, $1.8M lost. VIP host called as an "emergency" when he tried to stop.</li>
-            <li>1 in 5 problem gamblers attempts suicide. These are real harms. They are also the distraction.</li>
+            <li>1 in 5 problem gamblers attempts suicide. These are real harms. They are also, by design, the distraction.</li>
+            <li><strong style="color:var(--amber);">18 vs 21:</strong> State gambling laws require bettors to be 21. Prediction markets — classified as futures contracts, not gambling — set their age floor at 18. A 19-year-old who can't walk into a casino can bet on the Super Bowl through Polymarket. Or on whether a US military strike happens tonight.</li>
           </ul>
-          <div class="char-quote">"In the hospital, hooked up to IVs, they turned the NBA Finals on and gave me my phone. I gambled away my last $100."<cite>Andrew Douglas — on the record · Rolling Stone, October 12, 2025</cite></div>
+          <div class="char-quote">"In the hospital, hooked up to IVs, they turned the NBA Finals on and gave me my phone. I gambled away my last $100."<cite>Andrew Douglas — Rolling Stone, October 12, 2025</cite></div>
+          <div style="margin-top:1rem; padding:0.85rem 1.1rem; background:rgba(177,18,38,0.08); border-left:2px solid var(--red); font-size:0.8rem; color:var(--text-mid); line-height:1.7;"><strong style="color:var(--white);">This is not the film.</strong> This is where the film starts. The sports betting crisis is the front door. Prediction markets, geopolitical betting, and a family-owned platform protected by a captured regulator — that's what's behind it.</div>
         </div>
       </div>
     </div>
@@ -1446,13 +1474,69 @@ body {
   <div class="section">
     <span class="eyebrow">The Legal Architecture</span>
     <h2 class="section-title">It's not insider trading.<br>Not technically.</h2>
-    <p class="section-lead">That is the entire problem. The crime that prediction markets enable has no proper name. The laws that would stop it don't exist yet. And the people who could write them invested in the platforms first.</p>
+    <p class="section-lead">That is the entire problem. The crime has no proper name because the law was written for stock markets in the 20th century. What prediction markets enable is three distinct categories of wrongdoing — only one of which has ever been prosecuted. The other two may not be illegal under anything currently on the books.</p>
 
     <div class="no-name-banner reveal">
       <div class="big">The Crime Has No Name</div>
       <p class="desc">Prediction market contracts are classified as <strong>event contracts</strong> under CFTC jurisdiction — they are futures and commodities, not securities. The SEC has no authority. "Insider trading" is an SEC concept. When Christopher Van Dyke placed 13 bets using information he wasn't supposed to have, the DOJ could not charge him with insider trading. They charged him with <strong>wire fraud</strong> and <strong>commodities fraud</strong> — improvised legal theories applied to a crime the law doesn't yet recognize.</p>
     </div>
 
+    <!-- ═══ THE THREE TIERS (Kovel Framework) ══════════════════════════════ -->
+    <div class="reveal" style="margin:3rem 0;">
+      <span class="eyebrow">The Three Tiers — David Kovel, Kirby McInerney LLP</span>
+      <h3 style="font-family:Georgia,serif; font-size:1.6rem; font-weight:700; margin-bottom:0.5rem; line-height:1.2;">The crime exists on three levels.<br>Only one has been charged.</h3>
+      <p style="font-size:0.9rem; color:var(--text-mid); margin-bottom:2rem; max-width:680px; line-height:1.7;">Van Dyke is Tier 1 — and he may be the least dangerous version of this problem.</p>
+
+      <div class="tier-stack">
+        <div class="tier-card" style="border-color:rgba(255,255,255,0.15);">
+          <div>
+            <div class="tier-num" style="color:var(--amber);">TIER 1</div>
+            <div class="tier-label">Information-Based</div>
+            <div style="font-size:0.72rem; color:var(--text-dim); margin-top:0.25rem; line-height:1.5;">The Van Dyke Model</div>
+          </div>
+          <div>
+            <div class="tier-desc">Someone knows something is going to happen and bets on it before it does. Passive exploitation of asymmetric information. The closest analog to traditional insider trading — and the only tier that has produced a federal charge. Van Dyke knew about the Maduro operation. He bet on it. He was caught.</div>
+            <div class="tier-case">USA v. Van Dyke — wire fraud + commodities fraud. Trial: December 7, 2026. First federal prosecution using prediction markets as the mechanism.</div>
+          </div>
+        </div>
+
+        <div class="tier-card" style="border-color:var(--red);">
+          <div>
+            <div class="tier-num" style="color:var(--red);">TIER 2</div>
+            <div class="tier-label">Influence-Based</div>
+            <div style="font-size:0.72rem; color:var(--text-dim); margin-top:0.25rem; line-height:1.5;">The Outcome Maker</div>
+          </div>
+          <div>
+            <div class="tier-desc">Someone has the power to <em>cause</em> an outcome, places a bet on that outcome, then causes it. Not insider knowledge — a manufactured event. The closest legal analog is a pitcher who bets against his own team and throws the game. Except the game is a ceasefire. Or an airstrike. Or a market-moving presidential announcement.</div>
+            <div class="tier-case" style="border-color:rgba(177,18,38,0.4); color:var(--red);">The Iran Nine: $2.4M wagered, 98% win rate on US military longshots. The strike used decoy bombers — no public signal could have revealed the timing. Did they know? Or did they decide? No charges. No investigation announced.</div>
+          </div>
+        </div>
+
+        <div class="tier-card" style="border-color:rgba(74,144,217,0.4);">
+          <div>
+            <div class="tier-num" style="color:var(--blue-cool);">TIER 3</div>
+            <div class="tier-label">Structural Conflict</div>
+            <div style="font-size:0.72rem; color:var(--text-dim); margin-top:0.25rem; line-height:1.5;">The Passive Position</div>
+          </div>
+          <div>
+            <div class="tier-desc">A decision-maker holds a financial position in prediction markets on events they influence — without committing a single corrupt act. Every policy decision is now colored by that financial alignment. No trades required. No information exchanged. Congress banned this for itself in 2024. The executive branch, the military, and the intelligence community are uncovered.</div>
+            <div class="tier-case" style="border-color:rgba(74,144,217,0.3); color:var(--blue-cool);">Trump Jr.: equity in Polymarket + paid advisor to Kalshi. Both regulated by a CFTC chair whose former clients include Truth Predict's launch partner. The conflict does not require a single illegal act.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pull-quote reveal" style="margin-top:2rem;">
+        <p>"The worst version of this crime may not be prosecutable under anything currently on the books."</p>
+        <cite>David Kovel — Kirby McInerney LLP · 2021 CFTC Whistleblower Award · ALL IN Interview Prep, June 2026</cite>
+      </div>
+    </div>
+
+    <!-- ═══ TRUTH PREDICT — THE ESCALATION ══════════════════════════════ -->
+    <div class="reveal scene-callout" style="margin:2rem 0;">
+      <div class="scene-callout-title">Truth Predict: The Escalation</div>
+      <p>In October 2025, Trump Media and Technology Group — in which the president holds personal equity — announced a partnership with Crypto.com to launch <strong>Truth Predict</strong>, a prediction market platform integrated directly into Truth Social. The CFTC chair whose firm previously represented Crypto.com is now the sole regulator of prediction markets. His ethics recusal from that relationship expires mid-2026.</p>
+      <p>Polymarket is not the end of this story. It is the proof of concept. Truth Predict is the family business version.</p>
+    </div>
 
 
 
