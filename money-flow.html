@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Money Flow — ALL IN</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#06060A; color:#fff; font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif; min-height:100vh; }
+
+.wrap { max-width:1160px; margin:0 auto; padding:2.5rem 2rem; }
+
+.diagram-title { text-align:center; margin-bottom:2.5rem; }
+.diagram-title strong { font-family:Georgia,serif; font-size:1.35rem; display:block; color:rgba(255,255,255,0.9); margin-bottom:0.45rem; }
+.diagram-title span { font-size:0.6rem; letter-spacing:0.24em; text-transform:uppercase; color:rgba(255,255,255,0.28); }
+
+/* ── FLOW LAYOUT ── */
+.flow { display:flex; flex-direction:column; gap:0; align-items:center; position:relative; }
+
+/* ── ROW LABELS ── */
+.row-label { font-size:0.56rem; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.22); margin-bottom:0.8rem; text-align:center; }
+
+/* ── NODE ROW ── */
+.node-row { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; width:100%; margin-bottom:0; }
+
+/* ── NODE ── */
+.node {
+  background:#0e0e14; border:1px solid rgba(255,255,255,0.06);
+  border-radius:4px; padding:0.85rem 1.1rem;
+  cursor:pointer; transition:border-color .2s, background .2s;
+  position:relative; text-align:center; min-width:160px;
+}
+.node:hover { background:#12121c; }
+.node-role { font-size:0.54rem; letter-spacing:0.16em; text-transform:uppercase; margin-bottom:0.3rem; }
+.node-name { font-weight:700; font-size:0.88rem; line-height:1.2; }
+.node-detail { font-size:0.7rem; color:rgba(255,255,255,0.38); margin-top:0.22rem; line-height:1.4; }
+
+/* colour variants */
+.node-red    { border-color:rgba(177,18,38,0.3); }  .node-red .node-role    { color:#C0392B; }
+.node-amber  { border-color:rgba(232,160,74,0.3); } .node-amber .node-role  { color:#E8A04A; }
+.node-gold   { border-color:rgba(201,168,76,0.3); } .node-gold .node-role   { color:#C9A84C; }
+.node-blue   { border-color:rgba(42,130,232,0.3); } .node-blue .node-role   { color:#4A9EF0; }
+.node-dim    { border-color:rgba(255,255,255,0.06); opacity:0.6; }
+
+.node.hub {
+  min-width:280px; padding:1.2rem 1.5rem;
+  background:#0a0a12;
+}
+.node.hub .node-name { font-size:1.15rem; }
+
+.node.outcome {
+  min-width:200px; padding:1.1rem 1.3rem;
+  border-width:2px;
+}
+
+/* ── CONNECTOR SECTION ── */
+.connector { display:flex; align-items:center; justify-content:center; width:100%; height:52px; position:relative; }
+.connector-line {
+  position:absolute; top:0; bottom:0; left:50%; width:1px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04));
+}
+.connector-arrow {
+  position:absolute; bottom:0; left:50%; transform:translateX(-50%);
+  width:0; height:0;
+  border-left:5px solid transparent;
+  border-right:5px solid transparent;
+  border-top:7px solid rgba(255,255,255,0.15);
+}
+.connector-label {
+  background:#06060A; padding:0 0.75rem; font-size:0.58rem;
+  letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.25);
+  position:relative; z-index:2; white-space:nowrap;
+}
+
+/* fan connector — multiple nodes → one hub */
+.fan-connector { width:100%; height:60px; position:relative; overflow:visible; }
+
+/* ── STAT PILLS ── */
+.stat-pill {
+  display:inline-flex; align-items:center; gap:0.5rem;
+  background:#0a0a12; border:1px solid rgba(255,255,255,0.07);
+  border-radius:20px; padding:0.4rem 0.85rem;
+  font-size:0.72rem; color:rgba(255,255,255,0.5);
+  margin:0.25rem;
+}
+.stat-pill strong { color:var(--white); }
+
+/* ── SELIG SIDE BOX ── */
+.side-box {
+  position:absolute; right:0; top:50%; transform:translateY(-50%);
+  width:220px; background:#0e0e14; border:1px solid rgba(177,18,38,0.25);
+  border-radius:4px; padding:1.1rem; z-index:5;
+}
+.side-box-label { font-size:0.56rem; letter-spacing:0.18em; text-transform:uppercase; color:#C0392B; margin-bottom:0.7rem; }
+.side-box-item { font-size:0.75rem; color:rgba(255,255,255,0.45); line-height:1.5; margin-bottom:0.4rem; padding-left:0.8rem; border-left:2px solid rgba(177,18,38,0.3); }
+
+/* ── EQUITY TIER ── */
+.equity-row { display:grid; grid-template-columns:repeat(4,1fr); gap:0.85rem; width:100%; margin-top:0; }
+.equity-card {
+  background:#0e0e14; border:1px solid rgba(201,168,76,0.2);
+  border-radius:4px; padding:1rem; text-align:center;
+}
+.equity-card .eq-role { font-size:0.54rem; letter-spacing:0.16em; text-transform:uppercase; color:#C9A84C; margin-bottom:0.35rem; }
+.equity-card .eq-name { font-weight:700; font-size:0.9rem; margin-bottom:0.2rem; }
+.equity-card .eq-detail { font-size:0.7rem; color:rgba(255,255,255,0.38); line-height:1.4; }
+.equity-card .eq-amount { font-family:Georgia,serif; font-size:1.4rem; font-weight:700; color:#C9A84C; margin:0.5rem 0 0.2rem; }
+
+/* ── BANNER ── */
+.gap-banner {
+  width:100%; background:rgba(177,18,38,0.06); border:1px solid rgba(177,18,38,0.2);
+  border-radius:4px; padding:1rem 1.5rem; text-align:center; margin-top:0.5rem;
+}
+.gap-banner-label { font-size:0.58rem; letter-spacing:0.18em; text-transform:uppercase; color:#C0392B; margin-bottom:0.35rem; }
+.gap-banner-text { font-size:0.88rem; font-weight:600; color:rgba(255,255,255,0.8); line-height:1.6; }
+
+/* ── TOOLTIP ── */
+.tooltip { position:fixed; z-index:999; display:none; background:#101018; border:1px solid rgba(255,255,255,0.12); border-radius:4px; padding:1rem 1.25rem; width:280px; box-shadow:0 8px 40px rgba(0,0,0,0.75); pointer-events:none; }
+.tooltip.visible { display:block; }
+.tt-role { font-size:0.58rem; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:0.4rem; }
+.tt-name { font-weight:700; font-size:0.95rem; margin-bottom:0.6rem; }
+.tt-body { font-size:0.78rem; color:rgba(255,255,255,0.6); line-height:1.6; }
+
+.source { text-align:center; padding:1.5rem 0 0; font-size:0.58rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.16); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="diagram-title">
+  <strong>The Money Flow</strong>
+  <span>How $54.4B in wagers becomes $15B in White House family equity · Polymarket / USA · 2021–2026</span>
+</div>
+
+<div class="flow" id="flow">
+
+  <!-- ── LAYER 1: BET SOURCES ── -->
+  <div class="row-label">Who bets — and why they keep winning</div>
+  <div class="node-row" id="row1">
+
+    <div class="node node-dim"
+         data-role="General Public" data-name="Retail Bettors" data-body="Millions of anonymous users wagering on elections, sports, geopolitical outcomes. No government ID required to create an account — a deliberate structural choice. Polymarket operates offshore. CFTC classifies it as a futures exchange, removing state consumer protection authority. These bettors supply the volume.">
+      <div class="node-role">General Public</div>
+      <div class="node-name">Retail Bettors</div>
+      <div class="node-detail">No ID required · Offshore · No position limits</div>
+    </div>
+
+    <div class="node node-red"
+         data-role="Tier 1 — They Know" data-name="Van Dyke / Military Insiders" data-body="Ken Van Dyke: Army Special Forces, used classified advance knowledge of Operation Absolute Resolve to place 13 bets totaling $409,881 on Polymarket. Charged April 2026 — wire fraud + commodities fraud, NOT insider trading (no statute exists). Pentagon confirmed 'dozens more' similar cases under review. These actors win at outsized rates because they know the outcome before it happens.">
+      <div class="node-role">Tier 1 — They Know</div>
+      <div class="node-name">Van Dyke · Military Insiders</div>
+      <div class="node-detail">$409K · 13 bets · advance knowledge · Venezuela op</div>
+    </div>
+
+    <div class="node node-amber"
+         data-role="Tier 2 — They May Have Caused It" data-name="The Iran Nine" data-body="Nine coordinated wallets traced by Bubblemaps (Deebs + Nicolas Vaiman). $2.4M profit. 98% win rate on military longshots. Named accounts: Skoobidoobnj and 0xoracle — both still active on Polymarket as of June 11, 2026. The question ACDC is asking: did they know the outcome, or did they have the ability to cause it? There is no legal framework for the second scenario.">
+      <div class="node-role">Tier 2 — The Iran Nine</div>
+      <div class="node-name">9 Wallets · Bubblemaps / Deebs</div>
+      <div class="node-detail">$2.4M · 98% win rate · Skoobidoobnj · 0xoracle · still active</div>
+    </div>
+
+    <div class="node node-blue"
+         data-role="Informed Institutional" data-name="$1.75B Oil Trade Accounts" data-body="$800M oil short placed March 23, 2026. Trump posts to Truth Social 15 minutes later. Markets move. $950M oil short placed April 7, 2026. Ceasefire announced 2.5 hours later. Total: $1.75B in two coordinated commodity positions flagged by David Kovel (Kirby McInerney — largest CFTC whistleblower award in history). Featured on 60 Minutes, May 2026. CFTC has announced no investigation. These are oil futures, not prediction markets — but the same structural problem applies.">
+      <div class="node-role">Informed Institutional</div>
+      <div class="node-name">$1.75B Oil Trades · Kovel Flagged</div>
+      <div class="node-detail">$800M Mar 23 + $950M Apr 7 · 60 Minutes · No CFTC action</div>
+    </div>
+
+  </div>
+
+  <!-- connector: many → one -->
+  <div style="width:100%; height:50px; position:relative; margin:0.25rem 0;">
+    <svg width="100%" height="50" style="position:absolute;top:0;left:0;overflow:visible;" id="fanSvg"></svg>
+    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:#06060A;padding:0 0.75rem;">
+      <span style="font-size:0.58rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.22);">All roads → volume</span>
+    </div>
+  </div>
+
+  <!-- ── LAYER 2: THE PLATFORM HUB ── -->
+  <div class="row-label" style="margin-top:0.25rem;">The instrument</div>
+  <div style="position:relative; width:100%; display:flex; justify-content:center;">
+
+    <div class="node hub node-red"
+         data-role="The Instrument" data-name="Polymarket" data-body="CFTC-approved prediction market platform. Operates offshore (French Antilles) but holds a US futures exchange license via the $112M QCEX acquisition (July 2025). Classifies all contracts as 'event contracts' under CFTC jurisdiction — removing them from SEC oversight, state gambling law, and insider trading statute. No government ID required. No position limits. No market surveillance. 435,672 markets settled. $54.4B wagered.">
+      <div class="node-role">The Instrument</div>
+      <div class="node-name">Polymarket</div>
+      <div class="node-detail" style="margin-top:0.6rem;">
+        <div style="display:flex;gap:0.5rem;justify-content:center;flex-wrap:wrap;margin-top:0.5rem;">
+          <span class="stat-pill"><strong>435,672</strong> markets</span>
+          <span class="stat-pill"><strong>$54.4B</strong> wagered</span>
+          <span class="stat-pill"><strong>No ID</strong> required</span>
+          <span class="stat-pill"><strong>No insider</strong> trading law</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SELIG SIDE BOX -->
+    <div class="side-box">
+      <div class="side-box-label">The Deployed Regulator</div>
+      <div class="side-box-item">CFTC Chair Selig — former clients include platform's competitors' business partners</div>
+      <div class="side-box-item">Enforcement: 58 → 11 officers</div>
+      <div class="side-box-item">50 amicus briefs defending platform vs states</div>
+      <div class="side-box-item">35-member CEO Innovation Council = regulated firms</div>
+      <div class="side-box-item" style="border-left-color:rgba(232,160,74,0.4);color:rgba(232,160,74,0.6);">Ethics recusal expires mid-2026</div>
+    </div>
+  </div>
+
+  <div class="connector">
+    <div class="connector-line"></div>
+    <div class="connector-arrow"></div>
+    <span class="connector-label">Volume → Valuation</span>
+  </div>
+
+  <!-- ── LAYER 3: VALUATION EVENT ── -->
+  <div class="row-label">What volume creates</div>
+  <div class="node-row">
+    <div class="node node-gold"
+         data-role="Valuation Inflection" data-name="$350M → $15B · 43× in 24 months" data-body="Polymarket valuation: ~$350M in early 2024. $1.2B (May 2024, Founders Fund round). $9B (October 2025, ICE $2B commitment). $15B (2026 estimated). The volume generated by all bet types — retail, informed, and insider — translates directly into platform valuation. Volume is valuation. Valuation is what equity is worth.">
+      <div class="node-role">Valuation Inflection</div>
+      <div class="node-name">$350M → $15B</div>
+      <div class="node-detail">43× in 24 months · Driven by $54.4B in wager volume</div>
+    </div>
+    <div class="node node-gold"
+         data-role="QCEX Acquisition" data-name="$112M · US Regulatory Foothold" data-body="July 2025 — same month both DOJ and CFTC probes were dropped with no charges. Polymarket acquires QCEX, a CFTC-licensed US derivatives exchange, for $112M. This gives Polymarket the US regulatory foothold they needed to expand domestically. The timing: investigations dropped July 2025, acquisition closed July 2025.">
+      <div class="node-role">US Regulatory Foothold</div>
+      <div class="node-name">QCEX Acquisition · $112M</div>
+      <div class="node-detail">July 2025 · Same month DOJ + CFTC probes dropped · No charges</div>
+    </div>
+    <div class="node node-gold"
+         data-role="ICE Investment" data-name="Intercontinental Exchange · $2B" data-body="October 2025: Intercontinental Exchange (ICE) — owner of the New York Stock Exchange — commits $2B to Polymarket at a $9B valuation. Jeff Sprecher's ICE is not a retail investor. This is a core financial infrastructure company placing a strategic bet on prediction market platforms. The valuation jumps from $1.2B (May 2024) to $9B (October 2025) in 17 months.">
+      <div class="node-role">Strategic Infrastructure</div>
+      <div class="node-name">ICE · Jeff Sprecher · $2B</div>
+      <div class="node-detail">Oct 2025 · NYSE parent · $9B valuation · Strategic position</div>
+    </div>
+  </div>
+
+  <div class="connector">
+    <div class="connector-line"></div>
+    <div class="connector-arrow"></div>
+    <span class="connector-label">Valuation → Equity</span>
+  </div>
+
+  <!-- ── LAYER 4: EQUITY HOLDERS ── -->
+  <div class="row-label">Who holds the equity — and what they knew before they bought it</div>
+  <div class="equity-row">
+
+    <div class="equity-card"
+         data-role="White House Family" data-name="Donald Trump Jr." data-body="1789 Capital (Trump Jr.'s investment firm) invested double-digit millions into Polymarket equity — five weeks after both the DOJ criminal probe and the CFTC civil investigation were dropped with no charges and no explanation. Trump Jr. also joined Polymarket's advisory board and is a paid strategic advisor to Kalshi, Polymarket's direct competitor. Both Kalshi and Polymarket are regulated by CFTC, which is chaired by Selig, whose former clients include Kalshi-adjacent companies. No criminal exposure under current law.">
+      <div class="eq-role">White House Family</div>
+      <div class="eq-name">Donald Trump Jr.</div>
+      <div class="eq-amount">$10M+</div>
+      <div class="eq-detail">1789 Capital · 5 weeks after probes dropped · Advisory board · Kalshi advisor</div>
+    </div>
+
+    <div class="equity-card"
+         data-role="Founding Investor" data-name="Peter Thiel · Founders Fund" data-body="Peter Thiel's Founders Fund led the May 2024 Series B: $70M at a $1.2B valuation. Vitalik Buterin (Ethereum founder) and Blockchain Capital also participated. Thiel has a long history of early-stage platform investments with political/regulatory dimensions (Facebook, Palantir). The Founders Fund round was the moment Polymarket became a credible institutional platform — not a crypto curiosity.">
+      <div class="eq-role">Founding Institutional</div>
+      <div class="eq-name">Peter Thiel · Founders Fund</div>
+      <div class="eq-amount">$70M</div>
+      <div class="eq-detail">Series B · May 2024 · $1.2B valuation entry</div>
+    </div>
+
+    <div class="equity-card"
+         data-role="Crypto Ecosystem" data-name="Vitalik Buterin · Blockchain Capital" data-body="Vitalik Buterin (Ethereum founder) participated in the Founders Fund round. Blockchain Capital also invested. The crypto ecosystem has a structural interest in prediction markets succeeding — they operate on crypto rails, use crypto wallets, and require crypto-permissive regulation. The same CFTC that approved prediction markets has also been friendly to crypto broadly under Selig.">
+      <div class="eq-role">Crypto Ecosystem</div>
+      <div class="eq-name">Vitalik Buterin · Blockchain Capital</div>
+      <div class="eq-amount">Undisclosed</div>
+      <div class="eq-detail">Series B · Crypto rail dependency · Selig-friendly regulation</div>
+    </div>
+
+    <div class="equity-card"
+         data-role="Strategic Infrastructure" data-name="ICE · NYSE Parent" data-body="Intercontinental Exchange — which owns the New York Stock Exchange, the London Stock Exchange, and multiple derivatives clearing houses — committed $2B at a $9B valuation in October 2025. This is not a speculative bet. ICE sees prediction markets as the next derivatives asset class. Their participation legitimizes Polymarket at an institutional level that makes regulatory action politically harder.">
+      <div class="eq-role">Infrastructure Capital</div>
+      <div class="eq-name">ICE · NYSE Parent</div>
+      <div class="eq-amount">$2B</div>
+      <div class="eq-detail">Oct 2025 · $9B valuation · NYSE / LSE parent · Legitimacy layer</div>
+    </div>
+
+  </div>
+
+  <!-- ── THE GAP BANNER ── -->
+  <div class="gap-banner" style="margin-top:2rem;">
+    <div class="gap-banner-label">The Legal Gap — Kovel / Hornsby / Van Dyke</div>
+    <div class="gap-banner-text">
+      Every actor in this flow — the retail bettor, the military insider, the Iran Nine, the oil trader, the equity holder — operates in the same legal vacuum. Prediction market contracts are CFTC-regulated futures. Insider trading law does not apply. The Eddie Murphy Rule requires proof of deception, not information asymmetry. David Kovel flagged $1.75B in suspicious trades. Michael Hornsby documented 51.8% win rates on military longshots vs 14% on everything else. Van Dyke is being prosecuted under a 1983 commodity fraud statute because no law was written for this. The crime has no name. The equity keeps growing.
+    </div>
+  </div>
+
+</div><!-- /flow -->
+
+<div class="source">
+  ACDC "Insider Risks in Polymarket Political Markets" (Apr 30, 2026) · ACDC / Der Standard "Profiting from War" (Jun 11, 2026) · David Kovel / 60 Minutes (May 2026) · USA v. Van Dyke (Apr 23, 2026) · SEC / CFTC filings · ALL IN documentary research
+</div>
+
+</div><!-- /wrap -->
+
+<!-- TOOLTIP -->
+<div class="tooltip" id="tooltip">
+  <div class="tt-role" id="ttRole"></div>
+  <div class="tt-name" id="ttName"></div>
+  <div class="tt-body" id="ttBody"></div>
+</div>
+
+<script>
+// ── TOOLTIPS ──────────────────────────────────────────────
+const tt = document.getElementById('tooltip');
+const allNodes = document.querySelectorAll('.node, .equity-card');
+allNodes.forEach(node => {
+  if (!node.dataset.body) return;
+  node.addEventListener('mouseenter', e => {
+    const role = node.dataset.role || node.querySelector('.node-role, .eq-role')?.textContent || '';
+    const name = node.dataset.name || node.querySelector('.node-name, .eq-name')?.textContent || '';
+    const body = node.dataset.body || '';
+    document.getElementById('ttRole').textContent = role;
+    document.getElementById('ttName').textContent = name;
+    document.getElementById('ttBody').textContent = body;
+
+    let color = 'rgba(255,255,255,0.15)';
+    if (node.classList.contains('node-red')) color = 'rgba(177,18,38,0.3)';
+    else if (node.classList.contains('node-amber')) color = 'rgba(232,160,74,0.3)';
+    else if (node.classList.contains('node-gold') || node.classList.contains('equity-card')) color = 'rgba(201,168,76,0.3)';
+    else if (node.classList.contains('node-blue')) color = 'rgba(42,130,232,0.3)';
+    tt.style.borderColor = color;
+    document.getElementById('ttRole').style.color = color.replace('0.3)', '0.9)');
+
+    tt.classList.add('visible');
+    positionTooltip(e);
+  });
+  node.addEventListener('mousemove', positionTooltip);
+  node.addEventListener('mouseleave', () => tt.classList.remove('visible'));
+});
+
+function positionTooltip(e) {
+  let x = e.clientX + 16, y = e.clientY - 10;
+  if (x + 295 > window.innerWidth) x = e.clientX - 300;
+  if (y + 220 > window.innerHeight) y = window.innerHeight - 230;
+  tt.style.left = x + 'px';
+  tt.style.top = y + 'px';
+}
+
+// ── FAN SVG CONNECTORS ────────────────────────────────────
+function drawFan() {
+  const svg = document.getElementById('fanSvg');
+  if (!svg) return;
+  svg.innerHTML = '';
+  const row1 = document.getElementById('row1');
+  const flow = document.getElementById('flow');
+  if (!row1 || !flow) return;
+
+  const nodes = row1.querySelectorAll('.node');
+  const flowRect = flow.getBoundingClientRect();
+  const svgEl = svg.getBoundingClientRect();
+
+  // Target: centre of the platform hub (3rd row)
+  const hub = document.querySelector('.node.hub');
+  if (!hub) return;
+  const hubRect = hub.getBoundingClientRect();
+  const tx = hubRect.left + hubRect.width / 2 - svgEl.left;
+  const ty = hubRect.top - svgEl.top;
+
+  nodes.forEach(node => {
+    const nr = node.getBoundingClientRect();
+    const sx = nr.left + nr.width / 2 - svgEl.left;
+    const sy = nr.bottom - svgEl.top;
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    const my = (sy + ty) / 2;
+    path.setAttribute('d', `M${sx},${sy} C${sx},${my} ${tx},${my} ${tx},${ty}`);
+    path.setAttribute('stroke', 'rgba(255,255,255,0.07)');
+    path.setAttribute('stroke-width', '1');
+    path.setAttribute('fill', 'none');
+    path.setAttribute('stroke-dasharray', '3,4');
+    svg.appendChild(path);
+  });
+}
+
+window.addEventListener('load', () => setTimeout(drawFan, 150));
+window.addEventListener('resize', () => setTimeout(drawFan, 100));
+</script>
+</body>
+</html>
