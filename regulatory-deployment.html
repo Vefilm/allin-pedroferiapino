@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Regulatory Deployment — ALL IN</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#06060A; color:#fff; font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif; min-height:100vh; display:flex; flex-direction:column; }
+.wrap { width:100%; flex:1; display:flex; flex-direction:column; padding:2rem; }
+.diagram-title { text-align:center; margin-bottom:1.8rem; }
+.diagram-title strong { font-family:Georgia,serif; font-size:1.3rem; display:block; color:rgba(255,255,255,0.88); margin-bottom:0.4rem; }
+.diagram-title span { font-size:0.6rem; letter-spacing:0.22em; text-transform:uppercase; color:rgba(255,255,255,0.3); }
+.grid { display:grid; grid-template-columns:1fr 80px 1fr; gap:0; flex:1; max-width:1100px; margin:0 auto; width:100%; }
+.era { text-align:center; padding:0.65rem 1.2rem; border-radius:3px; font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase; margin-bottom:1.4rem; }
+.era-before { background:rgba(42,130,232,0.08); border:1px solid rgba(42,130,232,0.2); color:#4A9EF0; }
+.era-after  { background:rgba(177,18,38,0.08); border:1px solid rgba(177,18,38,0.25); color:#C0392B; }
+.col { display:flex; flex-direction:column; padding:0 0.5rem; }
+.metric { background:#0e0e14; border-radius:4px; padding:0.85rem 1rem; margin-bottom:0.7rem; cursor:pointer; position:relative; border:1px solid rgba(255,255,255,0.05); transition:border-color .2s, background .2s; }
+.metric:hover { background:#12121a; }
+.metric-cat { font-size:0.55rem; letter-spacing:0.18em; text-transform:uppercase; margin-bottom:0.25rem; }
+.metric-val { font-weight:700; font-size:1.35rem; line-height:1; margin-bottom:0.2rem; font-family:Georgia,serif; }
+.metric-label { font-size:0.78rem; color:rgba(255,255,255,0.55); line-height:1.4; }
+.metric-detail { font-size:0.7rem; color:rgba(255,255,255,0.3); margin-top:0.3rem; }
+.metric-dot { position:absolute; width:8px; height:8px; border-radius:50%; top:50%; transform:translateY(-50%); }
+.col-before .metric { border-left:2px solid rgba(42,130,232,0.4); }
+.col-before .metric:hover { border-left-color:rgba(42,130,232,0.8); }
+.col-before .metric-cat { color:#4A9EF0; }
+.col-before .metric-val { color:#4A9EF0; }
+.col-before .metric-dot { right:-5px; background:#4A9EF0; box-shadow:0 0 6px rgba(42,130,232,0.6); }
+.col-after .metric { border-right:2px solid rgba(177,18,38,0.4); }
+.col-after .metric:hover { border-right-color:rgba(177,18,38,0.8); }
+.col-after .metric-cat { color:#C0392B; }
+.col-after .metric-val { color:#C0392B; }
+.col-after .metric-dot { left:-5px; background:#C0392B; box-shadow:0 0 6px rgba(177,18,38,0.6); }
+.arrow-row { display:flex; align-items:center; gap:0.5rem; margin-bottom:0.7rem; background:#0e0e14; border:1px solid rgba(177,18,38,0.2); border-radius:4px; padding:0.65rem 1rem; }
+.arrow-label { font-size:0.72rem; color:rgba(255,255,255,0.5); flex:1; }
+.arrow-change { font-size:0.78rem; font-weight:700; color:#C0392B; white-space:nowrap; }
+.centre { display:flex; flex-direction:column; align-items:center; padding-top:3.2rem; }
+.centre-line { width:1px; flex:1; background:linear-gradient(180deg,transparent,rgba(255,255,255,0.07) 20%,rgba(255,255,255,0.07) 80%,transparent); }
+.centre-badge { writing-mode:vertical-lr; transform:rotate(180deg); font-size:0.5rem; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.2); padding:0.6rem 0; white-space:nowrap; }
+.verdict { padding:0.85rem 1rem; border-radius:3px; margin-top:0.6rem; font-size:0.78rem; line-height:1.55; }
+.verdict-before { background:rgba(42,130,232,0.06); border:1px solid rgba(42,130,232,0.15); color:rgba(255,255,255,0.6); }
+.verdict-after  { background:rgba(177,18,38,0.06); border:1px solid rgba(177,18,38,0.15); color:rgba(255,255,255,0.6); }
+.verdict strong { display:block; font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:0.35rem; }
+.verdict-before strong { color:#4A9EF0; }
+.verdict-after  strong { color:#C0392B; }
+.tooltip { position:fixed; z-index:200; display:none; background:#101018; border:1px solid rgba(255,255,255,0.12); border-radius:4px; padding:1rem 1.25rem; width:280px; box-shadow:0 8px 40px rgba(0,0,0,0.7); pointer-events:none; }
+.tooltip.visible { display:block; }
+.tt-role { font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:0.4rem; }
+.tt-name { font-weight:700; font-size:0.95rem; margin-bottom:0.6rem; }
+.tt-body { font-size:0.78rem; color:rgba(255,255,255,0.62); line-height:1.6; }
+.source { text-align:center; padding:0.85rem; font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.18); margin-top:0.5rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="diagram-title">
+    <strong>The Regulatory Deployment</strong>
+    <span>CFTC · Normal Operation vs. Selig Era (Jan 2026–Present)</span>
+  </div>
+
+  <div class="grid">
+    <div class="col col-before">
+      <div class="era era-before">CFTC · Standard Operation · Pre-2026</div>
+      <div class="metric" data-role="Enforcement Staff" data-name="58 Enforcement Officers" data-body="The CFTC's enforcement division maintained approximately 58 active enforcement staff — investigators, litigators, analysts — dedicated to monitoring commodities, futures, and derivatives markets for manipulation, fraud, and abuse. Normal operating level for an agency overseeing trillions in daily volume.">
+        <div class="metric-dot"></div>
+        <div class="metric-cat">Enforcement Division</div>
+        <div class="metric-val">58</div>
+        <div class="metric-label">Enforcement officers</div>
+        <div class="metric-detail">Standard operating complement</div>
+      </div>
+      <div class="metric" data-role="Advisory Structure" data-name="Technology Advisory Committee" data-body="The CFTC's Technology Advisory Committee consisted of academic experts, technologists, and market practitioners — a mix of viewpoints intended to inform the commission on emerging technology issues. Industry representatives participated alongside academics and public interest voices.">
+        <div class="metric-dot"></div>
+        <div class="metric-cat">Advisory Structure</div>
+        <div class="metric-val">TAC</div>
+        <div class="metric-label">Technology Advisory Committee</div>
+        <div class="metric-detail">Mixed: academics, public interest, industry</div>
+      </div>
+      <div class="metric" data-role="State Relations" data-name="Cooperative Federalism" data-body="Traditional CFTC posture: federal and state regulators operate in overlapping jurisdictions. States have authority to regulate gambling and consumer protection within their borders. The CFTC does not typically sue states that impose their own oversight over financial platforms — even platforms the CFTC also regulates.">
+        <div class="metric-dot"></div>
+        <div class="metric-cat">State Relations</div>
+        <div class="metric-val">0</div>
+        <div class="metric-label">States sued by CFTC</div>
+        <div class="metric-detail">Federal/state cooperation standard</div>
+      </div>
+      <div class="metric" data-role="Amicus Briefs" data-name="Industry Amicus: Rare" data-body="The CFTC files amicus briefs in court cases to clarify regulatory interpretation — typically in cases that directly affect federal jurisdiction. Filing amicus briefs in 50 separate state court cases to defend a specific private industry from state regulation is without modern precedent.">
+        <div class="metric-dot"></div>
+        <div class="metric-cat">Amicus Activity</div>
+        <div class="metric-val">~0</div>
+        <div class="metric-label">Industry defense filings</div>
+        <div class="metric-detail">Not a normal CFTC function</div>
+      </div>
+      <div class="metric" data-role="Investigation Pace" data-name="Active Market Surveillance" data-body="The CFTC's market surveillance division monitors for unusual activity in commodity and futures markets continuously. Suspicious trading patterns — particularly coordinated positions ahead of market-moving announcements — are a core surveillance target. Investigation timelines typically run 12–24 months from flag to action.">
+        <div class="metric-dot"></div>
+        <div class="metric-cat">Market Surveillance</div>
+        <div class="metric-val">Active</div>
+        <div class="metric-label">Continuous monitoring</div>
+        <div class="metric-detail">Suspicious pattern → investigation standard</div>
+      </div>
+      <div class="metric" data-role="Industry Access" data-name="Formal Comment Process" data-body="Standard regulatory access: industry can comment on proposed rules, meet with commissioners through formal channels, and submit petitions. Direct one-on-one access to the chair is governed by ethics rules. Regulated companies do not typically advise the chair on regulatory priorities.">
+        <div class="metric-dot"></div>
+        <div class="metric-cat">Industry Access</div>
+        <div class="metric-val">Formal</div>
+        <div class="metric-label">Comment / petition process</div>
+        <div class="metric-detail">Regulated firms at arm's length</div>
+      </div>
+      <div class="verdict verdict-before">
+        <strong>Standard posture</strong>
+        Enforcement-forward agency protecting markets from manipulation. Arm's-length from regulated industry. Federal/state cooperation. Surveillance active.
+      </div>
+    </div>
+
+    <div class="centre">
+      <div class="centre-line"></div>
+      <div class="centre-badge">One Confirmation Vote</div>
+      <div class="centre-line"></div>
+    </div>
+
+    <div class="col col-after">
+      <div class="era era-after">CFTC · Selig Era · January 2026–Present</div>
+      <div class="metric" data-role="Enforcement Staff" data-name="11 Enforcement Officers" data-body="Under Selig, CFTC enforcement staff reduced from 58 to 11 — an 81% reduction. This is not described as budget cuts. It represents a deliberate restructuring of the agency's priorities. With 11 enforcement officers overseeing trillions in daily volume including $54.4B in prediction market activity, the practical capacity for investigation is functionally eliminated.">
+        <div class="metric-dot"></div>
+        <div class="metric-cat">Enforcement Division</div>
+        <div class="metric-val">11</div>
+        <div class="metric-label">Enforcement officers (↓81%)</div>
+        <div class="metric-detail">$54.4B prediction market volume to oversee</div>
+      </div>
+      <div class="metric" data-role="Advisory Structure" data-name="35-Member CEO Innovation Council" data-body="Selig disbanded the Technology Advisory Committee and replaced it with a 35-member CEO Innovation Council drawn exclusively from regulated industry. Members include: Shayne Coplan (Polymarket — FBI probe dropped 2025), Tarek Mansour (Kalshi — hired Trump Jr.), Tyler Winklevoss (Gemini — $1M Bitcoin to Trump), Kris Marszalek (Crypto.com — Truth Predict partner). The regulated firms now advise their regulator on regulatory priorities.">
+        <div class="metric-dot"></div>
+        <div class="metric-cat">Advisory Structure</div>
+        <div class="metric-val">35</div>
+        <div class="metric-label">CEO Innovation Council members</div>
+        <div class="metric-detail">Coplan · Mansour · Winklevoss · Marszalek</div>
+      </div>
+      <div class="metric" data-role="State Relations" data-name="3 States Sued" data-body="Selig's CFTC has sued three states that attempted to impose their own oversight on prediction market platforms operating within their borders. This is extraordinary: the federal regulator is using litigation to eliminate state consumer protection authority over an industry whose federal oversight has simultaneously been reduced to 11 enforcement officers.">
+        <div class="metric-dot"></div>
+        <div class="metric-cat">State Relations</div>
+        <div class="metric-val">3</div>
+        <div class="metric-label">States sued by CFTC</div>
+        <div class="metric-detail">Eliminating state consumer protection authority</div>
+      </div>
+      <div class="metric" data-role="Amicus Briefs" data-name="50 State Cases Defended" data-body="CFTC filed amicus briefs in 50 separate state court cases defending prediction market platforms from state regulatory challenges. The agency — with 11 enforcement officers — is spending legal resources protecting Polymarket and Kalshi from the 50 state regulators that would otherwise provide oversight. No enforcement actions against the platforms in same period.">
+        <div class="metric-dot"></div>
+        <div class="metric-cat">Amicus Activity</div>
+        <div class="metric-val">50</div>
+        <div class="metric-label">Industry defense filings</div>
+        <div class="metric-detail">Defending Polymarket/Kalshi vs states · 0 enforcement</div>
+      </div>
+      <div class="metric" data-role="Investigation Pace" data-name="$1.75B Flagged — No Action" data-body="$800M oil short (March 23) + $950M oil short (April 7) = $1.75B in trades flagged by David Kovel (Kirby McInerney — won largest CFTC whistleblower award in history) and featured on 60 Minutes. Both placed hours before Trump announcements that moved oil prices. Warren deadline: June 18. CFTC has announced no investigation.">
+        <div class="metric-dot"></div>
+        <div class="metric-cat">Market Surveillance</div>
+        <div class="metric-val">$1.75B</div>
+        <div class="metric-label">Flagged — zero CFTC response</div>
+        <div class="metric-detail">Kovel / 60 Minutes · Warren deadline today</div>
+      </div>
+      <div class="metric" data-role="Industry Access" data-name="Direct Chair Access — Ethics Recusal Expiring" data-body="Selig's ethics recusal from former clients — including Crypto.com (Truth Predict partner), Polymarket-adjacent firms, and Kalshi-related entities — is set to expire mid-2026. Once expired, he can participate directly in regulatory decisions affecting his former clients. His former clients include the chief beneficiaries of every policy decision his agency has made since confirmation.">
+        <div class="metric-dot"></div>
+        <div class="metric-cat">Industry Access</div>
+        <div class="metric-val">Direct</div>
+        <div class="metric-label">Former clients at the table</div>
+        <div class="metric-detail">Ethics recusal expiring mid-2026</div>
+      </div>
+      <div class="verdict verdict-after">
+        <strong>Deployed posture</strong>
+        Enforcement gutted 81%. Regulated industry chairs the advisory council. States being sued to eliminate alternative oversight. $1.75B in suspicious trades — no response. Warren deadline: today.
+      </div>
+    </div>
+  </div>
+
+  <div class="source">
+    CFTC staffing records · Selig confirmation hearings · ACDC Polymarket Report (Jun 2026) · David Kovel / 60 Minutes (May 2026) · Senator Warren letter (Jun 10, 2026) · ALL IN documentary research
+  </div>
+</div>
+
+<div class="tooltip" id="tooltip">
+  <div class="tt-role" id="ttRole"></div>
+  <div class="tt-name" id="ttName"></div>
+  <div class="tt-body" id="ttBody"></div>
+</div>
+<script>
+const tt = document.getElementById('tooltip');
+document.querySelectorAll('.metric').forEach(card => {
+  card.addEventListener('mouseenter', e => {
+    const isLeft = card.closest('.col-before');
+    const color = isLeft ? '#4A9EF0' : '#C0392B';
+    document.getElementById('ttRole').textContent = card.dataset.role || '';
+    document.getElementById('ttRole').style.color = color;
+    document.getElementById('ttName').textContent = card.dataset.name || '';
+    document.getElementById('ttBody').textContent = card.dataset.body || '';
+    tt.style.borderColor = isLeft ? 'rgba(42,130,232,0.25)' : 'rgba(177,18,38,0.25)';
+    tt.classList.add('visible'); pos(e);
+  });
+  card.addEventListener('mousemove', pos);
+  card.addEventListener('mouseleave', () => tt.classList.remove('visible'));
+});
+function pos(e) {
+  let x = e.clientX + 16, y = e.clientY - 10;
+  if (x + 295 > window.innerWidth) x = e.clientX - 300;
+  if (y + 200 > window.innerHeight) y = window.innerHeight - 210;
+  tt.style.left = x + 'px'; tt.style.top = y + 'px';
+}
+</script>
+</body>
+</html>

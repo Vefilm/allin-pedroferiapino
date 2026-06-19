@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The DARPA Playbook — ALL IN</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#06060A; color:#fff; font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif; min-height:100vh; display:flex; flex-direction:column; }
+
+.wrap { width:100%; flex:1; display:flex; flex-direction:column; padding:2rem; }
+.diagram-title { text-align:center; margin-bottom:1.8rem; }
+.diagram-title strong { font-family:Georgia,serif; font-size:1.3rem; display:block; letter-spacing:0.05em; color:rgba(255,255,255,0.88); margin-bottom:0.4rem; }
+.diagram-title span { font-size:0.6rem; letter-spacing:0.22em; text-transform:uppercase; color:rgba(255,255,255,0.3); }
+
+.grid { display:grid; grid-template-columns:1fr 80px 1fr; gap:0; flex:1; max-width:1100px; margin:0 auto; width:100%; align-items:start; padding-top:1rem; }
+
+/* ── ERA LABELS ── */
+.era { text-align:center; padding:0.65rem 1.2rem; border-radius:3px; font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase; margin-bottom:1.4rem; }
+.era-2003 { background:rgba(42,130,232,0.08); border:1px solid rgba(42,130,232,0.2); color:#4A9EF0; }
+.era-2024 { background:rgba(177,18,38,0.08); border:1px solid rgba(177,18,38,0.25); color:#C0392B; }
+
+.col { display:flex; flex-direction:column; padding:0 0.5rem; }
+
+/* ── CARDS ── */
+.card {
+  background:#0e0e14; border-radius:4px; padding:0.85rem 1rem 0.85rem 1.1rem;
+  margin-bottom:0.7rem; cursor:pointer; position:relative;
+  border:1px solid rgba(255,255,255,0.05); transition:border-color .2s, background .2s;
+}
+.card:hover { background:#12121a; }
+.card-role { font-size:0.55rem; letter-spacing:0.18em; text-transform:uppercase; margin-bottom:0.3rem; }
+.card-name { font-weight:700; font-size:0.9rem; line-height:1.2; }
+.card-detail { font-size:0.72rem; color:rgba(255,255,255,0.42); margin-top:0.2rem; line-height:1.4; }
+.card-dot { position:absolute; width:8px; height:8px; border-radius:50%; top:50%; transform:translateY(-50%); }
+
+.col-left .card { border-left:2px solid rgba(42,130,232,0.4); }
+.col-left .card:hover { border-left-color:rgba(42,130,232,0.8); }
+.col-left .card-role { color:#4A9EF0; }
+.col-left .card-dot { right:-5px; background:#4A9EF0; box-shadow:0 0 6px rgba(42,130,232,0.6); }
+
+.col-right .card { border-right:2px solid rgba(177,18,38,0.4); }
+.col-right .card:hover { border-right-color:rgba(177,18,38,0.8); }
+.col-right .card-role { color:#C0392B; }
+.col-right .card-dot { left:-5px; background:#C0392B; box-shadow:0 0 6px rgba(177,18,38,0.6); }
+
+.card.highlight { background:#0a0a10; }
+.col-left .card.highlight { border-left-color:rgba(42,130,232,0.9); }
+.col-right .card.highlight { border-right-color:rgba(177,18,38,0.9); }
+
+/* ── OUTCOME CARDS ── */
+.outcome { padding:0.75rem 1rem; border-radius:3px; margin-top:0.5rem; font-size:0.78rem; line-height:1.5; }
+.outcome-left  { background:rgba(42,130,232,0.06); border:1px solid rgba(42,130,232,0.15); color:rgba(255,255,255,0.6); }
+.outcome-right { background:rgba(177,18,38,0.06); border:1px solid rgba(177,18,38,0.15); color:rgba(255,255,255,0.6); }
+.outcome strong { display:block; font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:0.35rem; }
+.outcome-left strong { color:#4A9EF0; }
+.outcome-right strong { color:#C0392B; }
+
+/* ── CENTRE ── */
+.centre { display:flex; flex-direction:column; align-items:center; padding-top:3.2rem; }
+.centre-line { width:1px; flex:1; background:linear-gradient(180deg,transparent,rgba(255,255,255,0.07) 20%,rgba(255,255,255,0.07) 80%,transparent); }
+.centre-badge { writing-mode:vertical-lr; transform:rotate(180deg); font-size:0.5rem; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.2); padding:0.6rem 0; white-space:nowrap; }
+
+/* ── TOOLTIP ── */
+.tooltip { position:fixed; z-index:200; display:none; background:#101018; border:1px solid rgba(255,255,255,0.12); border-radius:4px; padding:1rem 1.25rem; width:280px; box-shadow:0 8px 40px rgba(0,0,0,0.7); pointer-events:none; }
+.tooltip.visible { display:block; }
+.tt-role { font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase; margin-bottom:0.4rem; }
+.tt-name { font-weight:700; font-size:0.95rem; margin-bottom:0.6rem; }
+.tt-body { font-size:0.78rem; color:rgba(255,255,255,0.62); line-height:1.6; }
+
+.source { text-align:center; padding:0.85rem; font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.18); margin-top:1rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="diagram-title">
+    <strong>The DARPA Playbook</strong>
+    <span>Pentagon / Policy Analysis Market (2003) &nbsp;·&nbsp; CFTC / Polymarket (2024–2026)</span>
+  </div>
+
+  <div class="grid">
+    <!-- LEFT: 2003 -->
+    <div class="col col-left">
+      <div class="era era-2003">Pentagon · 2003 · Shutdown in 72 hours</div>
+
+      <div class="card" data-role="The Concept" data-name="Policy Analysis Market" data-body="DARPA's 2003 prediction market proposal: allow intelligence analysts and experts to bet on geopolitical events — coups, assassinations, economic shocks. The theory: market incentives produce better forecasts than official channels. DARPA called it 'The FutureMAP Project.'">
+        <div class="card-dot"></div>
+        <div class="card-role">The Concept</div>
+        <div class="card-name">Policy Analysis Market</div>
+        <div class="card-detail">DARPA FutureMAP · Bet on geopolitical events</div>
+      </div>
+
+      <div class="card" data-role="The Architects" data-name="DARPA / Admiral Poindexter" data-body="John Poindexter — Reagan's National Security Advisor during Iran-Contra — led DARPA's Total Information Awareness program. He designed PAM as a forecasting tool. The idea: markets aggregate dispersed information better than analysts.">
+        <div class="card-dot"></div>
+        <div class="card-role">The Architect</div>
+        <div class="card-name">DARPA · Admiral Poindexter</div>
+        <div class="card-detail">Total Information Awareness · FutureMAP Project</div>
+      </div>
+
+      <div class="card highlight" data-role="The Kill Switch" data-name="Congress — 72-Hour Shutdown" data-body="Senators Byron Dorgan and Ron Wyden held a press conference. They called PAM a 'terrorism futures market' — a place to bet on assassinations. Public outrage was immediate. DARPA cancelled the program within 72 hours. Poindexter resigned days later. The idea was declared dead.">
+        <div class="card-dot"></div>
+        <div class="card-role">The Kill Switch</div>
+        <div class="card-name">Congress — 72-Hour Shutdown</div>
+        <div class="card-detail">Dorgan + Wyden · "Terrorism futures" · Poindexter resigns</div>
+      </div>
+
+      <div class="card" data-role="The Core Objection" data-name="Incentivizing the Event" data-body="The senators' objection was not about information quality. It was about incentive structure: if you can profit from an assassination, you now have a financial reason to cause it. The market doesn't just predict events — it prices them. And priced events can be incentivized.">
+        <div class="card-dot"></div>
+        <div class="card-role">The Core Objection</div>
+        <div class="card-name">"You're Incentivizing the Event"</div>
+        <div class="card-detail">Profit motive → cause motive · The fundamental problem</div>
+      </div>
+
+      <div class="card" data-role="Legal Classification" data-name="Futures · CFTC Jurisdiction" data-body="Policy Analysis Market was structured as futures contracts — event outcomes priced as derivatives. CFTC oversight applied. But CFTC was never asked to approve it. Congress killed it first. The legal question of whether such contracts were permissible was never adjudicated.">
+        <div class="card-dot"></div>
+        <div class="card-role">Legal Classification</div>
+        <div class="card-name">Futures Contracts · CFTC Territory</div>
+        <div class="card-detail">Event contracts = derivatives · No SEC jurisdiction</div>
+      </div>
+
+      <div class="card" data-role="The Result" data-name="Cancelled · Forgotten · 21 Years" data-body="PAM is cancelled August 2003. The concept is treated as a cautionary tale — proof that prediction markets on sensitive events are too dangerous to allow. For 21 years, this consensus holds.">
+        <div class="card-dot"></div>
+        <div class="card-role">The Result</div>
+        <div class="card-name">Cancelled · Forgotten · 21 Years</div>
+        <div class="card-detail">Aug 2003 — declared dead by bipartisan consensus</div>
+      </div>
+
+      <div class="outcome outcome-left">
+        <strong>2003 Verdict</strong>
+        Congress shuts down the identical concept in 72 hours because the incentive structure is too dangerous. Bipartisan. Immediate. No ambiguity.
+      </div>
+    </div>
+
+    <!-- CENTRE -->
+    <div class="centre">
+      <div class="centre-line"></div>
+      <div class="centre-badge">Same Concept</div>
+      <div class="centre-line"></div>
+    </div>
+
+    <!-- RIGHT: 2024 -->
+    <div class="col col-right">
+      <div class="era era-2024">CFTC · 2024–2026 · Approved + Expanding</div>
+
+      <div class="card" data-role="The Concept" data-name="Polymarket / Kalshi Event Contracts" data-body="Prediction markets betting on elections, military actions, geopolitical events, Supreme Court decisions, economic data. The language has changed: not 'futures on assassinations' but 'event contracts on binary outcomes.' The financial structure is identical to what DARPA proposed.">
+        <div class="card-dot"></div>
+        <div class="card-role">The Concept</div>
+        <div class="card-name">Polymarket · Kalshi Event Contracts</div>
+        <div class="card-detail">Bet on elections, wars, courts · $54.4B wagered</div>
+      </div>
+
+      <div class="card" data-role="The Architects" data-name="Shayne Coplan / Tarek Mansour" data-body="Shayne Coplan (Polymarket CEO) — FBI seized his phone in 2024, both probes dropped 2025. Tarek Mansour (Kalshi CEO) — hired Trump Jr. as strategic advisor. Both sit on Selig's 35-member CEO Innovation Council at the CFTC. The regulated industry advises its regulator.">
+        <div class="card-dot"></div>
+        <div class="card-role">The Architects</div>
+        <div class="card-name">Coplan (Polymarket) · Mansour (Kalshi)</div>
+        <div class="card-detail">CFTC Innovation Council · Former probe targets</div>
+      </div>
+
+      <div class="card highlight" data-role="No Kill Switch" data-name="CFTC Approved — Expanded" data-body="Instead of a 72-hour shutdown: CFTC approves election markets for Kalshi (Sept 2024). Polymarket acquires QCEX for US regulatory access. Selig's CFTC files amicus briefs defending prediction markets against 50 state challenges. The regulator is fighting FOR the industry against state legislators.">
+        <div class="card-dot"></div>
+        <div class="card-role">No Kill Switch</div>
+        <div class="card-name">CFTC Approved — Actively Defended</div>
+        <div class="card-detail">Selig sues 3 states · 50 amicus briefs · 58→11 enforcement</div>
+      </div>
+
+      <div class="card" data-role="The Core Objection — Unanswered" data-name="Van Dyke · Iran Wallets" data-body="Van Dyke: Air Force intelligence officer bets $409K on Operation Absolute Resolve targeting Venezuela — using advance knowledge. Indicted June 2026. The Iran wallets (Skoobidoobnj, 0xoracle): anomalous win patterns on military strike markets. The DARPA objection — profit motive creates cause motive — is now documented in federal court.">
+        <div class="card-dot"></div>
+        <div class="card-role">The Core Objection — Now Documented</div>
+        <div class="card-name">Van Dyke · Wallets · Military Markets</div>
+        <div class="card-detail">$409K on Venezuela op · $0 on investigation into Iran wallets</div>
+      </div>
+
+      <div class="card" data-role="Legal Classification" data-name="Event Contracts — No Insider Law" data-body="Prediction markets are CFTC-regulated as event contracts/futures. This removes them from SEC jurisdiction — and from insider trading law entirely. The Eddie Murphy Rule (CFTC Reg 180.1) prohibits manipulation but requires proof of deception, not just information asymmetry. The legal gap DARPA's critics assumed would never be tested is now the operating environment.">
+        <div class="card-dot"></div>
+        <div class="card-role">Legal Classification</div>
+        <div class="card-name">Event Contracts · No Insider Statute</div>
+        <div class="card-detail">CFTC not SEC · Eddie Murphy Rule · Legal gap confirmed</div>
+      </div>
+
+      <div class="card" data-role="The Result" data-name="$54.4B Wagered · Expanding" data-body="Polymarket: $350M valuation in 2024 → $15B valuation by 2026. Kalshi: congressional candidate markets, sports, weather. ICE commits $2B. Trump Jr. invests. The concept Congress killed in 72 hours in 2003 is now a $15B platform with White House family equity, a captured regulator, and zero working insider trading law.">
+        <div class="card-dot"></div>
+        <div class="card-role">The Result</div>
+        <div class="card-name">$15B Platform · WH Family Equity</div>
+        <div class="card-detail">$350M → $15B · Trump Jr. invested · No charges · Expanding</div>
+      </div>
+
+      <div class="outcome outcome-right">
+        <strong>2024–2026 Verdict</strong>
+        The identical concept Congress killed for being too dangerous is now a $15B platform with White House family equity, a deployed regulator, and no working legal framework to address insider trading.
+      </div>
+    </div>
+  </div>
+
+  <div class="source">
+    Pentagon / DARPA Policy Analysis Market (2003) · Senators Dorgan + Wyden press conference (Aug 2003) · CFTC Event Contract approvals (2024–2026) · ACDC Polymarket Report (Jun 2026) · ALL IN documentary research
+  </div>
+</div>
+
+<!-- TOOLTIP -->
+<div class="tooltip" id="tooltip">
+  <div class="tt-role" id="ttRole"></div>
+  <div class="tt-name" id="ttName"></div>
+  <div class="tt-body" id="ttBody"></div>
+</div>
+
+<script>
+const tt = document.getElementById('tooltip');
+document.querySelectorAll('.card').forEach(card => {
+  card.addEventListener('mouseenter', e => {
+    const isLeft = card.closest('.col-left');
+    const color = isLeft ? '#4A9EF0' : '#C0392B';
+    document.getElementById('ttRole').textContent = card.dataset.role || '';
+    document.getElementById('ttRole').style.color = color;
+    document.getElementById('ttName').textContent = card.dataset.name || '';
+    document.getElementById('ttBody').textContent = card.dataset.body || '';
+    tt.style.borderColor = isLeft ? 'rgba(42,130,232,0.25)' : 'rgba(177,18,38,0.25)';
+    tt.classList.add('visible');
+    pos(e);
+  });
+  card.addEventListener('mousemove', pos);
+  card.addEventListener('mouseleave', () => tt.classList.remove('visible'));
+});
+function pos(e) {
+  let x = e.clientX + 16, y = e.clientY - 10;
+  if (x + 295 > window.innerWidth) x = e.clientX - 300;
+  if (y + 200 > window.innerHeight) y = window.innerHeight - 210;
+  tt.style.left = x + 'px'; tt.style.top = y + 'px';
+}
+</script>
+</body>
+</html>

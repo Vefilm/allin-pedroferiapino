@@ -1,0 +1,2264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALL IN: Betting on America</title>
+<style>
+:root {
+  --black: #0A0A0A;
+  --ink: #111111;
+  --red: #B11226;
+  --red-deep: #7A0C1C;
+  --red-glow: rgba(177,18,38,0.35);
+  --white: #FFFFFF;
+  --cream: #F7F4EE;
+  --card-bg: #141414;
+  --border: rgba(255,255,255,0.07);
+  --amber: #E8A04A;
+  --gold: #C9A84C;
+  --blue-cool: #4A90D9;
+  --text-dim: rgba(255,255,255,0.55);
+  --text-mid: rgba(255,255,255,0.78);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── HEADER ─────────────────────────────────────────────── */
+.site-header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(10,10,10,0.96);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.header-inner {
+  display: flex; align-items: center;
+  max-width: 1400px; margin: 0 auto;
+  padding: 0 2rem;
+}
+.logo {
+  font-family: Georgia, serif;
+  font-size: 1.15rem; font-weight: 700;
+  letter-spacing: 0.18em; color: var(--white);
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding: 1rem 1.5rem 1rem 0;
+  border-right: 1px solid var(--border);
+  margin-right: 0;
+  flex-shrink: 0;
+}
+.logo span { color: var(--red); }
+
+.tabs-nav {
+  display: flex; overflow-x: auto; scrollbar-width: none;
+  flex: 1;
+}
+.tabs-nav::-webkit-scrollbar { display: none; }
+.tab-btn {
+  background: none; border: none; cursor: pointer;
+  color: var(--text-dim);
+  font-size: 0.59rem; font-weight: 600;
+  letter-spacing: 0.09em; text-transform: uppercase;
+  padding: 0.85rem 0.42rem;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: color .2s, border-color .2s;
+  position: relative;
+}
+.tab-btn:hover { color: var(--white); }
+.tab-btn.active {
+  color: var(--white);
+  border-bottom-color: var(--red);
+}
+.tab-btn .tab-num {
+  color: var(--red); font-size: 0.4rem; margin-right: 0.25rem;
+  font-weight: 700; letter-spacing: 0.06em;
+}
+
+/* ── PANELS ─────────────────────────────────────────────── */
+.panel { display: none; padding-top: 62px; }
+  .panel.active::before {
+    content: '';
+    position: fixed;
+    top: 62px; left: 0; right: 0; height: 320px;
+    background: radial-gradient(ellipse 80% 55% at 50% -5%, rgba(177,18,38,0.16) 0%, transparent 75%);
+    pointer-events: none;
+    z-index: 0;
+  }
+.panel.active { display: block; }
+
+/* ── HERO ───────────────────────────────────────────────── */
+.hero {
+  position: relative; height: 92vh; min-height: 600px;
+  display: flex; align-items: flex-end;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: url('../assets/img/hero-eyes.jpeg') center/cover no-repeat;
+  filter: brightness(0.45) saturate(0.7);
+}
+.hero-vignette {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(10,10,10,0.1) 0%, rgba(10,10,10,0.3) 50%, rgba(10,10,10,0.98) 100%);
+}
+.hero-scan {
+  position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+}
+.hero-scan::after {
+  content: '';
+  position: absolute; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(177,18,38,0.4), rgba(177,18,38,0.8), rgba(177,18,38,0.4), transparent);
+  animation: heroScan 8s ease-in-out infinite;
+  box-shadow: 0 0 20px rgba(177,18,38,0.4);
+}
+@keyframes heroScan {
+  0% { top: 0; opacity: 0; }
+  5% { opacity: 1; }
+  95% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+.hero-content {
+  position: relative; z-index: 2;
+  padding: 3rem 4rem 4rem;
+  max-width: 900px;
+}
+.hero-eyebrow {
+  font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--red); margin-bottom: 1rem;
+}
+.hero-title {
+  font-family: Georgia, serif;
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  font-weight: 700; line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.2rem;
+}
+.hero-title .the { font-style: italic; font-weight: 400; }
+.hero-subtitle {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: var(--text-mid);
+  max-width: 580px; line-height: 1.5;
+  margin-bottom: 2rem;
+}
+.hero-tag {
+  display: inline-block;
+  border: 1px solid rgba(177,18,38,0.5);
+  color: var(--red); font-size: 0.65rem;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  padding: 0.4rem 0.9rem; border-radius: 2px;
+  background: rgba(177,18,38,0.08);
+}
+
+/* ── SECTION SCAFFOLDING ──────────────────────────────── */
+.section {
+  max-width: 1200px; margin: 0 auto;
+  padding: 5rem 2rem;
+}
+.section-sm { padding: 3rem 2rem; }
+.section-full { padding: 5rem 2rem; }
+
+.eyebrow {
+  font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--red); margin-bottom: 1rem; display: block;
+}
+.section-title {
+  font-family: Georgia, serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700; line-height: 1.1;
+  margin-bottom: 1.25rem;
+}
+.section-lead {
+  font-size: 1.1rem; color: var(--text-mid);
+  max-width: 680px; line-height: 1.7;
+  margin-bottom: 3rem;
+}
+.divider {
+  border: none; border-top: 1px solid var(--border);
+  margin: 0;
+}
+
+/* ── VIDEO BLOCK ──────────────────────────────────────── */
+.video-wrap {
+  position: relative; padding-bottom: 56.25%;
+  background: #000; border-radius: 4px;
+  overflow: hidden; border: 1px solid var(--border);
+  margin: 3rem 0;
+}
+.video-wrap video {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover;
+}
+
+/* ── PULL QUOTE ───────────────────────────────────────── */
+.pull-quote {
+  border-left: 3px solid var(--red);
+  padding: 1.5rem 2rem;
+  background: var(--card-bg);
+  border-radius: 0 4px 4px 0;
+  margin: 2.5rem 0;
+}
+.pull-quote p {
+  font-family: Georgia, serif;
+  font-size: 1.3rem; line-height: 1.55;
+  color: var(--white);
+  font-style: italic;
+}
+.pull-quote cite {
+  display: block; margin-top: 0.85rem;
+  font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--red); font-style: normal;
+}
+
+/* ── STAT ROW ────────────────────────────────────────── */
+.stat-row {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1.5rem; margin: 3rem 0;
+}
+.stat-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 4px; padding: 1.75rem 1.5rem;
+  text-align: center;
+}
+.stat-num {
+  font-family: Georgia, serif;
+  font-size: 2.4rem; font-weight: 700;
+  color: var(--red); display: block;
+  line-height: 1;
+}
+.stat-label {
+  font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text-dim); margin-top: 0.6rem; display: block;
+  line-height: 1.4;
+}
+
+/* ── CHARACTER CARDS ─────────────────────────────────── */
+.character-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem; margin: 3rem 0;
+}
+.char-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 4px; overflow: hidden;
+  transition: border-color .25s, transform .25s;
+}
+.char-card:hover {
+  border-color: rgba(177,18,38,0.4);
+  transform: translateY(-2px);
+}
+.char-head {
+  padding: 1.75rem 1.75rem 0;
+}
+.char-role {
+  font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--red); margin-bottom: 0.5rem;
+}
+.char-name {
+  font-family: Georgia, serif; font-size: 1.4rem;
+  font-weight: 700; margin-bottom: 0.25rem;
+}
+.char-subtitle {
+  font-size: 0.78rem; color: var(--text-dim); margin-bottom: 1.25rem;
+}
+.char-body { padding: 0 1.75rem 1.75rem; }
+.char-quote {
+  font-family: Georgia, serif; font-style: italic;
+  font-size: 0.95rem; line-height: 1.6;
+  color: var(--text-mid);
+  border-top: 1px solid var(--border);
+  padding-top: 1.25rem; margin-top: 0.5rem;
+}
+.char-quote cite {
+  display: block; margin-top: 0.6rem;
+  font-family: system-ui, sans-serif; font-style: normal;
+  font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text-dim);
+}
+.char-facts {
+  margin: 1rem 0 0;
+  list-style: none;
+}
+.char-facts li {
+  font-size: 0.82rem; color: var(--text-mid);
+  padding: 0.4rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  display: flex; gap: 0.5rem;
+}
+.char-facts li::before {
+  content: '→'; color: var(--red); flex-shrink: 0;
+}
+
+/* ── COLD OPEN BLOCK ──────────────────────────────────── */
+.cold-open {
+  background: #070707;
+  border: 1px solid rgba(177,18,38,0.25);
+  border-radius: 4px; overflow: hidden;
+  margin: 3rem 0;
+}
+.cold-open-label {
+  background: var(--red);
+  font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase;
+  padding: 0.45rem 1.25rem; display: inline-block;
+}
+.cold-open-text {
+  padding: 2rem 2.5rem;
+  font-family: Georgia, serif; font-size: 1.5rem;
+  line-height: 1.5; font-style: italic;
+  color: var(--white);
+}
+.cold-open-text strong { color: var(--red); font-style: normal; }
+.cold-open-credit {
+  padding: 0 2.5rem 1.75rem;
+  font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+/* ── VISUAL APPROACH ──────────────────────────────────── */
+.approach-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem; margin: 3rem 0;
+}
+.approach-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border); border-radius: 4px;
+  padding: 1.75rem;
+}
+.approach-icon {
+  font-size: 1.5rem; margin-bottom: 0.75rem; display: block;
+}
+.approach-title {
+  font-weight: 700; font-size: 0.85rem;
+  letter-spacing: 0.05em; margin-bottom: 0.5rem;
+}
+.approach-desc {
+  font-size: 0.82rem; color: var(--text-dim); line-height: 1.55;
+}
+
+/* ── MACHINE / LEGAL ──────────────────────────────────── */
+.tier-stack {
+  display: flex; flex-direction: column; gap: 1rem; margin: 3rem 0;
+}
+.tier-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--red);
+  border-radius: 0 4px 4px 0;
+  padding: 1.75rem 2rem;
+  display: grid; grid-template-columns: 120px 1fr; gap: 1.5rem;
+  align-items: start;
+}
+.tier-num {
+  font-family: Georgia, serif; font-size: 0.68rem;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--red);
+}
+.tier-label {
+  font-weight: 700; font-size: 1rem; margin-bottom: 0.35rem;
+}
+.tier-desc {
+  font-size: 0.85rem; color: var(--text-mid); line-height: 1.6;
+}
+.tier-case {
+  margin-top: 0.75rem;
+  background: rgba(177,18,38,0.08);
+  border: 1px solid rgba(177,18,38,0.18);
+  border-radius: 3px; padding: 0.6rem 0.85rem;
+  font-size: 0.78rem; color: var(--amber);
+}
+
+.no-name-banner {
+  background: linear-gradient(135deg, #1a0608 0%, var(--card-bg) 100%);
+  border: 1px solid rgba(177,18,38,0.3);
+  border-radius: 4px; padding: 2.5rem;
+  margin: 2.5rem 0; text-align: center;
+}
+.no-name-banner .big { font-family: Georgia, serif; font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
+.no-name-banner .desc { color: var(--text-mid); max-width: 560px; margin: 0 auto; line-height: 1.65; }
+
+/* ── INVESTOR SEQUENCE ────────────────────────────────── */
+.sequence-chain {
+  position: relative; margin: 3rem 0;
+  padding-left: 2rem;
+}
+.sequence-chain::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--red) 0%, rgba(177,18,38,0.2) 100%);
+}
+.seq-item {
+  position: relative; padding: 0 0 2rem 2rem;
+}
+.seq-item::before {
+  content: ''; position: absolute; left: -2rem; top: 0.45rem;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--red);
+  box-shadow: 0 0 8px var(--red), 0 0 20px rgba(177,18,38,0.4);
+  transform: translateX(-4px);
+}
+.seq-date {
+  font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--red); margin-bottom: 0.25rem;
+}
+.seq-event { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.4rem; }
+.seq-detail {
+  font-size: 0.82rem; color: var(--text-mid); line-height: 1.55; max-width: 680px;
+}
+.seq-highlight {
+  display: inline; background: rgba(177,18,38,0.15);
+  color: var(--amber); padding: 0.1rem 0.3rem;
+  border-radius: 2px;
+}
+
+.scene-callout {
+  background: #050505;
+  border: 1px solid var(--red);
+  border-radius: 4px; padding: 2rem 2.5rem;
+  margin: 2.5rem 0;
+  position: relative; overflow: hidden;
+}
+.scene-callout::before {
+  content: 'SCENE'; position: absolute; top: 0; right: 0;
+  background: var(--red); font-size: 0.58rem;
+  letter-spacing: 0.22em; padding: 0.35rem 0.9rem;
+  color: var(--white);
+}
+.scene-callout-title {
+  font-family: Georgia, serif; font-size: 1.2rem;
+  font-weight: 700; margin-bottom: 1rem; margin-top: 0.5rem;
+}
+.scene-callout p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.7; margin-bottom: 0.75rem; }
+.scene-callout p:last-child { margin-bottom: 0; }
+
+/* ── INVESTOR GRID ────────────────────────────────────── */
+.investor-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem; margin: 2.5rem 0;
+}
+.investor-card {
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: 4px; padding: 1.25rem 1.5rem;
+}
+.investor-name { font-weight: 700; font-size: 0.9rem; margin-bottom: 0.25rem; }
+.investor-role { font-size: 0.72rem; color: var(--text-dim); margin-bottom: 0.75rem; }
+.investor-detail { font-size: 0.8rem; color: var(--text-mid); line-height: 1.5; }
+.investor-flag {
+  display: inline-block; margin-top: 0.6rem;
+  font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  border-radius: 2px;
+}
+.flag-red { background: rgba(177,18,38,0.15); color: var(--red); border: 1px solid rgba(177,18,38,0.25); }
+.flag-amber { background: rgba(232,160,74,0.12); color: var(--amber); border: 1px solid rgba(232,160,74,0.25); }
+.flag-gold { background: rgba(201,168,76,0.12); color: var(--gold); border: 1px solid rgba(201,168,76,0.25); }
+
+/* ── EVIDENCE / CASES ────────────────────────────────── */
+.cases-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem; margin: 2.5rem 0;
+}
+.case-card {
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: 4px; padding: 1.5rem;
+}
+.case-tag {
+  font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--amber); margin-bottom: 0.75rem; display: block;
+}
+.case-name { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.35rem; }
+.case-detail { font-size: 0.8rem; color: var(--text-mid); line-height: 1.55; }
+
+.oil-trades {
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: 4px; overflow: hidden; margin: 2.5rem 0;
+}
+.oil-header {
+  padding: 1.25rem 1.75rem;
+  border-bottom: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.oil-header-title { font-weight: 700; font-size: 0.9rem; }
+.oil-header-status {
+  font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--amber);
+}
+.oil-row {
+  display: grid; grid-template-columns: 120px 1fr 160px;
+  gap: 1rem; padding: 1.25rem 1.75rem;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  align-items: center;
+}
+.oil-row:last-child { border-bottom: none; }
+.oil-date { font-size: 0.75rem; color: var(--text-dim); }
+.oil-amount { font-family: Georgia, serif; font-size: 1.4rem; color: var(--red); font-weight: 700; }
+.oil-note { font-size: 0.78rem; color: var(--text-mid); line-height: 1.45; }
+
+/* ── ACDC DATA VIZ ────────────────────────────────────── */
+.acdc-hero {
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: 4px; padding: 2.5rem; margin: 2.5rem 0;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+  align-items: center;
+}
+@media (max-width: 680px) { .acdc-hero { grid-template-columns: 1fr; } }
+.acdc-left { }
+.acdc-big { font-family: Georgia, serif; font-size: 5rem; font-weight: 700; line-height: 0.9; color: var(--red); }
+.acdc-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); margin-top: 0.5rem; }
+.acdc-vs { margin-top: 1.5rem; font-size: 0.88rem; color: var(--text-mid); line-height: 1.6; }
+.acdc-bar-wrap { margin-top: 1rem; }
+.acdc-bar-label { font-size: 0.72rem; color: var(--text-dim); margin-bottom: 0.3rem; display: flex; justify-content: space-between; }
+.acdc-bar { height: 8px; background: rgba(255,255,255,0.08); border-radius: 4px; overflow: hidden; margin-bottom: 0.75rem; }
+.acdc-bar-fill { height: 100%; border-radius: 4px; transition: width 1.5s ease; }
+.acdc-bar-fill.red { background: linear-gradient(90deg, var(--red-deep), var(--red)); }
+.acdc-bar-fill.dim { background: rgba(255,255,255,0.2); }
+
+.acdc-stats-right {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+}
+.acdc-stat {
+  background: rgba(177,18,38,0.06); border: 1px solid rgba(177,18,38,0.12);
+  border-radius: 4px; padding: 1.25rem; text-align: center;
+}
+.acdc-stat-num {
+  font-family: Georgia, serif; font-size: 1.75rem; font-weight: 700;
+  color: var(--white); line-height: 1;
+}
+.acdc-stat-label {
+  font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text-dim); margin-top: 0.4rem; line-height: 1.4;
+}
+.wallets-callout {
+  background: rgba(232,160,74,0.07); border: 1px solid rgba(232,160,74,0.2);
+  border-radius: 4px; padding: 1.25rem 1.5rem; margin-top: 1.5rem;
+}
+.wallets-callout-label { font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.5rem; }
+.wallets-callout p { font-size: 0.82rem; color: var(--text-mid); line-height: 1.6; }
+
+/* ── INTERACTIVE TIMELINE ────────────────────────────── */
+.tl-section {
+  margin: 3rem 0;
+}
+.tl-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+.tl-title { font-weight: 700; font-size: 0.9rem; }
+.tl-controls { display: flex; gap: 0.5rem; align-items: center; }
+.tl-btn {
+  background: var(--card-bg); border: 1px solid var(--border);
+  color: var(--white); cursor: pointer; border-radius: 3px;
+  width: 32px; height: 32px; font-size: 1.1rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .15s, border-color .15s;
+}
+.tl-btn:hover { background: #1e1e1e; border-color: rgba(255,255,255,0.15); }
+.tl-zoom-label {
+  font-size: 0.7rem; color: var(--text-dim); min-width: 40px; text-align: center;
+}
+
+.tl-legend {
+  display: flex; gap: 1.25rem; flex-wrap: wrap; margin-bottom: 1rem;
+}
+.tl-legend-item {
+  display: flex; align-items: center; gap: 0.4rem;
+  font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-dim);
+}
+.tl-legend-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+}
+
+.pm-tl-outer {
+  background: #070707;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 4px; overflow: hidden; position: relative;
+}
+.pm-tl-scroll {
+  overflow-x: auto;
+  padding: 0;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(177,18,38,0.4) transparent;
+  cursor: grab;
+}
+.pm-tl-scroll:active { cursor: grabbing; }
+.pm-tl-scroll::-webkit-scrollbar { height: 4px; }
+.pm-tl-scroll::-webkit-scrollbar-track { background: transparent; }
+.pm-tl-scroll::-webkit-scrollbar-thumb { background: rgba(177,18,38,0.4); border-radius: 2px; }
+
+.pm-tl-canvas {
+  height: 380px; position: relative;
+  transition: width 0.3s ease;
+}
+
+.pm-tl-line {
+  position: absolute;
+  left: 40px; right: 40px;
+  top: 50%; height: 2px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(177,18,38,0.4) 3%,
+    rgba(177,18,38,0.9) 50%,
+    rgba(177,18,38,0.4) 97%,
+    transparent 100%);
+  box-shadow: 0 0 8px var(--red), 0 0 20px rgba(177,18,38,0.18);
+  transform: translateY(-50%);
+}
+.pm-tl-scan {
+  position: absolute;
+  top: 50%; transform: translateY(-50%);
+  width: 80px; height: 4px;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(255,255,255,0.8),
+    rgba(177,18,38,0.5),
+    transparent);
+  animation: pm-scan-move 6s ease-in-out infinite;
+  filter: blur(1px); pointer-events: none;
+}
+@keyframes pm-scan-move {
+  0% { left: -80px; opacity: 0; }
+  8% { opacity: 1; }
+  92% { opacity: 1; }
+  100% { left: calc(100% + 80px); opacity: 0; }
+}
+
+.pm-node {
+  position: absolute; top: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer; z-index: 10;
+}
+.pm-dot-wrap {
+  position: relative; width: 16px; height: 16px;
+}
+.pm-dot {
+  width: 14px; height: 14px; border-radius: 50%;
+  position: relative; z-index: 2;
+  animation: pm-glow-pulse 2.8s ease-in-out infinite;
+}
+.pm-dot.cat-red { background: var(--red); box-shadow: 0 0 6px var(--red), 0 0 16px rgba(177,18,38,0.5); }
+.pm-dot.cat-amber { background: var(--amber); box-shadow: 0 0 6px var(--amber), 0 0 16px rgba(232,160,74,0.5); animation-delay: 0.4s; }
+.pm-dot.cat-gold { background: var(--gold); box-shadow: 0 0 6px var(--gold), 0 0 16px rgba(201,168,76,0.5); animation-delay: 0.8s; }
+.pm-dot.cat-blue { background: var(--blue-cool); box-shadow: 0 0 6px var(--blue-cool), 0 0 16px rgba(74,144,217,0.5); animation-delay: 1.2s; }
+@keyframes pm-glow-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+.pm-dot-ring {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%; pointer-events: none; z-index: 1;
+}
+.pm-dot-ring.cat-red { width: 28px; height: 28px; border: 1px solid rgba(177,18,38,0.4); animation: pm-ring-pulse 2.8s ease-in-out infinite; }
+.pm-dot-ring.cat-amber { width: 28px; height: 28px; border: 1px solid rgba(232,160,74,0.4); animation: pm-ring-pulse 2.8s ease-in-out infinite 0.4s; }
+.pm-dot-ring.cat-gold { width: 28px; height: 28px; border: 1px solid rgba(201,168,76,0.4); animation: pm-ring-pulse 2.8s ease-in-out infinite 0.8s; }
+.pm-dot-ring.cat-blue { width: 28px; height: 28px; border: 1px solid rgba(74,144,217,0.4); animation: pm-ring-pulse 2.8s ease-in-out infinite 1.2s; }
+@keyframes pm-ring-pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+  50% { transform: translate(-50%, -50%) scale(2.4); opacity: 0; }
+}
+
+.pm-label {
+  position: absolute;
+  width: 130px; left: 50%; transform: translateX(-50%);
+  text-align: center; pointer-events: none;
+}
+.pm-label.above { bottom: calc(100% + 18px); }
+.pm-label.below { top: calc(100% + 18px); }
+.pm-label-date {
+  font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
+  margin-bottom: 0.2rem;
+}
+.pm-label-date.cat-red { color: var(--red); }
+.pm-label-date.cat-amber { color: var(--amber); }
+.pm-label-date.cat-gold { color: var(--gold); }
+.pm-label-date.cat-blue { color: var(--blue-cool); }
+.pm-label-text {
+  font-size: 0.68rem; color: rgba(255,255,255,0.8); line-height: 1.35;
+}
+
+/* Popup */
+.pm-popup {
+  position: fixed; z-index: 1000;
+  background: #101010; border: 1px solid rgba(177,18,38,0.4);
+  border-radius: 4px; padding: 1.25rem 1.5rem;
+  width: 280px; box-shadow: 0 8px 40px rgba(0,0,0,0.8);
+  display: none; pointer-events: none;
+}
+.pm-popup.visible { display: block; pointer-events: all; }
+.pm-popup-close {
+  position: absolute; top: 0.6rem; right: 0.75rem;
+  background: none; border: none; color: var(--text-dim);
+  cursor: pointer; font-size: 1rem; padding: 0;
+}
+.pm-popup-date { font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--red); margin-bottom: 0.5rem; }
+.pm-popup-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.75rem; line-height: 1.35; }
+.pm-popup-body { font-size: 0.8rem; color: var(--text-mid); line-height: 1.6; }
+
+/* ── QUOTE WALL ──────────────────────────────────────── */
+.quote-wall {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem; margin: 2.5rem 0;
+}
+.qw-card {
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-top: 2px solid var(--red);
+  border-radius: 0 0 4px 4px; padding: 1.5rem;
+}
+.qw-quote {
+  font-family: Georgia, serif; font-style: italic;
+  font-size: 0.95rem; line-height: 1.6; color: var(--white);
+  margin-bottom: 1rem;
+}
+.qw-source {
+  font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+/* ── CONGO ───────────────────────────────────────────── */
+.parallel-table {
+  width: 100%; border-collapse: collapse;
+  margin: 2.5rem 0; font-size: 0.85rem;
+}
+.parallel-table th {
+  background: var(--card-bg);
+  padding: 1rem 1.25rem;
+  text-align: left;
+  font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+  border-bottom: 1px solid var(--border);
+}
+.parallel-table th:first-child { color: var(--amber); }
+.parallel-table th:last-child { color: var(--red); }
+.parallel-table td {
+  padding: 0.9rem 1.25rem;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  vertical-align: top; line-height: 1.5;
+}
+.parallel-table td:first-child {
+  background: rgba(232,160,74,0.04);
+  color: var(--text-mid);
+}
+.parallel-table td:nth-child(2) {
+  color: var(--text-dim); font-size: 0.78rem;
+  background: rgba(255,255,255,0.01);
+  font-style: italic;
+}
+.parallel-table td:last-child {
+  background: rgba(177,18,38,0.04);
+  color: var(--text-mid);
+}
+.parallel-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+.deployment-banner {
+  background: linear-gradient(135deg, rgba(177,18,38,0.12) 0%, rgba(10,10,10,1) 60%);
+  border: 1px solid rgba(177,18,38,0.3);
+  border-radius: 4px; padding: 2rem 2.5rem; margin: 2.5rem 0;
+}
+.deployment-banner h3 {
+  font-family: Georgia, serif; font-size: 1.5rem;
+  font-weight: 700; margin-bottom: 1rem;
+}
+.deployment-banner p {
+  font-size: 0.9rem; color: var(--text-mid); line-height: 1.7;
+  max-width: 700px;
+}
+.deployment-list {
+  margin-top: 1.25rem; list-style: none;
+  display: flex; flex-direction: column; gap: 0.5rem;
+}
+.deployment-list li {
+  font-size: 0.82rem; color: var(--text-mid);
+  display: flex; gap: 0.6rem;
+}
+.deployment-list li::before { content: '▸'; color: var(--red); flex-shrink: 0; }
+
+/* ── NETWORK DIAGRAM EMBED ───────────────────────────── */
+.network-embed {
+  background: #050505; border: 1px solid var(--border);
+  border-radius: 4px; overflow: hidden; margin: 2.5rem 0;
+  height: 520px;
+}
+.network-embed iframe {
+  width: 100%; height: 100%; border: none;
+}
+
+/* ── WHY NOW ──────────────────────────────────────────── */
+.deadline-banner {
+  background: rgba(177,18,38,0.08);
+  border: 1px solid rgba(177,18,38,0.35);
+  border-radius: 4px; padding: 1.5rem 2rem;
+  margin: 2.5rem 0; display: flex; align-items: center; gap: 1.5rem;
+}
+.deadline-dot {
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--red); flex-shrink: 0;
+  box-shadow: 0 0 8px var(--red), 0 0 20px rgba(177,18,38,0.5);
+  animation: pm-glow-pulse 1.5s ease-in-out infinite;
+}
+.deadline-text p { font-size: 0.85rem; color: var(--text-mid); line-height: 1.55; margin-top: 0.2rem; }
+.deadline-text strong { color: var(--white); }
+
+.law-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem; margin: 2.5rem 0;
+}
+.law-card {
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: 4px; padding: 1.5rem;
+}
+.law-tag {
+  font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--blue-cool); margin-bottom: 0.6rem; display: block;
+}
+.law-name { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.25rem; }
+.law-sponsors { font-size: 0.72rem; color: var(--text-dim); margin-bottom: 0.75rem; }
+.law-desc { font-size: 0.8rem; color: var(--text-mid); line-height: 1.55; }
+
+/* ── THE ASK ──────────────────────────────────────────── */
+#panel-ask { background: var(--cream); color: var(--ink); }
+#panel-ask .eyebrow { color: var(--red-deep); }
+#panel-ask .section-title { color: var(--ink); }
+#panel-ask .section-lead { color: rgba(17,17,17,0.7); }
+.ask-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
+  margin-top: 3rem;
+}
+@media (max-width: 768px) { .ask-grid { grid-template-columns: 1fr; } }
+.ask-col-label {
+  font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--red-deep); margin-bottom: 1.25rem; display: block;
+  padding-bottom: 0.75rem; border-bottom: 1px solid rgba(17,17,17,0.12);
+}
+.ask-item {
+  padding: 0.85rem 0;
+  border-bottom: 1px solid rgba(17,17,17,0.08);
+}
+.ask-item-label {
+  font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(17,17,17,0.5); margin-bottom: 0.25rem;
+}
+.ask-item-value { font-size: 0.9rem; color: var(--ink); }
+.sources-block {
+  background: rgba(177,18,38,0.06); border: 1px solid rgba(177,18,38,0.2);
+  border-radius: 4px; padding: 1.75rem; margin-top: 2rem;
+}
+.sources-block h4 {
+  font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--red-deep); margin-bottom: 1rem;
+}
+.sources-block p {
+  font-size: 0.82rem; line-height: 1.65; color: rgba(17,17,17,0.7);
+}
+.contact-block {
+  margin-top: 2.5rem; padding-top: 2rem;
+  border-top: 2px solid rgba(17,17,17,0.12);
+}
+.contact-block h3 {
+  font-family: Georgia, serif; font-size: 1.4rem;
+  font-weight: 700; margin-bottom: 0.5rem; color: var(--ink);
+}
+.contact-block p { font-size: 0.9rem; color: rgba(17,17,17,0.7); }
+.contact-block a { color: var(--red-deep); text-decoration: none; font-weight: 600; }
+
+/* ── SCROLL REVEAL ───────────────────────────────────── */
+.reveal {
+  opacity: 0; transform: translateY(22px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible {
+  opacity: 1; transform: none;
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ── PROGRESS BAR ────────────────────────────────────── */
+.progress-bar {
+  position: fixed; top: 0; left: 0; z-index: 200;
+  height: 2px; background: var(--red);
+  transition: width 0.1s linear; width: 0;
+  box-shadow: 0 0 6px rgba(177,18,38,0.7);
+}
+
+/* ── DARK BAND ───────────────────────────────────────── */
+.dark-band {
+  background: #080808; padding: 5rem 2rem;
+}
+.dark-band .section { padding: 0; }
+
+/* ── RESPONSIVE ──────────────────────────────────────── */
+@media (max-width: 768px) {
+  .hero-content { padding: 2rem 1.5rem 3rem; }
+  .section { padding: 3rem 1.25rem; }
+  .tier-card { grid-template-columns: 1fr; }
+  .oil-row { grid-template-columns: 1fr 1fr; }
+  .acdc-hero { grid-template-columns: 1fr; }
+  .acdc-big { font-size: 3.5rem; }
+}
+
+  /* ── Timeline node labels ─────────────────────────────── */
+  .pm-node-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.4);
+    transition: transform 0.15s;
+  }
+  .pm-node:hover .pm-node-dot { transform: translate(-50%, -50%) scale(1.4); }
+  .pm-node-label {
+    position: absolute;
+    left: 50%; transform: translateX(-50%);
+    font-size: 0.58rem; line-height: 1.3;
+    letter-spacing: 0.04em; text-align: center;
+    color: rgba(255,255,255,0.55);
+    pointer-events: none;
+    white-space: nowrap;
+    transition: color 0.15s;
+  }
+  .pm-node:hover .pm-node-label { color: rgba(255,255,255,0.9); }
+  .pm-node-label.above { bottom: calc(100% + var(--offset, 12px)); }
+  .pm-node-label.below { top:    calc(100% + var(--offset, 12px)); }
+</style>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="logo">ALL<span>IN</span></div>
+    <nav class="tabs-nav" role="tablist">
+      <button class="tab-btn active" onclick="switchTab('film',this)" role="tab"><span class="tab-num">01</span>THE FILM</button>
+      <button class="tab-btn" onclick="switchTab('story',this)" role="tab"><span class="tab-num">02</span>THE DANGER</button>
+      <button class="tab-btn" onclick="switchTab('machine',this)" role="tab"><span class="tab-num">03</span>THE MACHINE</button>
+      <button class="tab-btn" onclick="switchTab('darpa',this)" role="tab"><span class="tab-num">04</span>THE DARPA</button>
+      <button class="tab-btn" onclick="switchTab('owners',this)" role="tab"><span class="tab-num">05</span>WHO OWNS IT</button>
+      <button class="tab-btn" onclick="switchTab('evidence',this)" role="tab"><span class="tab-num">06</span>THE EVIDENCE</button>
+      <button class="tab-btn" onclick="switchTab('congo',this)" role="tab"><span class="tab-num">07</span>THE CONGO</button>
+      <button class="tab-btn" onclick="switchTab('whynow',this)" role="tab"><span class="tab-num">08</span>WHY NOW</button>
+      <button class="tab-btn" onclick="switchTab('ask',this)" role="tab"><span class="tab-num">09</span>THE ASK</button>
+    </nav>
+  </div>
+</header>
+
+
+<!-- ════════════════════════════════════════════════════════
+     PANEL 01 — THE FILM
+════════════════════════════════════════════════════════ -->
+<section id="panel-film" class="panel active">
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-vignette"></div>
+    <div class="hero-scan"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">A Documentary Feature Film</p>
+      <h1 class="hero-title">ALL IN:<br><span class="the">The Most</span><br>American Addiction</h1>
+      <p class="hero-subtitle">What began as a gambling story became an investigation into the most sophisticated regulatory capture — or rather, regulatory <em>deployment</em> — in modern American history.</p>
+      <span class="hero-tag">Feature Documentary · 40–55 Min · Series Extension Available</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="video-wrap">
+      <video controls poster="../assets/img/hero-eyes.jpeg">
+        <source src="../assets/video/AllInPitch_web.mp4" type="video/mp4">
+        <source src="../Final Pitch Video/AllInPitchweb.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <div class="pull-quote reveal">
+      <p>"The same American addiction — just not the one you thought."</p>
+    </div>
+
+    <div style="max-width:780px; margin: 0 auto;">
+      <p class="reveal" style="font-size:1.05rem; color:var(--text-mid); line-height:1.8; margin-bottom:1.5rem;">
+        Sports gambling has exploded into a $150 billion industry since the Supreme Court opened the floodgates in 2018. Thirty million Americans bet last year. One in five problem gamblers attempts suicide. But as we investigated the addiction economy, we found something underneath it — something that made sports betting look like a distraction.
+      </p>
+      <p class="reveal reveal-delay-1" style="font-size:1.05rem; color:var(--text-mid); line-height:1.8; margin-bottom:1.5rem;">
+        Prediction markets — platforms where you can bet on elections, assassinations, military strikes, the price of oil — have turned the oldest insider trading problem in the world into a commodity product. And the people in charge of regulating them are the people who invested in them.
+      </p>
+      <p class="reveal reveal-delay-2" style="font-size:1.05rem; color:var(--text-mid); line-height:1.8;">
+        This is the story of how America built a machine that converts insider information into tax-free profit, why it isn't technically called insider trading, and who is making sure it stays that way.
+      </p>
+    </div>
+
+    <div class="approach-grid reveal reveal-delay-2" style="margin-top:4rem;">
+      <div class="approach-card">
+        <span class="approach-icon">📱</span>
+        <div class="approach-title">The Phone Is the Antagonist</div>
+        <div class="approach-desc">We shoot it like one. Blue screen-glow on faces in dark rooms. Vertical compositions inside the apps. The device mediates every transaction, every addiction, every insider bet.</div>
+      </div>
+      <div class="approach-card">
+        <span class="approach-icon">🎞️</span>
+        <div class="approach-title">Two Visual Worlds</div>
+        <div class="approach-desc">Anamorphic, Kodachrome-leaning palette for the world outside. Verite in recovery rooms, courthouses, Senate chambers. The contrast is the argument.</div>
+      </div>
+      <div class="approach-card">
+        <span class="approach-icon">🎬</span>
+        <div class="approach-title">Touchstones</div>
+        <div class="approach-desc"><em>The Social Dilemma. Crime of the Century. All the Beauty and the Bloodshed.</em> A film that earns its moment of genuine public outrage by doing the forensic work first.</div>
+      </div>
+      <div class="approach-card">
+        <span class="approach-icon">🗓️</span>
+        <div class="approach-title">The Window Is Now</div>
+        <div class="approach-desc">Warren's CFTC deadline expires June 18, 2026. The Van Dyke trial begins December 7 — the first insider prediction market prosecution in history. The story is breaking open.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════
+     PANEL 02 — THE DANGER
+════════════════════════════════════════════════════════ -->
+<section id="panel-story" class="panel">
+
+  <!-- ═══ COLD OPEN — THE AIRMAN ══════════════════════════════════════════ -->
+  <div style="display:grid; grid-template-columns:1fr 1fr; min-height:520px; background:#050505; border-bottom:1px solid var(--border); overflow:hidden;">
+    <!-- LEFT: Text — no image behind it -->
+    <div style="padding:5rem 3rem 5rem 2rem; display:flex; flex-direction:column; justify-content:center;">
+      <div style="max-width:560px;">
+        <div style="font-size:0.62rem; letter-spacing:0.28em; text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:1.2rem;">How It Starts</div>
+        <h2 style="font-family:Georgia,serif; font-size:clamp(1.6rem,2.8vw,2.5rem); font-weight:700; line-height:1.25; margin-bottom:1.5rem;">Somewhere on a base in the Middle East, an airman is leaning against the wall of a hangar.</h2>
+        <p style="font-size:0.95rem; color:rgba(255,255,255,0.65); line-height:1.8; margin-bottom:1rem;">He can hear the bombs being loaded onto the aircraft twenty feet away. He knows the mission. He knows the target. He opens Polymarket on his phone and places a $2,000 bet that the US will strike Iran tonight.</p>
+        <p style="font-size:0.95rem; color:rgba(255,255,255,0.65); line-height:1.8; margin-bottom:1rem;">Within minutes, bots monitoring unusual bet patterns pick up his position. The bet triples. Then it's $200,000. Institutional accounts pile in. By the time the bombs fall, millions of dollars have moved — all perfectly legally.</p>
+        <p style="font-size:1rem; color:var(--white); line-height:1.8; font-weight:600; margin-bottom:2rem;">Now ask yourself: what happens when the person who placed that bet also has the ability to make the bomb drop?</p>
+        <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+          <div style="background:rgba(177,18,38,0.15); border:1px solid rgba(177,18,38,0.4); border-radius:3px; padding:0.7rem 1.2rem;">
+            <div style="font-size:0.58rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--red); margin-bottom:0.2rem;">Van Dyke — On Record</div>
+            <div style="font-size:0.82rem; font-weight:700;">$409K · 13 bets · advance knowledge · Venezuela op</div>
+          </div>
+          <div style="background:rgba(232,160,74,0.1); border:1px solid rgba(232,160,74,0.3); border-radius:3px; padding:0.7rem 1.2rem;">
+            <div style="font-size:0.58rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--amber); margin-bottom:0.2rem;">Iran Nine — Still Active</div>
+            <div style="font-size:0.82rem; font-weight:700;">9 wallets · $2.4M profit · 98% win rate · no charges</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- RIGHT: Image only — no text on it -->
+    <div style="position:relative; overflow:hidden; min-height:460px;">
+      <img src="https://replicate.delivery/xezq/onM4zafp7N1TdqWECN6AnVXeXc4EeqVMwEwc2a8gft0AmWCbB/tmp5op3u2wt.jpg"
+           alt="Airman at an airbase with bombs being loaded"
+           style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; transform:scaleX(-1);">
+      <div style="position:absolute; inset:0; background:linear-gradient(270deg, transparent 60%, rgba(5,5,5,0.7) 100%);"></div>
+    </div>
+  </div>
+
+  <!-- ═══ KOVEL — THE MAN WHO SPOTTED IT ══════════════════════════════════ -->  <!-- ═══ KOVEL — THE MAN WHO SPOTTED IT ══════════════════════════════════ -->
+  <div style="background:#07070D; border-bottom:1px solid var(--border); padding:4rem 2rem;">
+    <div style="max-width:1160px; margin:0 auto;">
+      <span class="eyebrow">The Witness</span>
+      <h2 class="section-title reveal" style="max-width:800px;">He was a trader before he was a lawyer. He knew exactly what he was looking at.</h2>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:3rem; margin-top:2.5rem; align-items:start;">
+
+        <!-- Left: Kovel profile -->
+        <div class="reveal">
+          <div style="background:#0e0e16; border:1px solid rgba(255,255,255,0.07); border-left:3px solid var(--amber); border-radius:4px; padding:2rem; margin-bottom:1.5rem;">
+            <div style="font-size:0.6rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--amber); margin-bottom:1rem;">David Kovel · Kirby McInerney LLP</div>
+            <div style="font-size:1.1rem; font-weight:700; margin-bottom:0.6rem;">Former commodity trader. Now the man who sues when markets get rigged.</div>
+            <div style="font-size:0.82rem; color:var(--text-mid); line-height:1.7; margin-bottom:1rem;">He worked inside the same commodity futures markets he now litigates. He knows what a suspicious chart looks like from the inside — before anyone has run the numbers. In 2021, he won the <strong style="color:var(--white)">largest CFTC whistleblower award ever given</strong> for exposing commodities market manipulation. He appeared on 60 Minutes in May 2026 to discuss what he found.</div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+              <div style="text-align:center; padding:0.85rem; background:#0a0a12; border-radius:3px; border:1px solid rgba(232,160,74,0.15);">
+                <div style="font-family:Georgia,serif; font-size:1.6rem; font-weight:700; color:var(--amber);">$800M</div>
+                <div style="font-size:0.65rem; color:var(--text-dim); margin-top:0.2rem; letter-spacing:0.08em;">March 23, 2026 · Oil short</div>
+                <div style="font-size:0.72rem; color:var(--text-mid); margin-top:0.3rem;">Trump Truth Social post: 15 min later</div>
+              </div>
+              <div style="text-align:center; padding:0.85rem; background:#0a0a12; border-radius:3px; border:1px solid rgba(232,160,74,0.15);">
+                <div style="font-family:Georgia,serif; font-size:1.6rem; font-weight:700; color:var(--amber);">$950M</div>
+                <div style="font-size:0.65rem; color:var(--text-dim); margin-top:0.2rem; letter-spacing:0.08em;">April 7, 2026 · Oil short</div>
+                <div style="font-size:0.72rem; color:var(--text-mid); margin-top:0.3rem;">Ceasefire announced 2.5 hrs later</div>
+              </div>
+            </div>
+            <div style="margin-top:1rem; padding:0.75rem 1rem; background:rgba(177,18,38,0.08); border:1px solid rgba(177,18,38,0.2); border-radius:3px; text-align:center;">
+              <div style="font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--red); margin-bottom:0.2rem;">Combined · Flagged by Kovel</div>
+              <div style="font-family:Georgia,serif; font-size:2rem; font-weight:700; color:var(--red);">$1.75 Billion</div>
+              <div style="font-size:0.72rem; color:var(--text-dim); margin-top:0.2rem;">CFTC has announced no investigation · Warren deadline: today</div>
+            </div>
+          </div>
+
+          <div style="padding:0.85rem 1rem; background:#0e0e16; border:1px solid rgba(255,255,255,0.06); border-radius:3px; font-size:0.72rem; color:var(--text-dim); line-height:1.6;">
+            <strong style="color:rgba(255,255,255,0.5); text-transform:uppercase; letter-spacing:0.1em; font-size:0.6rem;">These are not prediction market trades.</strong><br>
+            These are oil futures — the same commodity contracts traded for decades. The question is whether trading on advance knowledge of a presidential announcement in oil futures is covered by anything on the books. Kovel says it should be. The CFTC hasn't answered.
+          </div>
+        </div>
+
+        <!-- Right: Kovel quotes -->
+        <div class="reveal reveal-delay-1">
+          <div class="pull-quote" style="margin:0 0 1.5rem;">
+            <p>"Any trader right now is highly suspicious of any platform that has that type of information flow. It's completely unregulated. There's no surveillance. There's no position limits. And the information asymmetry is built into the product."</p>
+            <cite>David Kovel — Kirby McInerney LLP · 2021 CFTC Whistleblower Award · ALL IN Interview, June 2026</cite>
+          </div>
+          <div class="pull-quote" style="margin:0 0 1.5rem;">
+            <p>"When you see a position of that size placed hours before a market-moving announcement — in a market without surveillance, without position limits, without insider trading law — you're looking at either the luckiest trader in history or something the CFTC should have caught on day one."</p>
+            <cite>David Kovel — on the $1.75B oil trades · 60 Minutes, May 2026</cite>
+          </div>
+          <div style="padding:1rem 1.2rem; background:rgba(177,18,38,0.07); border:1px solid rgba(177,18,38,0.2); border-radius:3px; font-size:0.82rem; color:var(--text-mid); line-height:1.65;">
+            <div style="font-size:0.58rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--red); margin-bottom:0.5rem;">Senator Warren · June 10, 2026 — Letter to CFTC</div>
+            Warren demanded CFTC produce all records related to March 23 and April 7 oil trades — including whether any investigation was even opened. <strong style="color:var(--white)">Deadline: June 18, 2026. Today.</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ THE IRAN NINE ════════════════════════════════════════════════════ -->
+  <div style="background:#050505; border-bottom:1px solid var(--border); padding:4rem 2rem;">
+    <div style="max-width:1160px; margin:0 auto;">
+      <span class="eyebrow">The Iran Nine · Bubblemaps / Deebs Analysis</span>
+      <h2 class="section-title reveal">Nine wallets. No government ID required. 98% win rate.</h2>
+      <p class="section-lead reveal" style="max-width:700px;">Bubblemaps — the Paris-based on-chain analytics firm — traced a cluster of nine coordinated wallets betting on military outcomes with near-perfect timing. The same firm that identified AlphaRaccoon (Spagnuolo) in the Google data case. Applied to military markets, the results were harder to explain.</p>
+
+      <!-- Iran Nine stats -->
+      <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin:2.5rem 0;" class="reveal">
+        <div style="text-align:center; padding:1.5rem 1rem; background:#0e0e14; border:1px solid rgba(232,160,74,0.2); border-radius:4px;">
+          <div style="font-family:Georgia,serif; font-size:2.2rem; font-weight:700; color:var(--amber);">9</div>
+          <div style="font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-dim); margin-top:0.4rem;">Coordinated wallets</div>
+          <div style="font-size:0.72rem; color:var(--text-mid); margin-top:0.3rem;">Iran-linked cluster</div>
+        </div>
+        <div style="text-align:center; padding:1.5rem 1rem; background:#0e0e14; border:1px solid rgba(232,160,74,0.2); border-radius:4px;">
+          <div style="font-family:Georgia,serif; font-size:2.2rem; font-weight:700; color:var(--amber);">$2.4M</div>
+          <div style="font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-dim); margin-top:0.4rem;">Total profit</div>
+          <div style="font-size:0.72rem; color:var(--text-mid); margin-top:0.3rem;">Betting on military outcomes</div>
+        </div>
+        <div style="text-align:center; padding:1.5rem 1rem; background:#0e0e14; border:1px solid rgba(177,18,38,0.25); border-radius:4px;">
+          <div style="font-family:Georgia,serif; font-size:2.2rem; font-weight:700; color:var(--red);">98%</div>
+          <div style="font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-dim); margin-top:0.4rem;">Win rate</div>
+          <div style="font-size:0.72rem; color:var(--text-mid); margin-top:0.3rem;">Longshot military bets</div>
+        </div>
+        <div style="text-align:center; padding:1.5rem 1rem; background:#0e0e14; border:1px solid rgba(177,18,38,0.25); border-radius:4px;">
+          <div style="font-family:Georgia,serif; font-size:2.2rem; font-weight:700; color:var(--red);">$0</div>
+          <div style="font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-dim); margin-top:0.4rem;">CFTC response</div>
+          <div style="font-size:0.72rem; color:var(--text-mid); margin-top:0.3rem;">Both wallets still active</div>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin-bottom:2.5rem;" class="reveal reveal-delay-1">
+        <div style="background:#0e0e14; border:1px solid rgba(232,160,74,0.18); border-radius:4px; padding:1.5rem;">
+          <div style="font-size:0.58rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--amber); margin-bottom:0.85rem;">Named Wallets — Still Active</div>
+          <div style="margin-bottom:0.85rem;">
+            <div style="font-weight:700; font-size:0.95rem; font-family:monospace; color:var(--amber); margin-bottom:0.2rem;">Skoobidoobnj</div>
+            <div style="font-size:0.78rem; color:var(--text-mid);">Anomalous win patterns on military strike markets. Active on Polymarket as of June 11, 2026.</div>
+          </div>
+          <div>
+            <div style="font-weight:700; font-size:0.95rem; font-family:monospace; color:var(--amber); margin-bottom:0.2rem;">0xoracle</div>
+            <div style="font-size:0.78rem; color:var(--text-mid);">Coordinated timing with the nine-wallet cluster. Still active. Polymarket requires no government ID to create an account.</div>
+          </div>
+          <div style="margin-top:1rem; padding:0.65rem 0.9rem; background:rgba(177,18,38,0.08); border:1px solid rgba(177,18,38,0.2); border-radius:3px; font-size:0.72rem; color:var(--text-mid);">Source: ACDC / Der Standard — "Profiting from War" — June 11, 2026</div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:1rem;">
+          <div class="pull-quote" style="margin:0; flex:1;">
+            <p>"Insider information is not a bug on these platforms. It's a feature. The market only has value because some participants know more than others. You cannot fix this without destroying the product. <strong>There will always be insider trading on these platforms.</strong>"</p>
+            <cite>Michael Hornsby — ACDC Co-Director · ALL IN Interview, June 2026</cite>
+          </div>
+          <div style="background:#0e0e14; border:1px solid rgba(255,255,255,0.07); border-radius:4px; padding:1.2rem;">
+            <div style="font-size:0.6rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--text-dim); margin-bottom:0.5rem;">The Tier 2 Question</div>
+            <div style="font-size:0.9rem; font-weight:600; line-height:1.6; color:var(--white);">Did they know the strike was coming — or did they have the ability to make it happen?</div>
+            <div style="font-size:0.75rem; color:var(--text-dim); margin-top:0.5rem;">There is no law for the second scenario. This is the gap DARPA's critics predicted in 2003.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hornsby as full character -->
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem; padding-top:2.5rem; border-top:1px solid var(--border);" class="reveal reveal-delay-1">
+        <div>
+          <div style="font-size:0.6rem; letter-spacing:0.22em; text-transform:uppercase; color:rgba(255,255,255,0.3); margin-bottom:1.2rem;">The Investigator Who Saw Both</div>
+          <div style="font-weight:700; font-size:1.3rem; margin-bottom:0.3rem;">Michael Hornsby</div>
+          <div style="font-size:0.8rem; color:var(--text-dim); margin-bottom:1.2rem;">ACDC Co-Director · Congo Hold-Up (2021) · Polymarket Report (2026)</div>
+          <ul style="list-style:none; display:flex; flex-direction:column; gap:0.6rem;">
+            <li style="font-size:0.82rem; color:var(--text-mid); line-height:1.6; padding-left:1rem; border-left:2px solid rgba(232,160,74,0.35);">Co-directed the data analysis that exposed BGFIBank and the Kabila family in the Congo Hold-Up — the largest financial data leak in African history. PPLAAF / Mediapart, 2021.</li>
+            <li style="font-size:0.82rem; color:var(--text-mid); line-height:1.6; padding-left:1rem; border-left:2px solid rgba(232,160,74,0.35);">Applied the same methodology to Polymarket. Reviewed all 435,672 markets ever settled. $54.4B in wagers analyzed. Every single one.</li>
+            <li style="font-size:0.82rem; color:var(--text-mid); line-height:1.6; padding-left:1rem; border-left:2px solid rgba(232,160,74,0.35);">Military longshots win at 51.8% on Polymarket. The same longshots in every other category: 14%. The gap is not luck, skill, or market efficiency. Hornsby says only one thing explains it.</li>
+            <li style="font-size:0.82rem; color:var(--text-mid); line-height:1.6; padding-left:1rem; border-left:2px solid rgba(177,18,38,0.4);">The CFTC — which his data implicates — has not responded to ACDC's findings. ACDC is now lobbying for the BETS OFF Act: a full ban on wagers tied to war and government actions.</li>
+          </ul>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:1.5rem;">
+          <div class="pull-quote" style="margin:0;">
+            <p>"What I see in the United States is more sophisticated than what I saw in the DRC. The same structure. The same logic. The same family proximity to the extraction mechanism. But wearing a different suit."</p>
+            <cite>Michael Hornsby — ACDC · ALL IN Interview, June 2026</cite>
+          </div>
+          <div class="pull-quote" style="margin:0;">
+            <p>"The Congo Hold-Up is not backstory. It's the preview. When political power controls both the institution and its regulator, the institution becomes a mechanism for moving money. That's what I documented in the Congo. That's what the data shows happening here."</p>
+            <cite>Michael Hornsby — ACDC · ALL IN Interview, June 2026</cite>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- ═══ THE THREE TIERS ══════════════════════════════════════════════════ -->
+    <div class="tier-card" style="border-color:rgba(201,168,76,0.3);">
+        <div class="char-head">
+          <div class="char-role" style="color:var(--gold);">Tier 3 — They Own the Machine</div>
+          <div class="char-name">Trump Jr. · Selig · The Equity Class</div>
+          <div class="char-subtitle">No bets placed. No criminal exposure. Equity grows.</div>
+        </div>
+        <div class="char-body">
+          <ul class="char-facts">
+            <li>Trump Jr.: 1789 Capital invests double-digit millions in Polymarket equity + joins advisory board. Paid advisor to Kalshi. Five weeks after both federal probes dropped — no charges.</li>
+            <li>Van Dykes and Iran clusters generate betting volume. Volume creates valuation. Valuation accrues to equity.</li>
+            <li>Selig's CFTC ensures enforcement stays at 11 officers and the platform keeps operating</li>
+            <li>$350M valuation (2024) → $15B (2026). The equity appreciates without a single bet placed.</li>
+          </ul>
+          <div class="char-quote">"More sophisticated than anything I saw in the DRC. One layer removed. Entirely legal under current law."<cite>Michael Hornsby — ACDC · ALL IN Interview, June 2026</cite></div>
+        </div>
+      </div>
+
+      <div class="char-card">
+        <div class="char-head">
+          <div class="char-role">The Cover Story</div>
+          <div class="char-name">Andrew Douglas · Terry Thompson</div>
+          <div class="char-subtitle">What the public sees. What distracts from what's underneath.</div>
+        </div>
+        <div class="char-body">
+          <ul class="char-facts">
+            <li>While media covers addiction — VIP hosts, problem gamblers, suicide rates — the more dangerous infrastructure is being built underneath</li>
+            <li>Terry Thompson: $22M wagered, $1.8M lost. VIP host called as an "emergency" when he tried to stop.</li>
+            <li>1 in 5 problem gamblers attempts suicide. These are real harms. They are also the distraction.</li>
+          </ul>
+          <div class="char-quote">"In the hospital, hooked up to IVs, they turned the NBA Finals on and gave me my phone. I gambled away my last $100."<cite>Andrew Douglas — on the record · Rolling Stone, October 12, 2025</cite></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════
+     PANEL 03 — THE MACHINE
+════════════════════════════════════════════════════════ -->
+<section id="panel-machine" class="panel">
+  <div class="section">
+    <span class="eyebrow">The Legal Architecture</span>
+    <h2 class="section-title">It's not insider trading.<br>Not technically.</h2>
+    <p class="section-lead">That is the entire problem. The crime that prediction markets enable has no proper name. The laws that would stop it don't exist yet. And the people who could write them invested in the platforms first.</p>
+
+    <div class="no-name-banner reveal">
+      <div class="big">The Crime Has No Name</div>
+      <p class="desc">Prediction market contracts are classified as <strong>event contracts</strong> under CFTC jurisdiction — they are futures and commodities, not securities. The SEC has no authority. "Insider trading" is an SEC concept. When Christopher Van Dyke placed 13 bets using information he wasn't supposed to have, the DOJ could not charge him with insider trading. They charged him with <strong>wire fraud</strong> and <strong>commodities fraud</strong> — improvised legal theories applied to a crime the law doesn't yet recognize.</p>
+    </div>
+
+
+
+
+        <!-- ═══ THE POLICE POLICING THEMSELVES ══════════════════════════════════ -->
+    <div style="background:#07070D; border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:4rem 2rem; margin: 2rem -2rem 0;">
+      <div style="max-width:1160px; margin:0 auto;">
+        <span class="eyebrow">The Structural Problem</span>
+        <h2 class="section-title reveal" style="max-width:860px;">The police are policing themselves. And they moved fastest when their own interests were on the line.</h2>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:2.5rem; margin-top:2.5rem; align-items:start;">
+          <!-- Left: Selig -->
+          <div class="reveal">
+            <div style="background:#0e0e16; border:1px solid rgba(177,18,38,0.25); border-left:3px solid var(--red); border-radius:4px; padding:2rem;">
+              <div style="font-size:0.6rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--red); margin-bottom:1rem;">Michael Selig · CFTC Chair · Age 36</div>
+              <div style="font-size:1rem; font-weight:700; margin-bottom:0.8rem; line-height:1.4;">The man investigating the trades was appointed by the man whose family profits from the platform the trades ran on.</div>
+              <div style="font-size:0.82rem; color:var(--text-mid); line-height:1.7; margin-bottom:1.2rem;">Before becoming CFTC chair, Selig was a private attorney at Willkie Farr &amp; Gallagher. His former clients include <strong style="color:var(--white)">Crypto.com</strong> — now building <strong style="color:var(--white)">Truth Predict</strong>, the prediction market launched in partnership with Trump Media. His ethics recusal expires mid-2026.</div>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:1.2rem;">
+                <div style="text-align:center; padding:0.85rem; background:#0a0a12; border-radius:3px; border:1px solid rgba(177,18,38,0.15);">
+                  <div style="font-family:Georgia,serif; font-size:1.8rem; font-weight:700; color:var(--red);">58 → 11</div>
+                  <div style="font-size:0.65rem; color:var(--text-dim); margin-top:0.2rem; letter-spacing:0.08em;">CFTC enforcement actions under Selig</div>
+                </div>
+                <div style="text-align:center; padding:0.85rem; background:#0a0a12; border-radius:3px; border:1px solid rgba(177,18,38,0.15);">
+                  <div style="font-family:Georgia,serif; font-size:1.8rem; font-weight:700; color:var(--red);">50</div>
+                  <div style="font-size:0.65rem; color:var(--text-dim); margin-top:0.2rem; letter-spacing:0.08em;">Court briefs defending platforms from state oversight</div>
+                </div>
+              </div>
+              <div style="padding:0.75rem 1rem; background:rgba(177,18,38,0.07); border:1px solid rgba(177,18,38,0.2); border-radius:3px; font-size:0.78rem; color:var(--text-mid); line-height:1.6;">
+                Can an agency run by a man with this background credibly investigate $1.75 billion in trades that preceded announcements by his boss's family? <strong style="color:var(--white)">That is the documentary question.</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Congress protected itself in 8 days -->
+          <div class="reveal reveal-delay-1">
+            <div style="background:#0e0e16; border:1px solid rgba(232,160,74,0.2); border-left:3px solid var(--amber); border-radius:4px; padding:2rem; margin-bottom:1.5rem;">
+              <div style="font-size:0.6rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--amber); margin-bottom:1rem;">Congress Protected Itself In 8 Days</div>
+              <div style="font-size:1rem; font-weight:700; margin-bottom:0.8rem; line-height:1.4;">When Congressional candidates were caught betting on their own races, the Senate banned itself in eight days flat. Terry Thompson is still unprotected.</div>
+              <div style="font-size:0.82rem; color:var(--text-mid); line-height:1.7; margin-bottom:1rem;">Kalshi suspended members of Congress from betting on their own elections. The Senate responded with rare bipartisan speed: a resolution banning members from prediction market bets passed in eight days. <strong style="color:var(--white)">The people who write the laws moved fastest when their own integrity was on the line.</strong></div>
+              <div style="padding:0.75rem 1rem; background:rgba(232,160,74,0.07); border:1px solid rgba(232,160,74,0.2); border-radius:3px; font-size:0.82rem; color:var(--text-mid); line-height:1.6;">
+                Terry Thompson: $22M wagered, $1.8M lost. Second and third mortgages. Psychiatric facility. VIP host called him an "emergency" when he tried to quit. <strong style="color:var(--white)">No law written for him.</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Whack-a-mole + Kovel subpoena -->
+        <div style="margin-top:2.5rem; display:grid; grid-template-columns:1fr 1fr; gap:2rem;" class="reveal">
+          <div class="pull-quote" style="margin:0;">
+            <p>"Van Dyke gets charged. Spagnuolo gets charged. New wallets appear. The platform stays open. <strong>Enforcement that charges individuals while the platform operates is whack-a-mole. It is not a solution.</strong> At what point does someone shut down the game?"</p>
+            <cite>Michael Hornsby — ACDC Co-Director · Interview Prep, June 2026</cite>
+          </div>
+          <div class="pull-quote" style="margin:0;">
+            <p>"If they go to the exchanges, they can know them. The identities of the oil traders are not a mystery. The exchange records exist. A subpoena would find them. <strong>The question is whether anyone has sent one.</strong>"</p>
+            <cite>David Kovel — Kirby McInerney LLP · 60 Minutes, May 2026</cite>
+          </div>
+        </div>
+
+        <!-- Named wallets still active callout -->
+        <div style="margin-top:2rem; padding:1.5rem 2rem; background:rgba(177,18,38,0.06); border:1px solid rgba(177,18,38,0.2); border-radius:4px;" class="reveal reveal-delay-1">
+          <div style="font-size:0.6rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--red); margin-bottom:0.75rem;">Named. Documented. Still Active On Platform Today.</div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;">
+            <div>
+              <div style="font-weight:700; font-size:0.95rem; font-family:monospace; color:var(--amber); margin-bottom:0.3rem;">Skoobidoobnj</div>
+              <div style="font-size:0.78rem; color:var(--text-mid); line-height:1.6;">Named in ACDC / Der Standard report, June 11, 2026. Anomalous win patterns on US military strike markets. Still active.</div>
+            </div>
+            <div>
+              <div style="font-weight:700; font-size:0.95rem; font-family:monospace; color:var(--amber); margin-bottom:0.3rem;">0xoracle</div>
+              <div style="font-size:0.78rem; color:var(--text-mid); line-height:1.6;">Coordinated timing with the 9-wallet Iran cluster. Named publicly. Polymarket requires no government ID. Still active.</div>
+            </div>
+          </div>
+          <div style="margin-top:1rem; font-size:0.72rem; color:var(--text-dim);">CFTC declared prediction market insider trading its Priority #1 enforcement area — March 31, 2026. These accounts named June 11, 2026. No action announced as of June 18, 2026.</div>
+        </div>
+      </div>
+    </div>
+
+
+    </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════
+     PANEL 04 — WHO OWNS IT
+════════════════════════════════════════════════════════ -->
+<!-- ════════════════════════════════════════════════════════
+     PANEL 04 — THE DARPA
+════════════════════════════════════════════════════════ -->
+<section id="panel-darpa" class="panel">
+
+  <!-- ═══ HERO ═══════════════════════════════════════════════════════════ -->
+  <div style="background:#050505; border-bottom:1px solid var(--border); padding:5rem 2rem 4rem;">
+    <div style="max-width:1160px; margin:0 auto;">
+      <span class="eyebrow">The Blueprint · 2003 → 2026</span>
+      <h2 class="section-title" style="font-size:clamp(1.8rem,3.5vw,3rem); max-width:860px; line-height:1.15;">The concept Congress killed in 72 hours is now a $15B platform with White House family equity.</h2>
+      <p class="section-lead reveal" style="max-width:760px;">In 2003, DARPA built a prediction market for intelligence analysts. Congress shut it down as a national security threat. The identical concept is now live, CFTC-approved, processing $54.4 billion in wagers — and the agency that approved it is run by one person.</p>
+
+      <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-top:3rem;" class="reveal reveal-delay-1">
+        <div style="text-align:center; padding:1.5rem 1rem; background:#0e0e14; border:1px solid rgba(232,160,74,0.2); border-radius:4px;">
+          <div style="font-family:Georgia,serif; font-size:2rem; font-weight:700; color:var(--amber);">72 hrs</div>
+          <div style="font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-dim); margin-top:0.4rem;">Time Congress needed to kill DARPA's version in 2003</div>
+        </div>
+        <div style="text-align:center; padding:1.5rem 1rem; background:#0e0e14; border:1px solid rgba(177,18,38,0.2); border-radius:4px;">
+          <div style="font-family:Georgia,serif; font-size:2rem; font-weight:700; color:var(--red);">$15B</div>
+          <div style="font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-dim); margin-top:0.4rem;">Polymarket valuation, 2026 — the DARPA program, live</div>
+        </div>
+        <div style="text-align:center; padding:1.5rem 1rem; background:#0e0e14; border:1px solid rgba(177,18,38,0.2); border-radius:4px;">
+          <div style="font-family:Georgia,serif; font-size:2rem; font-weight:700; color:var(--red);">1</div>
+          <div style="font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-dim); margin-top:0.4rem;">Commissioner currently running the CFTC — out of a mandated 5</div>
+        </div>
+        <div style="text-align:center; padding:1.5rem 1rem; background:#0e0e14; border:1px solid rgba(177,18,38,0.2); border-radius:4px;">
+          <div style="font-family:Georgia,serif; font-size:2rem; font-weight:700; color:var(--red);">50</div>
+          <div style="font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-dim); margin-top:0.4rem;">Court briefs filed by that one commissioner defending platforms from states</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ THE CFTC 5-COMMISSIONER STRUCTURE → 1 ═══════════════════════════ -->
+  <div style="background:#07070D; border-bottom:1px solid var(--border); padding:4rem 2rem;">
+    <div style="max-width:1160px; margin:0 auto;">
+      <span class="eyebrow">The Missing Four</span>
+      <h2 class="section-title reveal" style="max-width:820px;">The CFTC is supposed to be run by five people. It's being run by one.</h2>
+
+  <!-- ═══ REGULATORY DEPLOYMENT DIAGRAM — after headline ═══════════════════ -->
+  <div style="margin:2rem -0px 0; background:#07070D; border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+    <div style="max-width:1160px; margin:0 auto; padding:1.5rem 2rem 0.5rem;">
+      <span class="eyebrow">Visual Comparison · Diagram</span>
+      <p style="font-size:0.8rem; color:var(--text-dim); margin:0.5rem 0 1rem;">Normal CFTC (5 commissioners) vs The Selig Era — enforcement staff, advisory structure, state relations, court activity. Click any row for detail.</p>
+    </div>
+    <div style="height:520px; position:relative;">
+      <iframe src="../regulatory-deployment.html"
+        style="width:100%; height:100%; border:none; display:block;"
+        loading="lazy" title="Normal CFTC vs Selig Era — Regulatory Deployment Comparison">
+      </iframe>
+    </div>
+  </div>
+
+
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:3rem; margin-top:2.5rem; align-items:start;">
+        <div class="reveal">
+          <div style="background:#0e0e16; border:1px solid rgba(255,255,255,0.07); border-radius:4px; padding:2rem; margin-bottom:1.5rem;">
+            <div style="font-size:0.6rem; letter-spacing:0.22em; text-transform:uppercase; color:rgba(255,255,255,0.3); margin-bottom:1.2rem;">How the CFTC Is Supposed to Work</div>
+            <p style="font-size:0.88rem; color:var(--text-mid); line-height:1.75; margin-bottom:1rem;">The Commodity Futures Trading Commission is governed by five commissioners confirmed by the Senate. No more than three can be from the same political party. This bipartisan structure is not courtesy — it is a statutory safeguard written into the Commodity Exchange Act. It exists specifically to prevent any single political agenda from controlling markets regulation.</p>
+            <p style="font-size:0.88rem; color:var(--text-mid); line-height:1.75;">Commissioners vote on enforcement decisions, rulemaking, and major policy changes. Dissents are public record. The minority can force explanations. The structure creates accountability through disagreement.</p>
+          </div>
+
+          <!-- 5-seat visual -->
+          <div style="background:#0e0e16; border:1px solid rgba(177,18,38,0.2); border-radius:4px; padding:1.5rem;">
+            <div style="font-size:0.6rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--red); margin-bottom:1rem;">Current Commission Composition</div>
+            <div style="display:flex; gap:0.6rem; margin-bottom:1rem; flex-wrap:wrap;">
+              <div style="flex:1; min-width:80px; text-align:center; padding:1rem 0.5rem; background:rgba(177,18,38,0.15); border:1px solid rgba(177,18,38,0.4); border-radius:3px;">
+                <div style="font-size:0.72rem; font-weight:700; color:var(--red);">Selig</div>
+                <div style="font-size:0.58rem; color:var(--text-dim); margin-top:0.2rem;">Chair · Active</div>
+              </div>
+              <div style="flex:1; min-width:80px; text-align:center; padding:1rem 0.5rem; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06); border-radius:3px; opacity:0.4;">
+                <div style="font-size:0.72rem; font-weight:700; color:var(--text-dim);">VACANT</div>
+                <div style="font-size:0.58rem; color:var(--text-dim); margin-top:0.2rem;">Seat 2</div>
+              </div>
+              <div style="flex:1; min-width:80px; text-align:center; padding:1rem 0.5rem; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06); border-radius:3px; opacity:0.4;">
+                <div style="font-size:0.72rem; font-weight:700; color:var(--text-dim);">VACANT</div>
+                <div style="font-size:0.58rem; color:var(--text-dim); margin-top:0.2rem;">Seat 3</div>
+              </div>
+              <div style="flex:1; min-width:80px; text-align:center; padding:1rem 0.5rem; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06); border-radius:3px; opacity:0.4;">
+                <div style="font-size:0.72rem; font-weight:700; color:var(--text-dim);">VACANT</div>
+                <div style="font-size:0.58rem; color:var(--text-dim); margin-top:0.2rem;">Seat 4</div>
+              </div>
+              <div style="flex:1; min-width:80px; text-align:center; padding:1rem 0.5rem; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06); border-radius:3px; opacity:0.4;">
+                <div style="font-size:0.72rem; font-weight:700; color:var(--text-dim);">VACANT</div>
+                <div style="font-size:0.58rem; color:var(--text-dim); margin-top:0.2rem;">Seat 5</div>
+              </div>
+            </div>
+            <div style="font-size:0.75rem; color:var(--text-dim); line-height:1.6;">When four seats are vacant, there are no dissenting votes. No public record of disagreement. No minority commissioners to demand explanation. Every enforcement decision, every dropped case, every court filing defending Polymarket and Kalshi — all made by one person, with no institutional check.</div>
+          </div>
+        </div>
+
+        <div class="reveal reveal-delay-1">
+          <div style="background:#0e0e16; border:1px solid rgba(255,255,255,0.07); border-radius:4px; padding:2rem; margin-bottom:1.5rem;">
+            <div style="font-size:0.6rem; letter-spacing:0.22em; text-transform:uppercase; color:rgba(255,255,255,0.3); margin-bottom:1.2rem;">What One Commissioner Without Oversight Can Do</div>
+            <ul style="list-style:none; display:flex; flex-direction:column; gap:0.85rem;">
+              <li style="font-size:0.85rem; color:var(--text-mid); line-height:1.65; padding-left:1.2rem; border-left:2px solid rgba(177,18,38,0.4);">Drop CFTC enforcement actions from <strong style="color:var(--white)">58 to 11</strong> — no vote required, no dissent recorded</li>
+              <li style="font-size:0.85rem; color:var(--text-mid); line-height:1.65; padding-left:1.2rem; border-left:2px solid rgba(177,18,38,0.4);">Disband the Technical Advisory Committee — replace it with a <strong style="color:var(--white)">CEO Innovation Council of 35 industry executives</strong> including the platforms he's supposed to regulate</li>
+              <li style="font-size:0.85rem; color:var(--text-mid); line-height:1.65; padding-left:1.2rem; border-left:2px solid rgba(177,18,38,0.4);">File <strong style="color:var(--white)">50 court briefs</strong> in state cases defending Polymarket and Kalshi from oversight — without a commission vote</li>
+              <li style="font-size:0.85rem; color:var(--text-mid); line-height:1.65; padding-left:1.2rem; border-left:2px solid rgba(177,18,38,0.4);">Announce no investigation into <strong style="color:var(--white)">$1.75 billion in suspicious oil trades</strong> that preceded presidential announcements — with no accountability mechanism</li>
+              <li style="font-size:0.85rem; color:var(--text-mid); line-height:1.65; padding-left:1.2rem; border-left:2px solid rgba(177,18,38,0.4);">Ignore a Senate Banking Committee deadline for records — with no commissioner colleagues to create a public record of the refusal</li>
+            </ul>
+          </div>
+          <div class="pull-quote" style="margin:0;">
+            <p>"This is not what regulatory capture looks like. Capture is passive — the regulator is slowly taken over. What we are looking at is <strong>deployment</strong>. The regulator is actively used as a weapon for the industry it is supposed to police."</p>
+            <cite>Documentary Framework · ALL IN, 2026</cite>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <!-- ═══ CAPTURE VS DEPLOYMENT ═══════════════════════════════════════════ -->
+  <div style="background:#050505; border-bottom:1px solid var(--border); padding:4rem 2rem;">
+    <div style="max-width:1160px; margin:0 auto;">
+      <span class="eyebrow">The Critical Distinction</span>
+      <h2 class="section-title reveal" style="max-width:820px;">Regulatory capture and regulatory deployment are not the same thing. One is a corruption of the system. The other is the system working as designed — just for the wrong people.</h2>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin-top:2.5rem;" class="reveal reveal-delay-1">
+        <!-- Capture -->
+        <div style="background:rgba(232,160,74,0.05); border:1px solid rgba(232,160,74,0.2); border-radius:4px; padding:2rem;">
+          <div style="font-size:0.6rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--amber); margin-bottom:1rem;">Regulatory Capture — The Traditional Problem</div>
+          <p style="font-size:0.88rem; color:var(--text-mid); line-height:1.75; margin-bottom:1rem;">Regulatory capture is when an agency meant to regulate an industry becomes so influenced by that industry that it stops regulating effectively. It happens through the revolving door — regulators become lobbyists, industry executives become commissioners. Over time, the agency adopts the industry's worldview, stops enforcement, becomes passive.</p>
+          <p style="font-size:0.88rem; color:var(--text-mid); line-height:1.75; margin-bottom:1.2rem;">Classic capture is a corruption story. The system was supposed to work one way; it was gradually subverted. It produces regulatory paralysis — an agency that stops doing its job.</p>
+          <div style="padding:0.85rem 1rem; background:rgba(232,160,74,0.06); border:1px solid rgba(232,160,74,0.15); border-radius:3px;">
+            <div style="font-size:0.72rem; color:var(--text-mid);">Example: The FDA slowly becoming more deferential to pharmaceutical industry timelines. SEC slowing enforcement against major banks. The regulator becomes slow, toothless, captured.</div>
+          </div>
+          <div style="margin-top:1.2rem; padding:0.65rem 1rem; background:rgba(0,0,0,0.3); border-radius:3px; font-size:0.75rem; color:var(--text-mid);">
+            <strong style="color:var(--amber);">The danger level:</strong> High. But reversible. New leadership, new priorities, new enforcement posture. The institution survives.
+          </div>
+        </div>
+
+        <!-- Deployment -->
+        <div style="background:rgba(177,18,38,0.07); border:1px solid rgba(177,18,38,0.3); border-radius:4px; padding:2rem;">
+          <div style="font-size:0.6rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--red); margin-bottom:1rem;">Regulatory Deployment — What We Are Seeing Now</div>
+          <p style="font-size:0.88rem; color:var(--text-mid); line-height:1.75; margin-bottom:1rem;">Regulatory deployment is different in kind, not just degree. The regulator is not passive — it is actively weaponized. It doesn't just stop enforcing against an industry; it goes to court to protect that industry from other regulators. It doesn't just defer to executives — it installs them on advisory councils that replace independent experts.</p>
+          <p style="font-size:0.88rem; color:var(--text-mid); line-height:1.75; margin-bottom:1.2rem;">Deployment leaves artifacts. Court precedents that protect the platforms. Regulatory frameworks written by the platforms' executives. Policy positions that survive the commissioner who created them.</p>
+          <div style="padding:0.85rem 1rem; background:rgba(177,18,38,0.08); border:1px solid rgba(177,18,38,0.2); border-radius:3px;">
+            <div style="font-size:0.72rem; color:var(--text-mid);">What we're documenting: CFTC files 50 court briefs defending Polymarket and Kalshi from state oversight. Sues states that tried to restrict prediction markets. Enforcement staff drops 80%. CEO council replaces expert advisory body. This is not a passive agency. This is an active deployment.</div>
+          </div>
+          <div style="margin-top:1.2rem; padding:0.65rem 1rem; background:rgba(177,18,38,0.06); border:1px solid rgba(177,18,38,0.15); border-radius:3px; font-size:0.75rem; color:var(--text-mid);">
+            <strong style="color:var(--red);">The danger level:</strong> Critical. Structural. The next CFTC chair inherits 50 court precedents defending the platforms, a disbanded advisory committee, and an enforcement culture that will take years to rebuild. The damage outlasts the appointment.
+          </div>
+        </div>
+      </div>
+
+      <!-- The key distinction callout -->
+      <div style="margin-top:2.5rem; padding:2rem; background:#0e0e16; border:1px solid rgba(255,255,255,0.07); border-radius:4px; text-align:center;" class="reveal">
+        <div style="font-family:Georgia,serif; font-size:1.4rem; font-weight:700; line-height:1.4; max-width:760px; margin:0 auto 1rem;">Capture asks: how did the regulator stop working?<br><span style="color:var(--red);">Deployment asks: who is the regulator working for now?</span></div>
+        <p style="font-size:0.88rem; color:var(--text-mid); max-width:680px; margin:0 auto;">The DARPA precedent is the proof. In 2003, the regulator (Congress) worked correctly — it identified a structural danger and shut it down. In 2026, the regulator (CFTC) has been deployed to ensure the identical danger cannot be shut down, no matter what the evidence shows.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ DARPA 2003 — THE ORIGINAL WARNING ═══════════════════════════════ -->
+  <div style="background:#07070D; border-bottom:1px solid var(--border); padding:4rem 2rem;">
+    <div style="max-width:1160px; margin:0 auto;">
+      <span class="eyebrow">The Precedent · 2003</span>
+      <h2 class="section-title reveal" style="max-width:820px;">Congress saw this clearly in 2003. The argument was simple: if you can profit from an assassination, you now have a financial reason to cause one.</h2>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin-top:2rem;" class="reveal reveal-delay-1">
+        <div style="background:rgba(232,160,74,0.06); border:1px solid rgba(232,160,74,0.2); border-radius:4px; padding:2rem;">
+          <div style="font-size:0.62rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--amber); margin-bottom:0.85rem;">DARPA · Policy Analysis Market · 2002–2003</div>
+          <p style="font-size:0.88rem; color:var(--text-mid); line-height:1.75; margin-bottom:1rem;">DARPA proposed allowing intelligence analysts to bet on geopolitical events — terrorist attacks, assassinations, coups, economic shocks. The theory was sound: markets aggregate dispersed information better than committees. Analysts who privately believed an attack was coming could signal that belief through a bet, even if they couldn't say it directly.</p>
+          <p style="font-size:0.88rem; color:var(--text-mid); line-height:1.75; margin-bottom:1rem;">Congress called it "morally repugnant" and "unbelievably stupid." Senator Ron Wyden: <em>"This appears to encourage terrorism and is an incentive to murder."</em> Shut down in 72 hours. Lead architect Admiral John Poindexter resigned.</p>
+          <div style="padding:0.85rem 1rem; background:rgba(232,160,74,0.06); border:1px solid rgba(232,160,74,0.15); border-radius:3px; font-size:0.78rem; color:var(--text-mid); line-height:1.65;">
+            The objection was not about information quality. The objection was about <strong style="color:var(--white)">incentive structure</strong>. If you can profit from a geopolitical outcome, you now have a financial reason to cause it — especially if you have the power to cause it.
+          </div>
+        </div>
+
+        <div style="background:rgba(177,18,38,0.07); border:1px solid rgba(177,18,38,0.25); border-radius:4px; padding:2rem;">
+          <div style="font-size:0.62rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--red); margin-bottom:0.85rem;">Polymarket / Kalshi · CFTC-Approved · 2023–2026</div>
+          <p style="font-size:0.88rem; color:var(--text-mid); line-height:1.75; margin-bottom:1rem;">The identical product — betting on geopolitical and military events — is now CFTC-approved, processing $54.4 billion in wagers across 435,672 markets. It includes contracts on military strikes, ceasefire announcements, oil price movements following presidential statements, and the outcomes of specific military operations.</p>
+          <p style="font-size:0.88rem; color:var(--text-mid); line-height:1.75; margin-bottom:1rem;">The danger Congress identified in 2003 is documented in 2026: Army Sergeant Van Dyke placed 13 bets using classified knowledge of a military operation. A nine-wallet network won 98% of its bets on Iran military outcomes. $1.75 billion in oil futures moved hours before presidential announcements.</p>
+          <div style="padding:0.85rem 1rem; background:rgba(177,18,38,0.08); border:1px solid rgba(177,18,38,0.2); border-radius:3px; font-size:0.78rem; color:var(--text-mid); line-height:1.65;">
+            The CFTC that approved this has <strong style="color:var(--white)">not investigated any of the above</strong>. It is run by one commissioner. His former client is building a competing platform with the president's company. His ethics recusal expires mid-2026.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── DIAGRAM: DARPA PLAYBOOK ── -->
+  <div style="background:#050505; border-bottom:1px solid var(--border); padding:4rem 2rem;">
+    <div style="max-width:1160px; margin:0 auto;">
+      <span class="eyebrow">Visual Comparison · Diagram</span>
+      <h3 style="font-family:Georgia,serif; font-size:1.35rem; margin-bottom:0.6rem; margin-top:0.4rem;">DARPA 2003 vs CFTC 2024 — The Same Idea, Two Very Different Outcomes</h3>
+      <p style="font-size:0.85rem; color:var(--text-mid); margin-bottom:1.5rem; line-height:1.65;">Congress shut DARPA's prediction market down in 72 hours in 2003. In 2024, the CFTC approved the identical concept and has since filed 50 court briefs defending it from state oversight.</p>
+      <div style="border:1px solid rgba(255,255,255,0.06); border-radius:4px; overflow:hidden; height:620px;">
+        <iframe src="../darpa-playbook.html" style="width:100%; height:100%; border:none;" title="DARPA Playbook Comparison Diagram"></iframe>
+      </div>
+      <div style="margin-top:0.75rem; text-align:right;">
+        <a href="../darpa-playbook.html" target="_blank" style="font-size:0.68rem; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.25); text-decoration:none;">Open full diagram ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── DIAGRAM: REGULATORY DEPLOYMENT ── --></section>
+
+<section id="panel-owners" class="panel">
+  <div class="section">
+    <span class="eyebrow">The Ownership Structure</span>
+    <h2 class="section-title">Follow the money.<br>Then follow the timeline.</h2>
+    <p class="section-lead">The sequence of investments, dropped investigations, regulatory appointments, and platform growth is not a series of coincidences. It is a causal chain with dates.</p>
+
+    <div class="scene-callout reveal">
+      <div class="scene-callout-title">THE STRONGEST SCENE: The Phone in the Evidence Bag</div>
+      <p>Late October 2024. FBI agents show up at the New York apartment of Shayne Coplan — CEO of Polymarket. They seize his phone. An investigation is open. The platform has been processing hundreds of millions in election bets.</p>
+      <p>November 5, 2024: Donald Trump wins the presidency.</p>
+      <p>January 20, 2025: New administration takes office.</p>
+      <p>The DOJ closes the investigation. No charges. No explanation. The CEO of the platform the president's son will invest in — 5 weeks later — had his phone taken by the FBI. Then the president won, and the investigation disappeared.</p>
+    </div>
+
+    <span class="eyebrow" style="margin-top:3rem; display:block;">The Sequence — In Order</span>
+    <div class="sequence-chain reveal">
+      <div class="seq-item">
+        <div class="seq-date">2022</div>
+        <div class="seq-event">CFTC fines Polymarket $1.4M — bans US users</div>
+        <div class="seq-detail">Polymarket agrees to block American bettors. Operates offshore from this point. CFTC considers the matter closed.</div>
+      </div>
+      <div class="seq-item">
+        <div class="seq-date">May 2024</div>
+        <div class="seq-event">$70M round — Founders Fund (Thiel), Vitalik Buterin, Blockchain Capital</div>
+        <div class="seq-detail">Valuation: $1.2 billion. Peter Thiel's fund leads. The platform that banned US users is now a unicorn.</div>
+      </div>
+      <div class="seq-item">
+        <div class="seq-date">Oct–Nov 2024</div>
+        <div class="seq-event">FBI seizes Shayne Coplan's phone</div>
+        <div class="seq-detail">Investigation open. Platform processing massive election market volume. Possible connection to irregular betting clusters.</div>
+      </div>
+      <div class="seq-item">
+        <div class="seq-date">January 2025</div>
+        <div class="seq-event">New administration. DOJ closes Coplan investigation — no charges.</div>
+        <div class="seq-detail"><span class="seq-highlight">No charges. No explanation. The investigation ends with a change of administration.</span></div>
+      </div>
+      <div class="seq-item">
+        <div class="seq-date">July 2025</div>
+        <div class="seq-event">DOJ closes criminal probe + CFTC closes civil investigation — <em>same month</em></div>
+        <div class="seq-detail"><span class="seq-highlight">Both federal investigations dropped simultaneously, with no charges, in the same 30-day window.</span> Polymarket pays $112 million to acquire QCEX — a CFTC-licensed exchange — the regulatory foothold they needed to legally operate in the US.</div>
+      </div>
+      <div class="seq-item">
+        <div class="seq-date">August 2025 — 5 weeks later</div>
+        <div class="seq-event">Trump Jr. / 1789 Capital invests. Joins Polymarket advisory board.</div>
+        <div class="seq-detail">Double-digit millions. The president's son is now an equity holder in the platform whose CEO had an FBI investigation dropped. He joins the advisory board.</div>
+      </div>
+      <div class="seq-item">
+        <div class="seq-date">October 2025 — 2 months later</div>
+        <div class="seq-event">ICE (Intercontinental Exchange) commits $2 billion at $9 billion valuation</div>
+        <div class="seq-detail">Polymarket goes from $1.2B to $9B in one round. ICE is one of the world's largest financial market operators.</div>
+      </div>
+      <div class="seq-item">
+        <div class="seq-date">October 2025 — same month</div>
+        <div class="seq-event">Truth Predict announced. Brian Quintenz (Selig predecessor) nominated.</div>
+        <div class="seq-detail">Trump Media + Crypto.com announce a prediction market platform. Crypto.com's CEO is on Selig's 35-member CEO Innovation Council. Selig's former clients include Truth Predict partners.</div>
+      </div>
+      <div class="seq-item">
+        <div class="seq-date">December 2025</div>
+        <div class="seq-event">Brian Quintenz "Selig" confirmed as CFTC Chair — 53 to 43</div>
+        <div class="seq-detail">The regulatory agency that oversees prediction markets now has a chair whose former clients include Truth Predict's business partners. His ethics recusal expires mid-2026.</div>
+      </div>
+      <div class="seq-item">
+        <div class="seq-date">Jan–Feb 2026</div>
+        <div class="seq-event">Selig disbands Technology Advisory Committee. Creates CEO Innovation Council — 35 industry executives.</div>
+        <div class="seq-detail">Members include Shayne Coplan (Polymarket CEO, whose FBI investigation was dropped), Tarek Mansour (Kalshi — Trump Jr. advisory client), Tyler Winklevoss (Gemini — gave $1M Bitcoin to Trump campaign), Kris Marszalek (Crypto.com — Truth Predict partner). Enforcement staff: down from 58 to 11.</div>
+      </div>
+      <div class="seq-item">
+        <div class="seq-date">Early 2026</div>
+        <div class="seq-event">Polymarket valuation reaches $15 billion</div>
+        <div class="seq-detail">From $350M in 2024 to $15B in early 2026. The fastest valuation growth in prediction market history.</div>
+      </div>
+    </div>
+
+    <span class="eyebrow" style="margin-top:3rem; display:block;">The Investor Web</span>
+    <div class="investor-grid reveal">
+      <div class="investor-card">
+        <div class="investor-name">Donald Trump Jr.</div>
+        <div class="investor-role">1789 Capital · Polymarket Equity Investor · Kalshi Paid Advisor</div>
+        <div class="investor-detail">Double-digit millions in Polymarket, 5 weeks after both federal investigations dropped. Paid advisor to Kalshi — a direct Polymarket competitor. Both platforms regulated by his father's CFTC.</div>
+        <span class="investor-flag flag-red">Conflict of Interest</span>
+      </div>
+      <div class="investor-card">
+        <div class="investor-name">Founders Fund / Peter Thiel</div>
+        <div class="investor-role">Lead Investor, 2024 Round</div>
+        <div class="investor-detail">Led the $70M round at $1.2B valuation. Thiel is the godfather of the PayPal–to–crypto–to–Trump pipeline and a longtime political ally of the current administration.</div>
+        <span class="investor-flag flag-gold">$70M Lead</span>
+      </div>
+      <div class="investor-card">
+        <div class="investor-name">ICE — Intercontinental Exchange</div>
+        <div class="investor-role">$2B Commitment, 2025</div>
+        <div class="investor-detail">One of the world's largest financial market infrastructure companies. Their $2B commitment at $9B valuation legitimized Polymarket to institutional capital.</div>
+        <span class="investor-flag flag-gold">$2 Billion</span>
+      </div>
+      <div class="investor-card">
+        <div class="investor-name">World Liberty Financial</div>
+        <div class="investor-role">Trump Family Crypto Vehicle</div>
+        <div class="investor-detail">Trump family crypto platform raised $500M+. Executive Order signed February 2025 creating US Sovereign Wealth Fund. The family's crypto assets positioned to benefit from favorable CFTC treatment of the entire asset class.</div>
+        <span class="investor-flag flag-red">Family Vehicle</span>
+      </div>
+      <div class="investor-card">
+        <div class="investor-name">Winklevoss Twins / Gemini</div>
+        <div class="investor-role">CEO Innovation Council · Trump Donors</div>
+        <div class="investor-detail">Tyler Winklevoss gave $1M Bitcoin to Trump campaign. Tyler Winklevoss sits on Selig's 35-member CEO Innovation Council. Gemini is a Polymarket settlement partner. Warren's June 5 letter calls out the Gemini connection specifically.</div>
+        <span class="investor-flag flag-red">$1M Campaign + Council Seat</span>
+      </div>
+      <div class="investor-card">
+        <div class="investor-name">Truth Predict / Crypto.com</div>
+        <div class="investor-role">Trump Media Prediction Platform</div>
+        <div class="investor-detail">Announced October 2025. Trump Media + Crypto.com joint venture. Kris Marszalek (Crypto.com CEO) sits on Selig's Innovation Council. Selig's former law clients include Truth Predict partners — his ethics recusal expires mid-2026.</div>
+        <span class="investor-flag flag-red">Direct Conflict · Recusal Expiring</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════
+     PANEL 05 — THE EVIDENCE
+════════════════════════════════════════════════════════ -->
+<section id="panel-evidence" class="panel">
+  <div class="section">
+    <span class="eyebrow">The Evidence</span>
+    <h2 class="section-title">435,672 markets.<br>$54.4 billion in wagers.<br>The math is not subtle.</h2>
+
+    <div class="acdc-hero reveal">
+      <div class="acdc-left">
+        <div class="acdc-big" id="acdcBig">51.8%</div>
+        <div class="acdc-label">Win rate on military longshot bets</div>
+        <div class="acdc-vs">Versus <strong>14%</strong> for equivalent longshots in every other category. If these were coin flips, the odds of this distribution are essentially zero.</div>
+        <div class="acdc-bar-wrap" style="margin-top:1.5rem;">
+          <div class="acdc-bar-label"><span style="color:var(--red)">Military Longshots</span><span>51.8%</span></div>
+          <div class="acdc-bar"><div class="acdc-bar-fill red" id="redBar" style="width:0%"></div></div>
+          <div class="acdc-bar-label"><span>All Other Longshots</span><span>14%</span></div>
+          <div class="acdc-bar"><div class="acdc-bar-fill dim" id="dimBar" style="width:0%"></div></div>
+        </div>
+      </div>
+      <div class="acdc-stats-right">
+        <div class="acdc-stat">
+          <div class="acdc-stat-num">435K</div>
+          <div class="acdc-stat-label">Markets analyzed by ACDC</div>
+        </div>
+        <div class="acdc-stat">
+          <div class="acdc-stat-num">$54.4B</div>
+          <div class="acdc-stat-label">Total wagers examined Jan 2021–Mar 2026</div>
+        </div>
+        <div class="acdc-stat">
+          <div class="acdc-stat-num">$25M</div>
+          <div class="acdc-stat-label">Wagered on winning military longshots in first 10 weeks of 2026 alone</div>
+        </div>
+        <div class="acdc-stat">
+          <div class="acdc-stat-num">ACDC</div>
+          <div class="acdc-stat-label">Anti-Corruption Data Centre — also co-authored the Congo Hold-Up investigation</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wallets-callout reveal">
+      <div class="wallets-callout-label">Named Accounts — Still Active</div>
+      <p>ACDC's June 11, 2026 report (co-published with Der Standard) names two specific wallets: <strong style="color:var(--amber)">Skoobidoobnj</strong> and <strong style="color:var(--amber)">0xoracle</strong>. Both identified as exhibiting statistically anomalous win patterns on military and geopolitical markets. As of publication: both wallets remain active on the Polymarket platform. The CFTC has not announced any investigation.</p>
+    </div>
+
+    <!-- OIL TRADES -->
+    <div class="oil-trades reveal reveal-delay-1" style="margin-top:3rem;">
+      <div class="oil-header">
+        <div class="oil-header-title">The Oil Trades — 2026</div>
+        <div class="oil-header-status">CFTC: No investigation announced</div>
+      </div>
+      <div class="oil-row">
+        <div class="oil-date">March 23, 2026</div>
+        <div class="oil-amount">$800M+</div>
+        <div class="oil-note">Coordinated short position on oil futures placed. Trump posts to Truth Social 15 minutes later — markets move. Position profits.</div>
+      </div>
+      <div class="oil-row">
+        <div class="oil-date">April 7, 2026</div>
+        <div class="oil-amount">$950M</div>
+        <div class="oil-note">Short position placed. Ceasefire announced 2.5 hours later. Position profits. No charges. No investigation from Selig's CFTC.</div>
+      </div>
+    </div>
+
+    <!-- CASES -->
+    <span class="eyebrow" style="margin-top:3rem; display:block;">Documented Cases</span>
+    <div class="cases-grid reveal">
+      <div class="case-card">
+        <span class="case-tag">First Federal Prosecution · Trial Dec 7, 2026</span>
+        <div class="case-name">USA v. Christopher Van Dyke</div>
+        <div class="case-detail">Son of actor Dick Van Dyke. $409,000 across 13 bets using non-public information about the Maduro Venezuela operation, December 27–January 2. Charged with wire fraud + commodities fraud. NOT charged with insider trading — no statute applies. The "Eddie Murphy Rule" used for the first time in prediction market prosecution.</div>
+      </div>
+      <div class="case-card">
+        <span class="case-tag">Identified · AlphaRaccoon on Polymarket</span>
+        <div class="case-name">Andrew Spagnuolo</div>
+        <div class="case-detail">Bet on "Google Year in Search" outcomes using advance knowledge. Won $1.2 million. Identified as "AlphaRaccoon" through on-chain wallet analysis by Bubblemaps. Charged May 27, 2026.</div>
+      </div>
+      <div class="case-card">
+        <span class="case-tag">Iran Wallet Cluster · ACDC / Bubblemaps</span>
+        <div class="case-name">9-Wallet Military Cluster</div>
+        <div class="case-detail">9 wallets with coordinated behavior on military outcomes. $2.4M wagered. 98% win rate on military longshots. Analyzed by ACDC and Bubblemaps (Deebs). The question is not just did they know — it's did they cause it?</div>
+      </div>
+      <div class="case-card">
+        <span class="case-tag">Death Threats · Still On Platform</span>
+        <div class="case-name">The Fabian Case</div>
+        <div class="case-detail">Individual who correctly identified suspicious betting patterns received coordinated death threats. Pattern of intimidation directed at researchers who surface anomalous accounts on Polymarket. Platform has not removed the flagged accounts.</div>
+      </div>
+      <div class="case-card">
+        <span class="case-tag">POGO / Janice Luong Research</span>
+        <div class="case-name">Khamenei Death Market</div>
+        <div class="case-detail">$553,000 wagered on prediction of Khamenei death. Anomalous timing and wallet concentration. Documented in research shared with ACDC. Luong investigating broader international government actor involvement.</div>
+      </div>
+      <div class="case-card">
+        <span class="case-tag">Pentagon Confirmed</span>
+        <div class="case-name">"Dozens More"</div>
+        <div class="case-detail">Pentagon has confirmed "dozens" of additional cases under review where prediction market activity preceded military or geopolitical events. None have been publicly prosecuted. CFTC has not announced any enforcement actions.</div>
+      </div>
+    </div>
+
+    <!-- INTERACTIVE TIMELINE -->
+    <div class="tl-section" style="margin-top:4rem;">
+      <div class="tl-header">
+        <div class="tl-title">Timeline — May 2018 to December 2026</div>
+        <div class="tl-controls">
+          <button class="tl-btn" onclick="tlZoomOut()" title="Zoom out">−</button>
+          <span class="tl-zoom-label" id="tlZoomLabel">1×</span>
+          <button class="tl-btn" onclick="tlZoomIn()" title="Zoom in">+</button>
+          <button class="tl-btn" onclick="tlReset()" title="Reset" style="font-size:0.75rem; width:auto; padding:0 8px;">Reset</button>
+        </div>
+      </div>
+      <div class="tl-legend">
+        <div class="tl-legend-item"><div class="tl-legend-dot" style="background:var(--red)"></div>Regulatory / Conflict</div>
+        <div class="tl-legend-item"><div class="tl-legend-dot" style="background:var(--amber)"></div>Cases / Charges</div>
+        <div class="tl-legend-item"><div class="tl-legend-dot" style="background:var(--gold)"></div>Investment / Valuation</div>
+        <div class="tl-legend-item"><div class="tl-legend-dot" style="background:var(--blue-cool)"></div>Legislation / Advocacy</div>
+      </div>
+      <div class="pm-tl-outer">
+        <div class="pm-tl-scroll" id="tlScroll">
+          <div class="pm-tl-canvas" id="tlCanvas">
+            <div class="pm-tl-line" id="tlLine"></div>
+            <div class="pm-tl-scan"></div>
+            <!-- Nodes injected by JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUOTE WALL -->
+    <div class="quote-wall reveal" style="margin-top:3rem;">
+      <div class="qw-card">
+        <div class="qw-quote">"Any trader right now is highly suspicious of any platform that has that type of information flow. It's completely unregulated. There's no surveillance. There's no position limits."</div>
+        <div class="qw-source">David Kovel — Securities Attorney, Kirby McInerney</div>
+      </div>
+      <div class="qw-card">
+        <div class="qw-quote">"Insider information is not a bug on these platforms. It's a feature. The market only has value because some participants know more than others."</div>
+        <div class="qw-source">Michael Hornsby — ACDC Co-Director</div>
+      </div>
+      <div class="qw-card">
+        <div class="qw-quote">"There will always be insider trading on these platforms. It's inherent to the product. You cannot separate the mechanism from the manipulation."</div>
+        <div class="qw-source">Michael Hornsby — ACDC Co-Director, Post-Call</div>
+      </div>
+      <div class="qw-card">
+        <div class="qw-quote">"A known addictive product, just like heroin. The only difference is it has a marketing budget and a lobbyist."</div>
+        <div class="qw-source">Harry Levant — Director of Gambling Policy, PHAI · U.S. Senate, May 20, 2026</div>
+      </div>
+    </div>
+
+    <!-- ── DIAGRAM: MONEY FLOW ── -->
+    <div style="margin-top:3.5rem; max-width:1160px; margin-left:auto; margin-right:auto; padding-bottom:3rem;">
+      <span class="eyebrow">Visual Diagram · Follow the Money</span>
+      <h3 style="font-family:Georgia,serif; font-size:1.35rem; margin-bottom:0.6rem; margin-top:0.4rem;">The Money Flow — How $54.4B in Wagers Becomes $15B in White House Family Equity</h3>
+      <p style="font-size:0.85rem; color:var(--text-mid); margin-bottom:1rem; line-height:1.65;">From Van Dyke's $409K to the Iran Nine's $2.4M to Kovel's flagged $1.75B oil trades — all volume flows through the same instrument. Hover any node for full context. Selig's CFTC sits off to the side, enabling every layer.</p>
+      <div style="border:1px solid rgba(255,255,255,0.06); border-radius:4px; overflow:hidden; height:820px;">
+        <iframe src="../money-flow.html" style="width:100%; height:100%; border:none;" title="Money Flow Diagram"></iframe>
+      </div>
+      <div style="margin-top:0.75rem; text-align:right;">
+        <a href="../money-flow.html" target="_blank" style="font-size:0.68rem; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.25); text-decoration:none;">Open full diagram ↗</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════
+     PANEL 06 — THE CONGO
+════════════════════════════════════════════════════════ -->
+<section id="panel-congo" class="panel">
+  <div class="section">
+    <span class="eyebrow">The Congo Parallel</span>
+    <h2 class="section-title">This has happened before.<br>In the Democratic Republic of Congo.</h2>
+    <p class="section-lead">In 2021, a coalition of 19 international investigative outlets published the Congo Hold-Up — the largest financial data leak in African history. PPLAAF and Mediapart led the investigation. The organization that co-authored it, ACDC, is the same organization that produced the Polymarket insider trading analysis. The bridge is not accidental.</p>
+
+    <div class="deployment-banner reveal">
+      <h3>"This is not regulatory capture.<br>This is regulatory deployment."</h3>
+      <p>In the DRC, the Central Bank (BCC) was passively captured — it failed to act while state funds were looted through BGFIBank. Selig's CFTC is not passive. It is <em>active</em>. It filed amicus briefs in 50 state cases to block state-level regulation. It sued 3 states directly. It published op-eds defending prediction market expansion. It disbanded its enforcement unit. This is not an agency failing to act. This is an agency working — for a specific industry, on behalf of specific investors.</p>
+      <ul class="deployment-list">
+        <li>Amicus briefs filed in 50 state court cases to preempt state gambling regulation</li>
+        <li>Lawsuits filed against 3 states attempting to regulate prediction markets</li>
+        <li>Enforcement staff reduced from 58 to 11 in 14 months</li>
+        <li>Technology Advisory Committee disbanded; replaced with 35-executive CEO Innovation Council drawn from regulated industry</li>
+        <li>Warren June 5 letter: CFTC approved Polymarket request with "suspicious timing" — after Trump Jr. invested; fast-tracked Gemini while sidelining staff questioning Crypto.com</li>
+      </ul>
+    </div>
+
+    <span class="eyebrow" style="margin-top:3rem; display:block;">The Structural Parallel — Node for Node</span>
+    <table class="parallel-table reveal">
+      <thead>
+        <tr>
+          <th>Congo Hold-Up (DRC, 2016–2021)</th>
+          <th>Function</th>
+          <th>ALL IN (USA, 2024–2026)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Joseph Kabila</td>
+          <td>Head of state / political cover</td>
+          <td>Donald Trump</td>
+        </tr>
+        <tr>
+          <td>BGFIBank DRC</td>
+          <td>Financial platform / extraction mechanism</td>
+          <td>Polymarket + Kalshi</td>
+        </tr>
+        <tr>
+          <td>Francis Selemani (Kabila's brother)</td>
+          <td>Family insider with financial access</td>
+          <td>Donald Trump Jr.</td>
+        </tr>
+        <tr>
+          <td>BCC — Central Bank of Congo</td>
+          <td>Regulatory body (captured / deployed)</td>
+          <td>CFTC under Brian Quintenz "Selig"</td>
+        </tr>
+        <tr>
+          <td>Panora Trust / BVI shells</td>
+          <td>Anonymous financial vehicles</td>
+          <td>Anonymous crypto wallets (Skoobidoobnj, 0xoracle)</td>
+        </tr>
+        <tr>
+          <td>Gécamines — state mining revenues</td>
+          <td>Sovereign resource redirected to private gain</td>
+          <td>US Sovereign Wealth Fund EO, Feb 2025</td>
+        </tr>
+        <tr>
+          <td>PPLAAF / Mediapart / Congo Hold-Up</td>
+          <td>Investigative organization exposing the scheme</td>
+          <td>ACDC + Hornsby + Bubblemaps/Deebs</td>
+        </tr>
+        <tr>
+          <td>BGFIBank family ownership</td>
+          <td>President's family profits from platform growth</td>
+          <td>Trump Jr. equity + World Liberty Financial</td>
+        </tr>
+        <tr>
+          <td>BCC passive — no enforcement</td>
+          <td>Regulatory posture</td>
+          <td>CFTC active — <em>deployed to protect</em></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="pull-quote reveal reveal-delay-1">
+      <p>"What I see in the United States is more sophisticated than what I saw in the DRC. The same structure. The same logic. The same family proximity to the extraction mechanism. But wearing a different suit. Wearing the suit of financial innovation."</p>
+      <cite>Michael Hornsby — ACDC Co-Director · Post-Call Notes, June 2026</cite>
+    </div>
+
+    <div class="dark-band" style="margin: 3rem -2rem 0; padding: 3rem 2rem;">
+      <div style="max-width:1160px; margin: 0 auto;">
+        <span class="eyebrow">The Key Distinction</span>
+        <h3 style="font-family:Georgia,serif; font-size:1.5rem; margin-bottom:1.25rem;">The Trump family doesn't need to place a single insider bet.</h3>
+        <p style="font-size:0.95rem; color:var(--text-mid); line-height:1.75; max-width:760px;">In the DRC, BGFIBank executives were directly moving money. In the US, the structure is one layer removed. Trump Jr. holds equity in Polymarket. Other people — the Van Dykes, the Iranian clusters, the anonymous wallets ACDC identified — generate the winning action. Their activity creates volume. Volume creates value. Value accrues to equity holders. No single bet required. No criminal exposure. The platform grows because insider action makes it valuable. The equity holder profits because the platform grows. The CFTC ensures the platform continues to operate.</p>
+        <p style="font-size:0.95rem; color:var(--text-mid); line-height:1.75; max-width:760px; margin-top:1.25rem;">This is Tier 3. It is the most sophisticated version of the problem, and it is entirely legal under current law.</p>
+      </div>
+    </div>
+
+    <!-- SLIDE DIAGRAM MECHANIC -->
+    <div style="max-width:1200px; margin:3rem auto 0;">
+      <span class="eyebrow">The Structure — Side by Side</span>
+      <p style="font-size:0.85rem; color:var(--text-dim); margin-bottom:1.5rem;">The Congo Hold-Up (2021, PPLAAF + Mediapart) exposed how a president's family used a captured bank and a passive central bank to extract state wealth through anonymous shells. ACDC — who co-authored that investigation — identified the same structure operating in the United States in 2024–2026. Click to move between them.</p>
+
+      <!-- Slide container -->
+      <!-- THE SAME STRUCTURE — interactive side-by-side comparison -->
+      <div style="position:relative; background:#050505; border:1px solid var(--border); border-radius:4px; overflow:hidden; height:600px;">
+        <iframe
+          src="../same-structure-standalone.html"
+          style="width:100%; height:100%; border:none; display:block;"
+          loading="lazy"
+          title="The Same Structure — Congo Hold-Up vs Polymarket / USA"
+        ></iframe>
+        <!-- Open in full view link -->
+        <a href="../same-structure-standalone.html" target="_blank"
+           style="position:absolute; bottom:0.85rem; right:1rem; z-index:20; font-size:0.6rem; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.28); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.12); padding-bottom:1px; transition:color .2s;"
+           onmouseover="this.style.color='rgba(255,255,255,0.6)'" onmouseout="this.style.color='rgba(255,255,255,0.28)'">
+          Open full view ↗
+        </a>
+      </div>
+
+      <p style="font-size:0.72rem; color:var(--text-dim); margin-top:0.85rem; text-align:center;">Sources: PPLAAF + Mediapart, Congo Hold-Up (2021) · ACDC, "Insider Risks in Polymarket Political Markets" — Kendler-Kretsch & Szakonyi (April 30, 2026) · ALL IN documentary research</p>
+    </div>
+  </div>
+
+</section>
+
+<!-- ════════════════════════════════════════════════════════
+     PANEL 07 — WHY NOW
+════════════════════════════════════════════════════════ -->
+<section id="panel-whynow" class="panel">
+  <div class="section">
+    <span class="eyebrow">Why This Film. Why Now.</span>
+    <h2 class="section-title" style="max-width:820px;">The evidence is assembled. The trial is scheduled. The window is open.<br>It won't be open forever.</h2>
+
+    <p class="section-lead" style="max-width:780px;">This is not a story that needs more reporting. It needs to be told. The researchers are on record. The attorney is building the civil case. The veteran is named. The wallets are public. Federal charges have been filed. A trial date is set. What doesn't exist yet is a film that connects all of it — in a way a general audience can sit with.</p>
+
+    <!-- URGENCY GRID -->
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; margin:3rem 0;">
+
+      <div style="background:var(--card-bg); border:1px solid var(--border); border-left:3px solid var(--red); padding:1.75rem;">
+        <div style="font-size:0.58rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--red); margin-bottom:0.6rem;">The Trial</div>
+        <h3 style="font-family:Georgia,serif; font-size:1.1rem; margin-bottom:0.75rem; line-height:1.35;">December 7, 2026</h3>
+        <p style="font-size:0.82rem; color:var(--text-mid); line-height:1.7;">USA v. Van Dyke begins in federal court. An Army sergeant who placed prediction market bets on military strikes he participated in. First federal prosecution using prediction markets as the mechanism. This is our third act — already written.</p>
+      </div>
+
+      <div style="background:var(--card-bg); border:1px solid var(--border); border-left:3px solid var(--amber); padding:1.75rem;">
+        <div style="font-size:0.58rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--amber); margin-bottom:0.6rem;">The Record</div>
+        <h3 style="font-family:Georgia,serif; font-size:1.1rem; margin-bottom:0.75rem; line-height:1.35;">Sources On Record Now</h3>
+        <p style="font-size:0.82rem; color:var(--text-mid); line-height:1.7;">Hornsby. Kovel. Douglas. Levant. Thompson. All willing to go on camera. The ACDC data is published and citable. The civil cases are filed. Court records are public. The reporting window that produces this level of access doesn't stay open.</p>
+      </div>
+
+      <div style="background:var(--card-bg); border:1px solid var(--border); border-left:3px solid #4A90D9; padding:1.75rem;">
+        <div style="font-size:0.58rem; letter-spacing:0.22em; text-transform:uppercase; color:#4A90D9; margin-bottom:0.6rem;">The Structure</div>
+        <h3 style="font-family:Georgia,serif; font-size:1.1rem; margin-bottom:0.75rem; line-height:1.35;">The CFTC Has One Commissioner</h3>
+        <p style="font-size:0.82rem; color:var(--text-mid); line-height:1.7;">No quorum. No oversight. No dissent on record. In 12–18 months, a new administration installs new commissioners and the legal architecture Selig built — the court briefs, the state preemptions, the disbanded enforcement unit — becomes settled precedent. That's not recoverable.</p>
+      </div>
+    </div>
+
+    <!-- THE DEADLINE LINE -->
+    <div class="deployment-banner reveal" style="margin:2rem 0;">
+      <div class="deadline-dot"></div>
+      <div>
+        <strong>TODAY — June 18, 2026: Warren's CFTC Deadline</strong>
+        <p style="margin-top:0.4rem; font-size:0.85rem; color:var(--text-mid);">Senator Warren's June 5 letter gave the CFTC today as the deadline to produce records on Polymarket reinstatement, Gemini fast-tracking, and the removal of staff who questioned the Crypto.com partnership. If Selig responded — that's a story. If he ignored the Senate — that's a bigger one.</p>
+      </div>
+    </div>
+
+    <!-- COMPARABLE FILMS -->
+    <div style="margin:3rem 0 2rem; padding-top:2.5rem; border-top:1px solid var(--border);">
+      <span class="eyebrow">This Film Belongs In This Company</span>
+      <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-top:1.5rem;">
+        <div style="padding:1.25rem; background:var(--card-bg); border:1px solid var(--border); text-align:center;">
+          <div style="font-family:Georgia,serif; font-size:0.95rem; font-weight:700; margin-bottom:0.4rem;">The Social Dilemma</div>
+          <div style="font-size:0.72rem; color:var(--text-dim);">Platform addiction as systemic design — not individual failure</div>
+        </div>
+        <div style="padding:1.25rem; background:var(--card-bg); border:1px solid var(--border); text-align:center;">
+          <div style="font-family:Georgia,serif; font-size:0.95rem; font-weight:700; margin-bottom:0.4rem;">Crime of the Century</div>
+          <div style="font-size:0.72rem; color:var(--text-dim);">Industry money buys the regulator that permits the harm</div>
+        </div>
+        <div style="padding:1.25rem; background:var(--card-bg); border:1px solid var(--border); text-align:center;">
+          <div style="font-family:Georgia,serif; font-size:0.95rem; font-weight:700; margin-bottom:0.4rem;">All the Beauty and the Bloodshed</div>
+          <div style="font-size:0.72rem; color:var(--text-dim);">Art + activism + investigative depth as one object</div>
+        </div>
+        <div style="padding:1.25rem; background:var(--card-bg); border:1px solid var(--border); text-align:center;">
+          <div style="font-family:Georgia,serif; font-size:0.95rem; font-weight:700; margin-bottom:0.4rem;">Citizenfour</div>
+          <div style="font-size:0.72rem; color:var(--text-dim);">State surveillance + live footage + urgency that can't be reconstructed</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLOSING PITCH LINE -->
+    <div class="pull-quote reveal" style="margin:2.5rem 0 0;">
+      <p>"There will always be insider trading on these platforms. It's inherent to the product. You cannot separate the mechanism from the manipulation."</p>
+      <cite>David Kovel — Securities Attorney · Kirby McInerney · 60 Minutes, May 2026</cite>
+    </div>
+  </div>
+</section>
+
+<section id="panel-ask" class="panel" style="background:var(--black); color:#fff;">
+
+  <!-- HERO -->
+  <div style="background:linear-gradient(180deg, rgba(177,18,38,0.22) 0%, rgba(10,10,10,0) 65%), #0A0A0A; border-bottom:1px solid var(--border); padding:5rem 2rem 4rem; text-align:center;">
+    <div style="max-width:860px; margin:0 auto;">
+      <div style="font-size:0.6rem; letter-spacing:0.32em; text-transform:uppercase; color:var(--red); margin-bottom:1.2rem;">A Film by Pedro Feria Pino, SOC</div>
+      <h1 style="font-family:Georgia,serif; font-size:clamp(2.4rem,5vw,4rem); font-weight:700; line-height:1.1; margin-bottom:1.5rem; letter-spacing:-0.01em; color:#fff;">ALL IN<br><span style="font-size:0.45em; font-weight:400; color:rgba(255,255,255,0.55); letter-spacing:0.06em; text-transform:uppercase;">Betting on America</span></h1>
+      <p style="font-size:1.1rem; color:rgba(255,255,255,0.6); line-height:1.75; max-width:640px; margin:0 auto 2.5rem;">A feature documentary about prediction markets, intelligence infrastructure, and the architecture of anonymous political betting — built on top of American foreign policy, one event at a time.</p>
+      <div style="display:flex; gap:0.75rem; justify-content:center; flex-wrap:wrap;">
+        <div style="background:var(--red); color:#fff; padding:0.5rem 1.4rem; font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase; border-radius:2px;">40–55 Min Feature</div>
+        <div style="border:1px solid var(--border); color:rgba(255,255,255,0.5); padding:0.5rem 1.4rem; font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase; border-radius:2px;">Series Extension Available</div>
+        <div style="border:1px solid rgba(177,18,38,0.4); color:rgba(177,18,38,0.85); padding:0.5rem 1.4rem; font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase; border-radius:2px;">Van Dyke Trial: Dec 7, 2026</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- THREE PILLARS -->
+  <div style="max-width:1200px; margin:0 auto; padding:4rem 2rem; background:var(--black);">
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; margin-bottom:4rem;">
+      <div style="background:var(--card-bg); border:1px solid var(--border); border-top:3px solid var(--red); padding:2rem;">
+        <div style="font-size:0.58rem; letter-spacing:0.24em; text-transform:uppercase; color:var(--red); margin-bottom:0.75rem;">The Story</div>
+        <h3 style="font-family:Georgia,serif; font-size:1.15rem; margin-bottom:1rem; line-height:1.35; color:#fff;">A crime with no name — and a regulator actively protecting it</h3>
+        <p style="font-size:0.85rem; color:rgba(255,255,255,0.55); line-height:1.75;">From an 18-year-old airman placing bets from a Middle East hangar, to a $15 billion platform with the President's son on its advisory board — and a single CFTC commissioner who went from defending crypto firms to running enforcement policy. The story of how insider trading became legal by becoming something else.</p>
+      </div>
+      <div style="background:var(--card-bg); border:1px solid var(--border); border-top:3px solid var(--amber); padding:2rem;">
+        <div style="font-size:0.58rem; letter-spacing:0.24em; text-transform:uppercase; color:var(--amber); margin-bottom:0.75rem;">The Access</div>
+        <h3 style="font-family:Georgia,serif; font-size:1.15rem; margin-bottom:1rem; line-height:1.35; color:#fff;">On-record sources. Live evidence. A trial date set.</h3>
+        <p style="font-size:0.85rem; color:rgba(255,255,255,0.55); line-height:1.75;">The researchers who exposed it. The attorney building the civil case. The veteran who lost everything. The investigator who traced the wallets. The academics who documented the addiction patterns. And a federal trial beginning December 7, 2026 — our third act is already written.</p>
+      </div>
+      <div style="background:var(--card-bg); border:1px solid var(--border); border-top:3px solid #4A90D9; padding:2rem;">
+        <div style="font-size:0.58rem; letter-spacing:0.24em; text-transform:uppercase; color:#4A90D9; margin-bottom:0.75rem;">The Timing</div>
+        <h3 style="font-family:Georgia,serif; font-size:1.15rem; margin-bottom:1rem; line-height:1.35; color:#fff;">This window does not stay open</h3>
+        <p style="font-size:0.85rem; color:rgba(255,255,255,0.55); line-height:1.75;">The CFTC has one commissioner and no quorum. Congress has not acted. The evidence exists now, on record, in published research. The Van Dyke trial brings it into open court. In twelve to eighteen months, either the story is told — or the structure becomes permanent.</p>
+      </div>
+    </div>
+
+    <!-- THE ASK BLOCK -->
+    <div style="background:linear-gradient(135deg, rgba(177,18,38,0.1) 0%, rgba(20,20,20,0.98) 50%); border:1px solid rgba(177,18,38,0.25); border-radius:4px; padding:3rem; margin-bottom:3rem;">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:start;">
+        <div>
+          <div style="font-size:0.6rem; letter-spacing:0.24em; text-transform:uppercase; color:var(--red); margin-bottom:1rem;">The Ask</div>
+          <h2 style="font-family:Georgia,serif; font-size:1.9rem; line-height:1.2; margin-bottom:1.5rem; color:#fff;">We are looking for a production or distribution partner to bring this film to completion.</h2>
+          <p style="font-size:0.9rem; color:rgba(255,255,255,0.6); line-height:1.75; margin-bottom:1.25rem;">Development is complete. Sources are on record. Primary research is published. We are ready to move into production.</p>
+          <p style="font-size:0.9rem; color:rgba(255,255,255,0.6); line-height:1.75;">If you commission investigative documentary work and want the clearest story about what prediction markets actually are — this is it.</p>
+        </div>
+        <div>
+          <div style="font-size:0.6rem; letter-spacing:0.24em; text-transform:uppercase; color:rgba(255,255,255,0.3); margin-bottom:1.25rem;">Distribution Targets</div>
+          <div style="display:flex; flex-direction:column; gap:0.75rem; margin-bottom:2rem;">
+            <div style="display:flex; align-items:center; gap:0.75rem; padding:0.75rem 1rem; background:rgba(255,255,255,0.04); border-left:2px solid var(--red);">
+              <span style="font-size:0.7rem; letter-spacing:0.1em; color:var(--red); text-transform:uppercase; min-width:40px;">Tier 1</span>
+              <span style="font-size:0.85rem; color:rgba(255,255,255,0.75);">FRONTLINE · HBO Documentary · Netflix · Showtime</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:0.75rem; padding:0.75rem 1rem; background:rgba(255,255,255,0.04); border-left:2px solid var(--amber);">
+              <span style="font-size:0.7rem; letter-spacing:0.1em; color:var(--amber); text-transform:uppercase; min-width:40px;">Tier 2</span>
+              <span style="font-size:0.85rem; color:rgba(255,255,255,0.75);">CNN Films · Hulu · Apple TV+ · Amazon Documentary</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:0.75rem; padding:0.75rem 1rem; background:rgba(255,255,255,0.04); border-left:2px solid rgba(255,255,255,0.2);">
+              <span style="font-size:0.7rem; letter-spacing:0.1em; color:rgba(255,255,255,0.4); text-transform:uppercase; min-width:40px;">Fest</span>
+              <span style="font-size:0.85rem; color:rgba(255,255,255,0.75);">Sundance · SXSW · Tribeca · Hot Docs</span>
+            </div>
+          </div>
+          <div style="font-size:0.6rem; letter-spacing:0.24em; text-transform:uppercase; color:rgba(255,255,255,0.3); margin-bottom:0.75rem;">Comparable Films</div>
+          <p style="font-size:0.82rem; color:rgba(255,255,255,0.5); line-height:1.6; font-style:italic;">The Social Dilemma · Crime of the Century · All the Beauty and the Bloodshed · Citizenfour</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOURCES ON RECORD -->
+    <div style="margin-bottom:3rem;">
+      <div style="font-size:0.6rem; letter-spacing:0.24em; text-transform:uppercase; color:rgba(255,255,255,0.3); margin-bottom:1.25rem;">Sources on Record</div>
+      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1rem;">
+        <div style="padding:1.25rem; background:var(--card-bg); border:1px solid var(--border);">
+          <div style="font-size:0.78rem; font-weight:600; color:#fff; margin-bottom:0.3rem;">Andrew Douglas</div>
+          <div style="font-size:0.72rem; color:rgba(255,255,255,0.45);">Rolling Stone · Named source · Tier 1 victim</div>
+        </div>
+        <div style="padding:1.25rem; background:var(--card-bg); border:1px solid var(--border);">
+          <div style="font-size:0.78rem; font-weight:600; color:#fff; margin-bottom:0.3rem;">Michael Hornsby</div>
+          <div style="font-size:0.72rem; color:rgba(255,255,255,0.45);">ACDC Co-Director · Congo Hold-Up · Wallets identified</div>
+        </div>
+        <div style="padding:1.25rem; background:var(--card-bg); border:1px solid var(--border);">
+          <div style="font-size:0.78rem; font-weight:600; color:#fff; margin-bottom:0.3rem;">David Kovel</div>
+          <div style="font-size:0.72rem; color:rgba(255,255,255,0.45);">Kirby McInerney · CFTC Whistleblower Award 2021 · Civil case</div>
+        </div>
+        <div style="padding:1.25rem; background:var(--card-bg); border:1px solid var(--border);">
+          <div style="font-size:0.78rem; font-weight:600; color:#fff; margin-bottom:0.3rem;">Harry Levant</div>
+          <div style="font-size:0.72rem; color:rgba(255,255,255,0.45);">PHAI · Northeastern University · Addiction research</div>
+        </div>
+        <div style="padding:1.25rem; background:var(--card-bg); border:1px solid var(--border);">
+          <div style="font-size:0.78rem; font-weight:600; color:#fff; margin-bottom:0.3rem;">Terry Thompson</div>
+          <div style="font-size:0.72rem; color:rgba(255,255,255,0.45);">PHAI plaintiff · Named · Second and third mortgages</div>
+        </div>
+        <div style="padding:1.25rem; background:var(--card-bg); border:1px solid var(--border);">
+          <div style="font-size:0.78rem; font-weight:600; color:#fff; margin-bottom:0.3rem;">Court Records</div>
+          <div style="font-size:0.72rem; color:rgba(255,255,255,0.45);">USA v. Van Dyke · PHAI v. DraftKings · Warren CFTC letter</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTACT -->
+    <div style="text-align:center; padding:3rem 2rem; border-top:1px solid var(--border);">
+      <div style="font-size:0.6rem; letter-spacing:0.32em; text-transform:uppercase; color:rgba(255,255,255,0.25); margin-bottom:1.5rem;">Contact</div>
+      <h3 style="font-family:Georgia,serif; font-size:1.8rem; margin-bottom:0.5rem; color:#fff;">Pedro Feria Pino, SOC</h3>
+      <p style="font-size:0.9rem; color:rgba(255,255,255,0.45); margin-bottom:0.75rem;">Director / Producer · Society of Camera Operators</p>
+      <a href="mailto:vefilm@gmail.com" style="font-size:1rem; color:var(--red); text-decoration:none; letter-spacing:0.04em; border-bottom:1px solid rgba(177,18,38,0.3); padding-bottom:2px;">vefilm@gmail.com</a>
+      <br><a href="https://www.pedroferiapino.com" target="_blank" style="font-size:0.88rem; color:rgba(255,255,255,0.4); text-decoration:none; letter-spacing:0.04em; margin-top:0.5rem; display:inline-block;">www.pedroferiapino.com ↗</a>
+      <p style="margin-top:2.5rem; font-size:0.72rem; color:rgba(255,255,255,0.18); max-width:640px; margin-left:auto; margin-right:auto; line-height:1.7;">This pitch deck contains research gathered in the production of ALL IN: Betting on America — Pedro Feria Pino, SOC. All figures sourced from ACDC published reports, court filings, legislative records, and on-record interviews. Congo Hold-Up attribution: PPLAAF + Mediapart, 2021.</p>
+    </div>
+  </div>
+
+</section>
+
+<script>
+function switchTab(id, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  setTimeout(runReveal, 100);
+  if (id === 'evidence') setTimeout(animateACDC, 400);
+}
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+function runReveal() {
+  document.querySelectorAll('.panel.active .reveal').forEach(el => {
+    ro.observe(el);
+    const r = el.getBoundingClientRect();
+    if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('visible');
+  });
+}
+runReveal();
+window.addEventListener('scroll', () => {
+  const panel = document.querySelector('.panel.active');
+  if (!panel) return;
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = h > 0 ? (window.scrollY / h) * 100 : 0;
+  const pb = document.getElementById('progressBar');
+  if (pb) pb.style.width = pct + '%';
+});
+function animateACDC() {
+  const r = document.getElementById('redBar');
+  const d = document.getElementById('dimBar');
+  if (r) { r.style.width = '0%'; setTimeout(() => { r.style.width = '51.8%'; }, 50); }
+  if (d) { d.style.width = '0%'; setTimeout(() => { d.style.width = '14%'; }, 50); }
+}
+const TL_EVENTS = [
+  { date: 'May 2018', label: 'PASPA struck down', body: 'Supreme Court eliminates the federal sports betting ban. The $150B industry is born overnight.', cat: 'blue', pct: 2 },
+  { date: '2022', label: 'CFTC fines Polymarket $1.4M', body: 'CFTC fines Polymarket and bans US users. Four years later both DOJ and CFTC probes dropped — same month — no charges.', cat: 'red', pct: 9 },
+  { date: 'May 2024', label: 'Founders Fund $70M · $1.2B valuation', body: "Peter Thiel's Founders Fund leads a $70M round at $1.2B valuation.", cat: 'gold', pct: 17 },
+  { date: 'Oct-Nov 2024', label: "FBI seizes Coplan's phone", body: "FBI seizes Polymarket CEO Shayne Coplan's phone. Investigation opens. New administration takes office Jan 20. Case closed — no charges.", cat: 'red', pct: 24 },
+  { date: 'Jan 2025', label: 'DOJ drops Coplan case', body: "New administration in office. DOJ closes the Coplan investigation. No charges. No explanation.", cat: 'red', pct: 31 },
+  { date: 'Jul 2025', label: 'DOJ + CFTC drop all probes', body: 'Both federal probes dropped simultaneously — no charges. Same month: Polymarket acquires QCEX for $112M — US regulatory foothold.', cat: 'red', pct: 38 },
+  { date: 'Aug 2025', label: 'Trump Jr. invests — 5 weeks later', body: '1789 Capital / Donald Trump Jr. invests double-digit millions in Polymarket. Five weeks after both federal investigations dropped with no charges.', cat: 'gold', pct: 44 },
+  { date: 'Oct 2025', label: 'ICE $2B · Truth Predict · Selig nominated', body: 'ICE commits $2B at $9B valuation. Trump Media + Crypto.com announce Truth Predict. Selig nominated as CFTC Chair — former clients include Truth Predict partners.', cat: 'red', pct: 50 },
+  { date: 'Dec 2025', label: 'Selig confirmed 53-43', body: "Senate confirms Selig. CFTC chair's former clients include Truth Predict business partners. Ethics recusal expires mid-2026.", cat: 'red', pct: 56 },
+  { date: 'Jan-Feb 2026', label: 'CEO Innovation Council · 58→11 staff', body: "Selig disbands TAC. Creates 35-member CEO Innovation Council: Coplan (Polymarket), Mansour (Kalshi), Winklevoss (Gemini), Marszalek (Crypto.com). Enforcement: 58 to 11 staff.", cat: 'red', pct: 62 },
+  { date: 'Mar 23, 2026', label: 'Oil trade 1 — $800M', body: '$800M coordinated oil short. Trump Truth Social post 15 min later. Flagged by David Kovel (Kirby McInerney). No CFTC investigation.', cat: 'amber', pct: 68 },
+  { date: 'Apr 7, 2026', label: 'Oil trade 2 — $950M', body: '$950M oil short. Ceasefire announced 2.5 hours later. $1.75B combined. Kovel on 60 Minutes. No CFTC investigation.', cat: 'amber', pct: 73 },
+  { date: 'Apr 22-30, 2026', label: 'Senate bans itself — 8 days', body: 'Kalshi suspends 3 congressional candidates betting on own races (Apr 22). Senate unanimously bans prediction market trading for members (Apr 30). Eight days to protect themselves. No consumer protection passed.', cat: 'blue', pct: 78 },
+  { date: 'Apr 23, 2026', label: 'Van Dyke indicted', body: '$409K, 13 bets, advance knowledge of Operation Absolute Resolve. Charged: wire fraud + commodities fraud. NOT insider trading — no statute. Trial: Dec 7, 2026.', cat: 'amber', pct: 83 },
+  { date: 'May 27, 2026', label: 'Spagnuolo / AlphaRaccoon charged', body: 'Spagnuolo identified as AlphaRaccoon by Bubblemaps. $1.2M on Google Year in Search outcomes using advance data access. Charged May 27, 2026.', cat: 'amber', pct: 87 },
+  { date: 'Jun 11, 2026', label: 'ACDC names wallets — still active', body: 'ACDC / Der Standard names Skoobidoobnj and 0xoracle. Iran Nine cluster: 9 wallets, $2.4M, 98% win rate. Both wallets still active. CFTC silent.', cat: 'red', pct: 91 },
+  { date: 'Jun 18, 2026', label: 'TODAY — Warren deadline', body: "Warren's deadline for CFTC to produce records on oil trades, Polymarket reinstatement, Gemini fast-track approval. No response announced.", cat: 'blue', pct: 95 },
+  { date: 'Dec 7, 2026', label: 'Van Dyke trial begins', body: 'First federal trial for prediction market insider trading. DOJ improvising with 1983 commodities fraud statute. The crime still has no proper name. If convicted: the template for all future prosecutions.', cat: 'amber', pct: 99 }
+];
+
+let tlZoom = 1;
+const TL_BASE_WIDTH = 4200;
+
+function buildTimeline() {
+  const canvas = document.getElementById('tlCanvas');
+  const line = document.getElementById('tlLine');
+  if (!canvas) return;
+  const w = TL_BASE_WIDTH * tlZoom;
+  canvas.style.width = w + 'px';
+  if (line) line.style.width = w + 'px';
+  canvas.querySelectorAll('.pm-node').forEach(n => n.remove());
+  // 4-level stagger: above-far, below-near, below-far, above-near
+  const offsets = [52, 18, 44, 24];  // px from line
+  const sides   = ['above','below','below','above'];
+  TL_EVENTS.forEach((ev, i) => {
+    const x = 60 + (w - 120) * ev.pct / 100;
+    const tier = i % 4;
+    const side = sides[tier];
+    const offset = offsets[tier];
+    const node = document.createElement('div');
+    node.className = 'pm-node';
+    node.style.left = x + 'px';
+    // Short date: strip ", 2026" or ", 2025" etc for compactness
+        const shortDate = ev.date.replace(/, 20\d\d/, '').replace(/20(\d\d)/, "'$1");
+    const dotColor = ev.cat === 'red' ? 'var(--red)' : ev.cat === 'amber' ? 'var(--amber)' : ev.cat === 'gold' ? 'var(--gold)' : '#4A90D9';
+    const shortLabel = ev.label.length > 22 ? ev.label.slice(0,20) + '\u2026' : ev.label;
+    node.innerHTML = `
+      <div class="pm-node-dot" style="background:${dotColor}"></div>
+      <div class="pm-node-label ${side}" style="--offset:${offset}px; max-width:115px; white-space:normal;">
+        <span style="display:block;font-size:0.5rem;color:rgba(255,255,255,0.4);margin-bottom:2px;">${shortDate}</span>
+        <strong style="display:block;font-size:0.58rem;line-height:1.25;color:rgba(255,255,255,0.85);font-weight:600;">${shortLabel}</strong>
+      </div>`;
+    node.title = ev.label + ' — ' + ev.body;
+    node.addEventListener('click', (e) => showPopup(e, ev));
+    canvas.appendChild(node);
+    // Also make the label text clickable (it's position:absolute, outside hit area)
+    const lbl = node.querySelector('.pm-node-label');
+    if (lbl) {
+      lbl.style.cursor = 'pointer';
+      lbl.addEventListener('click', (e) => { e.stopPropagation(); showPopup(e, ev); });
+    }
+  });
+}
+
+function showPopup(e, ev) {
+  const popup = document.getElementById('pmPopup');
+  document.getElementById('pmPopupDate').textContent = ev.date;
+  document.getElementById('pmPopupTitle').textContent = ev.label;
+  document.getElementById('pmPopupBody').textContent = ev.body;
+  popup.classList.add('visible');
+  const vw = window.innerWidth, vh = window.innerHeight;
+  let px = e.clientX + 16, py = e.clientY - 20;
+  if (px + 290 > vw) px = e.clientX - 296;
+  if (py + 220 > vh) py = vh - 230;
+  popup.style.left = px + 'px';
+  popup.style.top = py + 'px';
+  e.stopPropagation();
+}
+
+function closePopup() { document.getElementById('pmPopup').classList.remove('visible'); }
+document.addEventListener('click', () => closePopup());
+
+function tlZoomIn()    { tlZoom = Math.min(tlZoom * 1.5, 4); updateTL(); }
+function tlZoomOut()   { tlZoom = Math.max(tlZoom / 1.5, 0.6); updateTL(); }
+function tlReset()     { tlZoom = 1; updateTL(); }
+function updateTL()    {
+  buildTimeline();
+  const outer = document.getElementById('tlOuter');
+  if (outer) outer.scrollLeft = 0;
+  const lbl = document.getElementById('tlZoomLabel');
+  if (lbl) lbl.textContent = Math.round(tlZoom * 100) / 100 + '×';
+}
+
+// ── DRAG-SCROLL TIMELINE ──────────────────────────────────
+(function() {
+  const outer = document.getElementById('tlOuter');
+  if (!outer) return;
+  let down = false, sx = 0, sl = 0;
+  outer.addEventListener('mousedown', e => { down = true; sx = e.clientX; sl = outer.scrollLeft; outer.style.cursor = 'grabbing'; });
+  document.addEventListener('mouseup', () => { down = false; if (outer) outer.style.cursor = 'grab'; });
+  document.addEventListener('mousemove', e => { if (!down) return; outer.scrollLeft = sl - (e.clientX - sx); });
+})();
+
+// ── BUILD + INIT ──────────────────────────────────────────
+window.addEventListener('load', () => { buildTimeline(); runReveal(); });
+</script>
+</body>
+</html>
