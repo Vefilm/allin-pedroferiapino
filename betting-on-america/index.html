@@ -1931,6 +1931,274 @@ body {
         <span class="investor-flag flag-red">Direct Conflict · Recusal Expiring</span>
       </div>
     </div>
+
+    <!-- ── NETWORK WEB ─────────────────────────────────────── -->
+    <span class="eyebrow" style="margin-top:3rem; display:block;">The Power Network</span>
+    <p class="section-lead reveal" style="max-width:760px; margin-bottom:1.5rem;">Every node is a documented relationship. Click any node to inspect the evidence. Dashed lines are conflicts of interest.</p>
+    <div id="nw-root" class="reveal" style="background:#0D0D0D; border:1px solid rgba(255,255,255,0.07); border-radius:6px; overflow:hidden;">
+      <div style="display:flex; flex-direction:column; gap:0;">
+        <!-- SVG canvas -->
+        <div style="padding:1.25rem 1.5rem; border-bottom:1px solid rgba(255,255,255,0.06); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.75rem;">
+          <span style="font-size:0.65rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--red); font-weight:700;">Partnership &amp; Regulatory Network</span>
+          <div style="display:flex; gap:1.25rem; font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.3);">
+            <span style="display:flex;align-items:center;gap:5px;"><span style="display:inline-block;width:18px;height:2px;background:#B11226;"></span>Capital / Equity</span>
+            <span style="display:flex;align-items:center;gap:5px;"><span style="display:inline-block;width:18px;height:2px;background:#B11226;border-top:2px dashed #B11226;"></span>Conflict / Lobbying</span>
+          </div>
+        </div>
+        <div style="display:flex; flex-wrap:wrap;">
+          <div style="flex:1; min-width:280px; padding:0; position:relative; min-height:380px;">
+            <svg id="nw-svg" viewBox="0 0 700 420" style="width:100%;height:100%;min-height:360px;display:block;" preserveAspectRatio="xMidYMid meet"></svg>
+          </div>
+          <div id="nw-inspector" style="width:260px; min-width:220px; padding:1.5rem 1.25rem; border-left:1px solid rgba(255,255,255,0.06); background:#0A0A0A; display:flex; flex-direction:column; gap:0.75rem;">
+            <span style="font-size:0.58rem; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.25);">Node Inspector</span>
+            <div id="nw-node-name" style="font-size:0.85rem; font-weight:700; color:#fff; line-height:1.3;">Select a node</div>
+            <div id="nw-node-cat" style="font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; padding:2px 8px; border-radius:2px; display:inline-block; width:fit-content; background:rgba(177,18,38,0.15); color:#B11226; border:1px solid rgba(177,18,38,0.3);">—</div>
+            <div id="nw-node-desc" style="font-size:0.72rem; color:rgba(255,255,255,0.5); line-height:1.7; border-top:1px solid rgba(255,255,255,0.06); padding-top:0.75rem; margin-top:0.25rem;">Click any node in the graph to see its documented connections and financial relationships.</div>
+            <div id="nw-node-facts" style="display:flex; flex-direction:column; gap:0.5rem; margin-top:0.25rem;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+    ;(function() {
+      var CAT_COLORS = {
+        core:      '#B11226',
+        capital:   '#C9A84C',
+        regulator: '#4a5568',
+        product:   '#E8A04A'
+      };
+      var CAT_LABELS = {
+        core:      'Core Platform',
+        capital:   'Capital / Equity',
+        regulator: 'Regulator',
+        product:   'Sovereign Product'
+      };
+
+      var nodes = [
+        { id:'polymarket', label:'Polymarket', lx:350, ly:205, r:40, cat:'core',
+          desc:'The platform. CFTC-banned in 2022. $1B → $9B → $15B valuation in 36 months.',
+          facts:['Fined $1.4M by CFTC in 2022 — banned US users, operated offshore.',
+                 'Acquired CFTC-licensed QCEX for $112M — July 2025, same month DOJ dropped all probes.',
+                 'Valuation: $1.2B (May 2024) → $9B (Oct 2025) → $15B (Early 2026).'] },
+        { id:'trump-jr', label:"Trump Jr. / 1789", lx:158, ly:100, r:25, cat:'capital',
+          desc:'Equity investor and advisory board member — 5 weeks after DOJ and CFTC simultaneously dropped all investigations.',
+          facts:['Double-digit millions invested in Polymarket equity, August 2025.',
+                 '5 weeks after both federal investigations dropped with no charges and no explanation.',
+                 'Paid advisor to Kalshi — a direct Polymarket competitor.'] },
+        { id:'founders-fund', label:"Founders Fund", lx:125, ly:215, r:23, cat:'capital',
+          desc:'Led $70M round at $1.2B valuation, May 2024. Peter Thiel — longtime Trump-aligned political operator.',
+          facts:['Led $70M Series B at $1.2B valuation, May 2024.',
+                 'Established institutional legitimacy for decentralized outcomes trading.',
+                 'Thiel: architect of the PayPal–to–crypto–to–Trump capital pipeline.'] },
+        { id:'ice', label:"ICE", lx:158, ly:330, r:23, cat:'capital',
+          desc:'Intercontinental Exchange. $2B committed at $9B valuation, October 2025.',
+          facts:['Committed $2B at $9B valuation — October 2025.',
+                 'One of the world\'s largest financial exchange operators.',
+                 'Investment gave Polymarket institutional credibility with traditional finance.'] },
+        { id:'selig', label:"Michael Selig\nCFTC Chair", lx:542, ly:100, r:25, cat:'regulator',
+          desc:'Age 36. Confirmed December 2025, 53–43. Former partner at Willkie Farr & Gallagher — represented Crypto.com.',
+          facts:['Confirmed CFTC Chair, December 2025, 53–43 Senate vote.',
+                 'Former partner at Willkie Farr — represented dozens of crypto clients including Crypto.com.',
+                 'Ethics recusal expires mid-2026. 4 of 5 commissioner seats vacant.'] },
+        { id:'ceo-council', label:"CEO Innovation\nCouncil", lx:572, ly:215, r:22, cat:'regulator',
+          desc:'35 industry executives. Replaced the independent Technology Advisory Committee. Includes Coplan, Mansour, Winklevoss, Marszalek.',
+          facts:['Selig disbanded the Technology Advisory Committee and replaced it.',
+                 'Members include Coplan (Polymarket), Mansour (Kalshi), Tyler Winklevoss (Gemini), Marszalek (Crypto.com).',
+                 'Enforcement actions: 58 (2022) → 11 (2026).'] },
+        { id:'cftc-hollow', label:"CFTC Quorum\n(4 seats vacant)", lx:542, ly:330, r:22, cat:'regulator',
+          desc:'4 of 5 commissioner seats vacant. No dissenting votes possible. 50+ amicus briefs filed defending prediction platforms from state law.',
+          facts:['4 of 5 commissioner seats vacant — no quorum, no dissent.',
+                 'Selig is the sole decision-maker on all regulatory actions.',
+                 '50+ amicus briefs filed in state courts defending Polymarket and Kalshi.'] },
+        { id:'truth-predict', label:"Truth Predict", lx:350, ly:360, r:27, cat:'product',
+          desc:'Trump Media + Crypto.com. Announced October 2025. Prediction market integrated into Truth Social. Selig\'s former client is its co-creator.',
+          facts:['Trump Media + Crypto.com joint venture, announced October 2025.',
+                 'Betting on political and military events integrated into Trump\'s social network.',
+                 'Selig\'s former law client (Crypto.com) co-created this platform. Recusal expires mid-2026.'] }
+      ];
+
+      var edges = [
+        { from:'polymarket', to:'trump-jr',       type:'equity' },
+        { from:'polymarket', to:'founders-fund',  type:'equity' },
+        { from:'polymarket', to:'ice',             type:'equity' },
+        { from:'polymarket', to:'truth-predict',  type:'synergy' },
+        { from:'polymarket', to:'selig',           type:'conflict' },
+        { from:'selig',      to:'ceo-council',    type:'admin' },
+        { from:'selig',      to:'cftc-hollow',    type:'admin' },
+        { from:'truth-predict', to:'trump-jr',    type:'family' },
+        { from:'truth-predict', to:'ceo-council', type:'conflict' }
+      ];
+
+      var selected = 'polymarket';
+      var svg = document.getElementById('nw-svg');
+      var NS = 'http://www.w3.org/2000/svg';
+
+      function nodeById(id) { return nodes.find(function(n){return n.id===id;}); }
+
+      function isConnected(id) {
+        if (!selected) return false;
+        if (id === selected) return true;
+        return edges.some(function(e){
+          return (e.from===selected&&e.to===id)||(e.to===selected&&e.from===id);
+        });
+      }
+
+      function buildSVG() {
+        while (svg.firstChild) svg.removeChild(svg.firstChild);
+
+        // defs
+        var defs = document.createElementNS(NS,'defs');
+        // glow filter
+        var filter = document.createElementNS(NS,'filter');
+        filter.setAttribute('id','nw-glow');
+        filter.setAttribute('x','-50%'); filter.setAttribute('y','-50%');
+        filter.setAttribute('width','200%'); filter.setAttribute('height','200%');
+        var feBlur = document.createElementNS(NS,'feGaussianBlur');
+        feBlur.setAttribute('stdDeviation','3'); feBlur.setAttribute('result','blur');
+        var feMerge = document.createElementNS(NS,'feMerge');
+        var m1 = document.createElementNS(NS,'feMergeNode'); m1.setAttribute('in','blur');
+        var m2 = document.createElementNS(NS,'feMergeNode'); m2.setAttribute('in','SourceGraphic');
+        feMerge.appendChild(m1); feMerge.appendChild(m2);
+        filter.appendChild(feBlur); filter.appendChild(feMerge);
+        defs.appendChild(filter);
+        svg.appendChild(defs);
+
+        // edges
+        edges.forEach(function(e) {
+          var fn = nodeById(e.from), tn = nodeById(e.to);
+          if (!fn || !tn) return;
+          var active = selected && (e.from===selected||e.to===selected);
+          var line = document.createElementNS(NS,'line');
+          line.setAttribute('x1', fn.lx); line.setAttribute('y1', fn.ly);
+          line.setAttribute('x2', tn.lx); line.setAttribute('y2', tn.ly);
+          line.setAttribute('stroke', active ? '#B11226' : 'rgba(255,255,255,0.08)');
+          line.setAttribute('stroke-width', active ? '2.5' : '1.5');
+          if (e.type==='conflict'||e.type==='lobbying') {
+            line.setAttribute('stroke-dasharray','5,4');
+          }
+          line.style.transition = 'stroke 0.2s, stroke-width 0.2s';
+          svg.appendChild(line);
+
+          // midpoint pulse on active
+          if (active) {
+            var mx = (fn.lx+tn.lx)/2, my = (fn.ly+tn.ly)/2;
+            var dot = document.createElementNS(NS,'circle');
+            dot.setAttribute('cx', mx); dot.setAttribute('cy', my); dot.setAttribute('r','3');
+            dot.setAttribute('fill','#B11226');
+            var anim = document.createElementNS(NS,'animate');
+            anim.setAttribute('attributeName','opacity');
+            anim.setAttribute('values','0.9;0.2;0.9');
+            anim.setAttribute('dur','1.8s');
+            anim.setAttribute('repeatCount','indefinite');
+            dot.appendChild(anim);
+            svg.appendChild(dot);
+          }
+        });
+
+        // nodes
+        nodes.forEach(function(node) {
+          var active = node.id === selected;
+          var connected = isConnected(node.id);
+          var dim = selected && !connected;
+          var color = CAT_COLORS[node.cat] || '#666';
+          var g = document.createElementNS(NS,'g');
+          g.style.cursor = 'pointer';
+          g.style.opacity = dim ? '0.35' : '1';
+          g.style.transition = 'opacity 0.2s';
+
+          // outer halo for selected
+          if (active) {
+            var halo = document.createElementNS(NS,'circle');
+            halo.setAttribute('cx', node.lx); halo.setAttribute('cy', node.ly);
+            halo.setAttribute('r', node.r + 12);
+            halo.setAttribute('fill','none');
+            halo.setAttribute('stroke', color);
+            halo.setAttribute('stroke-width','1.5');
+            halo.setAttribute('stroke-opacity','0.35');
+            var haloAnim = document.createElementNS(NS,'animate');
+            haloAnim.setAttribute('attributeName','r');
+            haloAnim.setAttribute('values', (node.r+8)+';'+(node.r+16)+';'+(node.r+8));
+            haloAnim.setAttribute('dur','2.5s');
+            haloAnim.setAttribute('repeatCount','indefinite');
+            halo.appendChild(haloAnim);
+            g.appendChild(halo);
+          }
+
+          // main circle
+          var circ = document.createElementNS(NS,'circle');
+          circ.setAttribute('cx', node.lx); circ.setAttribute('cy', node.ly);
+          circ.setAttribute('r', node.r);
+          circ.setAttribute('fill', color);
+          circ.setAttribute('stroke', active ? '#fff' : 'rgba(0,0,0,0.4)');
+          circ.setAttribute('stroke-width', active ? '2.5' : '1');
+          if (active) circ.setAttribute('filter','url(#nw-glow)');
+          g.appendChild(circ);
+
+          // label (split by \n)
+          var lines = node.label.split('\n');
+          var lineH = 13;
+          var startY = node.ly - ((lines.length-1)*lineH/2) + (node.r + 15);
+          lines.forEach(function(ln, i) {
+            var t = document.createElementNS(NS,'text');
+            t.setAttribute('x', node.lx);
+            t.setAttribute('y', startY + i * lineH);
+            t.setAttribute('text-anchor','middle');
+            t.setAttribute('fill', active ? '#fff' : 'rgba(255,255,255,0.65)');
+            t.setAttribute('font-size', active ? '11.5' : '10.5');
+            t.setAttribute('font-family',"'Helvetica Neue',Arial,sans-serif");
+            t.setAttribute('font-weight', active ? '700' : '500');
+            t.style.pointerEvents = 'none';
+            t.textContent = ln;
+            g.appendChild(t);
+          });
+
+          // click + hover
+          g.addEventListener('click', function() {
+            selected = node.id;
+            updateInspector(node);
+            buildSVG();
+          });
+          g.addEventListener('mouseenter', function() {
+            if (!active) {
+              circ.setAttribute('stroke','rgba(255,255,255,0.4)');
+              circ.setAttribute('stroke-width','2');
+            }
+          });
+          g.addEventListener('mouseleave', function() {
+            if (!active) {
+              circ.setAttribute('stroke','rgba(0,0,0,0.4)');
+              circ.setAttribute('stroke-width','1');
+            }
+          });
+
+          svg.appendChild(g);
+        });
+      }
+
+      function updateInspector(node) {
+        var color = CAT_COLORS[node.cat];
+        document.getElementById('nw-node-name').textContent = node.label.replace('\n',' / ');
+        var catEl = document.getElementById('nw-node-cat');
+        catEl.textContent = CAT_LABELS[node.cat] || node.cat;
+        catEl.style.background = color + '22';
+        catEl.style.color = color;
+        catEl.style.borderColor = color + '55';
+        document.getElementById('nw-node-desc').textContent = node.desc;
+        var factsEl = document.getElementById('nw-node-facts');
+        factsEl.innerHTML = '';
+        node.facts.forEach(function(f) {
+          var div = document.createElement('div');
+          div.style.cssText = 'background:#141414;border:1px solid rgba(255,255,255,0.06);border-radius:3px;padding:8px 10px;font-size:0.68rem;color:rgba(255,255,255,0.55);line-height:1.65;font-family:inherit;';
+          div.textContent = f;
+          factsEl.appendChild(div);
+        });
+      }
+
+      // Initialize
+      buildSVG();
+      updateInspector(nodeById('polymarket'));
+    })();
+    </script>
   </div>
 </section>
 
