@@ -385,11 +385,23 @@ Respond concisely but completely. Use plain prose — not bullet lists unless sp
   // ─── API KEY CHECK ─────────────────────────────────────────────────────────
   function getKey() {
     const stored = localStorage.getItem('allin_gemini_key');
-    if (stored && stored.startsWith('AIza')) return stored;
-    if (typeof ALLIN_GEMINI_KEY !== 'undefined' && ALLIN_GEMINI_KEY && ALLIN_GEMINI_KEY.startsWith('AIza')) {
+    if (stored && stored.length > 10) return stored;
+    if (typeof ALLIN_GEMINI_KEY !== 'undefined' && ALLIN_GEMINI_KEY && ALLIN_GEMINI_KEY.length > 10) {
       return ALLIN_GEMINI_KEY;
     }
     return null;
+  }
+
+  function buildFetchArgs(key) {
+    // AQ. keys are OAuth 2.0 tokens → Authorization: Bearer header
+    // AIza keys are API keys → ?key= query param
+    const isOAuth = key.startsWith('AQ.');
+    const url = isOAuth
+      ? 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent'
+      : `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`;
+    const headers = { 'Content-Type': 'application/json' };
+    if (isOAuth) headers['Authorization'] = `Bearer ${key}`;
+    return { url, headers };
   }
 
   function showKeyPrompt() {
@@ -398,7 +410,7 @@ Respond concisely but completely. Use plain prose — not bullet lists unless sp
     overlay.innerHTML = `
       <h3>Configure Gemini API Key</h3>
       <p>Enter your Google Gemini API key to activate the research assistant. Your key is stored locally and never sent anywhere except Google's API.</p>
-      <input type="password" id="allin-key-input" placeholder="AIza..." autocomplete="off" />
+      <input type="password" id="allin-key-input" placeholder="AIza… or AQ.…" autocomplete="off" />
       <button id="allin-key-save">Activate Assistant</button>
       <a href="https://aistudio.google.com/apikey" target="_blank" class="allin-key-link">Get a free API key →</a>
     `;
@@ -512,11 +524,10 @@ Respond concisely but completely. Use plain prose — not bullet lists unless sp
     const typingEl = addTyping();
 
     try {
-      const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`,
-        {
+      const { url: fetchUrl, headers: fetchHeaders } = buildFetchArgs(key);
+      const response = await fetch(fetchUrl, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: fetchHeaders,
           body: JSON.stringify({
             system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
             contents: history,
@@ -550,7 +561,7 @@ Respond concisely but completely. Use plain prose — not bullet lists unless sp
         || err.message.includes('403')
         || err.message.includes('400');
       if (isAuthErr) {
-        errText = 'API key invalid or expired. Please enter a valid Gemini key (starts with AIza…).';
+        errText = 'API key invalid or expired. Paste a fresh key from aistudio.google.com/apikey.';
         localStorage.removeItem('allin_gemini_key');
         showKeyPrompt();
       }
