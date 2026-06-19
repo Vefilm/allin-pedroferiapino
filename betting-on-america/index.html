@@ -2476,6 +2476,18 @@ body {
       </div>
     </div>
 
+    <!-- TIMELINE POPUP -->
+    <div id="pmPopup" style="
+      display:none; position:fixed; z-index:9999;
+      background:#111; border:1px solid rgba(255,255,255,0.15); border-radius:6px;
+      padding:1.1rem 1.3rem; max-width:300px; min-width:220px;
+      box-shadow:0 8px 32px rgba(0,0,0,0.7); pointer-events:none;
+    ">
+      <div id="pmPopupDate" style="font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--amber);margin-bottom:0.35rem;"></div>
+      <div id="pmPopupTitle" style="font-size:0.95rem;font-weight:700;color:#fff;margin-bottom:0.5rem;line-height:1.3;"></div>
+      <div id="pmPopupBody" style="font-size:0.82rem;color:rgba(255,255,255,0.65);line-height:1.55;"></div>
+    </div>
+
     <!-- QUOTE WALL -->
     <div class="quote-wall reveal" style="margin-top:3rem;">
       <div class="qw-card">
@@ -2951,20 +2963,24 @@ function buildTimeline() {
 
 function showPopup(e, ev) {
   const popup = document.getElementById('pmPopup');
+  if (!popup) return;
   document.getElementById('pmPopupDate').textContent = ev.date;
   document.getElementById('pmPopupTitle').textContent = ev.label;
   document.getElementById('pmPopupBody').textContent = ev.body;
-  popup.classList.add('visible');
+  popup.style.display = 'block';
   const vw = window.innerWidth, vh = window.innerHeight;
   let px = e.clientX + 16, py = e.clientY - 20;
-  if (px + 290 > vw) px = e.clientX - 296;
-  if (py + 220 > vh) py = vh - 230;
+  if (px + 310 > vw) px = e.clientX - 316;
+  if (py + 160 > vh) py = vh - 170;
   popup.style.left = px + 'px';
   popup.style.top = py + 'px';
   e.stopPropagation();
 }
 
-function closePopup() { document.getElementById('pmPopup').classList.remove('visible'); }
+function closePopup() {
+  const p = document.getElementById('pmPopup');
+  if (p) p.style.display = 'none';
+}
 document.addEventListener('click', () => closePopup());
 
 function tlZoomIn()    { tlZoom = Math.min(tlZoom * 1.5, 4); updateTL(); }
