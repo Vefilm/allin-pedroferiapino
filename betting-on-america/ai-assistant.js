@@ -5,7 +5,7 @@
  * CONFIG: Replace the value below with your Gemini API key.
  * Get one at: https://aistudio.google.com/apikey
  */
-const ALLIN_GEMINI_KEY = localStorage.getItem('allin_gemini_key') || '';
+const ALLIN_GEMINI_KEY = localStorage.getItem('allin_gemini_key') || 'AQ.Ab8RN6IFjb95n4ANDFQ8p36j6DS5fDJBDKNHNWeujW6j186cgw';
 
 ;(function() {
   // ─── SYSTEM PROMPT ─────────────────────────────────────────────────────────
