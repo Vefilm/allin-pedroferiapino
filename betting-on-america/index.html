@@ -1229,6 +1229,13 @@ body {
 <body>
 
 <div class="progress-bar" id="progressBar"></div>
+
+<!-- VEFILM fixed watermark — appears on every panel -->
+<div style="position:fixed;bottom:1.25rem;right:1.5rem;z-index:50;display:flex;align-items:center;gap:0.5rem;opacity:0.3;pointer-events:none;">
+  <img src="../assets/img/vefilm-mark.svg" alt="" style="width:28px;height:28px;">
+  <span style="font-size:0.42rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.85);font-family:system-ui,sans-serif;">VEFILM</span>
+</div>
+
 <header class="site-header">
   <div class="header-inner">
     <div class="logo" onclick="switchTab('film', document.querySelector('.tab-btn'))" style="cursor:pointer;" title="Back to start">ALL<span>IN</span></div>
@@ -1245,6 +1252,11 @@ body {
       <button class="tab-btn" onclick="switchTab('ask',this)" role="tab"><span class="tab-num">10</span>THE ASK</button>
       <button class="tab-btn" onclick="switchTab('voices',this)" role="tab"><span class="tab-num">11</span>THE VOICES</button>
     </nav>
+    <!-- VEFILM header mark -->
+    <div style="display:flex;align-items:center;gap:0.5rem;padding-left:1.25rem;border-left:1px solid var(--border);flex-shrink:0;opacity:0.55;">
+      <img src="../assets/img/vefilm-mark.svg" alt="VEFILM" style="width:22px;height:22px;">
+      <span style="font-size:0.42rem;letter-spacing:0.28em;text-transform:uppercase;color:rgba(255,255,255,0.75);font-family:system-ui,sans-serif;white-space:nowrap;">VEFILM</span>
+    </div>
   </div>
 </header>
 
@@ -1263,6 +1275,10 @@ body {
       <div style="width:3rem;height:1px;background:rgba(255,255,255,0.22);margin-bottom:1.8rem;"></div>
       <h1 style="font-family:Georgia,serif;font-size:clamp(1.2rem,2.4vw,1.8rem);font-weight:400;font-style:italic;color:rgba(255,255,255,0.88);line-height:1.4;margin:0 0 1.3rem;letter-spacing:0.01em;">A crime so new the law hasn't named it.</h1>
       <p class="hero-sub">A regulator with no quorum. A president's family holding the equity. ALL IN follows the people who can see a machine that most don't know exists, and are trying to make anyone act before the window closes.</p>
+      <div style="margin-top:2.5rem;display:flex;align-items:center;gap:0.85rem;opacity:0.6;">
+        <img src="../assets/img/vefilm-mark.svg" alt="VEFILM" style="width:34px;height:34px;flex-shrink:0;">
+        <span style="font-size:0.5rem;letter-spacing:0.4em;text-transform:uppercase;color:rgba(255,255,255,0.8);font-family:system-ui,sans-serif;">A VEFILM PRODUCTION</span>
+      </div>
     </div>
   </div>
 
@@ -2279,6 +2295,9 @@ body {
     <!-- CONTACT ─────────────────────────────────── -->
     <div style="text-align:center;padding:4rem 2rem 2rem;">
       <div style="font-size:0.6rem;letter-spacing:0.32em;text-transform:uppercase;color:rgba(255,255,255,0.2);margin-bottom:1.5rem;">Contact</div>
+      <div style="margin-bottom:1.75rem;">
+        <img src="../assets/img/vefilm-logo.svg" alt="VEFILM" style="width:110px;height:auto;opacity:0.9;">
+      </div>
       <h3 style="font-family:Georgia,serif;font-size:2rem;font-weight:400;margin-bottom:0.5rem;color:#fff;">Pedro Feria Pino, SOC</h3>
       <p style="font-size:0.9rem;color:rgba(255,255,255,0.4);margin-bottom:1.25rem;">Director / DP &middot; Society of Camera Operators</p>
       <a href="mailto:vefilm@gmail.com" style="font-size:1.125rem;color:var(--red);text-decoration:none;border-bottom:1px solid rgba(177,18,38,0.3);padding-bottom:2px;">vefilm@gmail.com</a>
