@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  html,body{margin:0;padding:0;background:#020207;overflow:hidden;}
+  *{box-sizing:border-box;}
+  input[type=range].nw-range{-webkit-appearance:none;appearance:none;width:100%;height:14px;background:transparent;cursor:pointer;}
+  input[type=range].nw-range::-webkit-slider-runnable-track{height:2px;border-radius:2px;background:linear-gradient(90deg,rgba(177,18,38,0.55),rgba(177,18,38,0.15));}
+  input[type=range].nw-range::-moz-range-track{height:2px;border-radius:2px;background:rgba(177,18,38,0.3);}
+  input[type=range].nw-range::-webkit-slider-thumb{-webkit-appearance:none;width:13px;height:13px;margin-top:-5.5px;border-radius:50%;background:#fff;border:2px solid #B11226;box-shadow:0 0 12px rgba(177,18,38,0.9);}
+  input[type=range].nw-range::-moz-range-thumb{width:13px;height:13px;border-radius:50%;background:#fff;border:2px solid #B11226;box-shadow:0 0 12px rgba(177,18,38,0.9);}
+  @keyframes nwpulse{0%,100%{opacity:.45}50%{opacity:1}}
+</style>
+</helmet>
+
+<div style="position:fixed;inset:0;background:#020207;font-family:'Helvetica Neue',Arial,sans-serif;color:#fff;overflow:hidden;">
+
+  <canvas ref="{{ canvasRef }}" style="position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none;"></canvas>
+
+  <!-- Corner frame ticks -->
+  <div style="position:absolute;top:16px;left:16px;width:18px;height:18px;border-left:1.5px solid rgba(177,18,38,0.5);border-top:1.5px solid rgba(177,18,38,0.5);pointer-events:none;"></div>
+  <div style="position:absolute;top:16px;right:16px;width:18px;height:18px;border-right:1.5px solid rgba(177,18,38,0.5);border-top:1.5px solid rgba(177,18,38,0.5);pointer-events:none;"></div>
+  <div style="position:absolute;bottom:16px;left:16px;width:18px;height:18px;border-left:1.5px solid rgba(177,18,38,0.5);border-bottom:1.5px solid rgba(177,18,38,0.5);pointer-events:none;"></div>
+  <div style="position:absolute;bottom:16px;right:16px;width:18px;height:18px;border-right:1.5px solid rgba(177,18,38,0.5);border-bottom:1.5px solid rgba(177,18,38,0.5);pointer-events:none;"></div>
+
+  <!-- Header -->
+  <div style="position:absolute;top:30px;left:36px;pointer-events:none;">
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.34em;color:rgba(177,18,38,0.85);text-transform:uppercase;margin-bottom:7px;">All In · Betting on America</div>
+    <div style="font-size:21px;font-weight:700;letter-spacing:0.01em;line-height:1.1;">Network of Beneficial Ownership</div>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.16em;color:rgba(255,255,255,0.32);margin-top:9px;text-transform:uppercase;">Polymarket Ecosystem</div>
+  </div>
+
+  <!-- Inspector -->
+  <div style="position:absolute;top:30px;right:36px;width:286px;background:rgba(4,4,11,0.82);border:1px solid rgba(177,18,38,0.22);border-top:2px solid #B11226;border-radius:5px;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 20px 60px rgba(0,0,0,0.55);overflow:hidden;">
+    <div style="padding:11px 15px;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;justify-content:space-between;align-items:center;">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:0.24em;color:rgba(177,18,38,0.7);text-transform:uppercase;">Intel Brief</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:0.12em;text-transform:uppercase;padding:3px 9px;border-radius:2px;background:{{ sel.catBg }};color:{{ sel.catColor }};border:1px solid {{ sel.catBorder }};">{{ sel.catLabel }}</div>
+    </div>
+    <div style="padding:15px;">
+      <div style="font-weight:700;font-size:16px;line-height:1.25;margin-bottom:5px;">{{ sel.name }}</div>
+      <div style="font-size:11px;color:rgba(255,255,255,0.42);line-height:1.65;margin-bottom:13px;font-style:italic;border-left:2px solid {{ sel.catBorder }};padding-left:9px;">{{ sel.desc }}</div>
+      <div style="display:flex;flex-direction:column;gap:7px;">
+        <sc-for list="{{ sel.facts }}" as="fact" hint-placeholder-count="3">
+          <div style="display:flex;gap:8px;align-items:flex-start;">
+            <div style="min-width:4px;height:4px;border-radius:50%;margin-top:6px;flex-shrink:0;background:{{ sel.catColor }};"></div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.5);line-height:1.6;">{{ fact }}</div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="margin-top:13px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.05);font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.12em;color:rgba(255,255,255,0.28);text-transform:uppercase;">Network Connections · {{ sel.connCount }}</div>
+    </div>
+  </div>
+
+  <!-- Legend -->
+  <div style="position:absolute;left:36px;bottom:128px;display:flex;flex-direction:column;gap:8px;pointer-events:none;">
+    <div style="display:flex;align-items:center;gap:8px;"><div style="width:18px;height:2px;background:#C9A84C;"></div><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.14em;color:rgba(255,255,255,0.4);text-transform:uppercase;">Equity</span></div>
+    <div style="display:flex;align-items:center;gap:8px;"><div style="width:18px;height:0;border-top:2px dashed #B11226;"></div><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.14em;color:rgba(255,255,255,0.4);text-transform:uppercase;">Conflict</span></div>
+    <div style="display:flex;align-items:center;gap:8px;"><div style="width:18px;height:2px;background:#4a90d9;"></div><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.14em;color:rgba(255,255,255,0.4);text-transform:uppercase;">Admin</span></div>
+    <div style="display:flex;align-items:center;gap:8px;"><div style="width:18px;height:2px;background:#2ecc71;"></div><span style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.14em;color:rgba(255,255,255,0.4);text-transform:uppercase;">Synergy</span></div>
+  </div>
+
+  <!-- Hint -->
+  <div style="position:absolute;right:36px;bottom:128px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.12em;color:rgba(255,255,255,0.24);text-transform:uppercase;line-height:1.9;pointer-events:none;">
+    Drag to pan · Scroll to zoom<br>Click a node to focus · Press play to replay
+  </div>
+
+  <!-- Timeline dock -->
+  <div style="position:absolute;left:0;right:0;bottom:0;padding:18px 36px 26px;background:linear-gradient(180deg,rgba(2,2,7,0) 0%,rgba(2,2,7,0.72) 38%,rgba(2,2,7,0.95) 100%);">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:11px;gap:24px;">
+      <div style="display:flex;align-items:center;gap:16px;">
+        <button onClick="{{ togglePlay }}" style="width:44px;height:44px;border-radius:50%;border:1px solid rgba(177,18,38,0.5);background:rgba(177,18,38,0.12);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;backdrop-filter:blur(8px);" style-hover="background:rgba(177,18,38,0.28);border-color:#B11226;">
+          <span style="font-size:15px;line-height:1;transform:translateX({{ playOffset }});">{{ playIcon }}</span>
+        </button>
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.22em;color:rgba(255,255,255,0.34);text-transform:uppercase;margin-bottom:3px;">Timeline</div>
+          <div ref="{{ dateRef }}" style="font-size:19px;font-weight:700;letter-spacing:0.02em;font-variant-numeric:tabular-nums;">MAY 2024</div>
+        </div>
+      </div>
+      <div ref="{{ eventRef }}" style="flex:1;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.1em;color:rgba(255,255,255,0.62);text-transform:uppercase;padding-bottom:3px;"></div>
+      <div style="text-align:right;flex-shrink:0;">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.22em;color:rgba(255,255,255,0.34);text-transform:uppercase;margin-bottom:3px;">Polymarket Valuation</div>
+        <div ref="{{ valRef }}" style="font-size:24px;font-weight:700;letter-spacing:0.01em;color:#e0445a;text-shadow:0 0 22px rgba(177,18,38,0.6);font-variant-numeric:tabular-nums;">$1.2B</div>
+      </div>
+    </div>
+    <div style="position:relative;">
+      <input ref="{{ rangeRef }}" class="nw-range" type="range" min="0" max="21" step="0.01" onInput="{{ onScrub }}" style="position:relative;z-index:2;">
+      <div ref="{{ ticksRef }}" style="position:absolute;left:0;right:0;top:6px;height:2px;pointer-events:none;z-index:1;"></div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.canvasRef = React.createRef();
+    this.dateRef = React.createRef();
+    this.valRef = React.createRef();
+    this.eventRef = React.createRef();
+    this.rangeRef = React.createRef();
+    this.ticksRef = React.createRef();
+    this.state = { selectedId:'polymarket', playing:false };
+
+    this.CAT = {
+      core:      { color:'#e0445a', base:'#B11226', glow:'#B11226', label:'Core Platform',     bg:'rgba(177,18,38,0.14)',  border:'rgba(177,18,38,0.4)'  },
+      capital:   { color:'#d8b65e', base:'#C9A84C', glow:'#C9A84C', label:'Capital / Equity',  bg:'rgba(201,168,76,0.14)', border:'rgba(201,168,76,0.4)' },
+      regulator: { color:'#7a94b4', base:'#4a6080', glow:'#4a90d9', label:'Regulator',         bg:'rgba(74,144,217,0.13)', border:'rgba(74,144,217,0.4)' },
+      product:   { color:'#f0ad55', base:'#E8A04A', glow:'#E8A04A', label:'Sovereign Product', bg:'rgba(232,160,74,0.14)', border:'rgba(232,160,74,0.4)' }
+    };
+    this.EDGE = {
+      equity:  { color:'#C9A84C', conflict:false },
+      conflict:{ color:'#B11226', conflict:true  },
+      admin:   { color:'#4a90d9', conflict:false },
+      synergy: { color:'#2ecc71', conflict:false },
+      family:  { color:'#C9A84C', conflict:false }
+    };
+
+    // dates are month-index from May 2024 (=0)
+    this.nodes = [
+      { id:'polymarket', label:'Polymarket', lx:550, ly:300, r:52, cat:'core', date:0,
+        desc:'The platform. CFTC-banned in 2022. $1B to $15B valuation in 36 months.',
+        facts:['Fined $1.4M by CFTC in 2022, banned US users, operated offshore.',
+               'Acquired CFTC-licensed QCEX for $112M, July 2025 — same month DOJ dropped all probes.',
+               'Valuation: $1.2B (May 2024) to $9B (Oct 2025) to $15B (Early 2026).'] },
+      { id:'founders-fund', label:'Founders Fund', lx:130, ly:300, r:30, cat:'capital', date:0, badge:'$70M',
+        desc:'Led $70M round at $1.2B valuation, May 2024. Peter Thiel, longtime Trump-aligned operator.',
+        facts:['Led $70M Series B at $1.2B valuation, May 2024.',
+               'Established institutional legitimacy for decentralized outcomes trading.',
+               'Thiel: architect of the PayPal to crypto to Trump capital pipeline.'] },
+      { id:'trump-jr', label:'Trump Jr. / 1789', lx:250, ly:118, r:33, cat:'capital', date:15, badge:'$50M+',
+        desc:'Equity investor and advisory board member, 5 weeks after DOJ and CFTC simultaneously dropped all investigations.',
+        facts:['Double-digit millions invested in Polymarket equity, August 2025.',
+               '5 weeks after both federal investigations dropped — no charges, no explanation.',
+               'Also a paid advisor to Kalshi, a direct Polymarket competitor.'] },
+      { id:'ice', label:'ICE', lx:250, ly:486, r:31, cat:'capital', date:17, badge:'$2B',
+        desc:'Intercontinental Exchange. $2B committed at $9B valuation, October 2025.',
+        facts:['Committed $2B at $9B valuation, October 2025.',
+               'One of the world\u2019s largest financial exchange operators.',
+               'Gave Polymarket institutional credibility with traditional finance.'] },
+      { id:'truth-predict', label:'Truth Predict', lx:550, ly:500, r:35, cat:'product', date:17,
+        desc:'Trump Media + Crypto.com. Announced October 2025. Prediction market inside Truth Social.',
+        facts:['Trump Media + Crypto.com joint venture, announced October 2025.',
+               'Betting on political and military events, integrated into Trump\u2019s social network.',
+               'Selig\u2019s former law client (Crypto.com) co-created it. Recusal expires mid-2026.'] },
+      { id:'selig', label:'Michael Selig\nCFTC Chair', lx:860, ly:118, r:33, cat:'regulator', date:19, badge:'CHAIR',
+        desc:'Age 36. Confirmed December 2025, 53\u201343. Former Willkie Farr partner who represented Crypto.com.',
+        facts:['Confirmed CFTC Chair, December 2025, by a 53\u201343 Senate vote.',
+               'Former Willkie Farr partner; represented dozens of crypto clients incl. Crypto.com.',
+               'Ethics recusal expires mid-2026. 4 of 5 commissioner seats vacant.'] },
+      { id:'ceo-council', label:'CEO Innovation\nCouncil', lx:962, ly:300, r:27, cat:'regulator', date:19,
+        desc:'35 industry executives. Replaced the independent Technology Advisory Committee.',
+        facts:['Selig disbanded the Technology Advisory Committee and replaced it.',
+               'Members: Coplan (Polymarket), Mansour (Kalshi), Winklevoss (Gemini), Marszalek (Crypto.com).',
+               'Enforcement actions: 58 (2022) to 11 (2026).'] },
+      { id:'cftc-hollow', label:'CFTC Quorum\n4 seats vacant', lx:860, ly:486, r:27, cat:'regulator', date:19,
+        desc:'4 of 5 commissioner seats vacant. No dissenting votes possible.',
+        facts:['4 of 5 commissioner seats vacant — no quorum, no dissent.',
+               'Selig is the sole decision-maker on all regulatory actions.',
+               '50+ amicus briefs filed in state courts defending Polymarket and Kalshi.'] }
+    ];
+    this.edges = [
+      { from:'founders-fund', to:'polymarket', type:'equity',  w:3.0, date:0,  curve:0.12 },
+      { from:'trump-jr',      to:'polymarket', type:'equity',  w:2.5, date:15, curve:0.14 },
+      { from:'ice',           to:'polymarket', type:'equity',  w:4.5, date:17, curve:-0.14 },
+      { from:'polymarket',    to:'truth-predict', type:'synergy', w:2.2, date:17, curve:0.1 },
+      { from:'polymarket',    to:'selig',      type:'conflict', w:2.2, date:19, curve:-0.16 },
+      { from:'selig',         to:'ceo-council', type:'admin',   w:1.8, date:19, curve:0.12 },
+      { from:'selig',         to:'cftc-hollow', type:'admin',   w:1.8, date:19, curve:-0.12 },
+      { from:'truth-predict', to:'trump-jr',   type:'family',   w:1.5, date:17, curve:0.18 },
+      { from:'truth-predict', to:'ceo-council', type:'conflict', w:1.5, date:19, curve:-0.2 }
+    ];
+    this.events = [
+      { t:0,  label:'May 2024 \u2014 Founders Fund leads $70M \u00b7 $1.2B' },
+      { t:14, label:'Jul 2025 \u2014 Acquires QCEX \u00b7 DOJ drops all probes' },
+      { t:15, label:'Aug 2025 \u2014 Trump Jr. takes equity stake' },
+      { t:17, label:'Oct 2025 \u2014 ICE commits $2B \u00b7 Truth Predict launches' },
+      { t:19, label:'Dec 2025 \u2014 Selig confirmed CFTC Chair, 53\u201343' },
+      { t:21, label:'Early 2026 \u2014 valuation reaches $15B' }
+    ];
+    this.MAXT = 21;
+    this.MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+    this.cam = { cx:550, cy:300, zoom:1, tcx:550, tcy:300, tzoom:1 };
+    this.currentTime = this.MAXT;          // start fully revealed
+    this.playing = false;
+    this.playClock = null; this.lastFocusIdx = -1; this.playFinished = false;
+    this.drift = {x:0,y:0};
+    this.particles = [];
+    this.lastT = 0;
+    this.drag = null;
+  }
+
+  nById(id){ return this.nodes.find(n=>n.id===id); }
+  isBorn(n){ return this.currentTime >= n.date - 1.3 - 0.001; }
+  birth(n){ return Math.min(1, Math.max(0, (this.currentTime - (n.date-1.3))/1.3)); }
+
+  componentDidMount(){
+    this.currentTime = this.MAXT;   // always open with the full network revealed
+    this.canvas = this.canvasRef.current;
+    this.ctx = this.canvas.getContext('2d');
+    for(let i=0;i<110;i++){
+      this.particles.push({ x:(Math.random()-0.5)*2400, y:(Math.random()-0.5)*1600, z:0.25+Math.random()*0.9, s:0.4+Math.random()*1.5, vx:(Math.random()-0.5)*4, vy:(Math.random()-0.5)*4 });
+    }
+    this.ro = new ResizeObserver(()=>this.resize());
+    this.ro.observe(this.canvas);
+    this.resize();
+    this.cam.zoom = this.cam.tzoom = this.fitZoom;
+    this.attach();
+    this.buildTicks();
+    this.syncReadouts();
+    this.loop();
+  }
+  componentWillUnmount(){
+    cancelAnimationFrame(this.raf);
+    if(this.ro) this.ro.disconnect();
+    this.detach();
+  }
+
+  resize(){
+    const dpr = Math.min(window.devicePixelRatio||1, 2);
+    const w = this.canvas.clientWidth, h = this.canvas.clientHeight;
+    this.cw = w; this.ch = h; this.dpr = dpr;
+    this.canvas.width = Math.round(w*dpr);
+    this.canvas.height = Math.round(h*dpr);
+    this.ctx.setTransform(dpr,0,0,dpr,0,0);
+    this.viewCx = w/2 - 118;            // bias left to clear inspector
+    this.viewCy = h/2 - 26;             // lift above timeline dock
+    this.fitZoom = Math.min((w-360)/1300, (h-210)/820);
+  }
+
+  attach(){
+    const c = this.canvas;
+    this._down = e=>{ c.setPointerCapture(e.pointerId); const r=c.getBoundingClientRect(); this.drag={x:e.clientX-r.left,y:e.clientY-r.top,ox:e.clientX-r.left,oy:e.clientY-r.top,moved:0}; };
+    this._move = e=>{ if(!this.drag) return; const r=c.getBoundingClientRect(); const mx=e.clientX-r.left,my=e.clientY-r.top; const dx=mx-this.drag.x, dy=my-this.drag.y; this.drag.moved += Math.abs(dx)+Math.abs(dy); this.cam.cx -= dx/this.cam.zoom; this.cam.cy -= dy/this.cam.zoom; this.cam.tcx=this.cam.cx; this.cam.tcy=this.cam.cy; this.drag.x=mx; this.drag.y=my; };
+    this._up = e=>{ if(!this.drag) return; const d=this.drag; this.drag=null; if(d.moved<6){ const r=c.getBoundingClientRect(); this.pick(e.clientX-r.left, e.clientY-r.top); } };
+    this._wheel = e=>{ e.preventDefault(); const r=c.getBoundingClientRect(); const mx=e.clientX-r.left,my=e.clientY-r.top; const wb=this.s2w(mx,my); const f=Math.exp(-e.deltaY*0.0014); this.cam.zoom=Math.min(3.2,Math.max(0.35,this.cam.zoom*f)); this.cam.tzoom=this.cam.zoom; const wa=this.s2w(mx,my); this.cam.cx+=wb.x-wa.x; this.cam.cy+=wb.y-wa.y; this.cam.tcx=this.cam.cx; this.cam.tcy=this.cam.cy; };
+    c.addEventListener('pointerdown',this._down);
+    c.addEventListener('pointermove',this._move);
+    c.addEventListener('pointerup',this._up);
+    c.addEventListener('pointercancel',this._up);
+    c.addEventListener('wheel',this._wheel,{passive:false});
+  }
+  detach(){
+    const c=this.canvas; if(!c) return;
+    c.removeEventListener('pointerdown',this._down);
+    c.removeEventListener('pointermove',this._move);
+    c.removeEventListener('pointerup',this._up);
+    c.removeEventListener('pointercancel',this._up);
+    c.removeEventListener('wheel',this._wheel);
+  }
+
+  w2s(x,y){ return { x:(x-this.cam.cx)*this.cam.zoom + this.viewCx + this.drift.x, y:(y-this.cam.cy)*this.cam.zoom + this.viewCy + this.drift.y }; }
+  s2w(sx,sy){ return { x:(sx-this.viewCx-this.drift.x)/this.cam.zoom + this.cam.cx, y:(sy-this.viewCy-this.drift.y)/this.cam.zoom + this.cam.cy }; }
+
+  pick(sx,sy){
+    const w=this.s2w(sx,sy); let best=null, bd=1e9;
+    this.nodes.forEach(n=>{ if(!this.isBorn(n)) return; const d=Math.hypot(w.x-n.lx,w.y-n.ly); if(d<n.r+8 && d<bd){ bd=d; best=n; } });
+    if(best){ this.selectNode(best, true); }
+  }
+  selectNode(n, focus){
+    this.setState({ selectedId:n.id });
+    if(focus){ this.cam.tcx=n.lx; this.cam.tcy=n.ly; this.cam.tzoom=Math.min(1.55, Math.max(1.15, this.fitZoom*1.7)); }
+  }
+  reframeAll(){ this.cam.tcx=550; this.cam.tcy=300; this.cam.tzoom=this.fitZoom; }
+
+  // A guided tour that visits EVERY node, in chronological order. {t} drives the
+  // timeline/reveal; {f} is the node to focus. Steps may share a {t} (camera pans, time holds).
+  STEPS = [
+    { t:0,  f:'polymarket',    wide:true  },   // establish
+    { t:0,  f:'founders-fund'              },
+    { t:14, f:'polymarket'                 },   // QCEX / DOJ beat
+    { t:15, f:'trump-jr'                   },
+    { t:17, f:'ice'                        },
+    { t:17, f:'truth-predict'              },
+    { t:19, f:'selig'                      },
+    { t:19, f:'ceo-council'                },
+    { t:19, f:'cftc-hollow'                },
+    { t:21, f:'polymarket',    wide:true  }     // final overview
+  ];
+  enterKeyframe(i){
+    const st=this.STEPS[i]; if(!st) return; const n=this.nById(st.f); if(!n) return;
+    this.setState({ selectedId:n.id });
+    if(st.wide){ this.reframeAll(); }
+    else { this.cam.tcx=n.lx; this.cam.tcy=n.ly; this.cam.tzoom=Math.min(1.5, Math.max(1.15, this.fitZoom*1.65)); }
+  }
+  HOLD = 2.0; MOVE = 0.9;
+  // Map the play clock onto the schedule: hold(0) move(0->1) hold(1) ... hold(last)
+  playStep(){
+    const S=this.STEPS, H=this.HOLD, M=this.MOVE;
+    let clk=this.playClock, acc=0, ct=S[0].t, focus=0, done=false;
+    for(let i=0;i<S.length;i++){
+      if(clk < acc+H){ ct=S[i].t; focus=i; break; }        // holding on step i
+      acc+=H;
+      if(i<S.length-1){
+        if(clk < acc+M){                                   // moving step i -> i+1
+          const p=(clk-acc)/M, e=p<0.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
+          ct=S[i].t+(S[i+1].t-S[i].t)*e; focus=i+1; break;
+        }
+        acc+=M;
+      } else { ct=S[S.length-1].t; focus=S.length-1; done=true; }
+    }
+    this.currentTime=ct;
+    if(focus!==this.lastFocusIdx){ this.lastFocusIdx=focus; this.enterKeyframe(focus); }
+    if(done){
+      this.playing=false; this.playFinished=true; this.setState({ playing:false });
+      this.setState({ selectedId:'polymarket' }); this.reframeAll();
+    }
+  }
+  startPlayback(){
+    this.playClock=0; this.lastFocusIdx=-1; this.playFinished=false; this.currentTime=0;
+    this.playing=true; this.setState({ playing:true });
+  }
+  togglePlay = ()=>{
+    if(this.playing){ this.playing=false; this.setState({ playing:false }); return; }   // pause
+    if(this.playClock==null || this.playFinished){ this.startPlayback(); }              // restart
+    else { this.playing=true; this.setState({ playing:true }); }                        // resume
+  };
+  onScrub = (e)=>{
+    this.currentTime=parseFloat(e.target.value);
+    if(this.playing){ this.playing=false; this.setState({playing:false}); }
+    this.playFinished=true; this.playClock=null;     // scrubbing ends the sequence; next play restarts
+    this.syncReadouts();
+  };
+
+  fmtDate(t){
+    if(t>=this.MAXT-0.01) return 'EARLY 2026';
+    const abs=4+Math.floor(t); const y=2024+Math.floor(abs/12); const m=this.MONTHS[((abs%12)+12)%12];
+    return (m+' '+y).toUpperCase();
+  }
+  valuation(t){ if(t>=this.MAXT-0.01) return '$15B'; if(t>=17) return '$9B'; return '$1.2B'; }
+  curEvent(t){ let l=''; this.events.forEach(e=>{ if(t>=e.t-0.001) l=e.label; }); return l.toUpperCase(); }
+
+  buildTicks(){
+    const el=this.ticksRef.current; if(!el) return; el.innerHTML='';
+    this.events.forEach(ev=>{
+      const d=document.createElement('div');
+      d.style.cssText='position:absolute;top:-2px;width:1px;height:6px;background:rgba(177,18,38,0.7);left:'+(ev.t/this.MAXT*100)+'%;';
+      el.appendChild(d);
+    });
+  }
+  syncReadouts(){
+    if(this.dateRef.current) this.dateRef.current.textContent=this.fmtDate(this.currentTime);
+    if(this.valRef.current) this.valRef.current.textContent=this.valuation(this.currentTime);
+    if(this.eventRef.current) this.eventRef.current.textContent=this.curEvent(this.currentTime);
+    if(this.rangeRef.current && document.activeElement!==this.rangeRef.current) this.rangeRef.current.value=this.currentTime;
+  }
+
+  loop = ()=>{
+    const now=performance.now()/1000; const dt=Math.min(0.05, this.lastT?now-this.lastT:0); this.lastT=now; this.anim=now;
+    // camera easing
+    this.cam.cx+=(this.cam.tcx-this.cam.cx)*0.07;
+    this.cam.cy+=(this.cam.tcy-this.cam.cy)*0.07;
+    this.cam.zoom+=(this.cam.tzoom-this.cam.zoom)*0.07;
+    // idle drift
+    this.drift.x=Math.sin(now*0.18)*9; this.drift.y=Math.cos(now*0.13)*7;
+    // playback — single accumulating clock mapped onto a hold/move schedule
+    if(this.playing){
+      this.playClock += dt;
+      this.playStep();
+      this.syncReadouts();
+    }
+    this.draw();
+    this.raf=requestAnimationFrame(this.loop);
+  };
+
+  draw(){
+    const ctx=this.ctx; if(!ctx) return;
+    ctx.clearRect(0,0,this.cw,this.ch);
+    ctx.fillStyle='#020207'; ctx.fillRect(0,0,this.cw,this.ch);
+    this.drawBg(ctx);
+    const sel=this.state.selectedId;
+    // edges
+    this.edges.forEach(e=>this.drawEdge(ctx,e,sel));
+    // halos
+    this.nodes.forEach(n=>{ if(this.isBorn(n)) this.drawHalo(ctx,n,sel); });
+    // nodes
+    this.nodes.forEach(n=>{ if(this.isBorn(n)) this.drawNode(ctx,n,sel); });
+    // vignette
+    this.drawVignette(ctx);
+  }
+
+  drawBg(ctx){
+    const z=this.cam.zoom;
+    // grid
+    ctx.lineWidth=1; ctx.strokeStyle='rgba(177,18,38,0.05)';
+    const step=50*z; const ox=((this.viewCx - this.cam.cx*z + this.drift.x)%step+step)%step; const oy=((this.viewCy - this.cam.cy*z + this.drift.y)%step+step)%step;
+    ctx.beginPath();
+    for(let x=ox;x<this.cw;x+=step){ ctx.moveTo(x,0); ctx.lineTo(x,this.ch); }
+    for(let y=oy;y<this.ch;y+=step){ ctx.moveTo(0,y); ctx.lineTo(this.cw,y); }
+    ctx.stroke();
+    // particles (parallax)
+    this.particles.forEach(p=>{
+      p.x+=p.vx*0.016; p.y+=p.vy*0.016;
+      const sx=(p.x-this.cam.cx)*this.cam.zoom*p.z + this.viewCx + this.drift.x*p.z;
+      const sy=(p.y-this.cam.cy)*this.cam.zoom*p.z + this.viewCy + this.drift.y*p.z;
+      if(sx<-20||sx>this.cw+20||sy<-20||sy>this.ch+20) return;
+      const tw=0.35+0.4*Math.sin(this.anim*1.5+p.x);
+      ctx.globalAlpha=(0.18+0.5*p.z)*Math.max(0.2,tw);
+      ctx.fillStyle= p.z>0.85?'rgba(220,120,130,1)':'rgba(180,190,210,1)';
+      ctx.beginPath(); ctx.arc(sx,sy,p.s*p.z*1.2,0,7); ctx.fill();
+    });
+    ctx.globalAlpha=1;
+  }
+
+  drawVignette(ctx){
+    const g=ctx.createRadialGradient(this.cw/2,this.ch/2,Math.min(this.cw,this.ch)*0.28,this.cw/2,this.ch/2,Math.max(this.cw,this.ch)*0.72);
+    g.addColorStop(0,'rgba(2,2,7,0)'); g.addColorStop(1,'rgba(0,0,2,0.7)');
+    ctx.fillStyle=g; ctx.fillRect(0,0,this.cw,this.ch);
+  }
+
+  drawEdge(ctx,e,sel){
+    const fn=this.nById(e.from), tn=this.nById(e.to); if(!fn||!tn) return;
+    if(!this.isBorn(fn)||!this.isBorn(tn)||this.currentTime<e.date-1.2-0.001) return;
+    const prog=Math.min(1,Math.max(0,(this.currentTime-(e.date-1.2))/1.2));
+    const cfg=this.EDGE[e.type]||this.EDGE.equity;
+    const a=this.w2s(fn.lx,fn.ly), b=this.w2s(tn.lx,tn.ly);
+    const dx=b.x-a.x, dy=b.y-a.y, dist=Math.hypot(dx,dy)||1; const nx=dx/dist, ny=dy/dist;
+    const rA=fn.r*this.cam.zoom+6, rB=tn.r*this.cam.zoom+10;
+    let x1=a.x+nx*rA, y1=a.y+ny*rA;
+    // endpoint by progress (draw-on)
+    let ex=a.x+(b.x-a.x), ey=a.y+(b.y-a.y);
+    let x2=ex-nx*rB, y2=ey-ny*rB;
+    // control point (perpendicular curve)
+    const mx=(x1+x2)/2, my=(y1+y2)/2; const px=-ny, py=nx; const cx=mx+px*dist*e.curve, cy=my+py*dist*e.curve;
+    const connected=(e.from===sel||e.to===sel);
+    const active=connected;
+    ctx.save();
+    const path=()=>{ ctx.beginPath(); ctx.moveTo(x1,y1); ctx.quadraticCurveTo(cx,cy,x2,y2); };
+    const lw=Math.max(1.2,e.w)*0.9;
+    if(active){
+      ctx.shadowColor=cfg.color; ctx.shadowBlur=10;
+      if(cfg.conflict){                                  // conflict = dashed (matches legend)
+        path(); ctx.strokeStyle=cfg.color; ctx.lineWidth=lw; ctx.globalAlpha=0.9*prog;
+        ctx.setLineDash([5,6]); ctx.lineDashOffset=-this.anim*22; ctx.stroke();
+      } else {                                           // equity/admin/synergy = solid (matches legend)
+        path(); ctx.strokeStyle=cfg.color; ctx.lineWidth=lw; ctx.globalAlpha=0.9*prog;
+        ctx.setLineDash([]); ctx.stroke();
+        // continuous flowing pulses of light over the solid base (reads as flow, not dashes)
+        path(); ctx.strokeStyle='rgba(255,255,255,0.85)'; ctx.lineWidth=lw*0.92; ctx.globalAlpha=0.55*prog;
+        ctx.setLineDash([6,15]); ctx.lineDashOffset=-this.anim*46; ctx.shadowColor='#fff'; ctx.shadowBlur=7; ctx.stroke();
+      }
+    } else {
+      path(); ctx.strokeStyle=cfg.color; ctx.lineWidth=Math.max(1,e.w*0.6); ctx.globalAlpha=0.16*prog;
+      ctx.setLineDash([]); ctx.stroke();
+    }
+    // arrowhead
+    if(active && prog>0.6){
+      ctx.setLineDash([]); ctx.globalAlpha=0.95; ctx.fillStyle=cfg.color;
+      const ang=Math.atan2(y2-cy,x2-cx); const s=6.5;
+      ctx.beginPath(); ctx.moveTo(x2,y2);
+      ctx.lineTo(x2-s*Math.cos(ang-0.4),y2-s*Math.sin(ang-0.4));
+      ctx.lineTo(x2-s*Math.cos(ang+0.4),y2-s*Math.sin(ang+0.4));
+      ctx.closePath(); ctx.fill();
+    }
+    ctx.restore();
+    // edge label when connected
+    if(active && this.cam.zoom>0.7){
+      ctx.save(); ctx.globalAlpha=0.85; ctx.font='600 '+(9)+"px 'IBM Plex Mono',monospace";
+      ctx.fillStyle=cfg.color; ctx.textAlign='center'; ctx.textBaseline='middle';
+      ctx.fillText(e.type.toUpperCase(), cx, cy);
+      ctx.restore();
+    }
+  }
+
+  drawHalo(ctx,n,sel){
+    const cat=this.CAT[n.cat]; const s=this.w2s(n.lx,n.ly); const bz=this.birth(n);
+    const active=n.id===sel;
+    const R=n.r*this.cam.zoom*(active?2.7:1.9)*bz;
+    if(R<2) return;
+    const pulse=active?(0.16+0.12*Math.sin(this.anim*1.8)):0.05;
+    const g=ctx.createRadialGradient(s.x,s.y,0,s.x,s.y,R);
+    g.addColorStop(0,this.hexA(cat.glow,pulse)); g.addColorStop(1,this.hexA(cat.glow,0));
+    ctx.fillStyle=g; ctx.beginPath(); ctx.arc(s.x,s.y,R,0,7); ctx.fill();
+  }
+
+  drawNode(ctx,n,sel){
+    const cat=this.CAT[n.cat]; const s=this.w2s(n.lx,n.ly); const z=this.cam.zoom; const bz=this.birth(n);
+    const ease=bz<1?(1-Math.pow(1-bz,3)):1;
+    const R=n.r*z*ease; if(R<1) return;
+    const active=n.id===sel;
+    const connected = active || this.edges.some(e=>(e.from===sel&&e.to===n.id)||(e.to===sel&&e.from===n.id));
+    const dim = connected?1:0.88;   // keep every node fully lit; emphasis comes from edges + rings
+    ctx.save(); ctx.globalAlpha=ease*dim;
+
+    // orbit rings
+    const rot=this.anim*(active?0.5:0.18);
+    ctx.save(); ctx.translate(s.x,s.y); ctx.rotate(rot);
+    ctx.strokeStyle=this.hexA(cat.color,active?0.55:0.16); ctx.lineWidth=active?1.4:0.7;
+    ctx.setLineDash(active?[3,5]:[2,8]); ctx.beginPath(); ctx.arc(0,0,R+(active?20:13),0,7); ctx.stroke();
+    if(active){ ctx.rotate(-rot*2.4); ctx.strokeStyle=this.hexA(cat.color,0.2); ctx.lineWidth=0.7; ctx.setLineDash([1,9]); ctx.beginPath(); ctx.arc(0,0,R+38,0,7); ctx.stroke(); }
+    ctx.restore(); ctx.setLineDash([]);
+
+    // glass sphere
+    ctx.save();
+    ctx.shadowColor=this.hexA(cat.glow,0.9); ctx.shadowBlur=active?34:20;
+    const g=ctx.createRadialGradient(s.x-R*0.34,s.y-R*0.4,R*0.1,s.x,s.y,R);
+    g.addColorStop(0,this.lighten(cat.base,0.55)); g.addColorStop(0.55,cat.base); g.addColorStop(1,this.darken(cat.base,0.55));
+    ctx.fillStyle=g; ctx.beginPath(); ctx.arc(s.x,s.y,R,0,7); ctx.fill();
+    ctx.restore();
+
+    // inner shade for depth
+    const ig=ctx.createRadialGradient(s.x,s.y-R*0.1,R*0.2,s.x,s.y+R*0.3,R*1.15);
+    ig.addColorStop(0,'rgba(0,0,0,0)'); ig.addColorStop(1,'rgba(0,0,0,0.45)');
+    ctx.fillStyle=ig; ctx.beginPath(); ctx.arc(s.x,s.y,R,0,7); ctx.fill();
+
+    // rim
+    ctx.lineWidth=active?2:1; ctx.strokeStyle=active?'rgba(255,255,255,0.6)':this.hexA(cat.color,0.4);
+    ctx.beginPath(); ctx.arc(s.x,s.y,R,0,7); ctx.stroke();
+
+    // specular highlight
+    ctx.save(); ctx.globalAlpha=ease*dim*0.5;
+    ctx.translate(s.x-R*0.3,s.y-R*0.34); ctx.rotate(-0.5); ctx.scale(1,0.62);
+    const hg=ctx.createRadialGradient(0,0,0,0,0,R*0.5);
+    hg.addColorStop(0,'rgba(255,255,255,0.9)'); hg.addColorStop(1,'rgba(255,255,255,0)');
+    ctx.fillStyle=hg; ctx.beginPath(); ctx.arc(0,0,R*0.5,0,7); ctx.fill(); ctx.restore();
+
+    // badge
+    if(n.badge && connected && z>0.34){
+      const bx=s.x+R*0.6, by=s.y-R*0.62; ctx.font='700 '+Math.max(8,9*Math.min(1.4,z))+"px 'IBM Plex Mono',monospace";
+      const tw=ctx.measureText(n.badge).width; const pad=6; const bw=tw+pad*2, bh=15;
+      ctx.fillStyle=cat.base; this.roundRect(ctx,bx-bw/2,by-bh/2,bw,bh,3); ctx.fill();
+      ctx.fillStyle='#fff'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText(n.badge,bx,by+0.5);
+    }
+    // polymarket live valuation badge
+    if(n.id==='polymarket' && z>0.34){
+      const val=this.valuation(this.currentTime); const bx=s.x, by=s.y;
+      ctx.font='700 '+Math.max(11,15*Math.min(1.3,z))+"px 'Helvetica Neue',Arial,sans-serif";
+      ctx.fillStyle='#fff'; ctx.textAlign='center'; ctx.textBaseline='middle';
+      ctx.shadowColor='rgba(0,0,0,0.6)'; ctx.shadowBlur=6; ctx.fillText(val,bx,by); ctx.shadowBlur=0;
+    }
+
+    // label
+    const lines=n.label.split('\n'); const fs=Math.max(9,Math.min(15,12*z));
+    ctx.font=(active?'700 ':'500 ')+fs+"px 'Helvetica Neue',Arial,sans-serif";
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillStyle=active?'#fff':(connected?'rgba(255,255,255,0.8)':'rgba(255,255,255,0.62)');
+    ctx.shadowColor='rgba(0,0,0,0.8)'; ctx.shadowBlur=5;
+    lines.forEach((ln,i)=>{ ctx.fillText(ln, s.x, s.y+R+16+i*(fs+2)); });
+    ctx.shadowBlur=0;
+    ctx.restore();
+  }
+
+  roundRect(ctx,x,y,w,h,r){ ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); }
+  hexA(hex,a){ const c=this.hx(hex); return 'rgba('+c.r+','+c.g+','+c.b+','+a+')'; }
+  hx(hex){ hex=hex.replace('#',''); return { r:parseInt(hex.substr(0,2),16), g:parseInt(hex.substr(2,2),16), b:parseInt(hex.substr(4,2),16) }; }
+  lighten(hex,f){ const c=this.hx(hex); return 'rgb('+Math.round(c.r+(255-c.r)*f)+','+Math.round(c.g+(255-c.g)*f)+','+Math.round(c.b+(255-c.b)*f)+')'; }
+  darken(hex,f){ const c=this.hx(hex); return 'rgb('+Math.round(c.r*(1-f))+','+Math.round(c.g*(1-f))+','+Math.round(c.b*(1-f))+')'; }
+
+  renderVals(){
+    const n=this.nById(this.state.selectedId)||this.nodes[0];
+    const cat=this.CAT[n.cat];
+    const connCount=this.edges.filter(e=>e.from===n.id||e.to===n.id).length;
+    return {
+      canvasRef:this.canvasRef, dateRef:this.dateRef, valRef:this.valRef, eventRef:this.eventRef, rangeRef:this.rangeRef, ticksRef:this.ticksRef,
+      togglePlay:this.togglePlay, onScrub:this.onScrub,
+      playIcon:this.state.playing?'❚❚':'▶',
+      playOffset:this.state.playing?'0px':'1px',
+      sel:{
+        name:n.label.replace('\n',' · '),
+        desc:n.desc, facts:n.facts,
+        catLabel:cat.label, catColor:cat.color, catBg:cat.bg, catBorder:cat.border,
+        connCount:String(connCount)
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>
