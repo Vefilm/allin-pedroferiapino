@@ -1254,6 +1254,48 @@ body {
 </head>
 <body>
 
+<!-- ── JP PRE-ROLL SPLASH ──────────────────────────────────────────── -->
+<div id="splash" style="position:fixed;inset:0;z-index:9999;background:#08080e;display:flex;flex-direction:column;transition:opacity 0.55s ease;">
+
+  <!-- Top bar -->
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:1.1rem 2rem;border-bottom:1px solid rgba(255,255,255,0.06);flex-shrink:0;">
+    <div style="font-family:Georgia,'Times New Roman',serif;font-size:1.25rem;font-weight:900;letter-spacing:0.05em;color:#fff;text-transform:uppercase;">ALL&nbsp;<span style="color:#B11226;">IN</span></div>
+    <button onclick="enterDeck()" style="background:none;border:none;cursor:pointer;font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.28);font-family:system-ui,sans-serif;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:2px;">Skip to deck &rsaquo;</button>
+  </div>
+
+  <!-- Main body -->
+  <div style="flex:1;display:grid;grid-template-columns:1fr 1.15fr;min-height:0;">
+
+    <!-- LEFT: portrait video player -->
+    <div style="display:flex;align-items:center;justify-content:center;padding:2.5rem 2rem 2.5rem 2.5rem;border-right:1px solid rgba(255,255,255,0.05);">
+      <div style="width:min(220px,38vw);aspect-ratio:9/14;border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,0.12);box-shadow:0 0 0 1px rgba(255,255,255,0.04),0 28px 70px rgba(0,0,0,0.75),inset 0 1px 0 rgba(255,255,255,0.08);background:#000;position:relative;">
+        <video
+          id="splash-video"
+          src="./jonathan-pie.mp4"
+          controls
+          preload="auto"
+          style="width:100%;height:100%;object-fit:cover;display:block;"
+        ></video>
+      </div>
+    </div>
+
+    <!-- RIGHT: quote + CTA -->
+    <div style="display:flex;flex-direction:column;justify-content:center;padding:2.5rem 2.5rem 2.5rem 2rem;">
+      <div style="font-size:0.55rem;letter-spacing:0.26em;text-transform:uppercase;color:#B11226;margin-bottom:1.4rem;">Before we begin</div>
+
+      <blockquote style="border-left:2px solid #B11226;padding:0 0 0 1.5rem;margin:0 0 1.5rem;">
+        <p style="font-family:Georgia,serif;font-style:italic;font-size:clamp(0.95rem,1.8vw,1.25rem);color:rgba(255,255,255,0.82);line-height:1.7;margin:0 0 0.4rem;">"$2.1 billion in perfectly timed directional oil trades placed across five presidential announcements in a single month &mdash; completely unprecedented, and so far, <strong style="color:#fff;font-style:italic;">completely uninvestigated.</strong>"</p>
+      </blockquote>
+      <div style="font-size:0.58rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.25);padding-left:1.5rem;margin-bottom:2.75rem;">Jonathan Pie &mdash; British Satirist &mdash; June 2026</div>
+
+      <button id="enterBtn" onclick="enterDeck()" style="display:inline-flex;align-items:center;gap:0.6rem;padding:0.95rem 2rem;background:#B11226;color:#fff;border:none;cursor:pointer;font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;font-family:system-ui,sans-serif;width:fit-content;transition:background 0.2s;" onmouseover="this.style.background='#7A0C1C'" onmouseout="this.style.background='#B11226'">Enter the deck &nbsp;&#8594;</button>
+      <div style="margin-top:1rem;font-size:0.52rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.18);">12 panels &nbsp;&middot;&nbsp; A Limited Series by VEFILM</div>
+    </div>
+
+  </div>
+</div>
+<!-- ── END SPLASH ───────────────────────────────────────────────────── -->
+
 <div class="progress-bar" id="progressBar"></div>
 
 <!-- VEFILM fixed watermark — appears on every panel -->
@@ -2448,6 +2490,15 @@ body {
 
 
 <script>
+function enterDeck() {
+  const splash = document.getElementById('splash');
+  const vid = document.getElementById('splash-video');
+  if (vid) vid.pause();
+  splash.style.opacity = '0';
+  splash.style.pointerEvents = 'none';
+  setTimeout(() => { splash.style.display = 'none'; }, 580);
+}
+
 function animateCounter(el, endVal, prefix, suffix, decimals, duration) {
   if (!el) return;
   let startTime = null;
