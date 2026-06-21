@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -34,7 +34,7 @@ body {
   overflow-x: hidden;
 }
 
-/* â”€â”€ HEADER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── HEADER ─────────────────────────────────────────────── */
 .site-header {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   background: rgba(10,10,10,0.96);
@@ -85,7 +85,7 @@ body {
   font-weight: 700; letter-spacing: 0.06em;
 }
 
-/* â”€â”€ PANELS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── PANELS ─────────────────────────────────────────────── */
 .panel { display: none; padding-top: 62px; }
   .panel.active::before {
     content: '';
@@ -97,11 +97,11 @@ body {
   }
 .panel.active { display: block; }
 
-/* â”€â”€ HERO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── HERO ───────────────────────────────────────────────── */
 .hero {
-  position: relative; height: 92vh; min-height: 600px;
-  display: flex; align-items: center; justify-content: center;
-  overflow: hidden;
+  position: relative; height: 78vh; min-height: 520px;
+  display: flex; align-items: flex-end; justify-content: center;
+  overflow: hidden; padding-bottom: 3.5rem;
 }
 .hero-bg {
   position: absolute; inset: 0;
@@ -161,7 +161,7 @@ body {
   background: rgba(177,18,38,0.08);
 }
 
-/* â”€â”€ SECTION SCAFFOLDING â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── SECTION SCAFFOLDING ──────────────────────────────── */
 .section {
   max-width: 1200px; margin: 0 auto;
   padding: 5rem 2rem;
@@ -189,7 +189,7 @@ body {
   margin: 0;
 }
 
-/* â”€â”€ VIDEO BLOCK â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── VIDEO BLOCK ──────────────────────────────────────── */
 .video-wrap {
   position: relative; padding-bottom: 56.25%;
   background: #000; border-radius: 4px;
@@ -201,7 +201,7 @@ body {
   object-fit: cover;
 }
 
-/* â”€â”€ PULL QUOTE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── PULL QUOTE ───────────────────────────────────────── */
 .pull-quote {
   border-left: 3px solid var(--red);
   padding: 1.5rem 2rem;
@@ -221,7 +221,7 @@ body {
   color: var(--red); font-style: normal;
 }
 
-/* â”€â”€ STAT ROW â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── STAT ROW ────────────────────────────────────────── */
 .stat-row {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 1.5rem; margin: 3rem 0;
@@ -244,7 +244,7 @@ body {
   line-height: 1.4;
 }
 
-/* â”€â”€ CHARACTER CARDS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── CHARACTER CARDS ─────────────────────────────────── */
 .character-grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1.5rem; margin: 3rem 0;
@@ -299,10 +299,10 @@ body {
   display: flex; gap: 0.5rem;
 }
 .char-facts li::before {
-  content: 'â†’'; color: var(--red); flex-shrink: 0;
+  content: '→'; color: var(--red); flex-shrink: 0;
 }
 
-/* â”€â”€ COLD OPEN BLOCK â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── COLD OPEN BLOCK ──────────────────────────────────── */
 .cold-open {
   background: #070707;
   border: 1px solid rgba(177,18,38,0.25);
@@ -327,7 +327,7 @@ body {
   color: var(--text-dim);
 }
 
-/* â”€â”€ VISUAL APPROACH â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── VISUAL APPROACH ──────────────────────────────────── */
 .approach-grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1.5rem; margin: 3rem 0;
@@ -348,7 +348,7 @@ body {
   font-size: 0.82rem; color: var(--text-dim); line-height: 1.55;
 }
 
-/* â”€â”€ MACHINE / LEGAL â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── MACHINE / LEGAL ──────────────────────────────────── */
 .tier-stack {
   display: flex; flex-direction: column; gap: 1rem; margin: 3rem 0;
 }
@@ -389,7 +389,7 @@ body {
 .no-name-banner .big { font-family: Georgia, serif; font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
 .no-name-banner .desc { color: var(--text-mid); max-width: 560px; margin: 0 auto; line-height: 1.65; }
 
-/* â”€â”€ INVESTOR SEQUENCE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── INVESTOR SEQUENCE ────────────────────────────────── */
 .sequence-chain {
   position: relative; margin: 3rem 0;
   padding-left: 2rem;
@@ -443,7 +443,7 @@ body {
 .scene-callout p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.7; margin-bottom: 0.75rem; }
 .scene-callout p:last-child { margin-bottom: 0; }
 
-/* â”€â”€ INVESTOR GRID â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── INVESTOR GRID ────────────────────────────────────── */
 .investor-grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1rem; margin: 2.5rem 0;
@@ -465,7 +465,7 @@ body {
 .flag-amber { background: rgba(232,160,74,0.12); color: var(--amber); border: 1px solid rgba(232,160,74,0.25); }
 .flag-gold { background: rgba(201,168,76,0.12); color: var(--gold); border: 1px solid rgba(201,168,76,0.25); }
 
-/* â”€â”€ EVIDENCE / CASES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── EVIDENCE / CASES ────────────────────────────────── */
 .cases-grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.25rem; margin: 2.5rem 0;
@@ -506,7 +506,7 @@ body {
 .oil-amount { font-family: Georgia, serif; font-size: 1.4rem; color: var(--red); font-weight: 700; }
 .oil-note { font-size: 0.78rem; color: var(--text-mid); line-height: 1.45; }
 
-/* â”€â”€ ACDC DATA VIZ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── ACDC DATA VIZ ────────────────────────────────────── */
 .acdc-hero {
   background: var(--card-bg); border: 1px solid var(--border);
   border-radius: 4px; padding: 2.5rem; margin: 2.5rem 0;
@@ -547,7 +547,7 @@ body {
 .wallets-callout-label { font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.5rem; }
 .wallets-callout p { font-size: 0.82rem; color: var(--text-mid); line-height: 1.6; }
 
-/* â”€â”€ INTERACTIVE TIMELINE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── INTERACTIVE TIMELINE ────────────────────────────── */
 .tl-section {
   margin: 3rem 0;
 }
@@ -708,7 +708,7 @@ body {
 .pm-popup-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.75rem; line-height: 1.35; }
 .pm-popup-body { font-size: 0.8rem; color: var(--text-mid); line-height: 1.6; }
 
-/* â”€â”€ QUOTE WALL â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── QUOTE WALL ──────────────────────────────────────── */
 .quote-wall {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 1.25rem; margin: 2.5rem 0;
@@ -728,7 +728,7 @@ body {
   color: var(--text-dim);
 }
 
-/* â”€â”€ CONGO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── CONGO ───────────────────────────────────────────── */
 .parallel-table {
   width: 100%; border-collapse: collapse;
   margin: 2.5rem 0; font-size: 0.85rem;
@@ -783,9 +783,9 @@ body {
   font-size: 0.82rem; color: var(--text-mid);
   display: flex; gap: 0.6rem;
 }
-.deployment-list li::before { content: 'â–¸'; color: var(--red); flex-shrink: 0; }
+.deployment-list li::before { content: '▸'; color: var(--red); flex-shrink: 0; }
 
-/* â”€â”€ NETWORK DIAGRAM EMBED â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── NETWORK DIAGRAM EMBED ───────────────────────────── */
 .network-embed {
   background: #050505; border: 1px solid var(--border);
   border-radius: 4px; overflow: hidden; margin: 2.5rem 0;
@@ -795,7 +795,7 @@ body {
   width: 100%; height: 100%; border: none;
 }
 
-/* â”€â”€ WHY NOW â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── WHY NOW ──────────────────────────────────────────── */
 .deadline-banner {
   background: rgba(177,18,38,0.08);
   border: 1px solid rgba(177,18,38,0.35);
@@ -827,7 +827,7 @@ body {
 .law-sponsors { font-size: 0.72rem; color: var(--text-dim); margin-bottom: 0.75rem; }
 .law-desc { font-size: 0.8rem; color: var(--text-mid); line-height: 1.55; }
 
-/* â”€â”€ THE ASK â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── THE ASK ──────────────────────────────────────────── */
 #panel-ask { background: var(--black); color: var(--white); }
 #panel-ask .eyebrow { color: var(--red); }
 #panel-ask .section-title { color: var(--white); }
@@ -873,7 +873,7 @@ body {
 .contact-block p { font-size: 0.9rem; color: rgba(17,17,17,0.7); }
 .contact-block a { color: var(--red-deep); text-decoration: none; font-weight: 600; }
 
-/* â”€â”€ SCROLL REVEAL â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── SCROLL REVEAL ───────────────────────────────────── */
 .reveal {
   opacity: 0; transform: translateY(22px);
   transition: opacity 0.6s ease, transform 0.6s ease;
@@ -886,7 +886,7 @@ body {
 .reveal-delay-3 { transition-delay: 0.3s; }
 .reveal-delay-4 { transition-delay: 0.4s; }
 
-/* â”€â”€ PROGRESS BAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── PROGRESS BAR ────────────────────────────────────── */
 .progress-bar {
   position: fixed; top: 0; left: 0; z-index: 200;
   height: 2px; background: var(--red);
@@ -894,13 +894,13 @@ body {
   box-shadow: 0 0 6px rgba(177,18,38,0.7);
 }
 
-/* â”€â”€ DARK BAND â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── DARK BAND ───────────────────────────────────────── */
 .dark-band {
   background: #080808; padding: 5rem 2rem;
 }
 .dark-band .section { padding: 0; }
 
-/* â”€â”€ RESPONSIVE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── RESPONSIVE ──────────────────────────────────────── */
 @media (max-width: 768px) {
   .hero-content { padding: 2rem 1.5rem 3rem; }
   .section { padding: 3rem 1.25rem; }
@@ -910,7 +910,7 @@ body {
   .acdc-big { font-size: 3.5rem; }
 }
 
-  /* â”€â”€ Timeline node labels â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  /* ── Timeline node labels ─────────────────────────────── */
   .pm-node-dot {
     width: 10px; height: 10px; border-radius: 50%;
     position: absolute; top: 50%; left: 50%;
@@ -933,7 +933,7 @@ body {
   .pm-node-label.above { bottom: calc(100% + var(--offset, 12px)); }
   .pm-node-label.below { top:    calc(100% + var(--offset, 12px)); }
 
-/* â•â• VISUAL UPGRADE, Rounded, Polished, Next Level â•â• */
+/* ══ VISUAL UPGRADE, Rounded, Polished, Next Level ══ */
 
 /* Rounded corners on all card types */
 .stat-card, .char-card, .approach-card, .case-card,
@@ -1130,7 +1130,7 @@ body {
 }
 
 
-/* â”€â”€ MOBILE RESPONSIVE, COMPREHENSIVE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── MOBILE RESPONSIVE, COMPREHENSIVE ─────────────────────────────── */
 /* Helper classes applied to inline-styled grids */
 @media (max-width: 768px) {
   /* Tier card fix (overrides the !important at line 946) */
@@ -1282,12 +1282,12 @@ body {
         </div>
         <div style="padding:2rem;background:#0e0e16;border:1px solid rgba(255,255,255,0.08);border-top:3px solid var(--amber);">
           <div style="font-size:0.58rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--amber);margin-bottom:0.75rem;">The Lawyer</div>
-          <div style="font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:0.4rem;">David Kovel Â· Kirby McInerney</div>
+          <div style="font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:0.4rem;">David Kovel · Kirby McInerney</div>
           <div style="font-size:0.8rem;color:rgba(255,255,255,0.5);line-height:1.7;">Former commodity trader. Won the largest CFTC whistleblower award in history. Now building the civil case. He knows what a rigged chart looks like from the inside, before anyone runs the numbers.</div>
         </div>
         <div style="padding:2rem;background:#0e0e16;border:1px solid rgba(255,255,255,0.08);border-top:3px solid rgba(255,255,255,0.3);">
           <div style="font-size:0.58rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:0.75rem;">The Researcher</div>
-          <div style="font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:0.4rem;">Michael Hornsby Â· ACDC</div>
+          <div style="font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:0.4rem;">Michael Hornsby · ACDC</div>
           <div style="font-size:0.8rem;color:rgba(255,255,255,0.5);line-height:1.7;">Co-director of ACDC. Led the Congo Hold-Up investigation (19 outlets, largest African financial data leak). Applied the same methodology to Polymarket. Built the structural parallel that names the crime.</div>
         </div>
       </div>
@@ -1328,7 +1328,7 @@ body {
       <div>
         <span class="eyebrow">Format</span>
         <div style="margin-top:1rem;padding:1.5rem;background:#0e0e16;border:1px solid rgba(255,255,255,0.08);border-radius:4px;">
-          <div style="font-size:0.95rem;font-weight:700;color:#fff;margin-bottom:0.6rem;">Feature Documentary Â· 75 to 85 minutes</div>
+          <div style="font-size:0.95rem;font-weight:700;color:#fff;margin-bottom:0.6rem;">Feature Documentary · 75 to 85 minutes</div>
           <div style="font-size:0.82rem;color:rgba(255,255,255,0.5);line-height:1.7;margin-bottom:1.25rem;">Theatrically structured. Built to premiere at a major documentary festival. Designed for streaming acquisition.</div>
           <div style="font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-bottom:0.5rem;">Limited Series Potential</div>
           <div style="font-size:0.8rem;color:rgba(255,255,255,0.4);line-height:1.65;">The material also supports a 4-part limited series: The Addiction / The Machine / The Owners / The Reckoning. We lead with the feature. The series is the secondary offer.</div>
@@ -1423,24 +1423,24 @@ body {
         <div style="font-size:0.58rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--red);margin-bottom:1.25rem;">Locked, On Record Now</div>
         <div style="display:flex;flex-direction:column;gap:1rem;">
           <div>
-            <div style="font-size:0.82rem;font-weight:600;color:#fff;">Deebs Â· Bubblemaps</div>
-            <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);margin-top:0.2rem;">On-chain analysis Â· Named wallets Â· Nine-wallet cluster with 98% win rate</div>
+            <div style="font-size:0.82rem;font-weight:600;color:#fff;">Deebs · Bubblemaps</div>
+            <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);margin-top:0.2rem;">On-chain analysis · Named wallets · Nine-wallet cluster with 98% win rate</div>
           </div>
           <div>
             <div style="font-size:0.82rem;font-weight:600;color:#fff;">ACDC Published Reports</div>
-            <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);margin-top:0.2rem;">Kendler-Kretsch &amp; Szakonyi (April 30, 2026) Â· Citable, published, peer-reviewed</div>
+            <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);margin-top:0.2rem;">Kendler-Kretsch &amp; Szakonyi (April 30, 2026) · Citable, published, peer-reviewed</div>
           </div>
           <div>
             <div style="font-size:0.82rem;font-weight:600;color:#fff;">Court Records, USA v. Van Dyke</div>
-            <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);margin-top:0.2rem;">Federal indictment Â· Public record Â· Trial scheduled Dec 7, 2026</div>
+            <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);margin-top:0.2rem;">Federal indictment · Public record · Trial scheduled Dec 7, 2026</div>
           </div>
           <div>
             <div style="font-size:0.82rem;font-weight:600;color:#fff;">PHAI v. DraftKings</div>
-            <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);margin-top:0.2rem;">Civil case Â· Public filings Â· Andrew Douglas, Terry Thompson on record</div>
+            <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);margin-top:0.2rem;">Civil case · Public filings · Andrew Douglas, Terry Thompson on record</div>
           </div>
           <div>
             <div style="font-size:0.82rem;font-weight:600;color:#fff;">Warren to Whitehouse Letter</div>
-            <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);margin-top:0.2rem;">April 9, 2026 Â· CFTC deadline June 15 Â· No public response on record</div>
+            <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);margin-top:0.2rem;">April 9, 2026 · CFTC deadline June 15 · No public response on record</div>
           </div>
         </div>
       </div>
@@ -1450,15 +1450,15 @@ body {
         <div style="font-size:0.58rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--amber);margin-bottom:1.25rem;">Likely, On Camera, In Development</div>
         <div style="display:flex;flex-direction:column;gap:1rem;">
           <div>
-            <div style="font-size:0.82rem;font-weight:600;color:#fff;">David Kovel Â· Kirby McInerney</div>
+            <div style="font-size:0.82rem;font-weight:600;color:#fff;">David Kovel · Kirby McInerney</div>
             <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);margin-top:0.2rem;">Background interview complete. Indicated willingness to go on camera. CFTC Whistleblower Award 2021.</div>
           </div>
           <div>
-            <div style="font-size:0.82rem;font-weight:600;color:#fff;">Michael Hornsby Â· ACDC</div>
+            <div style="font-size:0.82rem;font-weight:600;color:#fff;">Michael Hornsby · ACDC</div>
             <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);margin-top:0.2rem;">Background interview complete. Indicated willingness. Co-directed Congo Hold-Up investigation.</div>
           </div>
           <div>
-            <div style="font-size:0.82rem;font-weight:600;color:#fff;">David Szakonyi Â· George Washington Univ.</div>
+            <div style="font-size:0.82rem;font-weight:600;color:#fff;">David Szakonyi · George Washington Univ.</div>
             <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);margin-top:0.2rem;">Co-author, ACDC polymarket report. Associate professor, DC-based. Via Hornsby introduction.</div>
           </div>
           <div>
@@ -1466,7 +1466,7 @@ body {
             <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);margin-top:0.2rem;">Co-author, ACDC report. Data investigator. Involved in 60 Minutes reporting. Via Hornsby introduction.</div>
           </div>
           <div>
-            <div style="font-size:0.82rem;font-weight:600;color:#fff;">Janice Luong Â· POGO</div>
+            <div style="font-size:0.82rem;font-weight:600;color:#fff;">Janice Luong · POGO</div>
             <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);margin-top:0.2rem;">Project on Government Oversight. Working with congressional offices on blanket-ban legislation. Via Hornsby introduction.</div>
           </div>
           <div>
@@ -1570,15 +1570,15 @@ body {
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;" class="mob-1col">
         <div style="text-align:center;padding:1.25rem;background:#0a0a12;border-radius:3px;">
           <div style="font-family:Georgia,serif;font-size:1.8rem;font-weight:700;color:var(--amber);">$800M</div>
-          <div style="font-size:0.7rem;color:rgba(255,255,255,0.35);margin-top:0.3rem;">March 23, 2026 Â· Oil short placed Â· Trump Truth Social post 15 min later</div>
+          <div style="font-size:0.7rem;color:rgba(255,255,255,0.35);margin-top:0.3rem;">March 23, 2026 · Oil short placed · Trump Truth Social post 15 min later</div>
         </div>
         <div style="text-align:center;padding:1.25rem;background:#0a0a12;border-radius:3px;">
           <div style="font-family:Georgia,serif;font-size:1.8rem;font-weight:700;color:var(--amber);">$950M</div>
-          <div style="font-size:0.7rem;color:rgba(255,255,255,0.35);margin-top:0.3rem;">April 7, 2026 Â· Oil short Â· Ceasefire announced 2.5 hrs later</div>
+          <div style="font-size:0.7rem;color:rgba(255,255,255,0.35);margin-top:0.3rem;">April 7, 2026 · Oil short · Ceasefire announced 2.5 hrs later</div>
         </div>
         <div style="text-align:center;padding:1.25rem;background:rgba(177,18,38,0.1);border:1px solid rgba(177,18,38,0.2);border-radius:3px;">
           <div style="font-family:Georgia,serif;font-size:1.8rem;font-weight:700;color:var(--red);">$1.75B</div>
-          <div style="font-size:0.7rem;color:rgba(255,255,255,0.35);margin-top:0.3rem;">Combined Â· No CFTC investigation Â· Warren deadline June 15, no response</div>
+          <div style="font-size:0.7rem;color:rgba(255,255,255,0.35);margin-top:0.3rem;">Combined · No CFTC investigation · Warren deadline June 15, no response</div>
         </div>
       </div>
       <div style="margin-top:1rem;font-size:0.75rem;color:rgba(255,255,255,0.3);">Note: These are oil futures, not prediction market trades. The question is whether trading on advance knowledge of a presidential announcement in commodity futures violates anything on the books. Kovel says it should. The CFTC hasn't answered.</div>
@@ -1597,7 +1597,6 @@ body {
       <h3>"This is not regulatory capture.<br>This is regulatory deployment."</h3>
       <p>Under Michael Zelig, the CFTC is not a passive agency that failed to act. It is an active agency working on behalf of a specific industry. Amicus briefs filed in ~50 state cases. Lawsuits against 3 states. Enforcement staff reduced from 58 to 11 in 14 months. CEO Innovation Council of 35 executives drawn from the regulated industry, replacing the disbanded Technology Advisory Committee.</p>
     </div>
-
 
     <!-- NETWORK EXPLORER =========================================== -->
     <div style="margin-top:3.5rem;">
@@ -1659,7 +1658,7 @@ body {
 <!-- PANEL 05, THE CONGO -->
 <section id="panel-congo" class="panel">
 
-  <!-- â•â•â• SECTION CINEMA â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <!-- ═══ SECTION CINEMA ═══════════════════════════════════════════════ -->
   <div style="position:relative;height:48vh;min-height:320px;overflow:hidden;">
     <div style="position:absolute;inset:0;background:url('./gen_congo_flag_v2.jpg') center/cover no-repeat;filter:brightness(0.45) saturate(0.8);"></div>
     <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,#08080e 100%);"></div>
@@ -1722,7 +1721,7 @@ body {
           <td>Anonymous crypto wallets (Skoobidoobnj, 0xoracle)</td>
         </tr>
         <tr>
-          <td>GÃ©camines, state mining revenues</td>
+          <td>Gécamines, state mining revenues</td>
           <td>Sovereign resource redirected to private gain</td>
           <td>US Sovereign Wealth Fund EO, Feb 2025</td>
         </tr>
@@ -1746,7 +1745,7 @@ body {
 
     <div class="pull-quote reveal reveal-delay-1">
       <p>"What I see in the United States is more sophisticated than what I saw in the DRC. The same structure. The same logic. The same family proximity to the extraction mechanism. But wearing a different suit. Wearing the suit of financial innovation."</p>
-      <cite>Michael Hornsby, ACDC Co-Director Â· Post-Call Notes, June 2026</cite>
+      <cite>Michael Hornsby, ACDC Co-Director · Post-Call Notes, June 2026</cite>
     </div>
 
     <div class="dark-band" style="margin: 3rem -2rem 0; padding: 3rem 2rem;">
@@ -1776,11 +1775,11 @@ body {
         <a href="../same-structure-standalone.html" target="_blank"
            style="position:absolute; bottom:0.85rem; right:1rem; z-index:20; font-size:0.6rem; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.28); text-decoration:none; border-bottom:1px solid rgba(255,255,255,0.12); padding-bottom:1px; transition:color .2s;"
            onmouseover="this.style.color='rgba(255,255,255,0.6)'" onmouseout="this.style.color='rgba(255,255,255,0.28)'">
-          Open full view â†—
+          Open full view ↗
         </a>
       </div>
 
-      <p style="font-size:0.72rem; color:var(--text-dim); margin-top:0.85rem; text-align:center;">Sources: PPLAAF + Mediapart, Congo Hold-Up (2021) Â· ACDC, "Insider Risks in Polymarket Political Markets", Kendler-Kretsch & Szakonyi (April 30, 2026) Â· ALL IN documentary research</p>
+      <p style="font-size:0.72rem; color:var(--text-dim); margin-top:0.85rem; text-align:center;">Sources: PPLAAF + Mediapart, Congo Hold-Up (2021) · ACDC, "Insider Risks in Polymarket Political Markets", Kendler-Kretsch & Szakonyi (April 30, 2026) · ALL IN documentary research</p>
     </div>
   </div>
 
@@ -1835,7 +1834,7 @@ body {
     <!-- LANGUAGE BREAKDOWN -->
     <div class="mob-1col" style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:3rem;">
       <div style="padding:1.75rem;background:#0e0e16;border:1px solid rgba(255,255,255,0.07);border-left:3px solid var(--red);" class="reveal">
-        <div style="font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--red);margin-bottom:0.75rem;">VeritÃ©, The Investigators at Work</div>
+        <div style="font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--red);margin-bottom:0.75rem;">Verité, The Investigators at Work</div>
         <div style="font-size:0.82rem;color:rgba(255,255,255,0.5);line-height:1.7;">Deebs and the Bubblemaps team at the wall of screens. The cursor tracing wallet paths in real time. Kovel on the phone, in the office, building the case. Hornsby in Paris, pulling the thread across two continents. This is the Citizenfour register, surveillance of the surveillance state, shot at close quarters.</div>
       </div>
       <div style="padding:1.75rem;background:#0e0e16;border:1px solid rgba(255,255,255,0.07);border-left:3px solid var(--amber);" class="reveal reveal-delay-1">
@@ -2120,8 +2119,8 @@ body {
 
         <!-- Upcoming: Deebs -->
         <div style="padding:1.25rem 1.25rem 1.25rem 1rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-left:3px solid var(--amber);backdrop-filter:blur(12px);position:relative;">
-          <div style="font-size:0.78rem;font-weight:600;color:rgba(255,255,255,0.7);margin-bottom:0.4rem;">Deebs Â· Bubblemaps</div>
-          <div style="font-size:0.68rem;color:rgba(255,255,255,0.35);line-height:1.5;">On-chain analyst Â· Nine-wallet cluster Â· Iran military markets</div>
+          <div style="font-size:0.78rem;font-weight:600;color:rgba(255,255,255,0.7);margin-bottom:0.4rem;">Deebs · Bubblemaps</div>
+          <div style="font-size:0.68rem;color:rgba(255,255,255,0.35);line-height:1.5;">On-chain analyst · Nine-wallet cluster · Iran military markets</div>
           <div style="position:absolute;top:0.75rem;right:0.85rem;font-size:0.48rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(201,168,76,0.7);">This Week</div>
         </div>
 
@@ -2131,7 +2130,7 @@ body {
             <span style="font-size:0.65rem;color:#2ecc71;font-weight:700;">&#10003;</span>
             <div style="font-size:0.78rem;font-weight:700;color:var(--red);letter-spacing:0.02em;">David Kovel</div>
           </div>
-          <div style="font-size:0.68rem;color:rgba(255,255,255,0.5);line-height:1.5;">Kirby McInerney Â· CFTC Whistleblower Award Â· Civil case Â· 60 Minutes</div>
+          <div style="font-size:0.68rem;color:rgba(255,255,255,0.5);line-height:1.5;">Kirby McInerney · CFTC Whistleblower Award · Civil case · 60 Minutes</div>
           <div style="position:absolute;top:0.75rem;right:0.85rem;font-size:0.48rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(46,204,113,0.6);">On Record</div>
         </div>
 
@@ -2141,44 +2140,44 @@ body {
             <span style="font-size:0.65rem;color:#2ecc71;font-weight:700;">&#10003;</span>
             <div style="font-size:0.78rem;font-weight:700;color:var(--red);letter-spacing:0.02em;">Michael Hornsby</div>
           </div>
-          <div style="font-size:0.68rem;color:rgba(255,255,255,0.5);line-height:1.5;">ACDC Co-Director Â· Congo Hold-Up Â· Wallets identified</div>
+          <div style="font-size:0.68rem;color:rgba(255,255,255,0.5);line-height:1.5;">ACDC Co-Director · Congo Hold-Up · Wallets identified</div>
           <div style="position:absolute;top:0.75rem;right:0.85rem;font-size:0.48rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(46,204,113,0.6);">On Record</div>
         </div>
 
         <!-- Pending: David Szakonyi -->
         <div style="padding:1.25rem 1.25rem 1.25rem 1rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-left:3px solid rgba(255,255,255,0.12);backdrop-filter:blur(12px);">
           <div style="font-size:0.78rem;font-weight:600;color:rgba(255,255,255,0.7);margin-bottom:0.4rem;">David Szakonyi</div>
-          <div style="font-size:0.68rem;color:rgba(255,255,255,0.35);line-height:1.5;">George Washington Univ. Â· ACDC report co-author Â· Via Hornsby</div>
+          <div style="font-size:0.68rem;color:rgba(255,255,255,0.35);line-height:1.5;">George Washington Univ. · ACDC report co-author · Via Hornsby</div>
         </div>
 
         <!-- Pending: Michelle Kendler-Kretsch -->
         <div style="padding:1.25rem 1.25rem 1.25rem 1rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-left:3px solid rgba(255,255,255,0.12);backdrop-filter:blur(12px);">
           <div style="font-size:0.78rem;font-weight:600;color:rgba(255,255,255,0.7);margin-bottom:0.4rem;">Michelle Kendler-Kretsch</div>
-          <div style="font-size:0.68rem;color:rgba(255,255,255,0.35);line-height:1.5;">ACDC report co-author Â· Data investigator Â· 60 Minutes Â· Via Hornsby</div>
+          <div style="font-size:0.68rem;color:rgba(255,255,255,0.35);line-height:1.5;">ACDC report co-author · Data investigator · 60 Minutes · Via Hornsby</div>
         </div>
 
         <!-- Pending: Janice Luong -->
         <div style="padding:1.25rem 1.25rem 1.25rem 1rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-left:3px solid rgba(255,255,255,0.12);backdrop-filter:blur(12px);">
-          <div style="font-size:0.78rem;font-weight:600;color:rgba(255,255,255,0.7);margin-bottom:0.4rem;">Janice Luong Â· POGO</div>
-          <div style="font-size:0.68rem;color:rgba(255,255,255,0.35);line-height:1.5;">Project On Government Oversight Â· Congressional legislation Â· Via Hornsby</div>
+          <div style="font-size:0.78rem;font-weight:600;color:rgba(255,255,255,0.7);margin-bottom:0.4rem;">Janice Luong · POGO</div>
+          <div style="font-size:0.68rem;color:rgba(255,255,255,0.35);line-height:1.5;">Project On Government Oversight · Congressional legislation · Via Hornsby</div>
         </div>
 
         <!-- Evidence: Decleptocracy -->
         <div style="padding:1.25rem 1.25rem 1.25rem 1rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-left:3px solid rgba(255,255,255,0.12);backdrop-filter:blur(12px);">
           <div style="font-size:0.78rem;font-weight:600;color:rgba(255,255,255,0.7);margin-bottom:0.4rem;">The Decleptocracy Project</div>
-          <div style="font-size:0.68rem;color:rgba(255,255,255,0.35);line-height:1.5;">Nonprofit Â· US crypto regulatory capture Â· Newsletter Â· Via Hornsby</div>
+          <div style="font-size:0.68rem;color:rgba(255,255,255,0.35);line-height:1.5;">Nonprofit · US crypto regulatory capture · Newsletter · Via Hornsby</div>
         </div>
 
         <!-- Evidence: Court Records -->
         <div style="padding:1.25rem 1.25rem 1.25rem 1rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-left:3px solid rgba(255,255,255,0.12);backdrop-filter:blur(12px);">
           <div style="font-size:0.78rem;font-weight:600;color:rgba(255,255,255,0.7);margin-bottom:0.4rem;">Court Records</div>
-          <div style="font-size:0.68rem;color:rgba(255,255,255,0.35);line-height:1.5;">USA v. Van Dyke Â· PHAI v. DraftKings Â· Warren to Whitehouse CFTC letter</div>
+          <div style="font-size:0.68rem;color:rgba(255,255,255,0.35);line-height:1.5;">USA v. Van Dyke · PHAI v. DraftKings · Warren to Whitehouse CFTC letter</div>
         </div>
 
         <!-- Evidence: ACDC -->
         <div style="padding:1.25rem 1.25rem 1.25rem 1rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-left:3px solid rgba(255,255,255,0.12);backdrop-filter:blur(12px);">
           <div style="font-size:0.78rem;font-weight:600;color:rgba(255,255,255,0.7);margin-bottom:0.4rem;">ACDC Published Reports</div>
-          <div style="font-size:0.68rem;color:rgba(255,255,255,0.35);line-height:1.5;">Kendler-Kretsch &amp; Szakonyi Â· April 30, 2026 Â· Peer-reviewed Â· Public</div>
+          <div style="font-size:0.68rem;color:rgba(255,255,255,0.35);line-height:1.5;">Kendler-Kretsch &amp; Szakonyi · April 30, 2026 · Peer-reviewed · Public</div>
         </div>
 
       </div>
@@ -2188,9 +2187,9 @@ body {
     <div style="text-align:center;padding:3rem 2rem;border-top:1px solid var(--border);">
       <div style="font-size:0.6rem;letter-spacing:0.32em;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-bottom:1.5rem;">Contact</div>
       <h3 style="font-family:Georgia,serif;font-size:1.8rem;margin-bottom:0.5rem;color:#fff;">Pedro Feria Pino, SOC</h3>
-      <p style="font-size:0.9rem;color:rgba(255,255,255,0.45);margin-bottom:0.75rem;">Director / DP Â· Society of Camera Operators</p>
+      <p style="font-size:0.9rem;color:rgba(255,255,255,0.45);margin-bottom:0.75rem;">Director / DP · Society of Camera Operators</p>
       <a href="mailto:vefilm@gmail.com" style="font-size:1rem;color:var(--red);text-decoration:none;letter-spacing:0.04em;border-bottom:1px solid rgba(177,18,38,0.3);padding-bottom:2px;">vefilm@gmail.com</a>
-      <br><a href="https://www.pedroferiapino.com" target="_blank" style="font-size:0.88rem;color:rgba(255,255,255,0.4);text-decoration:none;letter-spacing:0.04em;margin-top:0.5rem;display:inline-block;">www.pedroferiapino.com â†—</a>
+      <br><a href="https://www.pedroferiapino.com" target="_blank" style="font-size:0.88rem;color:rgba(255,255,255,0.4);text-decoration:none;letter-spacing:0.04em;margin-top:0.5rem;display:inline-block;">www.pedroferiapino.com ↗</a>
       <p style="margin-top:2.5rem;font-size:0.72rem;color:rgba(255,255,255,0.18);max-width:640px;margin-left:auto;margin-right:auto;line-height:1.7;">ALL IN: Betting on America, Pedro Feria Pino, SOC. All figures sourced from ACDC published reports, court filings, legislative records, and on-record interviews. Congo Hold-Up attribution: PPLAAF + Mediapart, 2021.</p>
     </div>
   </div>
@@ -2204,7 +2203,7 @@ body {
     <div style="position:absolute;inset:0;background:url('./gen_interview_set.jpg') center 50%/cover no-repeat;filter:brightness(0.5) saturate(0.85);"></div>
     <div style="position:absolute;inset:0;background:linear-gradient(135deg,#0d0d14aa 0%,#1a0a0a88 60%,#0d0d14aa 100%);"></div>
     <div style="position:absolute;bottom:2rem;left:2.5rem;z-index:2;">
-      <div style="font-size:0.55rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--amber);margin-bottom:0.35rem;">10, The Voices Â· Research Appendix</div>
+      <div style="font-size:0.55rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--amber);margin-bottom:0.35rem;">10, The Voices · Research Appendix</div>
       <div style="font-family:Georgia,serif;font-size:1.3rem;color:#fff;font-style:italic;">"The researchers spoke. Here is what they said."</div>
     </div>
   </div>
@@ -2218,7 +2217,7 @@ body {
         <div style="min-width:56px;height:56px;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;color:#fff;flex-shrink:0;">MH</div>
         <div>
           <div style="font-size:1rem;font-weight:700;color:#fff;margin-bottom:0.2rem;">Michael Hornsby</div>
-          <div style="font-size:0.78rem;color:rgba(255,255,255,0.45);">Co-Director, ACDC Â· Congo Hold-Up Â· Mediapart, PPLAAF</div>
+          <div style="font-size:0.78rem;color:rgba(255,255,255,0.45);">Co-Director, ACDC · Congo Hold-Up · Mediapart, PPLAAF</div>
         </div>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem;" class="mob-1col">
@@ -2258,7 +2257,7 @@ body {
         <div style="min-width:56px;height:56px;background:rgba(177,18,38,0.6);display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;color:#fff;flex-shrink:0;">DK</div>
         <div>
           <div style="font-size:1rem;font-weight:700;color:#fff;margin-bottom:0.2rem;">David Kovel</div>
-          <div style="font-size:0.78rem;color:rgba(255,255,255,0.45);">Partner, Kirby McInerney LLP Â· CFTC Whistleblower Award 2021 Â· Former CFTC Attorney</div>
+          <div style="font-size:0.78rem;color:rgba(255,255,255,0.45);">Partner, Kirby McInerney LLP · CFTC Whistleblower Award 2021 · Former CFTC Attorney</div>
         </div>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem;" class="mob-1col">
@@ -2332,14 +2331,14 @@ function animateACDC() {
 const TL_EVENTS = [
   { date: 'May 2018', label: 'PASPA struck down', body: 'Supreme Court eliminates the federal sports betting ban. The $150B industry is born overnight.', cat: 'blue', pct: 2 },
   { date: '2022', label: 'CFTC fines Polymarket $1.4M', body: 'CFTC fines Polymarket and bans US users. Four years later both DOJ and CFTC probes dropped, same month, no charges.', cat: 'red', pct: 9 },
-  { date: 'May 2024', label: 'Founders Fund $70M Â· $1.2B valuation', body: "Peter Thiel's Founders Fund leads a $70M round at $1.2B valuation.", cat: 'gold', pct: 17 },
+  { date: 'May 2024', label: 'Founders Fund $70M · $1.2B valuation', body: "Peter Thiel's Founders Fund leads a $70M round at $1.2B valuation.", cat: 'gold', pct: 17 },
   { date: 'Oct-Nov 2024', label: "FBI seizes Coplan's phone", body: "FBI seizes Polymarket CEO Shayne Coplan's phone. Investigation opens. New administration takes office Jan 20. Case closed, no charges.", cat: 'red', pct: 24 },
   { date: 'Jan 2025', label: 'DOJ drops Coplan case', body: "New administration in office. DOJ closes the Coplan investigation. No charges. No explanation.", cat: 'red', pct: 31 },
   { date: 'Jul 2025', label: 'DOJ + CFTC drop all probes', body: 'Both federal probes dropped simultaneously, no charges. Same month: Polymarket acquires QCEX for $112M, US regulatory foothold.', cat: 'red', pct: 38 },
   { date: 'Aug 2025', label: 'Trump Jr. invests, 5 weeks later', body: '1789 Capital / Donald Trump Jr. invests double-digit millions in Polymarket. Five weeks after both federal investigations dropped with no charges.', cat: 'gold', pct: 44 },
-  { date: 'Oct 2025', label: 'ICE $2B Â· Truth Predict Â· Selig nominated', body: 'ICE commits $2B at $9B valuation. Trump Media + Crypto.com announce Truth Predict. Selig nominated as CFTC Chair, former clients include Truth Predict partners.', cat: 'red', pct: 50 },
+  { date: 'Oct 2025', label: 'ICE $2B · Truth Predict · Selig nominated', body: 'ICE commits $2B at $9B valuation. Trump Media + Crypto.com announce Truth Predict. Selig nominated as CFTC Chair, former clients include Truth Predict partners.', cat: 'red', pct: 50 },
   { date: 'Dec 2025', label: 'Selig confirmed 53-43', body: "Senate confirms Selig. CFTC chair's former clients include Truth Predict business partners. Ethics recusal expires mid-2026.", cat: 'red', pct: 56 },
-  { date: 'Jan-Feb 2026', label: 'CEO Innovation Council Â· 58â†’11 staff', body: "Selig disbands TAC. Creates 35-member CEO Innovation Council: Coplan (Polymarket), Mansour (Kalshi), Winklevoss (Gemini), Marszalek (Crypto.com). Enforcement: 58 to 11 staff.", cat: 'red', pct: 62 },
+  { date: 'Jan-Feb 2026', label: 'CEO Innovation Council · 58→11 staff', body: "Selig disbands TAC. Creates 35-member CEO Innovation Council: Coplan (Polymarket), Mansour (Kalshi), Winklevoss (Gemini), Marszalek (Crypto.com). Enforcement: 58 to 11 staff.", cat: 'red', pct: 62 },
   { date: 'Mar 23, 2026', label: 'Oil trade 1, $800M', body: '$800M coordinated oil short. Trump Truth Social post 15 min later. Flagged by David Kovel (Kirby McInerney). No CFTC investigation.', cat: 'amber', pct: 68 },
   { date: 'Apr 7, 2026', label: 'Oil trade 2, $950M', body: '$950M oil short. Ceasefire announced 2.5 hours later. $1.75B combined. Kovel on 60 Minutes. No CFTC investigation.', cat: 'amber', pct: 73 },
   { date: 'Apr 22-30, 2026', label: 'Senate bans itself, 8 days', body: 'Kalshi suspends 3 congressional candidates betting on own races (Apr 22). Senate unanimously bans prediction market trading for members (Apr 30). Eight days to protect themselves. No consumer protection passed.', cat: 'blue', pct: 78 },
@@ -2365,4 +2364,82 @@ function buildTimeline() {
   const offsets = [52, 18, 44, 24];  // px from line
   const sides   = ['above','below','below','above'];
   TL_EVENTS.forEach((ev, i) => {
-    cons
+    const x = 60 + (w - 120) * ev.pct / 100;
+    const tier = i % 4;
+    const side = sides[tier];
+    const offset = offsets[tier];
+    const node = document.createElement('div');
+    node.className = 'pm-node';
+    node.style.left = x + 'px';
+    // Short date: strip ", 2026" or ", 2025" etc for compactness
+        const shortDate = ev.date.replace(/, 20\d\d/, '').replace(/20(\d\d)/, "'$1");
+    const dotColor = ev.cat === 'red' ? 'var(--red)' : ev.cat === 'amber' ? 'var(--amber)' : ev.cat === 'gold' ? 'var(--gold)' : '#4A90D9';
+    const shortLabel = ev.label.length > 22 ? ev.label.slice(0,20) + '\u2026' : ev.label;
+    node.innerHTML = `
+      <div class="pm-node-dot" style="background:${dotColor}"></div>
+      <div class="pm-node-label ${side}" style="--offset:${offset}px; max-width:115px; white-space:normal;">
+        <span style="display:block;font-size:0.5rem;color:rgba(255,255,255,0.4);margin-bottom:2px;">${shortDate}</span>
+        <strong style="display:block;font-size:0.58rem;line-height:1.25;color:rgba(255,255,255,0.85);font-weight:600;">${shortLabel}</strong>
+      </div>`;
+    node.title = ev.label + ', ' + ev.body;
+    node.addEventListener('click', (e) => showPopup(e, ev));
+    canvas.appendChild(node);
+    // Also make the label text clickable (it's position:absolute, outside hit area)
+    const lbl = node.querySelector('.pm-node-label');
+    if (lbl) {
+      lbl.style.cursor = 'pointer';
+      lbl.addEventListener('click', (e) => { e.stopPropagation(); showPopup(e, ev); });
+    }
+  });
+}
+
+function showPopup(e, ev) {
+  const popup = document.getElementById('pmPopup');
+  if (!popup) return;
+  document.getElementById('pmPopupDate').textContent = ev.date;
+  document.getElementById('pmPopupTitle').textContent = ev.label;
+  document.getElementById('pmPopupBody').textContent = ev.body;
+  popup.style.display = 'block';
+  const vw = window.innerWidth, vh = window.innerHeight;
+  let px = e.clientX + 16, py = e.clientY - 20;
+  if (px + 310 > vw) px = e.clientX - 316;
+  if (py + 160 > vh) py = vh - 170;
+  popup.style.left = px + 'px';
+  popup.style.top = py + 'px';
+  e.stopPropagation();
+}
+
+function closePopup() {
+  const p = document.getElementById('pmPopup');
+  if (p) p.style.display = 'none';
+}
+document.addEventListener('click', () => closePopup());
+
+function tlZoomIn()    { tlZoom = Math.min(tlZoom * 1.5, 4); updateTL(); }
+function tlZoomOut()   { tlZoom = Math.max(tlZoom / 1.5, 0.6); updateTL(); }
+function tlReset()     { tlZoom = 1; updateTL(); }
+function updateTL()    {
+  buildTimeline();
+  const outer = document.getElementById('tlOuter');
+  if (outer) outer.scrollLeft = 0;
+  const lbl = document.getElementById('tlZoomLabel');
+  if (lbl) lbl.textContent = Math.round(tlZoom * 100) / 100 + '×';
+}
+
+// ── DRAG-SCROLL TIMELINE ──────────────────────────────────
+(function() {
+  const outer = document.getElementById('tlOuter');
+  if (!outer) return;
+  let down = false, sx = 0, sl = 0;
+  outer.addEventListener('mousedown', e => { down = true; sx = e.clientX; sl = outer.scrollLeft; outer.style.cursor = 'grabbing'; });
+  document.addEventListener('mouseup', () => { down = false; if (outer) outer.style.cursor = 'grab'; });
+  document.addEventListener('mousemove', e => { if (!down) return; outer.scrollLeft = sl - (e.clientX - sx); });
+})();
+
+// ── BUILD + INIT ──────────────────────────────────────────
+window.addEventListener('load', () => { buildTimeline(); runReveal(); });
+</script>
+<script src="./ai-assistant.js?v=7"></script>
+
+</body>
+</html>
