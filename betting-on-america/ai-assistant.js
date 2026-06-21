@@ -93,230 +93,321 @@ Respond concisely but completely. Use plain prose — not bullet lists unless sp
 
   // ─── STYLES ────────────────────────────────────────────────────────────────
   const css = `
+/* ── FLOATING BUTTON ──────────────────────────────────────────────── */
 #allin-chat-btn {
   position: fixed; bottom: 28px; right: 28px; z-index: 9000;
   width: 56px; height: 56px; border-radius: 50%;
-  background: #B11226; border: none; cursor: pointer;
-  box-shadow: 0 4px 20px rgba(177,18,38,0.5), 0 0 0 0 rgba(177,18,38,0.3);
+  background: linear-gradient(145deg, #c41428 0%, #8b0d1c 100%);
+  border: none; cursor: pointer;
+  box-shadow: 0 4px 24px rgba(177,18,38,0.55),
+              0 0 0 1px rgba(177,18,38,0.2),
+              inset 0 1px 0 rgba(255,255,255,0.12);
   display: flex; align-items: center; justify-content: center;
-  transition: transform 0.2s, box-shadow 0.2s;
-  animation: allin-pulse 3s ease-in-out infinite;
+  transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s;
+  animation: allin-pulse 4s ease-in-out infinite;
 }
 #allin-chat-btn:hover {
-  transform: scale(1.08);
-  box-shadow: 0 6px 28px rgba(177,18,38,0.65), 0 0 0 8px rgba(177,18,38,0.12);
+  transform: scale(1.1) translateY(-1px);
+  box-shadow: 0 8px 36px rgba(177,18,38,0.7),
+              0 0 0 1px rgba(177,18,38,0.3),
+              0 0 0 12px rgba(177,18,38,0.08),
+              inset 0 1px 0 rgba(255,255,255,0.15);
 }
-#allin-chat-btn svg { width: 24px; height: 24px; fill: white; }
+#allin-chat-btn svg { width: 22px; height: 22px; fill: white; }
 #allin-chat-btn .allin-notif {
-  position: absolute; top: 0; right: 0;
-  width: 14px; height: 14px; background: #E8A04A;
+  position: absolute; top: 2px; right: 2px;
+  width: 12px; height: 12px; background: #E8A04A;
   border-radius: 50%; border: 2px solid #0A0A0A;
+  animation: allin-notif-in 0.4s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+@keyframes allin-notif-in {
+  from { transform: scale(0); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
 }
 @keyframes allin-pulse {
-  0%, 100% { box-shadow: 0 4px 20px rgba(177,18,38,0.5), 0 0 0 0 rgba(177,18,38,0.3); }
-  50% { box-shadow: 0 4px 28px rgba(177,18,38,0.65), 0 0 0 12px rgba(177,18,38,0); }
+  0%, 100% { box-shadow: 0 4px 24px rgba(177,18,38,0.55), 0 0 0 1px rgba(177,18,38,0.2), 0 0 0 0 rgba(177,18,38,0); }
+  50% { box-shadow: 0 4px 32px rgba(177,18,38,0.7), 0 0 0 1px rgba(177,18,38,0.25), 0 0 0 14px rgba(177,18,38,0); }
 }
 
+/* ── PANEL ──────────────────────────────────────────────────────────── */
 #allin-chat-panel {
   position: fixed; bottom: 96px; right: 28px; z-index: 9000;
-  width: 380px; height: 580px;
-  background: #0D0D0D;
-  border: 1px solid rgba(177,18,38,0.3);
-  border-radius: 8px;
-  box-shadow: 0 24px 80px rgba(0,0,0,0.8), 0 0 0 1px rgba(177,18,38,0.1);
+  width: 420px; height: 630px;
+  max-height: calc(100vh - 120px);
+  background: linear-gradient(180deg, #0e0e12 0%, #09090d 60%, #070709 100%);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 20px;
+  box-shadow:
+    0 40px 100px rgba(0,0,0,0.88),
+    0 0 0 1px rgba(177,18,38,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.06);
   display: flex; flex-direction: column; overflow: hidden;
-  transform: translateY(16px) scale(0.97); opacity: 0; pointer-events: none;
-  transition: transform 0.25s cubic-bezier(0.32,0,0,1), opacity 0.2s;
+  transform: translateY(20px) scale(0.95); opacity: 0; pointer-events: none;
+  transition: transform 0.3s cubic-bezier(0.32,0,0,1), opacity 0.22s;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 #allin-chat-panel.allin-open {
   transform: translateY(0) scale(1); opacity: 1; pointer-events: all;
 }
 
+/* ── HEADER ─────────────────────────────────────────────────────────── */
 .allin-header {
-  background: #0A0A0A;
-  border-bottom: 1px solid rgba(177,18,38,0.25);
-  padding: 12px 16px;
-  display: flex; align-items: center; gap: 10px;
+  background: linear-gradient(180deg, #0a0a0e 0%, #0d0d12 100%);
+  padding: 18px 20px 16px;
+  display: flex; align-items: center; gap: 14px;
+  position: relative; flex-shrink: 0;
 }
-.allin-header-dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: #B11226;
-  box-shadow: 0 0 8px rgba(177,18,38,0.8);
-  animation: allin-blink 2s ease-in-out infinite;
-  flex-shrink: 0;
+.allin-header::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(177,18,38,0.55) 25%, rgba(177,18,38,0.55) 75%, transparent 100%);
 }
-@keyframes allin-blink {
-  0%, 100% { opacity: 1; } 50% { opacity: 0.4; }
+.allin-header-mark {
+  display: flex; flex-direction: column;
+  align-items: flex-start; flex-shrink: 0; line-height: 1;
+}
+.allin-header-mark .mark-all {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 20px; font-weight: 400; letter-spacing: 0.05em;
+  color: #fff; line-height: 1;
+}
+.allin-header-mark .mark-in {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 20px; font-weight: 400; letter-spacing: 0.05em;
+  color: #B11226; line-height: 1;
+}
+.allin-header-sep {
+  width: 1px; align-self: stretch;
+  background: rgba(255,255,255,0.1);
+  flex-shrink: 0; margin: 0 2px;
 }
 .allin-header-text { flex: 1; }
 .allin-header-title {
-  font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
-  text-transform: uppercase; color: #fff;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.18em;
+  text-transform: uppercase; color: rgba(255,255,255,0.88);
+  line-height: 1;
 }
 .allin-header-sub {
-  font-size: 9px; color: rgba(255,255,255,0.35);
-  letter-spacing: 0.1em; text-transform: uppercase; margin-top: 1px;
+  font-size: 9px; color: rgba(255,255,255,0.28);
+  letter-spacing: 0.08em; text-transform: uppercase; margin-top: 5px;
+  display: flex; align-items: center; gap: 6px;
+}
+.allin-header-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 6px rgba(34,197,94,0.9);
+  animation: allin-blink 2.5s ease-in-out infinite;
+  flex-shrink: 0;
+}
+@keyframes allin-blink {
+  0%, 100% { opacity: 1; box-shadow: 0 0 6px rgba(34,197,94,0.9); }
+  50% { opacity: 0.4; box-shadow: 0 0 3px rgba(34,197,94,0.3); }
 }
 .allin-close-btn {
-  background: none; border: none; cursor: pointer;
-  color: rgba(255,255,255,0.35); font-size: 18px; line-height: 1;
-  padding: 2px 4px; border-radius: 3px;
-  transition: color 0.15s, background 0.15s;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.09);
+  cursor: pointer; color: rgba(255,255,255,0.35);
+  font-size: 13px; line-height: 1;
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%; flex-shrink: 0;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
 }
-.allin-close-btn:hover { color: #fff; background: rgba(255,255,255,0.06); }
+.allin-close-btn:hover {
+  color: #fff; background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.15);
+}
 
+/* ── MESSAGES ──────────────────────────────────────────────────────── */
 .allin-messages {
-  flex: 1; overflow-y: auto; padding: 16px;
-  display: flex; flex-direction: column; gap: 12px;
+  flex: 1; overflow-y: auto; padding: 22px 18px;
+  display: flex; flex-direction: column; gap: 14px;
   scroll-behavior: smooth;
 }
-.allin-messages::-webkit-scrollbar { width: 4px; }
+.allin-messages::-webkit-scrollbar { width: 3px; }
 .allin-messages::-webkit-scrollbar-track { background: transparent; }
-.allin-messages::-webkit-scrollbar-thumb { background: rgba(177,18,38,0.3); border-radius: 2px; }
+.allin-messages::-webkit-scrollbar-thumb { background: rgba(177,18,38,0.22); border-radius: 2px; }
+.allin-messages::-webkit-scrollbar-thumb:hover { background: rgba(177,18,38,0.5); }
 
-.allin-msg { display: flex; flex-direction: column; gap: 3px; max-width: 88%; }
+.allin-msg { display: flex; flex-direction: column; gap: 4px; max-width: 88%; }
 .allin-msg.allin-user { align-self: flex-end; align-items: flex-end; }
 .allin-msg.allin-bot { align-self: flex-start; align-items: flex-start; }
 
 .allin-bubble {
-  padding: 9px 13px;
-  border-radius: 6px;
-  font-size: 12.5px; line-height: 1.65;
-  word-wrap: break-word;
+  padding: 11px 15px; border-radius: 16px;
+  font-size: 13px; line-height: 1.72; word-wrap: break-word;
 }
 .allin-user .allin-bubble {
-  background: #B11226;
-  color: #fff;
-  border-bottom-right-radius: 2px;
+  background: linear-gradient(135deg, #c41428 0%, #9e0f21 100%);
+  color: #fff; border-bottom-right-radius: 4px;
+  box-shadow: 0 2px 14px rgba(177,18,38,0.35);
 }
 .allin-bot .allin-bubble {
-  background: #1A1A1A;
+  background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.07);
-  color: rgba(255,255,255,0.85);
-  border-bottom-left-radius: 2px;
+  color: rgba(255,255,255,0.82); border-bottom-left-radius: 4px;
 }
 .allin-msg-label {
-  font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
-  color: rgba(255,255,255,0.2);
+  font-size: 8.5px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(255,255,255,0.18); padding: 0 4px;
 }
 
+/* ── TYPING ─────────────────────────────────────────────────────────── */
 .allin-typing {
-  display: flex; align-items: center; gap: 5px;
-  padding: 10px 14px;
-  background: #1A1A1A;
+  display: flex; align-items: center; gap: 4px;
+  padding: 13px 16px;
+  background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 6px; border-bottom-left-radius: 2px;
+  border-radius: 16px; border-bottom-left-radius: 4px;
   width: fit-content;
 }
 .allin-typing span {
-  display: block; width: 6px; height: 6px;
-  background: rgba(177,18,38,0.7); border-radius: 50%;
-  animation: allin-dot 1.2s ease-in-out infinite;
+  display: block; width: 5px; height: 5px;
+  background: rgba(177,18,38,0.65); border-radius: 50%;
+  animation: allin-dot 1.4s ease-in-out infinite;
 }
-.allin-typing span:nth-child(2) { animation-delay: 0.2s; }
-.allin-typing span:nth-child(3) { animation-delay: 0.4s; }
+.allin-typing span:nth-child(2) { animation-delay: 0.22s; }
+.allin-typing span:nth-child(3) { animation-delay: 0.44s; }
 @keyframes allin-dot {
-  0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
   30% { transform: translateY(-5px); opacity: 1; }
 }
 
+/* ── WELCOME ─────────────────────────────────────────────────────────── */
 .allin-welcome {
-  background: rgba(177,18,38,0.06);
-  border: 1px solid rgba(177,18,38,0.15);
-  border-radius: 6px; padding: 14px;
-  font-size: 12px; color: rgba(255,255,255,0.6); line-height: 1.7;
+  padding: 0; font-size: 13px;
+  color: rgba(255,255,255,0.5); line-height: 1.75;
 }
-.allin-welcome strong { color: rgba(255,255,255,0.9); }
+.allin-welcome-eyebrow {
+  font-size: 8.5px; letter-spacing: 0.24em; text-transform: uppercase;
+  color: #B11226; margin-bottom: 11px; font-weight: 600;
+}
+.allin-welcome strong {
+  display: block;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 17px; font-weight: 400; letter-spacing: 0.01em;
+  color: rgba(255,255,255,0.94); line-height: 1.35; margin-bottom: 9px;
+}
+.allin-welcome-body {
+  font-size: 12px; color: rgba(255,255,255,0.38); line-height: 1.8;
+}
 
+/* ── CHIPS ───────────────────────────────────────────────────────────── */
 .allin-chips {
-  display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px;
+  display: flex; flex-wrap: wrap; gap: 7px; margin-top: 18px;
 }
 .allin-chip {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.1);
-  color: rgba(255,255,255,0.5);
-  font-size: 10px; letter-spacing: 0.05em;
-  padding: 4px 9px; border-radius: 3px;
-  cursor: pointer; transition: all 0.15s;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.09);
+  color: rgba(255,255,255,0.42);
+  font-size: 9.5px; letter-spacing: 0.09em; text-transform: uppercase;
+  padding: 6px 13px; border-radius: 999px;
+  cursor: pointer; transition: all 0.18s;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 .allin-chip:hover {
-  background: rgba(177,18,38,0.12);
-  border-color: rgba(177,18,38,0.35);
-  color: rgba(255,255,255,0.8);
+  background: rgba(177,18,38,0.1);
+  border-color: rgba(177,18,38,0.42);
+  color: rgba(255,255,255,0.9);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 10px rgba(177,18,38,0.18);
 }
 
+/* ── INPUT AREA ─────────────────────────────────────────────────────── */
 .allin-input-area {
-  border-top: 1px solid rgba(255,255,255,0.07);
-  padding: 12px;
-  display: flex; gap: 8px; align-items: flex-end;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 14px 16px;
+  display: flex; gap: 10px; align-items: flex-end;
+  flex-shrink: 0;
 }
 #allin-input {
   flex: 1;
   background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 5px;
-  color: rgba(255,255,255,0.85);
-  font-size: 12.5px; line-height: 1.5;
-  padding: 8px 11px;
-  resize: none; outline: none;
-  font-family: inherit;
-  min-height: 38px; max-height: 100px;
-  transition: border-color 0.15s;
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 14px;
+  color: rgba(255,255,255,0.88);
+  font-size: 13px; line-height: 1.55;
+  padding: 11px 15px;
+  resize: none; outline: none; font-family: inherit;
+  min-height: 44px; max-height: 110px;
+  transition: border-color 0.18s, background 0.18s, box-shadow 0.18s;
 }
-#allin-input::placeholder { color: rgba(255,255,255,0.2); }
-#allin-input:focus { border-color: rgba(177,18,38,0.4); }
+#allin-input::placeholder { color: rgba(255,255,255,0.18); }
+#allin-input:focus {
+  border-color: rgba(177,18,38,0.5);
+  background: rgba(255,255,255,0.055);
+  box-shadow: 0 0 0 3px rgba(177,18,38,0.09);
+}
 #allin-send {
-  background: #B11226; border: none; border-radius: 5px;
-  width: 36px; height: 36px; cursor: pointer; flex-shrink: 0;
+  background: linear-gradient(135deg, #c41428 0%, #9e0f21 100%);
+  border: none; border-radius: 14px;
+  width: 44px; height: 44px; cursor: pointer; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
-  transition: background 0.15s, transform 0.1s;
+  transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 2px 12px rgba(177,18,38,0.35);
 }
-#allin-send:hover:not(:disabled) { background: #cf1630; }
+#allin-send:hover:not(:disabled) {
+  transform: scale(1.06);
+  box-shadow: 0 4px 20px rgba(177,18,38,0.55);
+}
 #allin-send:active:not(:disabled) { transform: scale(0.93); }
-#allin-send:disabled { opacity: 0.4; cursor: not-allowed; }
+#allin-send:disabled { opacity: 0.35; cursor: not-allowed; box-shadow: none; }
 #allin-send svg { width: 16px; height: 16px; fill: white; }
 
+/* ── FOOTER ─────────────────────────────────────────────────────────── */
 .allin-footer {
-  padding: 7px 14px;
-  background: #070707;
+  padding: 8px 18px 10px;
+  background: #060608;
   border-top: 1px solid rgba(255,255,255,0.04);
-  font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
-  color: rgba(255,255,255,0.18); text-align: center;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-style: italic;
+  font-size: 8.5px; letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.14); text-align: center; flex-shrink: 0;
 }
 
+/* ── KEY PROMPT ─────────────────────────────────────────────────────── */
 .allin-key-prompt {
   position: absolute; inset: 0;
-  background: #0D0D0D;
+  background: rgba(10,10,14,0.97);
+  backdrop-filter: blur(12px);
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
-  padding: 28px; gap: 16px; z-index: 10;
+  padding: 32px; gap: 16px; z-index: 10; border-radius: 20px;
 }
 .allin-key-prompt h3 {
-  font-size: 13px; font-weight: 700; letter-spacing: 0.08em;
-  text-transform: uppercase; color: #fff; text-align: center;
+  font-family: 'Georgia', serif;
+  font-size: 16px; font-weight: 400; letter-spacing: 0.04em;
+  color: #fff; text-align: center;
 }
 .allin-key-prompt p {
-  font-size: 11px; color: rgba(255,255,255,0.45);
-  text-align: center; line-height: 1.65; max-width: 280px;
+  font-size: 11.5px; color: rgba(255,255,255,0.38);
+  text-align: center; line-height: 1.7; max-width: 280px;
 }
 .allin-key-prompt input {
-  width: 100%; background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(177,18,38,0.3); border-radius: 5px;
+  width: 100%;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(177,18,38,0.3); border-radius: 12px;
   color: rgba(255,255,255,0.8); font-size: 11.5px;
-  padding: 9px 12px; outline: none; font-family: monospace;
+  padding: 11px 14px; outline: none; font-family: monospace;
+  transition: border-color 0.18s;
 }
 .allin-key-prompt input:focus { border-color: #B11226; }
 .allin-key-prompt button {
-  background: #B11226; border: none; border-radius: 5px;
+  background: linear-gradient(135deg, #c41428 0%, #9e0f21 100%);
+  border: none; border-radius: 12px;
   color: #fff; font-size: 11px; font-weight: 700;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  padding: 9px 20px; cursor: pointer; width: 100%;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 12px 20px; cursor: pointer; width: 100%;
+  transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 4px 16px rgba(177,18,38,0.35);
 }
-.allin-key-prompt button:hover { background: #cf1630; }
+.allin-key-prompt button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(177,18,38,0.5);
+}
 .allin-key-link {
-  font-size: 10px; color: rgba(177,18,38,0.7);
-  text-decoration: none; letter-spacing: 0.06em;
+  font-size: 10px; color: rgba(177,18,38,0.65);
+  text-decoration: none; letter-spacing: 0.08em; transition: color 0.15s;
 }
 .allin-key-link:hover { color: #B11226; }
 `;
@@ -329,27 +420,35 @@ Respond concisely but completely. Use plain prose — not bullet lists unless sp
   // ─── BUILD HTML ────────────────────────────────────────────────────────────
   const wrapper = document.createElement('div');
   wrapper.innerHTML = `
-  <button id="allin-chat-btn" title="Ask the AI Research Assistant">
+  <button id="allin-chat-btn" title="Ask the ALL IN Research Assistant">
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+      <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
     </svg>
     <div class="allin-notif"></div>
   </button>
 
   <div id="allin-chat-panel">
     <div class="allin-header">
-      <div class="allin-header-dot"></div>
-      <div class="allin-header-text">
-        <div class="allin-header-title">ALL IN Research Assistant</div>
-        <div class="allin-header-sub">Powered by Google Gemini</div>
+      <div class="allin-header-mark">
+        <span class="mark-all">ALL</span>
+        <span class="mark-in">IN</span>
       </div>
-      <button class="allin-close-btn" id="allin-close">✕</button>
+      <div class="allin-header-sep"></div>
+      <div class="allin-header-text">
+        <div class="allin-header-title">Research Assistant</div>
+        <div class="allin-header-sub">
+          <div class="allin-header-dot"></div>
+          Live &middot; Gemini 2.5 Flash
+        </div>
+      </div>
+      <button class="allin-close-btn" id="allin-close">&#x2715;</button>
     </div>
 
     <div class="allin-messages" id="allin-messages">
       <div class="allin-welcome">
-        <strong>Ask me anything about this documentary.</strong><br>
-        I have full context on every case, source, timeline, and argument in the deck — Van Dyke, the Iran Nine, oil trades, Selig's CFTC, the Congo parallel, the ask.
+        <div class="allin-welcome-eyebrow">Documentary Intelligence</div>
+        <strong>Ask me anything about this film.</strong>
+        <div class="allin-welcome-body">Full context on every case, source, and argument. Van Dyke. The Iran Nine. The oil trades. Selig's CFTC. The Congo parallel.</div>
         <div class="allin-chips">
           <button class="allin-chip" data-q="Who is Van Dyke and what did he do?">Van Dyke case</button>
           <button class="allin-chip" data-q="What are the three tiers of wrongdoing?">Three Tiers</button>
@@ -366,12 +465,12 @@ Respond concisely but completely. Use plain prose — not bullet lists unless sp
     </div>
 
     <div class="allin-input-area">
-      <textarea id="allin-input" placeholder="Ask about any topic in the deck…" rows="1"></textarea>
+      <textarea id="allin-input" placeholder="Ask anything about the deck..." rows="1"></textarea>
       <button id="allin-send">
         <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
       </button>
     </div>
-    <div class="allin-footer">ALL IN: Betting on America &mdash; Pedro Feria Pino, SOC</div>
+    <div class="allin-footer">ALL IN: Betting on America &middot; A Vefilm Production</div>
   </div>
   `;
   document.body.appendChild(wrapper);
