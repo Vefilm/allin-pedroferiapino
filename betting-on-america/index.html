@@ -2526,7 +2526,6 @@ function enterDeck() {
   splash.style.pointerEvents = 'none';
   window.scrollTo(0, 0);
   setTimeout(() => { splash.style.display = 'none'; }, 580);
-  setTimeout(animateStats, 700);
 }
 
 function animateCounter(el, endVal, prefix, suffix, decimals, duration) {
@@ -2559,9 +2558,16 @@ function switchTab(id, btn) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
   setTimeout(runReveal, 100);
   if (id === 'congo') setTimeout(animateACDC, 400);
-  if (id === 'film')  setTimeout(animateStats, 250);
 }
-// animateStats fires via enterDeck() after splash dismissal
+// Counter animation: fires each time the stat block scrolls into view
+(function() {
+  const statsIO = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) animateStats(); });
+  }, { threshold: 0.6 });
+  const statAnchor = document.getElementById('stat-vol');
+  if (statAnchor) statsIO.observe(statAnchor);
+})();
+
 const ro = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.08 });
