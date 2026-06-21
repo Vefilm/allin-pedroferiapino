@@ -1346,13 +1346,34 @@ body {
 <!-- PANEL 02, THE SCENE -->
 <section id="panel-scene" class="panel">
 
-  <div style="position:relative;height:48vh;min-height:320px;overflow:hidden;">
-    <div style="position:absolute;inset:0;background:url('./22_phone_antagonist_hero.jpg') center/cover no-repeat;filter:brightness(0.55) saturate(0.7);"></div>
-    <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,#08080e 100%);"></div>
-    <div style="position:absolute;bottom:2rem;left:2.5rem;z-index:2;">
-      <div style="font-size:0.55rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--amber);margin-bottom:0.35rem;">02, The Scene</div>
-      <div style="font-size:0.9rem;color:rgba(255,255,255,0.5);font-style:italic;">"The phone is the antagonist."</div>
+  <!-- DIPTYCH HERO -->
+  <div style="position:relative;height:52vh;min-height:340px;display:flex;overflow:hidden;">
+
+    <!-- Left panel: The Hangar -->
+    <div style="position:relative;flex:1;overflow:hidden;">
+      <div style="position:absolute;inset:0;background:url('./gen_structure_hangar.jpg') center 30%/cover no-repeat;filter:brightness(0.72) saturate(0.6);"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,8,14,0.15) 0%,transparent 40%,rgba(8,8,14,0.55) 100%);"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(to right,transparent 65%,rgba(8,8,14,0.5) 100%);"></div>
+      <div style="position:absolute;bottom:1.6rem;left:2rem;z-index:2;">
+        <div style="font-size:0.48rem;letter-spacing:0.26em;text-transform:uppercase;color:rgba(255,255,255,0.38);margin-bottom:0.25rem;">Scene One</div>
+        <div style="font-size:0.78rem;color:rgba(255,255,255,0.52);font-style:italic;">The hangar. The airman. The bet.</div>
+      </div>
     </div>
+
+    <!-- Divider -->
+    <div style="width:1px;background:rgba(177,18,38,0.4);flex-shrink:0;z-index:3;"></div>
+
+    <!-- Right panel: The Phone -->
+    <div style="position:relative;flex:1;overflow:hidden;">
+      <div style="position:absolute;inset:0;background:url('./22_phone_antagonist_hero.jpg') center/cover no-repeat;filter:brightness(0.55) saturate(0.7);"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,8,14,0.15) 0%,transparent 40%,rgba(8,8,14,0.55) 100%);"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(to left,transparent 65%,rgba(8,8,14,0.5) 100%);"></div>
+      <div style="position:absolute;bottom:1.6rem;left:2rem;z-index:2;">
+        <div style="font-size:0.48rem;letter-spacing:0.26em;text-transform:uppercase;color:var(--amber,#e9a84c);margin-bottom:0.25rem;">02, The Scene</div>
+        <div style="font-size:0.78rem;color:rgba(255,255,255,0.52);font-style:italic;">"The phone is the antagonist."</div>
+      </div>
+    </div>
+
   </div>
 
   <div class="section">
