@@ -2518,6 +2518,12 @@ body {
 
 
 <script>
+// Prevent browser from restoring mid-page scroll position on reload
+history.scrollRestoration = 'manual';
+window.scrollTo(0, 0);
+document.documentElement.scrollTop = 0;
+document.body.scrollTop = 0;
+
 function enterDeck() {
   const splash = document.getElementById('splash');
   const vid = document.getElementById('splash-video');
@@ -2525,7 +2531,14 @@ function enterDeck() {
   splash.style.opacity = '0';
   splash.style.pointerEvents = 'none';
   window.scrollTo(0, 0);
-  setTimeout(() => { splash.style.display = 'none'; }, 580);
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+  setTimeout(() => {
+    splash.style.display = 'none';
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, 580);
 }
 
 function animateCounter(el, endVal, prefix, suffix, decimals, duration) {
