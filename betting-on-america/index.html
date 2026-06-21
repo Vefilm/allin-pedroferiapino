@@ -1255,41 +1255,70 @@ body {
 <body>
 
 <!-- ── JP PRE-ROLL SPLASH ──────────────────────────────────────────── -->
-<div id="splash" style="position:fixed;inset:0;z-index:9999;background:#08080e;display:flex;flex-direction:column;transition:opacity 0.55s ease;">
+<div id="splash" style="position:fixed;inset:0;z-index:9999;transition:opacity 0.55s ease;display:flex;flex-direction:column;background:#07070b;background-image:radial-gradient(ellipse 70% 60% at 100% 0%, rgba(177,18,38,0.11) 0%, transparent 55%),radial-gradient(ellipse 50% 45% at 0% 100%, rgba(177,18,38,0.07) 0%, transparent 50%);">
 
-  <!-- Top bar -->
-  <div style="display:flex;align-items:center;justify-content:space-between;padding:1.1rem 2rem;border-bottom:1px solid rgba(255,255,255,0.06);flex-shrink:0;">
-    <div style="font-family:Georgia,'Times New Roman',serif;font-size:1.25rem;font-weight:900;letter-spacing:0.05em;color:#fff;text-transform:uppercase;">ALL&nbsp;<span style="color:#B11226;">IN</span></div>
-    <button onclick="enterDeck()" style="background:none;border:none;cursor:pointer;font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.28);font-family:system-ui,sans-serif;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:2px;">Skip to deck &rsaquo;</button>
+  <!-- Skip — top right, very subtle -->
+  <div style="position:absolute;top:1.25rem;right:2rem;z-index:2;">
+    <button onclick="enterDeck()" style="background:none;border:none;cursor:pointer;font-size:0.52rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.2);font-family:system-ui,sans-serif;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:2px;transition:color 0.2s;" onmouseover="this.style.color='rgba(255,255,255,0.5)'" onmouseout="this.style.color='rgba(255,255,255,0.2)'">Skip &rsaquo;</button>
   </div>
 
-  <!-- Main body -->
-  <div style="flex:1;display:grid;grid-template-columns:1fr 1.15fr;min-height:0;">
+  <!-- Main body: content left, video right -->
+  <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;min-height:0;max-width:1280px;margin:0 auto;width:100%;padding:0 3.5rem;">
 
-    <!-- LEFT: portrait video player -->
-    <div style="display:flex;align-items:center;justify-content:center;padding:2.5rem 2rem 2.5rem 2.5rem;border-right:1px solid rgba(255,255,255,0.05);">
-      <div style="width:min(220px,38vw);aspect-ratio:9/14;border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,0.12);box-shadow:0 0 0 1px rgba(255,255,255,0.04),0 28px 70px rgba(0,0,0,0.75),inset 0 1px 0 rgba(255,255,255,0.08);background:#000;position:relative;">
+    <!-- LEFT: ALL IN title + quote + CTA -->
+    <div style="display:flex;flex-direction:column;justify-content:center;padding:3rem 3.5rem 3rem 0;border-right:1px solid rgba(255,255,255,0.05);">
+
+      <!-- Brand mark — BIG -->
+      <div style="margin-bottom:2rem;">
+        <div style="font-family:Georgia,'Times New Roman',serif;font-size:clamp(3rem,5.5vw,5rem);font-weight:400;line-height:0.88;letter-spacing:0.04em;color:#fff;margin-bottom:0.65rem;">ALL&nbsp;<span style="color:#B11226;">IN</span></div>
+        <div style="height:2px;background:linear-gradient(90deg,#B11226 0%,rgba(177,18,38,0.15) 55%,transparent 100%);margin-bottom:0.7rem;max-width:300px;"></div>
+        <div style="font-size:0.52rem;letter-spacing:0.38em;text-transform:uppercase;color:rgba(255,255,255,0.28);">Betting on America</div>
+      </div>
+
+      <!-- Eyebrow -->
+      <div style="font-size:0.52rem;letter-spacing:0.26em;text-transform:uppercase;color:#B11226;margin-bottom:1.1rem;">Before you enter the deck</div>
+
+      <!-- Context -->
+      <p style="font-size:0.88rem;color:rgba(255,255,255,0.38);line-height:1.72;margin:0 0 1.75rem;max-width:400px;">A British comedian said what American journalism hasn't. Watch before you go in.</p>
+
+      <!-- Pull quote -->
+      <blockquote style="border-left:2px solid #B11226;padding:0 0 0 1.5rem;margin:0 0 2.25rem;">
+        <p style="font-family:Georgia,serif;font-style:italic;font-size:clamp(0.92rem,1.4vw,1.1rem);color:rgba(255,255,255,0.82);line-height:1.72;margin:0 0 0.6rem;">"$2.1 billion in perfectly timed directional oil trades placed across five presidential announcements in a single month, completely unprecedented, and so far, <strong style="color:#fff;">completely uninvestigated.</strong>"</p>
+        <cite style="font-size:0.52rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.25);font-style:normal;">Jonathan Pie &middot; British Satirist &middot; June 2026</cite>
+      </blockquote>
+
+      <!-- CTA -->
+      <div>
+        <button id="enterBtn" onclick="enterDeck()" style="display:inline-flex;align-items:center;gap:0.65rem;padding:1rem 2.25rem;background:#B11226;color:#fff;border:none;cursor:pointer;font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;font-family:system-ui,sans-serif;transition:background 0.2s;" onmouseover="this.style.background='#7A0C1C'" onmouseout="this.style.background='#B11226'">Enter the deck &nbsp;&#8594;</button>
+        <div style="margin-top:0.85rem;font-size:0.5rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.15);">11 panels &middot; A Vefilm Production</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Video — larger, cinematic -->
+    <div style="display:flex;align-items:center;justify-content:center;padding:3rem 0 3rem 3.5rem;">
+      <div style="
+        position:relative;
+        width:min(300px,38vw);
+        aspect-ratio:9/16;
+        border-radius:22px;
+        overflow:hidden;
+        background:#000;
+        box-shadow:
+          0 0 0 1px rgba(255,255,255,0.07),
+          0 0 0 1px rgba(177,18,38,0.1),
+          0 50px 100px rgba(0,0,0,0.88),
+          0 0 80px rgba(177,18,38,0.12);
+      ">
+        <!-- Red top-edge accent -->
+        <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#B11226 40%,#B11226 60%,transparent);z-index:2;pointer-events:none;"></div>
         <video
           id="splash-video"
-          src="./jonathan-pie.mp4"
+          src="./short-jp.mp4"
           controls
           preload="auto"
           style="width:100%;height:100%;object-fit:cover;display:block;"
         ></video>
       </div>
-    </div>
-
-    <!-- RIGHT: quote + CTA -->
-    <div style="display:flex;flex-direction:column;justify-content:center;padding:2.5rem 2.5rem 2.5rem 2rem;">
-      <div style="font-size:0.55rem;letter-spacing:0.26em;text-transform:uppercase;color:#B11226;margin-bottom:1.4rem;">Before we begin</div>
-
-      <blockquote style="border-left:2px solid #B11226;padding:0 0 0 1.5rem;margin:0 0 1.5rem;">
-        <p style="font-family:Georgia,serif;font-style:italic;font-size:clamp(0.95rem,1.8vw,1.25rem);color:rgba(255,255,255,0.82);line-height:1.7;margin:0 0 0.4rem;">"$2.1 billion in perfectly timed directional oil trades placed across five presidential announcements in a single month &mdash; completely unprecedented, and so far, <strong style="color:#fff;font-style:italic;">completely uninvestigated.</strong>"</p>
-      </blockquote>
-      <div style="font-size:0.58rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.25);padding-left:1.5rem;margin-bottom:2.75rem;">Jonathan Pie &mdash; British Satirist &mdash; June 2026</div>
-
-      <button id="enterBtn" onclick="enterDeck()" style="display:inline-flex;align-items:center;gap:0.6rem;padding:0.95rem 2rem;background:#B11226;color:#fff;border:none;cursor:pointer;font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;font-family:system-ui,sans-serif;width:fit-content;transition:background 0.2s;" onmouseover="this.style.background='#7A0C1C'" onmouseout="this.style.background='#B11226'">Enter the deck &nbsp;&#8594;</button>
-      <div style="margin-top:1rem;font-size:0.52rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.18);">12 panels &nbsp;&middot;&nbsp; A Limited Series by VEFILM</div>
     </div>
 
   </div>
@@ -1318,7 +1347,6 @@ body {
       <button class="tab-btn" onclick="switchTab('scenes',this)" role="tab"><span class="tab-num">09</span>THE SCENES</button>
       <button class="tab-btn tab-btn-ask" onclick="switchTab('ask',this)" role="tab"><span class="tab-num">10</span>THE ASK</button>
       <button class="tab-btn" onclick="switchTab('voices',this)" role="tab"><span class="tab-num">11</span>THE VOICES</button>
-      <button class="tab-btn" onclick="switchTab('pie',this)" role="tab"><span class="tab-num">12</span>THE CLIP</button>
     </nav>
   </div>
 </header>
@@ -2701,70 +2729,6 @@ window.addEventListener('load', () => { buildTimeline(); runReveal(); });
 </footer>
 
 
-<!-- PANEL 12, THE CLIP -->
-<section id="panel-pie" class="panel" style="background:#08080e;color:#fff;">
-
-  <!-- Video + Transcript side by side, starts immediately -->
-  <div style="max-width:1160px;margin:0 auto;padding:2rem 2.5rem 3rem;display:grid;grid-template-columns:1.6fr 1fr;gap:2rem;align-items:start;" class="mob-1col">
-
-    <!-- LEFT: Video -->
-    <div style="display:flex;flex-direction:column;align-items:center;">
-      <div style="width:100%;max-width:420px;aspect-ratio:9/14;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,0.1);box-shadow:0 0 0 1px rgba(255,255,255,0.04),0 28px 64px rgba(0,0,0,0.65),inset 0 1px 0 rgba(255,255,255,0.07);background:#000;position:relative;">
-        <video
-          src="./jonathan-pie.mp4"
-          controls
-          preload="metadata"
-          style="width:100%;height:100%;display:block;object-fit:cover;"
-        ></video>
-      </div>
-      <div style="margin-top:1.25rem;width:100%;max-width:420px;padding:1.1rem 1.4rem;background:rgba(177,18,38,0.06);border:1px solid rgba(177,18,38,0.18);border-radius:6px;">
-        <div style="font-family:Georgia,serif;font-size:1.75rem;font-weight:700;color:var(--red);line-height:1;">$2.1B</div>
-        <div style="font-size:0.68rem;color:rgba(255,255,255,0.32);margin-top:0.3rem;letter-spacing:0.06em;">In directional oil trades. Five presidential announcements. One month. Zero investigations.</div>
-      </div>
-    </div>
-
-    <!-- RIGHT: Transcript -->
-    <div>
-      <div style="margin-bottom:1.5rem;">
-        <span class="eyebrow" style="color:var(--red);display:block;margin-bottom:0.75rem;">12, The Clip</span>
-        <div style="font-family:Georgia,serif;font-size:clamp(1.4rem,2.8vw,2rem);font-weight:700;color:#fff;line-height:1.1;margin-bottom:0.3rem;">Jonathan Pie</div>
-        <div style="font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.28);margin-bottom:0.9rem;">British Satirist / Comedian</div>
-        <p style="font-family:Georgia,serif;font-style:italic;font-size:0.95rem;color:rgba(255,255,255,0.5);line-height:1.55;margin:0;">When a British comedian is the most sober voice in the room.</p>
-      </div>
-      <div style="font-size:0.52rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.28);margin-bottom:1.25rem;">Transcript</div>
-      <div style="display:flex;flex-direction:column;gap:1.25rem;">
-
-        <div style="display:flex;gap:1rem;align-items:flex-start;">
-          <div style="font-size:0.6rem;color:var(--red);font-family:Georgia,serif;letter-spacing:0.06em;min-width:2.5rem;padding-top:0.15rem;">0:00</div>
-          <p style="font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.7;margin:0;">"But at least someone did all right out of this whole thing."</p>
-        </div>
-
-        <div style="display:flex;gap:1rem;align-items:flex-start;">
-          <div style="font-size:0.6rem;color:var(--red);font-family:Georgia,serif;letter-spacing:0.06em;min-width:2.5rem;padding-top:0.15rem;">0:03</div>
-          <p style="font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.7;margin:0;">"Well, well, for me, the highlight of the whole shit show was the $2.1 billion in bets placed minutes before presidential announcements about the war in Iran."</p>
-        </div>
-
-        <div style="display:flex;gap:1rem;align-items:flex-start;padding:1rem;background:#0d0d18;border-left:3px solid var(--red);">
-          <div style="font-size:0.6rem;color:var(--red);font-family:Georgia,serif;letter-spacing:0.06em;min-width:2.5rem;padding-top:0.15rem;">0:14</div>
-          <p style="font-family:Georgia,serif;font-style:italic;font-size:0.92rem;color:rgba(255,255,255,0.85);line-height:1.7;margin:0;">"$2.1 billion in perfectly timed directional oil trades placed across five presidential announcements in a single month, which is completely unprecedented, and so far, completely uninvestigated."</p>
-        </div>
-
-        <div style="display:flex;gap:1rem;align-items:flex-start;">
-          <div style="font-size:0.6rem;color:var(--red);font-family:Georgia,serif;letter-spacing:0.06em;min-width:2.5rem;padding-top:0.15rem;">0:31</div>
-          <p style="font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.7;margin:0;">"$2.1 billion. Under any other administration, this would be a scandal unlike any other in modern history. Instead, we're all completely dazzled, me included, by Trump posting AI images of himself as Jesus or posting AI images of himself as James Bond."</p>
-        </div>
-
-      </div>
-
-      <!-- CTA -->
-      <div style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,0.06);">
-        <p style="font-family:Georgia,serif;font-style:italic;font-size:0.9rem;color:rgba(255,255,255,0.35);margin:0 0 1.25rem;line-height:1.6;">The story is documented. The sources are on record. The window is closing.</p>
-        <button onclick="document.querySelectorAll('.tab-btn')[9].click()" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.75rem 1.75rem;background:var(--red);color:#fff;border:none;cursor:pointer;font-size:0.62rem;letter-spacing:0.28em;text-transform:uppercase;font-family:system-ui,sans-serif;transition:background 0.2s;" onmouseover="this.style.background='#7A0C1C'" onmouseout="this.style.background='var(--red)'">THE ASK &#8594;</button>
-      </div>
-    </div>
-
-  </div>
-</section>
 
 
 </body>
