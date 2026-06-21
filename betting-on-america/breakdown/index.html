@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALL IN: The Full Breakdown — Polymarket, Insider Trading, and Regulatory Deployment</title>
+<style>
+  :root {
+    --red:    #B11226;
+    --amber:  #C9A84C;
+    --blue:   #4a90d9;
+    --green:  #2ecc71;
+    --bg:     #07070e;
+    --bg2:    #0d0d18;
+    --border: rgba(255,255,255,0.07);
+    --text:   rgba(255,255,255,0.88);
+    --mid:    rgba(255,255,255,0.5);
+    --dim:    rgba(255,255,255,0.28);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 1rem;
+    line-height: 1.78;
+  }
+
+  /* ── NAV ───────────────────────────────────────────────────── */
+  nav {
+    position: sticky; top:0; z-index:100;
+    background: rgba(7,7,14,0.96);
+    border-bottom: 1px solid rgba(177,18,38,0.18);
+    backdrop-filter: blur(12px);
+    padding: .7rem 2.5rem;
+    display: flex; align-items:center; justify-content:space-between; gap:1rem;
+  }
+  .nav-logo {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 900; font-size: 1.1rem; letter-spacing: .06em;
+    color:#fff; text-decoration:none; white-space:nowrap;
+  }
+  .nav-logo span { color: var(--red); }
+  .nav-links {
+    display:flex; gap:1.4rem; list-style:none; flex-wrap:wrap;
+  }
+  .nav-links a {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: .55rem; letter-spacing:.18em; text-transform:uppercase;
+    color: var(--dim); text-decoration:none; transition: color .2s;
+  }
+  .nav-links a:hover { color:#fff; }
+  .nav-back {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: .55rem; letter-spacing:.14em; text-transform:uppercase;
+    color: rgba(177,18,38,0.6); text-decoration:none;
+    border:1px solid rgba(177,18,38,0.25); padding:.3rem .7rem; border-radius:3px;
+    white-space:nowrap; transition: color .2s, border-color .2s;
+  }
+  .nav-back:hover { color:var(--red); border-color:rgba(177,18,38,0.5); }
+
+  /* ── MASTHEAD ───────────────────────────────────────────────── */
+  .masthead {
+    border-bottom: 1px solid rgba(177,18,38,0.15);
+    padding: 5rem 2.5rem 4rem;
+    max-width: 860px; margin: 0 auto;
+  }
+  .masthead-label {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: .52rem; letter-spacing:.28em; text-transform:uppercase;
+    color: rgba(177,18,38,0.55); margin-bottom: 1.2rem;
+  }
+  .masthead h1 {
+    font-family: 'Georgia', serif; font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 700; line-height: 1.15; color:#fff;
+    margin-bottom: 1.2rem;
+  }
+  .masthead h1 em { color: var(--red); font-style: normal; }
+  .masthead-sub {
+    font-size: 1.1rem; color: var(--mid); line-height: 1.7;
+    max-width: 680px; margin-bottom: 2rem;
+  }
+  .masthead-meta {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: .65rem; letter-spacing:.1em; color:var(--dim);
+    display:flex; gap:2rem; flex-wrap:wrap;
+  }
+  .masthead-meta span { display:flex; gap:.4rem; align-items:center; }
+  .masthead-meta span::before { content:''; width:3px; height:3px; background:var(--red); border-radius:50%; flex-shrink:0; }
+
+  /* ── LAYOUT ─────────────────────────────────────────────────── */
+  .content { max-width: 860px; margin: 0 auto; padding: 0 2.5rem 6rem; }
+
+  /* ── SECTIONS ───────────────────────────────────────────────── */
+  .breakdown-section { padding: 4rem 0; border-bottom: 1px solid var(--border); }
+  .breakdown-section:last-child { border-bottom: none; }
+
+  .section-tag {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: .5rem; letter-spacing:.28em; text-transform:uppercase;
+    color: rgba(177,18,38,0.55); margin-bottom:.6rem; display:block;
+  }
+  .section-tag.amber { color: rgba(201,168,76,0.65); }
+  .section-tag.blue  { color: rgba(74,144,217,0.65); }
+
+  h2 {
+    font-family: 'Georgia', serif; font-size: clamp(1.4rem, 2.5vw, 2rem);
+    font-weight:700; color:#fff; line-height:1.2; margin-bottom:1.5rem;
+  }
+  h3 {
+    font-family: 'Georgia', serif; font-size: 1.15rem;
+    font-weight:700; color:#fff; line-height:1.3; margin: 2rem 0 .7rem;
+  }
+  h4 {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size:.72rem; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--amber); margin: 1.8rem 0 .5rem;
+  }
+  p { color:var(--mid); margin-bottom:1.2rem; }
+  p strong { color:#fff; font-weight:600; }
+  p em { color:var(--dim); font-style:italic; }
+
+  /* ── PULL QUOTE ─────────────────────────────────────────────── */
+  .pull {
+    border-left: 3px solid var(--red);
+    padding: 1rem 1.5rem;
+    margin: 2rem 0;
+    background: rgba(177,18,38,0.04);
+    border-radius: 0 4px 4px 0;
+  }
+  .pull p { font-size:1.05rem; color:rgba(255,255,255,0.75); font-style:italic; margin:0; line-height:1.7; }
+  .pull .attribution { font-family:'Helvetica Neue',Arial,sans-serif; font-size:.6rem; letter-spacing:.1em; color:var(--dim); margin-top:.5rem; text-transform:uppercase; display:block; }
+  .pull.amber { border-color:var(--amber); background:rgba(201,168,76,0.04); }
+  .pull.blue  { border-color:var(--blue);  background:rgba(74,144,217,0.04); }
+
+  /* ── STAT CARDS ─────────────────────────────────────────────── */
+  .stat-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(160px,1fr)); gap:1rem; margin:2rem 0; }
+  .stat-card {
+    background:rgba(177,18,38,0.06);
+    border:1px solid rgba(177,18,38,0.18);
+    border-radius:4px; padding:1.2rem;
+  }
+  .stat-card.amber { background:rgba(201,168,76,0.06); border-color:rgba(201,168,76,0.18); }
+  .stat-card.blue  { background:rgba(74,144,217,0.06);  border-color:rgba(74,144,217,0.18);  }
+  .stat-card.green { background:rgba(46,204,113,0.06);  border-color:rgba(46,204,113,0.18);  }
+  .stat-num {
+    font-family:'Georgia',serif; font-size:2rem; font-weight:700; line-height:1; color:#fff;
+    margin-bottom:.25rem;
+  }
+  .stat-num.red    { color:var(--red); }
+  .stat-num.amber  { color:var(--amber); }
+  .stat-num.blue   { color:var(--blue); }
+  .stat-num.green  { color:var(--green); }
+  .stat-label { font-family:'Helvetica Neue',Arial,sans-serif; font-size:.62rem; letter-spacing:.06em; color:var(--dim); line-height:1.4; }
+
+  /* ── DATA BAR ───────────────────────────────────────────────── */
+  .bar-compare { margin:2rem 0; }
+  .bar-row { margin-bottom:.9rem; }
+  .bar-label { font-family:'Helvetica Neue',Arial,sans-serif; font-size:.7rem; color:var(--mid); margin-bottom:.3rem; display:flex; justify-content:space-between; }
+  .bar-label strong { color:#fff; }
+  .bar-track { height:8px; background:rgba(255,255,255,0.06); border-radius:4px; overflow:hidden; }
+  .bar-fill { height:100%; border-radius:4px; transition:width 1s ease; }
+  .bar-fill.red   { background:var(--red); }
+  .bar-fill.amber { background:var(--amber); }
+  .bar-fill.dim   { background:rgba(255,255,255,0.2); }
+
+  /* ── TABLE ──────────────────────────────────────────────────── */
+  .data-table { width:100%; border-collapse:collapse; margin:2rem 0; font-family:'Helvetica Neue',Arial,sans-serif; }
+  .data-table th {
+    text-align:left; font-size:.56rem; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--dim); padding:.6rem .8rem; border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .data-table td {
+    padding:.65rem .8rem; border-bottom:1px solid rgba(255,255,255,0.04);
+    font-size:.8rem; color:var(--mid); vertical-align:top; line-height:1.5;
+  }
+  .data-table td:first-child { color:#fff; font-weight:600; }
+  .data-table tr:hover td { background:rgba(255,255,255,0.02); }
+  .tag-pill {
+    display:inline-block; padding:1px 7px; border-radius:2px; font-size:.52rem;
+    letter-spacing:.08em; text-transform:uppercase; font-weight:600;
+  }
+  .tag-pill.red    { background:rgba(177,18,38,0.15); color:var(--red);   border:1px solid rgba(177,18,38,0.3); }
+  .tag-pill.amber  { background:rgba(201,168,76,0.15); color:var(--amber); border:1px solid rgba(201,168,76,0.3); }
+  .tag-pill.blue   { background:rgba(74,144,217,0.15); color:var(--blue);  border:1px solid rgba(74,144,217,0.3); }
+  .tag-pill.green  { background:rgba(46,204,113,0.15); color:var(--green); border:1px solid rgba(46,204,113,0.3); }
+  .tag-pill.dim    { background:rgba(255,255,255,0.05); color:var(--dim);  border:1px solid rgba(255,255,255,0.1); }
+
+  /* ── WALLET CARD ─────────────────────────────────────────────── */
+  .wallet-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:.7rem; margin:1.5rem 0; }
+  .wallet-card {
+    background:#0a0a16; border:1px solid rgba(201,168,76,0.15);
+    border-left:3px solid var(--amber); border-radius:4px; padding:1rem;
+  }
+  .wallet-id { font-family:'Courier New',monospace; font-size:.75rem; color:var(--amber); margin-bottom:.35rem; word-break:break-all; }
+  .wallet-stat { font-family:'Helvetica Neue',Arial,sans-serif; font-size:.6rem; color:var(--dim); line-height:1.7; }
+  .wallet-stat strong { color:#fff; }
+
+  /* ── TIMELINE ───────────────────────────────────────────────── */
+  .timeline { position:relative; padding-left:2rem; }
+  .timeline::before {
+    content:''; position:absolute; left:.4rem; top:0; bottom:0;
+    width:1px; background:rgba(177,18,38,0.2);
+  }
+  .tl-item { position:relative; margin-bottom:2rem; }
+  .tl-item::before {
+    content:''; position:absolute; left:-1.8rem; top:.4rem;
+    width:8px; height:8px; border-radius:50%; background:var(--bg);
+    border:1.5px solid var(--red);
+  }
+  .tl-item.amber::before { border-color:var(--amber); }
+  .tl-item.blue::before  { border-color:var(--blue);  }
+  .tl-item.green::before { border-color:var(--green); }
+  .tl-date {
+    font-family:'Helvetica Neue',Arial,sans-serif; font-size:.56rem;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--dim); margin-bottom:.2rem;
+  }
+  .tl-title {
+    font-family:'Helvetica Neue',Arial,sans-serif; font-weight:700; font-size:.88rem;
+    color:#fff; line-height:1.3; margin-bottom:.35rem;
+  }
+  .tl-body { font-size:.82rem; color:var(--mid); line-height:1.65; }
+  .tl-body strong { color:#fff; }
+
+  /* ── SOURCE LIST ─────────────────────────────────────────────── */
+  .source-list { list-style:none; display:flex; flex-direction:column; gap:.7rem; margin:1.5rem 0; }
+  .source-list li {
+    background:#0a0a14; border:1px solid var(--border);
+    border-left:2px solid rgba(177,18,38,0.3); border-radius:3px; padding:.75rem 1rem;
+    font-family:'Helvetica Neue',Arial,sans-serif; font-size:.72rem; color:var(--mid); line-height:1.6;
+  }
+  .source-list li strong { color:#fff; }
+  .source-list li .src-type {
+    font-size:.48rem; letter-spacing:.15em; text-transform:uppercase;
+    color:rgba(177,18,38,0.55); display:block; margin-bottom:.2rem;
+  }
+
+  /* ── INLINE DATA ─────────────────────────────────────────────── */
+  .data-inline {
+    display:inline-block; background:rgba(177,18,38,0.1); border:1px solid rgba(177,18,38,0.25);
+    border-radius:3px; padding:1px 6px; font-family:'Helvetica Neue',Arial,sans-serif;
+    font-size:.78rem; font-weight:700; color:var(--red); vertical-align:baseline;
+  }
+  .data-inline.amber { background:rgba(201,168,76,0.1); border-color:rgba(201,168,76,0.25); color:var(--amber); }
+
+  /* ── SCROLL INDICATOR ──────────────────────────────────────── */
+  .section-anchor { display:block; position:relative; top:-5rem; visibility:hidden; }
+
+  /* ── FOOTER ─────────────────────────────────────────────────── */
+  footer {
+    border-top:1px solid rgba(177,18,38,0.12); padding:2.5rem;
+    font-family:'Helvetica Neue',Arial,sans-serif; font-size:.6rem;
+    letter-spacing:.08em; color:var(--dim); text-align:center; line-height:2;
+  }
+  footer a { color:rgba(177,18,38,0.5); text-decoration:none; }
+  footer a:hover { color:var(--red); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="../"><span>ALL</span>IN</a>
+  <ul class="nav-links">
+    <li><a href="#the-crime">The Crime</a></li>
+    <li><a href="#three-tiers">Three Tiers</a></li>
+    <li><a href="#nine-wallets">Nine Wallets</a></li>
+    <li><a href="#ownership">Ownership</a></li>
+    <li><a href="#regulatory">Regulatory</a></li>
+    <li><a href="#congo">Congo</a></li>
+    <li><a href="#timeline">Timeline</a></li>
+    <li><a href="#sources">Sources</a></li>
+  </ul>
+  <a class="nav-back" href="../">Final Pitch</a>
+</nav>
+
+<!-- MASTHEAD -->
+<div class="masthead">
+  <div class="masthead-label">ALL IN: Betting on America — Full Breakdown</div>
+  <h1>The crime has <em>no name</em>.<br>The machine has no off switch.</h1>
+  <p class="masthead-sub">What the pitch deck summarizes, this document unpacks. Every data point sourced. Every connection traced. The nine wallets, the enforcement collapse, the ownership chain, the timeline — in full.</p>
+  <div class="masthead-meta">
+    <span>Feature Documentary, 60 to 75 minutes</span>
+    <span>Director: Pedro Feria Pino</span>
+    <span>Research: ACDC, Bubblemaps, Der Standard</span>
+    <span>Updated June 2026</span>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- ═══════════════════════════════════════════════════════════
+     01. THE CRIME HAS NO NAME
+═════════════════════════════════════════════════════════════ -->
+<span class="section-anchor" id="the-crime"></span>
+<section class="breakdown-section">
+  <span class="section-tag">01, The Crime</span>
+  <h2>It is not insider trading. Not technically. That is the entire problem.</h2>
+
+  <p>The legal architecture around insider trading was built for stock markets. It assumes a fiduciary relationship — you have a duty to a company, and you exploit information that violates that duty. Prediction markets do not have companies. They have outcomes. Nobody owes a duty to an outcome.</p>
+
+  <p>This means an Army sergeant who places a Polymarket bet on a military strike he is participating in — using advance knowledge no market participant could access — may not technically be committing the crime the word "insider trading" describes. He is charged with wire fraud instead. The charge fits, barely, but it is a workaround. The underlying problem is structural: <strong>the law has not caught up with the product.</strong></p>
+
+  <div class="pull">
+    <p>"What we are documenting is not a flaw in Polymarket. It is a feature. The platform operates in a space where the ordinary rules of financial markets were never written to apply."</p>
+    <span class="attribution">David Kovel, retired CFTC attorney, largest CFTC whistleblower award recipient in history</span>
+  </div>
+
+  <h3>What Polymarket actually is</h3>
+
+  <p>Polymarket is a prediction market. Users buy shares in outcomes: "Will the US strike Iran before October?" "Will there be a ceasefire in Gaza by December?" "Will the Fed cut rates?" The price of a share reflects the market's implied probability of that outcome. If you buy a "Yes" share at 14 cents and the event happens, you receive $1. If it does not, your share is worth zero.</p>
+
+  <p>This is, in the CFTC's own language, an "event contract." Congress tried to create one in 2003 — the DARPA Policy Analysis Market, designed to aggregate intelligence on geopolitical events. Congress shut it down in 72 hours. The objection: it was unseemly to bet on wars and assassinations, and it created obvious incentives to cause the events being wagered on.</p>
+
+  <p>In 2024, the CFTC approved the identical concept. <strong>The same product. A different administration. A different outcome.</strong></p>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-num red">435,672</div>
+      <div class="stat-label">Markets analyzed by ACDC across Polymarket's full history</div>
+    </div>
+    <div class="stat-card amber">
+      <div class="stat-num amber">$54.4B</div>
+      <div class="stat-label">Total wagers processed on the platform since launch</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num red">0</div>
+      <div class="stat-label">Government ID required to open a Polymarket account</div>
+    </div>
+    <div class="stat-card blue">
+      <div class="stat-num blue">$15B</div>
+      <div class="stat-label">Polymarket valuation as of early 2026 — up from $1.2B in May 2024</div>
+    </div>
+  </div>
+
+  <h3>Why no government ID matters</h3>
+
+  <p>Every regulated US financial platform requires Know Your Customer verification. Stock brokers verify identity. Even sports betting apps require identity confirmation. Polymarket, operating offshore on the Polygon blockchain, requires nothing. A username. An email. An Ethereum wallet. That is the complete onboarding process.</p>
+
+  <p>This means the accounts that produced a <strong>98% win rate on US military strikes</strong> — analyzed by ACDC and Bubblemaps in April 2026 — cannot be connected to individuals without a subpoena and blockchain forensics. The CFTC has not opened an investigation. No subpoena has been sought.</p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     02. THREE TIERS
+═════════════════════════════════════════════════════════════ -->
+<span class="section-anchor" id="three-tiers"></span>
+<section class="breakdown-section">
+  <span class="section-tag">02, Three Tiers of Insider Advantage</span>
+  <h2>One case is prosecuted. Two categories may not be illegal under anything currently on the books.</h2>
+
+  <p>The insider problem on prediction markets exists on three distinct levels. They escalate in sophistication and in the difficulty of prosecution. Only the first level has produced a federal charge.</p>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Tier</th>
+        <th>Type</th>
+        <th>Example</th>
+        <th>Legal Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>01</td>
+        <td>The Classic Insider</td>
+        <td>Army Sgt. Gannon Van Dyke, USA v. Van Dyke, trial date Dec 7, 2026. Placed bets on military strikes he participated in.</td>
+        <td><span class="tag-pill red">Prosecuted</span></td>
+      </tr>
+      <tr>
+        <td>02</td>
+        <td>The Coordinated Cluster</td>
+        <td>Nine wallets. 98% win rate on US military longshots. $2.4M wagered. Identified by Bubblemaps / Deebs, published by ACDC and Der Standard, June 2026.</td>
+        <td><span class="tag-pill amber">No Investigation</span></td>
+      </tr>
+      <tr>
+        <td>03</td>
+        <td>Structural / Regulatory</td>
+        <td>The company whose former CEO was raided by the FBI has the President's son on its advisory board. The regulator whose former client built the competing product is the only CFTC commissioner with a vote.</td>
+        <td><span class="tag-pill dim">No Law Applies</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4>Tier One: USA v. Van Dyke</h4>
+  <p><strong>Gannon Van Dyke</strong> is an Army sergeant. He placed Polymarket bets on military strikes he had advance knowledge of through his service. He is charged with wire fraud. Trial is scheduled for December 7, 2026. He is presumed innocent. The film does not recreate the disputed allegations.</p>
+
+  <p>Van Dyke represents the simplest version of the problem — and the only version anyone has named. His prosecution required federal agents, a specific individual, and a conventional fraud framework that barely fits. The other 435,671 markets remain unexamined by any law enforcement body.</p>
+
+  <div class="pull amber">
+    <p>"The Case of Van Dyke is the example everyone can understand. A soldier bets on the war he is fighting. But the soldier is not the architecture. He is a symptom."</p>
+    <span class="attribution">All In: Betting on America, Director's Statement</span>
+  </div>
+
+  <h4>Tier Two: The Nine Wallets</h4>
+  <p>This is documented in full in Section 03 below. In brief: nine cryptocurrency wallets with coordinated behavior placed bets on US military outcomes at a win rate of 98%. Market baseline for equivalent longshots: 14%. The cluster was identified by Bubblemaps analyst Deebs and published by ACDC and Der Standard in June 2026. No government investigation has been opened.</p>
+
+  <h4>Tier Three: The Structural Machine</h4>
+  <p>This tier requires no individual bad actor. It is the system operating as designed. The platform that processes $54.4 billion in wagers on military, political, and geopolitical events has the President's son as an equity investor. The regulator responsible for oversight has 4 of 5 seats vacant and a sole commissioner whose former law firm represented the platform's competitors and co-creators. The CEO Innovation Council that replaced the independent advisory committee is staffed by executives from the platforms being regulated.</p>
+  <p>No existing statute clearly covers this configuration as a crime. That is the point of the film.</p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     03. THE NINE WALLETS
+═════════════════════════════════════════════════════════════ -->
+<span class="section-anchor" id="nine-wallets"></span>
+<section class="breakdown-section">
+  <span class="section-tag amber">03, The Nine Wallets</span>
+  <h2>Nine accounts. 98% win rate. $2.4 million. Still active. No investigation.</h2>
+
+  <p>In April 2026, the Alliance for Countering Crime Online (ACDC) published "Insider Risks in Polymarket Political Markets," a quantitative analysis by researchers Kendler-Kretsch and Szakonyi. The paper reviewed all 435,672 Polymarket markets ever created. It found a cluster of nine cryptocurrency wallets with behavior that statistical analysis cannot explain as luck.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-num amber">98%</div>
+      <div class="stat-label">Win rate on US military longshot bets across the nine wallets</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num red">14%</div>
+      <div class="stat-label">Baseline win rate for equivalent longshots in all other Polymarket categories</div>
+    </div>
+    <div class="stat-card amber">
+      <div class="stat-num amber">$2.4M</div>
+      <div class="stat-label">Total wagered by the cluster across its identified military-outcome positions</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num red">0</div>
+      <div class="stat-label">CFTC investigations opened in response to the ACDC findings</div>
+    </div>
+  </div>
+
+  <h3>The statistical case</h3>
+
+  <p>The baseline win rate for military longshots on Polymarket — bets placed at odds of 14% or lower — is consistent with the stated probability. If a market is priced at 14%, you expect it to resolve "Yes" approximately 14% of the time across a large sample. That is how a functioning prediction market works.</p>
+
+  <p>The nine wallets hit at <strong>98%</strong> on these same markets. Across a sufficient sample size, the probability of this distribution occurring by chance is, in the paper's language, "essentially zero." The researchers applied the methodology used by the FBI and SEC in conventional insider trading cases: pattern analysis, clustering, position size relative to market liquidity, and timing of entry relative to news.</p>
+
+  <div class="bar-compare">
+    <div class="bar-row">
+      <div class="bar-label"><span><strong>Nine Wallets</strong> — military longshot win rate</span><strong>98%</strong></div>
+      <div class="bar-track"><div class="bar-fill red" style="width:98%"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label"><span>Market baseline — all other categories</span><strong>14%</strong></div>
+      <div class="bar-track"><div class="bar-fill dim" style="width:14%"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label"><span>AlphaRaccoon (Google insider) — <em>now prosecuted</em></span><strong>~91%</strong></div>
+      <div class="bar-track"><div class="bar-fill amber" style="width:91%"></div></div>
+    </div>
+  </div>
+
+  <p><em>For reference: AlphaRaccoon is a separate Polymarket case in which a Google employee bet on "Google Year in Search" outcomes using advance knowledge. They won $1.2 million and were identified through on-chain wallet analysis by Bubblemaps. They were charged in May 2026. Their win rate on those specific markets was approximately 91%. The nine wallets, at 98%, exceed that benchmark and have not been charged.</em></p>
+
+  <h3>The wallets</h3>
+
+  <p>The cluster was identified by Deebs, the lead analyst at Bubblemaps, using on-chain tracing methodology. Two of the wallets have been publicly identified by their usernames in published analysis. The full cluster of nine was reported by Der Standard (Austria) in June 2026 citing the ACDC research.</p>
+
+  <div class="wallet-grid">
+    <div class="wallet-card">
+      <div class="wallet-id">Skoobidoobnj</div>
+      <div class="wallet-stat"><strong>Cluster Lead</strong><br>Identified by Bubblemaps / Deebs.<br>Coordinated entry timing with at least 4 other wallets.</div>
+    </div>
+    <div class="wallet-card">
+      <div class="wallet-id">0xoracle</div>
+      <div class="wallet-stat"><strong>Cluster Member</strong><br>Named in ACDC / Der Standard reporting.<br>Active as of June 2026.</div>
+    </div>
+    <div class="wallet-card">
+      <div class="wallet-id">Wallets 3 through 9</div>
+      <div class="wallet-stat"><strong>Identified via on-chain clustering</strong><br>Connected through funding wallet patterns and coordinated bet timing. Not publicly named as of this writing.</div>
+    </div>
+  </div>
+
+  <h3>What ACDC found and what the CFTC did</h3>
+
+  <p>ACDC submitted its findings to the CFTC. In the paper, the authors note that the agency "has not responded to ACDC's findings." ACDC is the same organization that co-produced the Congo Hold-Up — the largest financial leak analysis in African history — and the DRC financial crimes documentation that eventually reached international prosecution.</p>
+
+  <p>Under CFTC Chair Michael Selig, who was confirmed in December 2025 and whose former law firm represented multiple Polymarket-adjacent entities, enforcement actions dropped from <span class="data-inline red">58</span> in 2022 to <span class="data-inline red">11</span> in 2026. No investigation into the nine wallets has been announced.</p>
+
+  <div class="pull">
+    <p>"The data does not allow for a benign explanation. Nine wallets. Military outcomes only. Win rate 7x the baseline. The question is not whether someone had advance information. The question is who, and whether anyone with the authority to ask is willing to ask it."</p>
+    <span class="attribution">ACDC, "Insider Risks in Polymarket Political Markets," Kendler-Kretsch and Szakonyi, April 30, 2026</span>
+  </div>
+
+  <h4>The $800M Oil Trade</h4>
+  <p>Separately from the nine wallets, David Kovel (Kirby McInerney) flagged a coordinated oil market position on March 3, 2026. An $800M short was placed in oil futures. President Trump posted to Truth Social approximately 15 minutes later with content that moved oil markets. A second coordinated position worth approximately $1.75B in suspicious oil market activity was flagged in subsequent weeks. The CFTC has announced no investigation into either trade.</p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     04. OWNERSHIP CHAIN
+═════════════════════════════════════════════════════════════ -->
+<span class="section-anchor" id="ownership"></span>
+<section class="breakdown-section">
+  <span class="section-tag amber">04, The Ownership Chain</span>
+  <h2>Follow the money. Then follow the timeline. The sequence is not a coincidence.</h2>
+
+  <p>Polymarket's capitalization history follows a precise pattern: each major investment round is preceded or followed immediately by a favorable regulatory event. This document presents the timeline. The reader can draw their own inference.</p>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Investor / Event</th>
+        <th>Amount / Valuation</th>
+        <th>Regulatory Event</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>2022</td>
+        <td>CFTC enforcement action</td>
+        <td>$1.4M fine</td>
+        <td><span class="tag-pill red">Banned US users</span></td>
+      </tr>
+      <tr>
+        <td>May 2024</td>
+        <td>Founders Fund (Peter Thiel)</td>
+        <td>$70M Series B at $1.2B valuation</td>
+        <td><span class="tag-pill amber">Platform begins lobbying for US reinstatement</span></td>
+      </tr>
+      <tr>
+        <td>Oct 2024</td>
+        <td>FBI raids CEO Shayne Coplan</td>
+        <td>Phone seized</td>
+        <td><span class="tag-pill red">Federal investigation active</span></td>
+      </tr>
+      <tr>
+        <td>Nov 2024</td>
+        <td>Trump wins election</td>
+        <td>Polymarket odds markets cited by major media</td>
+        <td><span class="tag-pill amber">Platform enters mainstream visibility</span></td>
+      </tr>
+      <tr>
+        <td>Jul 2025</td>
+        <td>Polymarket acquires QCEX</td>
+        <td>$112M acquisition of CFTC-licensed exchange</td>
+        <td><span class="tag-pill green">DOJ drops all probes — same month, no explanation</span></td>
+      </tr>
+      <tr>
+        <td>Aug 2025</td>
+        <td>Donald Trump Jr. / 1789 Capital</td>
+        <td>Double-digit millions (est. $50M+)</td>
+        <td><span class="tag-pill red">5 weeks after both DOJ and CFTC investigations dropped</span></td>
+      </tr>
+      <tr>
+        <td>Oct 2025</td>
+        <td>ICE (Intercontinental Exchange)</td>
+        <td>$2B at $9B valuation</td>
+        <td><span class="tag-pill amber">Truth Predict announced same month</span></td>
+      </tr>
+      <tr>
+        <td>Dec 2025</td>
+        <td>Selig confirmed CFTC Chair</td>
+        <td>53 to 43 Senate vote</td>
+        <td><span class="tag-pill red">Former Willkie Farr partner; represented Crypto.com and dozens of crypto clients</span></td>
+      </tr>
+      <tr>
+        <td>Early 2026</td>
+        <td>Secondary / implied valuation</td>
+        <td>$15B</td>
+        <td><span class="tag-pill green">Enforcement at 11 actions, CEO Council active</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>The FBI Raid and the Dropped Investigation</h3>
+
+  <p>In late October 2024, FBI agents arrived at the New York apartment of Shayne Coplan, CEO of Polymarket. They seized his phone. No public explanation was given for what triggered the investigation or what they were looking for. Federal investigations of this type — targeting the CEO of a financial platform — are not opened without a threshold of established probable cause.</p>
+
+  <p>In July 2025, both the DOJ investigation and a parallel CFTC investigation were dropped simultaneously. No charges. No explanation. No press release from the government explaining why an investigation that justified a CEO's phone seizure was closed without action. <strong>In the same month, Polymarket paid $112 million to acquire QCEX</strong>, a CFTC-licensed exchange, giving Polymarket the domestic license it needed to operate legally in the US.</p>
+
+  <p>Five weeks later, <strong>Donald Trump Jr.</strong> announced an equity investment of "double-digit millions" in Polymarket through his venture fund, 1789 Capital. Trump Jr. simultaneously serves as a paid advisor to Kalshi, Polymarket's direct competitor. He disclosed neither relationship when commenting on prediction markets in media appearances during the 2024 campaign.</p>
+
+  <div class="pull amber">
+    <p>"The sequence runs: FBI raids CEO. Trump wins. DOJ and CFTC both drop investigations with no explanation. Polymarket pays $112M for a license. Trump's son invests. This is a timeline, not an opinion."</p>
+    <span class="attribution">All In: Betting on America, Director's Statement</span>
+  </div>
+
+  <h3>ICE and Truth Predict</h3>
+
+  <p>In October 2025, Intercontinental Exchange — one of the world's largest financial exchange operators, which operates the New York Stock Exchange — committed $2 billion to Polymarket at a $9 billion valuation. This investment gave Polymarket the institutional credibility of a NYSE-affiliated backer, making it effectively impossible to dismiss as a fringe platform.</p>
+
+  <p>The same month, <strong>Truth Predict</strong> was announced: a joint venture between Trump Media and Cryptocurrency exchange Crypto.com to launch a prediction market integrated into Trump's Truth Social platform. Michael Selig, nominated for CFTC Chair that same month, was a former partner at Willkie Farr and Gallagher, where he represented Crypto.com. His ethics recusal from matters involving Crypto.com was set to expire in mid-2026 — precisely when Truth Predict's regulatory pathway would be in review.</p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     05. REGULATORY DEPLOYMENT
+═════════════════════════════════════════════════════════════ -->
+<span class="section-anchor" id="regulatory"></span>
+<section class="breakdown-section">
+  <span class="section-tag">05, Regulatory Deployment</span>
+  <h2>This is not regulatory capture. This is regulatory deployment.</h2>
+
+  <p>Regulatory capture is when an industry gradually influences a regulator over time through lobbying and the revolving door. What the film documents is something faster and more deliberate: the systematic conversion of a regulatory agency into an active advocate for the industry it is supposed to oversee.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-num red">58 → 11</div>
+      <div class="stat-label">CFTC enforcement actions: 2022 to 2026. Reduced in 14 months under Selig.</div>
+    </div>
+    <div class="stat-card amber">
+      <div class="stat-num amber">50+</div>
+      <div class="stat-label">Amicus briefs filed by CFTC in state courts defending Polymarket and Kalshi from state-level oversight</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num red">4 of 5</div>
+      <div class="stat-label">CFTC commissioner seats vacant. Selig is the sole decision-maker on all regulatory actions.</div>
+    </div>
+    <div class="stat-card blue">
+      <div class="stat-num blue">35</div>
+      <div class="stat-label">Executives on the CEO Innovation Council that replaced the disbanded Technology Advisory Committee</div>
+    </div>
+  </div>
+
+  <h3>Michael Selig</h3>
+
+  <p>Age 36. Confirmed December 2025, 53 to 43 Senate vote. Prior to his nomination, Selig was a partner at Willkie Farr and Gallagher, where he represented cryptocurrency clients including Crypto.com, Gemini, and others in the Polymarket ecosystem. He holds an ethics recusal from matters directly involving his former clients. That recusal expires mid-2026.</p>
+
+  <p>With 4 of 5 CFTC commissioner seats vacant, Selig currently makes all CFTC regulatory decisions unilaterally. There is no dissenting commissioner. No quorum is required for most enforcement decisions when there is only one commissioner. <strong>In 14 months, he reduced enforcement actions from 58 to 11.</strong> He did not require a vote to do this.</p>
+
+  <h3>The CEO Innovation Council</h3>
+
+  <p>Shortly after taking office, Selig disbanded the Technology Advisory Committee — an independent body that provided technical guidance to the CFTC. He replaced it with the CEO Innovation Council, a 35-member body composed of executives from the industries the CFTC regulates. Members include:</p>
+
+  <table class="data-table">
+    <thead>
+      <tr><th>Name</th><th>Company</th><th>Role in ecosystem</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Shayne Coplan</td><td>Polymarket</td><td>CEO of primary CFTC-licensed prediction platform. FBI phone seizure, 2024.</td></tr>
+      <tr><td>Tarek Mansour</td><td>Kalshi</td><td>CEO of Polymarket's direct competitor. Trump Jr. also paid Kalshi advisor.</td></tr>
+      <tr><td>Tyler Winklevoss</td><td>Gemini</td><td>Gave approximately $1M in Bitcoin to Trump 2024 campaign alongside brother Cameron.</td></tr>
+      <tr><td>Kris Marszalek</td><td>Crypto.com</td><td>Selig's former law client. Co-creator of Truth Predict with Trump Media.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>The 50+ Amicus Briefs</h3>
+
+  <p>Multiple US states attempted to regulate prediction markets under existing gambling or securities law. The CFTC under Selig filed amicus briefs in more than 50 state-court proceedings, arguing that federal preemption prevents states from applying their own laws to CFTC-licensed prediction market platforms. The CFTC also sued three states directly that attempted to restrict Polymarket and Kalshi operations.</p>
+
+  <p>This is an unusual posture for a federal regulator: not enforcing federal law against a platform, but actively using federal legal resources to protect that platform from state-level enforcement. The effect is a legal shield around prediction markets at both the federal and state level simultaneously.</p>
+
+  <div class="pull">
+    <p>"Senator Warren's June 5, 2026 letter gave the CFTC until June 18 to produce records on Polymarket reinstatement, Gemini fast-tracking, and the removal of position limits for prediction markets. The deadline passed."</p>
+    <span class="attribution">Senate Banking Committee, June 2026</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     06. THE CONGO PARALLEL
+═════════════════════════════════════════════════════════════ -->
+<span class="section-anchor" id="congo"></span>
+<section class="breakdown-section">
+  <span class="section-tag blue">06, The Congo Parallel</span>
+  <h2>Same structure. Different suit. Different continent.</h2>
+
+  <p>The parallel is not rhetorical. It is structural. The organization that identified the nine wallets on Polymarket is the same organization that broke the Congo Hold-Up — the largest financial data leak analysis in African history.</p>
+
+  <h3>What the Congo Hold-Up was</h3>
+
+  <p>In 2021, a coalition of 19 international investigative media outlets published the Congo Hold-Up, based on 3.5 million leaked documents from BGFIBank's DRC subsidiary. The investigation revealed how elites in the Democratic Republic of Congo used a bank connected to the president's family to siphon public funds, launder money through shell companies, and extract billions from a country where 60% of the population lives in extreme poverty. PPLAAF (the Platform to Protect Whistleblowers in Africa) and Mediapart (France) led the investigation. ACDC co-authored it.</p>
+
+  <p>The structural mechanism: <strong>a small number of connected insiders used a financial intermediary, regulatory capture of domestic oversight institutions, and cross-border obfuscation to extract public value for private gain.</strong> The victims were the people of the DRC.</p>
+
+  <h3>The structural parallel</h3>
+
+  <table class="data-table">
+    <thead>
+      <tr><th>Element</th><th>DRC (Congo Hold-Up)</th><th>USA (Polymarket)</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Financial vehicle</td>
+        <td>BGFIBank DRC — connected to presidential family</td>
+        <td>Polymarket — advisory board includes President's son</td>
+      </tr>
+      <tr>
+        <td>Insider advantage</td>
+        <td>Access to state funds and government accounts</td>
+        <td>Advance knowledge of military, political, geopolitical outcomes</td>
+      </tr>
+      <tr>
+        <td>Regulatory mechanism</td>
+        <td>Regulatory bodies captured or hollowed by connected officials</td>
+        <td>CFTC with 4 of 5 seats vacant; sole commissioner from industry</td>
+      </tr>
+      <tr>
+        <td>Cross-border obfuscation</td>
+        <td>Shell companies in multiple jurisdictions</td>
+        <td>Polygon blockchain, offshore structure, no KYC</td>
+      </tr>
+      <tr>
+        <td>Investigating body</td>
+        <td>ACDC / PPLAAF / 19 international outlets</td>
+        <td>ACDC / Bubblemaps / Der Standard</td>
+      </tr>
+      <tr>
+        <td>Government response</td>
+        <td>International sanctions; ongoing prosecution</td>
+        <td>No investigation; CFTC dropped all probes</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="pull blue">
+    <p>"I started this project researching sports betting addiction. The more I pulled the thread, the deeper the machine went. By the time I understood what I was looking at, I had drawn the parallel to the Congo Hold-Up myself and brought it to Michael Hornsby in Paris. He said it held. And I had gotten on-record quotes from David Kovel, a retired CFTC attorney and the largest CFTC whistleblower award recipient in history. I am not a journalist. I am a cinematographer. But this is the most important thing I have ever pointed a camera at and nobody has pointed one at it yet."</p>
+    <span class="attribution">Pedro Feria Pino, Director, ALL IN: Betting on America</span>
+  </div>
+
+  <h3>ACDC's role in both</h3>
+
+  <p>The Alliance for Countering Crime Online does quantitative financial crime analysis. Their methodology in the Congo Hold-Up was to apply pattern analysis to the leaked BGFIBank documents — following transaction clusters, timing, and counterparties to identify the mechanism of extraction. They applied an identical methodology to Polymarket: reviewing all 435,672 markets, clustering wallets by behavioral patterns, and measuring win rates against statistical baselines.</p>
+
+  <p>The Congo Hold-Up took years and 19 newsrooms. The Polymarket analysis was published by two researchers, submitted to the CFTC, and has received no government response. <strong>This film exists in the space between the evidence and the reckoning.</strong></p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     07. FULL TIMELINE
+═════════════════════════════════════════════════════════════ -->
+<span class="section-anchor" id="timeline"></span>
+<section class="breakdown-section">
+  <span class="section-tag">07, Full Timeline</span>
+  <h2>The causal chain, in dates.</h2>
+
+  <div class="timeline">
+    <div class="tl-item blue">
+      <div class="tl-date">2003</div>
+      <div class="tl-title">DARPA Policy Analysis Market — Shut down in 72 hours</div>
+      <div class="tl-body">Congress kills DARPA's event contract market immediately after public disclosure. Primary objection: it creates financial incentives to cause the events being wagered on, and it is unseemly to bet on assassinations and wars. The concept is formally dead.</div>
+    </div>
+    <div class="tl-item blue">
+      <div class="tl-date">May 2018</div>
+      <div class="tl-title">Murphy v. NCAA — Sports betting federally legal</div>
+      <div class="tl-body">The Supreme Court strikes down PASPA, opening state-by-state legalization of sports betting. 30 million Americans bet last year. One in five problem gamblers attempts suicide. This is the surface story. The film finds what is underneath it.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">2021</div>
+      <div class="tl-title">Polymarket launches — offshore, on Polygon blockchain</div>
+      <div class="tl-body">Platform launches betting on political and geopolitical outcomes. No government ID required. Operates offshore. Begins accumulating volume.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">2021</div>
+      <div class="tl-title">Congo Hold-Up published</div>
+      <div class="tl-body">ACDC, PPLAAF, and 19 international outlets publish the largest financial data leak analysis in African history. BGFIBank DRC. 3.5 million leaked documents. Presidential family connections. ACDC's methodology: quantitative pattern analysis of financial transaction data.</div>
+    </div>
+    <div class="tl-item red">
+      <div class="tl-date">2022</div>
+      <div class="tl-title">CFTC fines Polymarket $1.4M — banned from US users</div>
+      <div class="tl-body">CFTC enforcement action. Polymarket pays $1.4M fine, banned US users, continues operating offshore. CFTC enforcement at 58 actions for the year. This is the high-water mark.</div>
+    </div>
+    <div class="tl-item amber">
+      <div class="tl-date">May 2024</div>
+      <div class="tl-title">Founders Fund $70M Series B — Valuation $1.2B</div>
+      <div class="tl-body">Peter Thiel's Founders Fund leads $70M Series B at $1.2B valuation. Institutional legitimacy established. Thiel is the architect of the PayPal to crypto to Trump capital pipeline. Platform begins lobbying for US reinstatement.</div>
+    </div>
+    <div class="tl-item red">
+      <div class="tl-date">October 2024</div>
+      <div class="tl-title">FBI raids Polymarket CEO Shayne Coplan</div>
+      <div class="tl-body">Federal agents arrive at Coplan's New York apartment. Phone seized. No public explanation given. Both DOJ and CFTC investigations active. Polymarket continues operating.</div>
+    </div>
+    <div class="tl-item amber">
+      <div class="tl-date">November 2024</div>
+      <div class="tl-title">Trump wins — Polymarket odds cited as most accurate predictor</div>
+      <div class="tl-body">Polymarket's election markets are cited by mainstream media as outperforming conventional polling. Platform achieves mainstream visibility. Valuation on track to rise.</div>
+    </div>
+    <div class="tl-item green">
+      <div class="tl-date">July 2025</div>
+      <div class="tl-title">Polymarket acquires QCEX for $112M — DOJ drops all probes</div>
+      <div class="tl-body">Polymarket pays $112 million to acquire QCEX, giving it a CFTC-licensed exchange and a legal pathway to US operations. In the same month, the DOJ and CFTC simultaneously close all investigations with no charges and no public explanation.</div>
+    </div>
+    <div class="tl-item red">
+      <div class="tl-date">August 2025</div>
+      <div class="tl-title">Trump Jr. / 1789 Capital invests — double-digit millions</div>
+      <div class="tl-body">Donald Trump Jr. announces equity investment through 1789 Capital, five weeks after both federal investigations were dropped. He simultaneously serves as a paid advisor to Kalshi, Polymarket's direct competitor. He does not disclose either relationship in media appearances.</div>
+    </div>
+    <div class="tl-item amber">
+      <div class="tl-date">October 2025</div>
+      <div class="tl-title">ICE $2B at $9B valuation — Truth Predict announced — Selig nominated</div>
+      <div class="tl-body">Intercontinental Exchange commits $2B. Trump Media and Crypto.com announce Truth Predict — a prediction market on Truth Social. Selig, former Willkie Farr partner who represented Crypto.com, is nominated as CFTC Chair.</div>
+    </div>
+    <div class="tl-item red">
+      <div class="tl-date">December 2025</div>
+      <div class="tl-title">Selig confirmed — 53 to 43</div>
+      <div class="tl-body">Senate confirms Michael Selig as CFTC Chair. 4 of the remaining 5 commissioner seats are left vacant. Selig becomes the sole decision-maker on all regulatory actions. Ethics recusal from Crypto.com matters set to expire mid-2026.</div>
+    </div>
+    <div class="tl-item red">
+      <div class="tl-date">January to February 2026</div>
+      <div class="tl-title">Enforcement collapses — TAC disbanded — CEO Council created</div>
+      <div class="tl-body">CFTC enforcement actions drop from 58 to 11 in 14 months. Selig disbands the Technology Advisory Committee. Creates 35-member CEO Innovation Council staffed by executives from Polymarket, Kalshi, Gemini, and Crypto.com. No vote required.</div>
+    </div>
+    <div class="tl-item amber">
+      <div class="tl-date">March 3, 2026</div>
+      <div class="tl-title">$800M oil trade — Trump Truth Social post 15 minutes later</div>
+      <div class="tl-body">$800M coordinated oil short is placed. President Trump posts to Truth Social approximately 15 minutes later with content that moves oil markets. Flagged by David Kovel (Kirby McInerney). No CFTC investigation announced.</div>
+    </div>
+    <div class="tl-item amber">
+      <div class="tl-date">April 30, 2026</div>
+      <div class="tl-title">ACDC publishes "Insider Risks in Polymarket Political Markets"</div>
+      <div class="tl-body">Kendler-Kretsch and Szakonyi publish quantitative analysis of all 435,672 Polymarket markets. Nine wallets. 98% military win rate. $2.4M wagered. Submitted to CFTC. No response.</div>
+    </div>
+    <div class="tl-item amber">
+      <div class="tl-date">May 2026</div>
+      <div class="tl-title">AlphaRaccoon charged — Google insider, $1.2M, Polymarket</div>
+      <div class="tl-body">A Google employee who bet on "Google Year in Search" outcomes using advance knowledge is charged. Identified as "AlphaRaccoon" through Bubblemaps on-chain analysis. Win rate approximately 91%. The nine wallets, at 98%, are not charged.</div>
+    </div>
+    <div class="tl-item blue">
+      <div class="tl-date">June 5, 2026</div>
+      <div class="tl-title">Senator Warren letter — June 18 CFTC deadline</div>
+      <div class="tl-body">Senator Elizabeth Warren sends letter demanding CFTC produce records on Polymarket reinstatement, Gemini fast-tracking, and removal of position limits for prediction markets. Deadline: June 18. Deadline passes.</div>
+    </div>
+    <div class="tl-item amber">
+      <div class="tl-date">June 2026</div>
+      <div class="tl-title">Der Standard reports nine wallets — Skoobidoobnj, 0xoracle</div>
+      <div class="tl-body">Austrian outlet Der Standard publishes on the nine-wallet cluster citing ACDC and Bubblemaps analysis. Wallets Skoobidoobnj and 0xoracle named publicly. Wallets remain active as of publication. No US law enforcement response.</div>
+    </div>
+    <div class="tl-item red">
+      <div class="tl-date">December 7, 2026</div>
+      <div class="tl-title">USA v. Van Dyke — Trial date</div>
+      <div class="tl-body">Army Sergeant Gannon Van Dyke faces trial for wire fraud. He is the first person charged in connection with Polymarket insider betting. He is the most obvious case. He is presumed innocent. The cases that are not obvious remain unopened.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     08. SOURCES ON RECORD
+═════════════════════════════════════════════════════════════ -->
+<span class="section-anchor" id="sources"></span>
+<section class="breakdown-section">
+  <span class="section-tag">08, Sources and Citations</span>
+  <h2>Everything in this document is cited. Every source that is on record is named.</h2>
+
+  <h4>Primary Research</h4>
+  <ul class="source-list">
+    <li>
+      <span class="src-type">Academic / Investigative Research</span>
+      <strong>ACDC — "Insider Risks in Polymarket Political Markets"</strong><br>
+      Kendler-Kretsch and Szakonyi, Alliance for Countering Crime Online, April 30, 2026. Full analysis of 435,672 Polymarket markets. Primary source for nine-wallet analysis, win rate data ($2.4M, 98%), and statistical methodology.
+    </li>
+    <li>
+      <span class="src-type">International Investigation</span>
+      <strong>Congo Hold-Up — PPLAAF + Mediapart + ACDC + 19 outlets, 2021</strong><br>
+      3.5 million leaked BGFIBank DRC documents. Largest financial data leak analysis in African history. ACDC co-authored. Structural parallel to Polymarket ecosystem analysis.
+    </li>
+    <li>
+      <span class="src-type">Press Reporting</span>
+      <strong>Der Standard (Austria) — Nine Wallets Reporting, June 2026</strong><br>
+      Named wallets Skoobidoobnj and 0xoracle. Cited ACDC and Bubblemaps analysis. Reported wallets still active as of publication.
+    </li>
+  </ul>
+
+  <h4>Legal Cases</h4>
+  <ul class="source-list">
+    <li>
+      <span class="src-type">Federal Criminal Case</span>
+      <strong>USA v. Van Dyke — Trial date December 7, 2026</strong><br>
+      Wire fraud charges against Army Sergeant Gannon Van Dyke for alleged Polymarket betting on military outcomes. Defendant presumed innocent. Film does not recreate disputed allegations.
+    </li>
+    <li>
+      <span class="src-type">Regulatory Action</span>
+      <strong>CFTC v. Polymarket — Consent Order, 2022</strong><br>
+      $1.4M fine. Banned US users. The baseline regulatory action against the platform prior to the change in administration.
+    </li>
+    <li>
+      <span class="src-type">Congressional Correspondence</span>
+      <strong>Senator Elizabeth Warren — Letter to CFTC, June 5, 2026</strong><br>
+      Demanded records on Polymarket reinstatement, Gemini fast-tracking, removal of position limits. Deadline June 18, 2026.
+    </li>
+  </ul>
+
+  <h4>Sources On Record for the Film</h4>
+  <ul class="source-list">
+    <li>
+      <span class="src-type">On Record — Confirmed</span>
+      <strong>David Kovel</strong> — Retired CFTC attorney. Kirby McInerney. Largest CFTC whistleblower award recipient in history. In 2021 he won that award for prior CFTC fraud reporting. Applied the same methodology to Polymarket. Flagged the March 3 oil trade. On record.
+    </li>
+    <li>
+      <span class="src-type">On Record — Confirmed</span>
+      <strong>Michael Hornsby</strong> — Co-director, ACDC. Led the Congo Hold-Up investigation. Validated the structural parallel between Congo Hold-Up and Polymarket ecosystem. Based in Paris. On record.
+    </li>
+    <li>
+      <span class="src-type">Pending — This Week</span>
+      <strong>Deebs (Bubblemaps)</strong> — Lead analyst, Bubblemaps. Identified the nine-wallet cluster. Named Skoobidoobnj and 0xoracle through on-chain tracing. Interview scheduled.
+    </li>
+    <li>
+      <span class="src-type">Pending</span>
+      <strong>Polymarket</strong> — Comment requested. No response as of this writing.
+    </li>
+    <li>
+      <span class="src-type">Pending</span>
+      <strong>CFTC</strong> — Comment requested. No response as of this writing.
+    </li>
+    <li>
+      <span class="src-type">Pending</span>
+      <strong>Kendler-Kretsch and Szakonyi (ACDC research authors)</strong> — Comment requested.
+    </li>
+  </ul>
+
+  <h4>Additional Source Material</h4>
+  <ul class="source-list">
+    <li>
+      <span class="src-type">Data Source</span>
+      <strong>CFTC Enforcement Data</strong> — Annual enforcement action reports. 58 actions (2022), 11 (2026). Public record.
+    </li>
+    <li>
+      <span class="src-type">Data Source</span>
+      <strong>Bubblemaps On-Chain Analysis</strong> — Wallet cluster methodology for AlphaRaccoon and nine-wallet cases. Published analysis available at Bubblemaps.io.
+    </li>
+    <li>
+      <span class="src-type">Senate Record</span>
+      <strong>Selig Confirmation Vote — December 2025</strong> — 53 to 43. Congressional record.
+    </li>
+    <li>
+      <span class="src-type">Corporate Filings / Press</span>
+      <strong>Investment Round Documentation</strong> — Founders Fund Series B (Crunchbase, May 2024). ICE investment (SEC filing, October 2025). Trump Jr. / 1789 Capital (press release, August 2025). QCEX acquisition (Polymarket press release, July 2025).
+    </li>
+  </ul>
+
+</section>
+
+</div><!-- /content -->
+
+<footer>
+  <strong style="color:rgba(255,255,255,0.4);">ALL IN: BETTING ON AMERICA</strong><br>
+  A Documentary Feature Film &nbsp;|&nbsp; Director: Pedro Feria Pino<br>
+  This document is a production research brief. All assertions are cited above.<br>
+  <a href="../">Return to Final Pitch</a> &nbsp;|&nbsp; <a href="mailto:vefilm@gmail.com">Contact</a>
+</footer>
+
+</body>
+</html>
