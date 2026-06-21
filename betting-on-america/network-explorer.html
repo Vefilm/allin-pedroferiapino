@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Network Explorer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden;background:#020207}
+#nex-outer{position:fixed;inset:0;background:#020207;display:flex;flex-direction:column;font-family:'IBM Plex Mono',monospace}
+#nex-wrap{position:relative;flex:1;overflow:hidden}
+#nex-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
+#nex-inspector{position:absolute;right:18px;top:18px;width:265px;background:rgba(7,7,13,0.93);border:1px solid rgba(255,255,255,0.08);border-radius:5px;overflow:hidden;backdrop-filter:blur(8px);pointer-events:none}
+.tick{position:absolute;width:18px;height:18px;pointer-events:none}
+.tick-tl{top:0;left:0;border-top:1px solid rgba(177,18,38,0.4);border-left:1px solid rgba(177,18,38,0.4)}
+.tick-tr{top:0;right:0;border-top:1px solid rgba(177,18,38,0.4);border-right:1px solid rgba(177,18,38,0.4)}
+.tick-bl{bottom:0;left:0;border-bottom:1px solid rgba(177,18,38,0.4);border-left:1px solid rgba(177,18,38,0.4)}
+.tick-br{bottom:0;right:0;border-bottom:1px solid rgba(177,18,38,0.4);border-right:1px solid rgba(177,18,38,0.4)}
+#nex-play{width:28px;height:28px;border-radius:50%;background:rgba(177,18,38,0.18);border:1px solid rgba(177,18,38,0.4);color:#e0445a;font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;padding-left:1px;flex-shrink:0}
+#nex-range{-webkit-appearance:none;appearance:none;width:100%;height:3px;background:rgba(177,18,38,0.22);border-radius:2px;outline:none;cursor:pointer}
+#nex-range::-webkit-slider-thumb{-webkit-appearance:none;width:11px;height:11px;border-radius:50%;background:#B11226;cursor:pointer}
+</style>
+</head>
+<body>
+<div id="nex-outer">
+  <div id="nex-wrap">
+    <canvas id="nex-canvas"></canvas>
+    <div class="tick tick-tl"></div><div class="tick tick-tr"></div>
+    <div class="tick tick-bl"></div><div class="tick tick-br"></div>
+
+    <!-- Header -->
+    <div style="position:absolute;top:18px;left:22px;pointer-events:none;">
+      <div style="font-size:0.52rem;letter-spacing:0.25em;color:rgba(177,18,38,0.7);text-transform:uppercase;margin-bottom:3px;">All In · Betting on America</div>
+      <div style="font-size:0.7rem;letter-spacing:0.1em;color:rgba(255,255,255,0.45);">Ownership Network</div>
+    </div>
+
+    <!-- Inspector -->
+    <div id="nex-inspector">
+      <div style="padding:9px 12px;border-bottom:1px solid rgba(255,255,255,0.07);display:flex;justify-content:space-between;align-items:center;">
+        <div style="font-size:0.52rem;letter-spacing:0.22em;color:rgba(255,255,255,0.35);">INTEL BRIEF</div>
+        <div id="nex-badge" style="font-size:0.48rem;letter-spacing:0.12em;padding:2px 7px;border-radius:2px;border:1px solid;font-weight:700;"></div>
+      </div>
+      <div style="padding:12px 14px;">
+        <div id="nex-name" style="font-size:0.82rem;font-weight:700;color:#fff;margin-bottom:6px;letter-spacing:0.02em;line-height:1.3;"></div>
+        <div id="nex-desc" style="font-size:0.65rem;color:rgba(255,255,255,0.52);line-height:1.55;border-left:2px solid;padding-left:8px;margin-bottom:10px;"></div>
+        <div id="nex-facts" style="display:flex;flex-direction:column;gap:5px;margin-bottom:10px;"></div>
+        <div id="nex-conn" style="font-size:0.48rem;letter-spacing:0.14em;color:rgba(255,255,255,0.22);padding-top:8px;border-top:1px solid rgba(255,255,255,0.06);"></div>
+      </div>
+    </div>
+
+    <!-- Legend -->
+    <div style="position:absolute;bottom:14px;left:16px;display:flex;flex-direction:column;gap:4px;pointer-events:none;">
+      <div style="display:flex;align-items:center;gap:7px;"><svg width="24" height="2"><line x1="0" y1="1" x2="24" y2="1" stroke="#C9A84C" stroke-width="2"/></svg><span style="font-size:0.46rem;letter-spacing:0.14em;color:rgba(255,255,255,0.32);">EQUITY</span></div>
+      <div style="display:flex;align-items:center;gap:7px;"><svg width="24" height="2"><line x1="0" y1="1" x2="24" y2="1" stroke="#B11226" stroke-width="2" stroke-dasharray="4 3"/></svg><span style="font-size:0.46rem;letter-spacing:0.14em;color:rgba(255,255,255,0.32);">CONFLICT</span></div>
+      <div style="display:flex;align-items:center;gap:7px;"><svg width="24" height="2"><line x1="0" y1="1" x2="24" y2="1" stroke="#4a90d9" stroke-width="2"/></svg><span style="font-size:0.46rem;letter-spacing:0.14em;color:rgba(255,255,255,0.32);">ADMIN</span></div>
+      <div style="display:flex;align-items:center;gap:7px;"><svg width="24" height="2"><line x1="0" y1="1" x2="24" y2="1" stroke="#2ecc71" stroke-width="2"/></svg><span style="font-size:0.46rem;letter-spacing:0.14em;color:rgba(255,255,255,0.32);">SYNERGY</span></div>
+    </div>
+  </div>
+
+  <!-- Timeline dock -->
+  <div style="background:rgba(4,4,9,0.96);border-top:1px solid rgba(177,18,38,0.18);padding:10px 18px 12px;flex-shrink:0;">
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:7px;">
+      <button id="nex-play">&#9654;</button>
+      <div id="nex-date" style="font-size:0.65rem;letter-spacing:0.18em;color:rgba(255,255,255,0.72);min-width:90px;"></div>
+      <div id="nex-event" style="font-size:0.52rem;letter-spacing:0.08em;color:rgba(255,255,255,0.35);flex:1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;"></div>
+      <div id="nex-val" style="font-size:0.7rem;font-weight:700;color:#e0445a;letter-spacing:0.04em;text-shadow:0 0 10px rgba(177,18,38,0.5);min-width:48px;text-align:right;"></div>
+    </div>
+    <div style="position:relative;padding-top:6px;">
+      <input id="nex-range" type="range" min="0" max="21" step="0.01" value="21">
+      <div id="nex-ticks" style="position:absolute;top:0;left:0;right:0;height:6px;pointer-events:none;"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+var CAT={
+  core:     {color:'#e0445a',base:'#B11226',glow:'#B11226',label:'CORE PLATFORM',    bg:'rgba(177,18,38,0.14)', border:'rgba(177,18,38,0.4)'},
+  capital:  {color:'#d8b65e',base:'#C9A84C',glow:'#C9A84C',label:'CAPITAL / EQUITY', bg:'rgba(201,168,76,0.14)',border:'rgba(201,168,76,0.4)'},
+  regulator:{color:'#7a94b4',base:'#4a6080',glow:'#4a90d9',label:'REGULATOR',        bg:'rgba(74,144,217,0.13)',border:'rgba(74,144,217,0.4)'},
+  product:  {color:'#f0ad55',base:'#E8A04A',glow:'#E8A04A',label:'SOVEREIGN PRODUCT',bg:'rgba(232,160,74,0.14)',border:'rgba(232,160,74,0.4)'}
+};
+var EDGE={
+  equity: {color:'#C9A84C',conflict:false},
+  conflict:{color:'#B11226',conflict:true},
+  admin:  {color:'#4a90d9',conflict:false},
+  synergy:{color:'#2ecc71',conflict:false},
+  family: {color:'#C9A84C',conflict:false}
+};
+var nodes=[
+  {id:'polymarket',label:'Polymarket',lx:550,ly:300,r:52,cat:'core',date:0,
+   desc:'The platform. CFTC-banned in 2022. $1B to $15B valuation in 36 months.',
+   facts:['Fined $1.4M by CFTC in 2022, banned US users, operated offshore.',
+          'Acquired CFTC-licensed QCEX for $112M, July 2025. DOJ dropped all probes same month.',
+          'Valuation: $1.2B (May 2024) to $9B (Oct 2025) to $15B (Early 2026).']},
+  {id:'founders-fund',label:'Founders Fund',lx:130,ly:300,r:30,cat:'capital',date:0,badge:'$70M',
+   desc:'Led $70M round at $1.2B valuation, May 2024. Peter Thiel, longtime Trump-aligned operator.',
+   facts:['Led $70M Series B at $1.2B valuation, May 2024.',
+          'Established institutional legitimacy for decentralized outcomes trading.',
+          'Thiel: architect of the PayPal to crypto to Trump capital pipeline.']},
+  {id:'trump-jr',label:'Trump Jr. / 1789',lx:250,ly:118,r:33,cat:'capital',date:15,badge:'$50M+',
+   desc:'Equity investor and advisory board member, 5 weeks after DOJ and CFTC dropped all investigations.',
+   facts:['Double-digit millions invested in Polymarket equity, August 2025.',
+          '5 weeks after both federal investigations dropped with no charges and no explanation.',
+          'Also a paid advisor to Kalshi, a direct Polymarket competitor.']},
+  {id:'ice',label:'ICE',lx:250,ly:486,r:31,cat:'capital',date:17,badge:'$2B',
+   desc:'Intercontinental Exchange. $2B committed at $9B valuation, October 2025.',
+   facts:['Committed $2B at $9B valuation, October 2025.',
+          "One of the world's largest financial exchange operators.",
+          'Gave Polymarket institutional credibility with traditional finance.']},
+  {id:'truth-predict',label:'Truth Predict',lx:550,ly:500,r:35,cat:'product',date:17,
+   desc:'Trump Media + Crypto.com. Announced October 2025. Prediction market inside Truth Social.',
+   facts:['Trump Media + Crypto.com joint venture, announced October 2025.',
+          "Betting on political and military events, integrated into Trump's social network.",
+          "Selig's former law client (Crypto.com) co-created it. Recusal expires mid-2026."]},
+  {id:'selig',label:'Michael Selig\nCFTC Chair',lx:860,ly:118,r:33,cat:'regulator',date:19,badge:'CHAIR',
+   desc:'Age 36. Confirmed December 2025, 53 to 43. Former Willkie Farr partner who represented Crypto.com.',
+   facts:['Confirmed CFTC Chair, December 2025, by a 53 to 43 Senate vote.',
+          'Former Willkie Farr partner; represented dozens of crypto clients including Crypto.com.',
+          'Ethics recusal expires mid-2026. 4 of 5 commissioner seats vacant.']},
+  {id:'ceo-council',label:'CEO Innovation\nCouncil',lx:962,ly:300,r:27,cat:'regulator',date:19,
+   desc:'35 industry executives. Replaced the independent Technology Advisory Committee.',
+   facts:['Selig disbanded the Technology Advisory Committee and replaced it.',
+          'Members: Coplan (Polymarket), Mansour (Kalshi), Winklevoss (Gemini), Marszalek (Crypto.com).',
+          'Enforcement actions: 58 (2022) to 11 (2026).']},
+  {id:'cftc-hollow',label:'CFTC Quorum\n4 seats vacant',lx:860,ly:486,r:27,cat:'regulator',date:19,
+   desc:'4 of 5 commissioner seats vacant. No dissenting votes possible.',
+   facts:['4 of 5 commissioner seats vacant. No quorum, no dissent.',
+          'Selig is the sole decision-maker on all regulatory actions.',
+          '50+ amicus briefs filed in state courts defending Polymarket and Kalshi.']}
+];
+var edges=[
+  {from:'founders-fund',to:'polymarket',type:'equity', w:3.0,date:0, curve:0.12},
+  {from:'trump-jr',     to:'polymarket',type:'equity', w:2.5,date:15,curve:0.14},
+  {from:'ice',          to:'polymarket',type:'equity', w:4.5,date:17,curve:-0.14},
+  {from:'polymarket',   to:'truth-predict',type:'synergy',w:2.2,date:17,curve:0.1},
+  {from:'polymarket',   to:'selig',     type:'conflict',w:2.2,date:19,curve:-0.16},
+  {from:'selig',        to:'ceo-council',type:'admin', w:1.8,date:19,curve:0.12},
+  {from:'selig',        to:'cftc-hollow',type:'admin', w:1.8,date:19,curve:-0.12},
+  {from:'truth-predict',to:'trump-jr',  type:'family', w:1.5,date:17,curve:0.18},
+  {from:'truth-predict',to:'ceo-council',type:'conflict',w:1.5,date:19,curve:-0.2}
+];
+var events=[
+  {t:0, label:'MAY 2024 · FOUNDERS FUND LEADS $70M · $1.2B'},
+  {t:14,label:'JUL 2025 · ACQUIRES QCEX · DOJ DROPS ALL PROBES'},
+  {t:15,label:'AUG 2025 · TRUMP JR. TAKES EQUITY STAKE'},
+  {t:17,label:'OCT 2025 · ICE COMMITS $2B · TRUTH PREDICT LAUNCHES'},
+  {t:19,label:'DEC 2025 · SELIG CONFIRMED CFTC CHAIR, 53 TO 43'},
+  {t:21,label:'EARLY 2026 · VALUATION REACHES $15B'}
+];
+var MAXT=21;
+var MONTHS=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+
+var selectedId='polymarket',playing=false,playClock=null,lastFocusIdx=-1,playFinished=false;
+var currentTime=MAXT;
+var cam={cx:550,cy:300,zoom:1,tcx:550,tcy:300,tzoom:1};
+var drift={x:0,y:0};
+var particles=[],lastT=0,anim=0,drag=null,fitZoom=1;
+var cw,ch,dpr,viewCx,viewCy,ctx,canvas;
+
+function nById(id){return nodes.find(function(n){return n.id===id;});}
+function isBorn(n){return currentTime>=n.date-1.3-0.001;}
+function birth(n){return Math.min(1,Math.max(0,(currentTime-(n.date-1.3))/1.3));}
+function fmtDate(t){
+  if(t>=MAXT-0.01)return'EARLY 2026';
+  var abs=4+Math.floor(t),y=2024+Math.floor(abs/12),m=MONTHS[((abs%12)+12)%12];
+  return m+' '+y;
+}
+function valuation(t){return t>=MAXT-0.01?'$15B':t>=17?'$9B':'$1.2B';}
+function curEvent(t){var l='';events.forEach(function(e){if(t>=e.t-0.001)l=e.label;});return l;}
+
+function updateReadouts(){
+  document.getElementById('nex-date').textContent=fmtDate(currentTime);
+  document.getElementById('nex-val').textContent=valuation(currentTime);
+  document.getElementById('nex-event').textContent=curEvent(currentTime);
+  var r=document.getElementById('nex-range');
+  if(document.activeElement!==r)r.value=currentTime;
+}
+
+function updateInspector(){
+  var n=nById(selectedId)||nodes[0],cat=CAT[n.cat];
+  var cnt=edges.filter(function(e){return e.from===n.id||e.to===n.id;}).length;
+  var b=document.getElementById('nex-badge');
+  b.textContent=cat.label;b.style.background=cat.bg;b.style.color=cat.color;b.style.borderColor=cat.border;
+  document.getElementById('nex-name').textContent=n.label.replace('\n',' · ');
+  var d=document.getElementById('nex-desc');
+  d.textContent=n.desc;d.style.borderLeftColor=cat.color;
+  var fe=document.getElementById('nex-facts');fe.innerHTML='';
+  n.facts.forEach(function(f){
+    var row=document.createElement('div');
+    row.style.cssText='display:flex;gap:8px;align-items:flex-start;margin-bottom:5px;';
+    var dot=document.createElement('div');
+    dot.style.cssText='min-width:4px;height:4px;border-radius:50%;margin-top:7px;flex-shrink:0;background:'+cat.color+';';
+    var txt=document.createElement('div');
+    txt.style.cssText='font-size:10px;color:rgba(255,255,255,0.5);line-height:1.55;font-family:IBM Plex Mono,monospace;';
+    txt.textContent=f;row.appendChild(dot);row.appendChild(txt);fe.appendChild(row);
+  });
+  document.getElementById('nex-conn').textContent='NETWORK CONNECTIONS: '+cnt;
+}
+
+function setSelected(id,focus){
+  selectedId=id;updateInspector();
+  var n=nById(id);
+  if(focus&&n){cam.tcx=n.lx;cam.tcy=n.ly;cam.tzoom=Math.min(1.55,Math.max(1.15,fitZoom*1.7));}
+}
+function reframeAll(){cam.tcx=550;cam.tcy=300;cam.tzoom=fitZoom;}
+
+function resize(){
+  dpr=Math.min(window.devicePixelRatio||1,2);
+  cw=canvas.clientWidth;ch=canvas.clientHeight;
+  canvas.width=Math.round(cw*dpr);canvas.height=Math.round(ch*dpr);
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  viewCx=cw/2-118;viewCy=ch/2-26;
+  fitZoom=Math.max(0.28,Math.min((cw-360)/1300,(ch-160)/820));
+}
+function w2s(x,y){return{x:(x-cam.cx)*cam.zoom+viewCx+drift.x,y:(y-cam.cy)*cam.zoom+viewCy+drift.y};}
+function s2w(sx,sy){return{x:(sx-viewCx-drift.x)/cam.zoom+cam.cx,y:(sy-viewCy-drift.y)/cam.zoom+cam.cy};}
+function pick(sx,sy){
+  var w=s2w(sx,sy),best=null,bd=1e9;
+  nodes.forEach(function(n){
+    if(!isBorn(n))return;
+    var d=Math.hypot(w.x-n.lx,w.y-n.ly);
+    if(d<n.r+8&&d<bd){bd=d;best=n;}
+  });
+  if(best)setSelected(best.id,true);
+}
+
+var STEPS=[
+  {t:0, f:'polymarket',   wide:true},{t:0, f:'founders-fund'},
+  {t:14,f:'polymarket'},{t:15,f:'trump-jr'},{t:17,f:'ice'},
+  {t:17,f:'truth-predict'},{t:19,f:'selig'},{t:19,f:'ceo-council'},
+  {t:19,f:'cftc-hollow'},{t:21,f:'polymarket',wide:true}
+];
+var HOLD=2.0,MOVE=0.9;
+function enterKeyframe(i){
+  var st=STEPS[i];if(!st)return;var n=nById(st.f);if(!n)return;
+  selectedId=n.id;updateInspector();
+  if(st.wide)reframeAll();
+  else{cam.tcx=n.lx;cam.tcy=n.ly;cam.tzoom=Math.min(1.5,Math.max(1.15,fitZoom*1.65));}
+}
+function playStep(){
+  var S=STEPS,H=HOLD,M=MOVE,clk=playClock,acc=0,ct=S[0].t,focus=0,done=false;
+  for(var i=0;i<S.length;i++){
+    if(clk<acc+H){ct=S[i].t;focus=i;break;}acc+=H;
+    if(i<S.length-1){
+      if(clk<acc+M){var p=(clk-acc)/M,e=p<0.5?2*p*p:1-Math.pow(-2*p+2,2)/2;ct=S[i].t+(S[i+1].t-S[i].t)*e;focus=i+1;break;}
+      acc+=M;
+    }else{ct=S[S.length-1].t;focus=S.length-1;done=true;}
+  }
+  currentTime=ct;
+  if(focus!==lastFocusIdx){lastFocusIdx=focus;enterKeyframe(focus);}
+  if(done){playing=false;playFinished=true;document.getElementById('nex-play').textContent='►';selectedId='polymarket';updateInspector();reframeAll();}
+}
+function togglePlay(){
+  if(playing){playing=false;document.getElementById('nex-play').textContent='►';}
+  else if(playClock==null||playFinished){playClock=0;lastFocusIdx=-1;playFinished=false;currentTime=0;playing=true;document.getElementById('nex-play').textContent='❚❚';}
+  else{playing=true;document.getElementById('nex-play').textContent='❚❚';}
+}
+
+function hexA(hex,a){var c=hx(hex);return'rgba('+c.r+','+c.g+','+c.b+','+a+')';}
+function hx(hex){hex=hex.replace('#','');return{r:parseInt(hex.substr(0,2),16),g:parseInt(hex.substr(2,2),16),b:parseInt(hex.substr(4,2),16)};}
+function lighten(hex,f){var c=hx(hex);return'rgb('+Math.round(c.r+(255-c.r)*f)+','+Math.round(c.g+(255-c.g)*f)+','+Math.round(c.b+(255-c.b)*f)+')';}
+function darken(hex,f){var c=hx(hex);return'rgb('+Math.round(c.r*(1-f))+','+Math.round(c.g*(1-f))+','+Math.round(c.b*(1-f))+')';}
+function rRect(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath();}
+
+function drawBg(){
+  var z=cam.zoom;
+  ctx.lineWidth=1;ctx.strokeStyle='rgba(177,18,38,0.05)';
+  var step=50*z,ox=((viewCx-cam.cx*z+drift.x)%step+step)%step,oy=((viewCy-cam.cy*z+drift.y)%step+step)%step;
+  ctx.beginPath();
+  for(var x=ox;x<cw;x+=step){ctx.moveTo(x,0);ctx.lineTo(x,ch);}
+  for(var y=oy;y<ch;y+=step){ctx.moveTo(0,y);ctx.lineTo(cw,y);}
+  ctx.stroke();
+  particles.forEach(function(p){
+    p.x+=p.vx*0.016;p.y+=p.vy*0.016;
+    var sx=(p.x-cam.cx)*cam.zoom*p.z+viewCx+drift.x*p.z,sy=(p.y-cam.cy)*cam.zoom*p.z+viewCy+drift.y*p.z;
+    if(sx<-20||sx>cw+20||sy<-20||sy>ch+20)return;
+    var tw=0.35+0.4*Math.sin(anim*1.5+p.x);
+    ctx.globalAlpha=(0.18+0.5*p.z)*Math.max(0.2,tw);
+    ctx.fillStyle=p.z>0.85?'rgba(220,120,130,1)':'rgba(180,190,210,1)';
+    ctx.beginPath();ctx.arc(sx,sy,p.s*p.z*1.2,0,Math.PI*2);ctx.fill();
+  });
+  ctx.globalAlpha=1;
+}
+function drawVignette(){
+  var g=ctx.createRadialGradient(cw/2,ch/2,Math.min(cw,ch)*0.28,cw/2,ch/2,Math.max(cw,ch)*0.72);
+  g.addColorStop(0,'rgba(2,2,7,0)');g.addColorStop(1,'rgba(0,0,2,0.7)');
+  ctx.fillStyle=g;ctx.fillRect(0,0,cw,ch);
+}
+function drawEdge(e){
+  var fn=nById(e.from),tn=nById(e.to);if(!fn||!tn)return;
+  if(!isBorn(fn)||!isBorn(tn)||currentTime<e.date-1.2-0.001)return;
+  var prog=Math.min(1,Math.max(0,(currentTime-(e.date-1.2))/1.2));
+  var cfg=EDGE[e.type]||EDGE.equity;
+  var a=w2s(fn.lx,fn.ly),b=w2s(tn.lx,tn.ly);
+  var dx=b.x-a.x,dy=b.y-a.y,dist=Math.hypot(dx,dy)||1,nx=dx/dist,ny=dy/dist;
+  var rA=fn.r*cam.zoom+6,rB=tn.r*cam.zoom+10;
+  var x1=a.x+nx*rA,y1=a.y+ny*rA,x2=b.x-nx*rB,y2=b.y-ny*rB;
+  var mx=(x1+x2)/2,my=(y1+y2)/2,cxp=mx+(-ny)*dist*e.curve,cyp=my+nx*dist*e.curve;
+  var conn=(e.from===selectedId||e.to===selectedId);
+  ctx.save();
+  function path(){ctx.beginPath();ctx.moveTo(x1,y1);ctx.quadraticCurveTo(cxp,cyp,x2,y2);}
+  var lw=Math.max(1.2,e.w)*0.9;
+  if(conn){
+    ctx.shadowColor=cfg.color;ctx.shadowBlur=10;
+    if(cfg.conflict){
+      path();ctx.strokeStyle=cfg.color;ctx.lineWidth=lw;ctx.globalAlpha=0.9*prog;
+      ctx.setLineDash([5,6]);ctx.lineDashOffset=-anim*22;ctx.stroke();
+    }else{
+      path();ctx.strokeStyle=cfg.color;ctx.lineWidth=lw;ctx.globalAlpha=0.9*prog;ctx.setLineDash([]);ctx.stroke();
+      path();ctx.strokeStyle='rgba(255,255,255,0.85)';ctx.lineWidth=lw*0.92;ctx.globalAlpha=0.55*prog;
+      ctx.setLineDash([6,15]);ctx.lineDashOffset=-anim*46;ctx.shadowColor='#fff';ctx.shadowBlur=7;ctx.stroke();
+    }
+    if(prog>0.6){
+      ctx.setLineDash([]);ctx.globalAlpha=0.95;ctx.fillStyle=cfg.color;
+      var ang=Math.atan2(y2-cyp,x2-cxp),s=6.5;
+      ctx.beginPath();ctx.moveTo(x2,y2);
+      ctx.lineTo(x2-s*Math.cos(ang-0.4),y2-s*Math.sin(ang-0.4));
+      ctx.lineTo(x2-s*Math.cos(ang+0.4),y2-s*Math.sin(ang+0.4));
+      ctx.closePath();ctx.fill();
+    }
+    if(cam.zoom>0.7){
+      ctx.save();ctx.globalAlpha=0.85;ctx.font='600 9px "IBM Plex Mono",monospace';
+      ctx.fillStyle=cfg.color;ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.fillText(e.type.toUpperCase(),cxp,cyp);ctx.restore();
+    }
+  }else{
+    path();ctx.strokeStyle=cfg.color;ctx.lineWidth=Math.max(1,e.w*0.6);ctx.globalAlpha=0.16*prog;ctx.setLineDash([]);ctx.stroke();
+  }
+  ctx.restore();
+}
+function drawHalo(n){
+  var cat=CAT[n.cat],s=w2s(n.lx,n.ly),bz=birth(n),active=n.id===selectedId;
+  var R=n.r*cam.zoom*(active?2.7:1.9)*bz;if(R<2)return;
+  var pulse=active?(0.16+0.12*Math.sin(anim*1.8)):0.05;
+  var g=ctx.createRadialGradient(s.x,s.y,0,s.x,s.y,R);
+  g.addColorStop(0,hexA(cat.glow,pulse));g.addColorStop(1,hexA(cat.glow,0));
+  ctx.fillStyle=g;ctx.beginPath();ctx.arc(s.x,s.y,R,0,Math.PI*2);ctx.fill();
+}
+function drawNode(n){
+  var cat=CAT[n.cat],s=w2s(n.lx,n.ly),z=cam.zoom,bz=birth(n);
+  var ease=bz<1?(1-Math.pow(1-bz,3)):1,R=n.r*z*ease;if(R<1)return;
+  var active=n.id===selectedId;
+  var conn=active||edges.some(function(e){return(e.from===selectedId&&e.to===n.id)||(e.to===selectedId&&e.from===n.id);});
+  ctx.save();ctx.globalAlpha=ease*(conn?1:0.88);
+  var rot=anim*(active?0.5:0.18);
+  ctx.save();ctx.translate(s.x,s.y);ctx.rotate(rot);
+  ctx.strokeStyle=hexA(cat.color,active?0.55:0.16);ctx.lineWidth=active?1.4:0.7;
+  ctx.setLineDash(active?[3,5]:[2,8]);ctx.beginPath();ctx.arc(0,0,R+(active?20:13),0,Math.PI*2);ctx.stroke();
+  if(active){ctx.rotate(-rot*2.4);ctx.strokeStyle=hexA(cat.color,0.2);ctx.lineWidth=0.7;ctx.setLineDash([1,9]);ctx.beginPath();ctx.arc(0,0,R+38,0,Math.PI*2);ctx.stroke();}
+  ctx.restore();ctx.setLineDash([]);
+  ctx.save();ctx.shadowColor=hexA(cat.glow,0.9);ctx.shadowBlur=active?34:20;
+  var g=ctx.createRadialGradient(s.x-R*0.34,s.y-R*0.4,R*0.1,s.x,s.y,R);
+  g.addColorStop(0,lighten(cat.base,0.55));g.addColorStop(0.55,cat.base);g.addColorStop(1,darken(cat.base,0.55));
+  ctx.fillStyle=g;ctx.beginPath();ctx.arc(s.x,s.y,R,0,Math.PI*2);ctx.fill();ctx.restore();
+  var ig=ctx.createRadialGradient(s.x,s.y-R*0.1,R*0.2,s.x,s.y+R*0.3,R*1.15);
+  ig.addColorStop(0,'rgba(0,0,0,0)');ig.addColorStop(1,'rgba(0,0,0,0.45)');
+  ctx.fillStyle=ig;ctx.beginPath();ctx.arc(s.x,s.y,R,0,Math.PI*2);ctx.fill();
+  ctx.lineWidth=active?2:1;ctx.strokeStyle=active?'rgba(255,255,255,0.6)':hexA(cat.color,0.4);
+  ctx.beginPath();ctx.arc(s.x,s.y,R,0,Math.PI*2);ctx.stroke();
+  ctx.save();ctx.globalAlpha=ease*(conn?1:0.88)*0.5;
+  ctx.translate(s.x-R*0.3,s.y-R*0.34);ctx.rotate(-0.5);ctx.scale(1,0.62);
+  var hg=ctx.createRadialGradient(0,0,0,0,0,R*0.5);
+  hg.addColorStop(0,'rgba(255,255,255,0.9)');hg.addColorStop(1,'rgba(255,255,255,0)');
+  ctx.fillStyle=hg;ctx.beginPath();ctx.arc(0,0,R*0.5,0,Math.PI*2);ctx.fill();ctx.restore();
+  if(n.badge&&conn&&z>0.34){
+    var bx=s.x+R*0.6,by=s.y-R*0.62;
+    ctx.font='700 '+Math.max(8,9*Math.min(1.4,z))+'px "IBM Plex Mono",monospace';
+    var tw=ctx.measureText(n.badge).width,pad=6,bw=tw+pad*2,bh=15;
+    ctx.fillStyle=cat.base;rRect(ctx,bx-bw/2,by-bh/2,bw,bh,3);ctx.fill();
+    ctx.fillStyle='#fff';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(n.badge,bx,by+0.5);
+  }
+  if(n.id==='polymarket'&&z>0.34){
+    var val=valuation(currentTime);
+    ctx.font='700 '+Math.max(11,15*Math.min(1.3,z))+'px "Helvetica Neue",Arial,sans-serif';
+    ctx.fillStyle='#fff';ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.shadowColor='rgba(0,0,0,0.6)';ctx.shadowBlur=6;ctx.fillText(val,s.x,s.y);ctx.shadowBlur=0;
+  }
+  var lines=n.label.split('\n'),fs=Math.max(9,Math.min(15,12*z));
+  ctx.font=(active?'700 ':'500 ')+fs+'px "Helvetica Neue",Arial,sans-serif';
+  ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillStyle=active?'#fff':(conn?'rgba(255,255,255,0.8)':'rgba(255,255,255,0.62)');
+  ctx.shadowColor='rgba(0,0,0,0.8)';ctx.shadowBlur=5;
+  lines.forEach(function(ln,i){ctx.fillText(ln,s.x,s.y+R+16+i*(fs+2));});
+  ctx.shadowBlur=0;ctx.restore();
+}
+function draw(){
+  ctx.clearRect(0,0,cw,ch);
+  ctx.fillStyle='#020207';ctx.fillRect(0,0,cw,ch);
+  drawBg();
+  edges.forEach(function(e){drawEdge(e);});
+  nodes.forEach(function(n){if(isBorn(n))drawHalo(n);});
+  nodes.forEach(function(n){if(isBorn(n))drawNode(n);});
+  drawVignette();
+}
+function loop(){
+  var now=performance.now()/1000,dt=Math.min(0.05,lastT?now-lastT:0);lastT=now;anim=now;
+  cam.cx+=(cam.tcx-cam.cx)*0.07;cam.cy+=(cam.tcy-cam.cy)*0.07;cam.zoom+=(cam.tzoom-cam.zoom)*0.07;
+  drift.x=Math.sin(now*0.18)*9;drift.y=Math.cos(now*0.13)*7;
+  if(playing){playClock+=dt;playStep();updateReadouts();}
+  draw();
+  requestAnimationFrame(loop);
+}
+function buildTicks(){
+  var el=document.getElementById('nex-ticks');el.innerHTML='';
+  events.forEach(function(ev){
+    var d=document.createElement('div');
+    d.style.cssText='position:absolute;top:-2px;width:1px;height:6px;background:rgba(177,18,38,0.7);left:'+(ev.t/MAXT*100)+'%;';
+    el.appendChild(d);
+  });
+}
+function init(){
+  canvas=document.getElementById('nex-canvas');
+  ctx=canvas.getContext('2d');
+  for(var i=0;i<110;i++){
+    particles.push({x:(Math.random()-0.5)*2400,y:(Math.random()-0.5)*1600,z:0.25+Math.random()*0.9,
+      s:0.4+Math.random()*1.5,vx:(Math.random()-0.5)*4,vy:(Math.random()-0.5)*4});
+  }
+  var ro=new ResizeObserver(function(){resize();});
+  ro.observe(canvas);
+  resize();
+  cam.zoom=cam.tzoom=fitZoom;
+  canvas.addEventListener('pointerdown',function(e){
+    canvas.setPointerCapture(e.pointerId);
+    var r=canvas.getBoundingClientRect();
+    drag={x:e.clientX-r.left,y:e.clientY-r.top,moved:0};
+  });
+  canvas.addEventListener('pointermove',function(e){
+    if(!drag)return;
+    var r=canvas.getBoundingClientRect(),mx=e.clientX-r.left,my=e.clientY-r.top;
+    var dx=mx-drag.x,dy=my-drag.y;
+    drag.moved+=Math.abs(dx)+Math.abs(dy);
+    cam.cx-=dx/cam.zoom;cam.cy-=dy/cam.zoom;cam.tcx=cam.cx;cam.tcy=cam.cy;
+    drag.x=mx;drag.y=my;
+  });
+  canvas.addEventListener('pointerup',function(e){
+    if(!drag)return;var d=drag;drag=null;
+    if(d.moved<6){var r=canvas.getBoundingClientRect();pick(e.clientX-r.left,e.clientY-r.top);}
+  });
+  canvas.addEventListener('pointercancel',function(){drag=null;});
+  canvas.addEventListener('wheel',function(e){
+    e.preventDefault();
+    var r=canvas.getBoundingClientRect(),mx=e.clientX-r.left,my=e.clientY-r.top;
+    var wb=s2w(mx,my),f=Math.exp(-e.deltaY*0.0014);
+    cam.zoom=Math.min(3.2,Math.max(0.35,cam.zoom*f));cam.tzoom=cam.zoom;
+    var wa=s2w(mx,my);cam.cx+=wb.x-wa.x;cam.cy+=wb.y-wa.y;cam.tcx=cam.cx;cam.tcy=cam.cy;
+  },{passive:false});
+  document.getElementById('nex-play').addEventListener('click',togglePlay);
+  document.getElementById('nex-range').addEventListener('input',function(e){
+    currentTime=parseFloat(e.target.value);
+    if(playing){playing=false;document.getElementById('nex-play').textContent='►';}
+    playFinished=true;playClock=null;updateReadouts();
+  });
+  buildTicks();updateReadouts();updateInspector();loop();
+}
+if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}else{init();}
+})();
+</script>
+</body>
+</html>
