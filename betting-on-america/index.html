@@ -2524,7 +2524,9 @@ function enterDeck() {
   if (vid) vid.pause();
   splash.style.opacity = '0';
   splash.style.pointerEvents = 'none';
+  window.scrollTo(0, 0);
   setTimeout(() => { splash.style.display = 'none'; }, 580);
+  setTimeout(animateStats, 700);
 }
 
 function animateCounter(el, endVal, prefix, suffix, decimals, duration) {
@@ -2559,7 +2561,7 @@ function switchTab(id, btn) {
   if (id === 'congo') setTimeout(animateACDC, 400);
   if (id === 'film')  setTimeout(animateStats, 250);
 }
-setTimeout(animateStats, 600);
+// animateStats fires via enterDeck() after splash dismissal
 const ro = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.08 });
