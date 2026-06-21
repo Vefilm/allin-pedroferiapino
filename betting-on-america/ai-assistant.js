@@ -359,6 +359,8 @@ Respond concisely but completely. Use plain prose — not bullet lists unless sp
           <button class="allin-chip" data-q="What is the DARPA connection?">DARPA</button>
           <button class="allin-chip" data-q="What is the ask and who are the distribution targets?">The Ask</button>
           <button class="allin-chip" data-q="How does this compare to the Congo Hold-Up?">Congo parallel</button>
+          <button class="allin-chip" data-q="What is regulatory deployment and how does it apply to prediction markets?">Regulatory Deployment</button>
+          <button class="allin-chip" data-q="What is regulatory capture and how does it apply to the CFTC and Polymarket?">Regulatory Capture</button>
         </div>
       </div>
     </div>

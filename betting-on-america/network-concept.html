@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALL IN — Network Graph Concept</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#010108; font-family:'Helvetica Neue',Arial,sans-serif; color:#fff; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:2rem; }
+
+  h1 { font-size:.55rem; letter-spacing:.3em; text-transform:uppercase; color:rgba(177,18,38,0.6); margin-bottom:.4rem; text-align:center; }
+  .subtitle { font-size:.75rem; color:rgba(255,255,255,0.3); margin-bottom:2rem; text-align:center; letter-spacing:.04em; }
+
+  @keyframes nw-flow         { to { stroke-dashoffset: -10; } }
+  @keyframes nw-flow-slow    { to { stroke-dashoffset: -9;  } }
+  @keyframes nw-halo         { 0%,100% { opacity:.09; } 50% { opacity:.24; } }
+  @keyframes nw-ring         { 0%,100% { stroke-opacity:.18; } 50% { stroke-opacity:.52; } }
+  .nw-edge-flow    { animation: nw-flow      .38s linear infinite; }
+  .nw-edge-conflict{ animation: nw-flow-slow 1.1s linear infinite; }
+  .nw-halo-anim    { animation: nw-halo      2.8s ease-in-out infinite; }
+  .nw-ring-anim    { animation: nw-ring      2.2s ease-in-out infinite; }
+
+  #wrap {
+    position:relative;
+    width:100%;
+    max-width:1100px;
+    background:#020209;
+    border:1px solid rgba(177,18,38,0.2);
+    border-radius:8px;
+    overflow:hidden;
+    box-shadow:0 0 80px rgba(177,18,38,0.06), inset 0 0 120px rgba(0,0,0,0.5);
+  }
+
+  svg { width:100%; display:block; }
+
+  /* Inspector */
+  #inspector {
+    position:absolute;
+    top:1.2rem; right:1.2rem;
+    width:260px;
+    background:rgba(2,2,10,0.94);
+    border:1px solid rgba(177,18,38,0.22);
+    border-top:2px solid #B11226;
+    border-radius:5px;
+    backdrop-filter:blur(16px);
+    overflow:hidden;
+  }
+  .insp-header {
+    padding:.6rem 1rem;
+    border-bottom:1px solid rgba(255,255,255,0.05);
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .insp-eyebrow { font-size:.46rem; letter-spacing:.22em; text-transform:uppercase; color:rgba(177,18,38,0.5); }
+  #insp-badge {
+    font-size:.46rem; letter-spacing:.1em; text-transform:uppercase;
+    padding:2px 8px; border-radius:2px;
+    background:rgba(177,18,38,0.12); color:#B11226; border:1px solid rgba(177,18,38,0.28);
+  }
+  .insp-body { padding:1rem; }
+  #insp-name { font-weight:700; font-size:.95rem; line-height:1.3; margin-bottom:.22rem; }
+  #insp-desc {
+    font-size:.68rem; color:rgba(255,255,255,0.38); line-height:1.6;
+    margin-bottom:.7rem; font-style:italic;
+    border-left:2px solid rgba(177,18,38,0.35); padding-left:.55rem;
+  }
+  #insp-facts { display:flex; flex-direction:column; gap:.35rem; }
+  .fact-row { display:flex; gap:6px; align-items:flex-start; }
+  .fact-dot { min-width:4px; height:4px; border-radius:50%; margin-top:6px; flex-shrink:0; }
+  .fact-txt { font-size:.67rem; color:rgba(255,255,255,0.48); line-height:1.65; }
+  #insp-conn { margin-top:.65rem; padding-top:.5rem; border-top:1px solid rgba(255,255,255,0.04); font-size:.58rem; color:rgba(255,255,255,0.2); letter-spacing:.09em; }
+
+  /* Legend */
+  #legend {
+    position:absolute; bottom:.7rem; left:.8rem;
+    display:flex; gap:.9rem; align-items:center;
+  }
+  .leg-item { display:flex; align-items:center; gap:5px; }
+  .leg-line { width:16px; height:1.5px; }
+  .leg-label { font-size:.46rem; letter-spacing:.1em; color:rgba(255,255,255,0.2); text-transform:uppercase; }
+
+  .note {
+    margin-top:1.5rem;
+    text-align:center;
+    font-size:.7rem;
+    color:rgba(255,255,255,0.2);
+    letter-spacing:.04em;
+    line-height:1.8;
+  }
+  .note strong { color:rgba(177,18,38,0.7); font-weight:600; }
+</style>
+</head>
+<body>
+
+<h1>ALL IN: Betting on America</h1>
+<p class="subtitle">Network of Beneficial Ownership — God Mode Concept</p>
+
+<div id="wrap">
+  <svg id="nw-svg" viewBox="0 0 1100 620">
+    <defs>
+      <filter id="glow-red"  x="-70%" y="-70%" width="240%" height="240%">
+        <feGaussianBlur stdDeviation="12" result="b"/>
+        <feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <filter id="glow-gold" x="-70%" y="-70%" width="240%" height="240%">
+        <feGaussianBlur stdDeviation="8" result="b"/>
+        <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <filter id="glow-blue" x="-70%" y="-70%" width="240%" height="240%">
+        <feGaussianBlur stdDeviation="6" result="b"/>
+        <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <filter id="glow-soft" x="-100%" y="-100%" width="300%" height="300%">
+        <feGaussianBlur stdDeviation="28"/>
+      </filter>
+      <radialGradient id="core-fill"    cx="38%" cy="32%" r="68%"><stop offset="0%" stop-color="#d52035"/><stop offset="100%" stop-color="#7a0e1f"/></radialGradient>
+      <radialGradient id="capital-fill" cx="38%" cy="32%" r="68%"><stop offset="0%" stop-color="#d9b25a"/><stop offset="100%" stop-color="#8a6820"/></radialGradient>
+      <radialGradient id="reg-fill"     cx="38%" cy="32%" r="68%"><stop offset="0%" stop-color="#5e6e80"/><stop offset="100%" stop-color="#28353f"/></radialGradient>
+      <radialGradient id="prod-fill"    cx="38%" cy="32%" r="68%"><stop offset="0%" stop-color="#ecaa52"/><stop offset="100%" stop-color="#904a10"/></radialGradient>
+      <pattern id="nw-grid" width="50" height="50" patternUnits="userSpaceOnUse">
+        <path d="M 50 0 L 0 0 0 50" fill="none" stroke="rgba(177,18,38,0.05)" stroke-width="0.5"/>
+      </pattern>
+      <marker id="arr-gold"  markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto"><polygon points="0,0 0,5 5,2.5" fill="rgba(201,168,76,0.75)"/></marker>
+      <marker id="arr-red"   markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto"><polygon points="0,0 0,5 5,2.5" fill="rgba(177,18,38,0.75)"/></marker>
+      <marker id="arr-blue"  markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto"><polygon points="0,0 0,5 5,2.5" fill="rgba(74,144,217,0.75)"/></marker>
+      <marker id="arr-green" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto"><polygon points="0,0 0,5 5,2.5" fill="rgba(46,204,113,0.75)"/></marker>
+    </defs>
+
+    <!-- Grid -->
+    <rect width="1100" height="620" fill="url(#nw-grid)"/>
+
+    <!-- Corner ticks -->
+    <g stroke="rgba(177,18,38,0.38)" stroke-width="1.2" fill="none">
+      <path d="M24,8 L8,8 L8,24"/><path d="M1076,8 L1092,8 L1092,24"/>
+      <path d="M24,612 L8,612 L8,596"/><path d="M1076,612 L1092,612 L1092,596"/>
+    </g>
+
+    <!-- Watermark -->
+    <text x="17" y="614" font-family="'Helvetica Neue',Arial,sans-serif" font-size="7.5" letter-spacing="0.2em" fill="rgba(177,18,38,0.28)">NETWORK ANALYSIS // POLYMARKET ECOSYSTEM</text>
+    <text x="1083" y="614" font-family="'Helvetica Neue',Arial,sans-serif" font-size="7.5" letter-spacing="0.12em" fill="rgba(177,18,38,0.28)" text-anchor="end">ALL IN: BETTING ON AMERICA</text>
+  </svg>
+
+  <!-- Inspector -->
+  <div id="inspector">
+    <div class="insp-header">
+      <div class="insp-eyebrow">INTEL BRIEF</div>
+      <div id="insp-badge">CORE PLATFORM</div>
+    </div>
+    <div class="insp-body">
+      <div id="insp-name">Polymarket</div>
+      <div id="insp-desc"></div>
+      <div id="insp-facts"></div>
+      <div id="insp-conn"></div>
+    </div>
+  </div>
+
+  <!-- Legend -->
+  <div id="legend">
+    <div class="leg-item"><div class="leg-line" style="background:#C9A84C;"></div><span class="leg-label">Equity</span></div>
+    <div class="leg-item"><div class="leg-line" style="background:none;border-top:1.5px dashed rgba(177,18,38,0.7);"></div><span class="leg-label">Conflict</span></div>
+    <div class="leg-item"><div class="leg-line" style="background:#4a90d9;"></div><span class="leg-label">Admin</span></div>
+    <div class="leg-item"><div class="leg-line" style="background:#2ecc71;"></div><span class="leg-label">Synergy</span></div>
+  </div>
+</div>
+
+<p class="note">
+  <strong>God Mode concept</strong> — click any node to explore connections<br>
+  Flowing edges = active relationships &nbsp;|&nbsp; Dashed red = conflict of interest<br>
+  For Claude Design: upgrade visual depth, add timeline scrubber, add zoom
+</p>
+
+<script>
+;(function() {
+  var NS = 'http://www.w3.org/2000/svg';
+
+  var EDGE_CFG = {
+    equity:  { color:'#C9A84C', marker:'arr-gold',  conflict:false },
+    conflict:{ color:'#B11226', marker:'arr-red',   conflict:true  },
+    admin:   { color:'#4a90d9', marker:'arr-blue',  conflict:false },
+    synergy: { color:'#2ecc71', marker:'arr-green', conflict:false },
+    family:  { color:'#C9A84C', marker:'arr-gold',  conflict:false }
+  };
+
+  var CAT = {
+    core:      { color:'#B11226', fill:'url(#core-fill)',    glow:'glow-red',  label:'Core Platform',    bg:'rgba(177,18,38,0.12)',  border:'rgba(177,18,38,0.3)'  },
+    capital:   { color:'#C9A84C', fill:'url(#capital-fill)', glow:'glow-gold', label:'Capital / Equity', bg:'rgba(201,168,76,0.12)', border:'rgba(201,168,76,0.3)' },
+    regulator: { color:'#4a6080', fill:'url(#reg-fill)',     glow:'glow-blue', label:'Regulator',        bg:'rgba(74,96,128,0.12)',  border:'rgba(74,96,128,0.3)'  },
+    product:   { color:'#E8A04A', fill:'url(#prod-fill)',    glow:'glow-gold', label:'Sovereign Product', bg:'rgba(232,160,74,0.12)', border:'rgba(232,160,74,0.3)' }
+  };
+
+  var nodes = [
+    { id:'polymarket',    label:'Polymarket',               lx:550, ly:305, r:52, cat:'core',
+      badge:'$15B', showBadge:true,
+      desc:'The platform. CFTC-banned in 2022. $1B to $15B valuation in 36 months.',
+      facts:['Fined $1.4M by CFTC in 2022, banned US users, operated offshore.',
+             'Acquired CFTC-licensed QCEX for $112M, July 2025, same month DOJ dropped all probes.',
+             'Valuation: $1.2B (May 2024) to $9B (Oct 2025) to $15B (Early 2026).'] },
+    { id:'trump-jr',      label:'Trump Jr. / 1789',         lx:240, ly:120, r:32, cat:'capital',
+      badge:'$50M+', showBadge:true,
+      desc:'Equity investor and advisory board member, 5 weeks after DOJ and CFTC simultaneously dropped all investigations.',
+      facts:['Double-digit millions invested in Polymarket equity, August 2025.',
+             '5 weeks after both federal investigations dropped with no charges and no explanation.',
+             'Paid advisor to Kalshi, a direct Polymarket competitor.'] },
+    { id:'founders-fund', label:'Founders Fund',            lx:120, ly:305, r:30, cat:'capital',
+      badge:'$70M', showBadge:true,
+      desc:'Led $70M round at $1.2B valuation, May 2024. Peter Thiel, longtime Trump-aligned political operator.',
+      facts:['Led $70M Series B at $1.2B valuation, May 2024.',
+             'Established institutional legitimacy for decentralized outcomes trading.',
+             'Thiel: architect of the PayPal to crypto to Trump capital pipeline.'] },
+    { id:'ice',           label:'ICE',                      lx:240, ly:490, r:30, cat:'capital',
+      badge:'$2B', showBadge:true,
+      desc:'Intercontinental Exchange. $2B committed at $9B valuation, October 2025.',
+      facts:['Committed $2B at $9B valuation, October 2025.',
+             'One of the world\'s largest financial exchange operators.',
+             'Investment gave Polymarket institutional credibility with traditional finance.'] },
+    { id:'selig',         label:'Michael Selig\nCFTC Chair',lx:860, ly:120, r:32, cat:'regulator',
+      badge:'CHAIR', showBadge:true,
+      desc:'Age 36. Confirmed December 2025, 53 to 43. Former partner at Willkie Farr and Gallagher, represented Crypto.com.',
+      facts:['Confirmed CFTC Chair, December 2025, 53 to 43 Senate vote.',
+             'Former partner at Willkie Farr, represented dozens of crypto clients including Crypto.com.',
+             'Ethics recusal expires mid-2026. 4 of 5 commissioner seats vacant.'] },
+    { id:'ceo-council',   label:'CEO Innovation\nCouncil', lx:960, ly:305, r:26, cat:'regulator',
+      badge:null, showBadge:false,
+      desc:'35 industry executives. Replaced the independent Technology Advisory Committee.',
+      facts:['Selig disbanded the Technology Advisory Committee and replaced it.',
+             'Members: Coplan (Polymarket), Mansour (Kalshi), Winklevoss (Gemini), Marszalek (Crypto.com).',
+             'Enforcement actions: 58 (2022) to 11 (2026).'] },
+    { id:'cftc-hollow',   label:'CFTC Quorum\n(4 seats vacant)', lx:860, ly:490, r:26, cat:'regulator',
+      badge:null, showBadge:false,
+      desc:'4 of 5 commissioner seats vacant. No dissenting votes possible.',
+      facts:['4 of 5 commissioner seats vacant, no quorum, no dissent.',
+             'Selig is the sole decision-maker on all regulatory actions.',
+             '50+ amicus briefs filed in state courts defending Polymarket and Kalshi.'] },
+    { id:'truth-predict', label:'Truth Predict',            lx:550, ly:505, r:34, cat:'product',
+      badge:null, showBadge:false,
+      desc:'Trump Media + Crypto.com. Announced October 2025. Prediction market integrated into Truth Social.',
+      facts:['Trump Media + Crypto.com joint venture, announced October 2025.',
+             'Betting on political and military events integrated into Trump\'s social network.',
+             'Selig\'s former law client (Crypto.com) co-created this platform. Recusal expires mid-2026.'] }
+  ];
+
+  var edges = [
+    { from:'trump-jr',      to:'polymarket',    type:'equity',   w:2.5 },
+    { from:'founders-fund', to:'polymarket',    type:'equity',   w:3.0 },
+    { from:'ice',           to:'polymarket',    type:'equity',   w:4.5 },
+    { from:'polymarket',    to:'truth-predict', type:'synergy',  w:2.0 },
+    { from:'polymarket',    to:'selig',         type:'conflict', w:2.0 },
+    { from:'selig',         to:'ceo-council',   type:'admin',    w:1.8 },
+    { from:'selig',         to:'cftc-hollow',   type:'admin',    w:1.8 },
+    { from:'truth-predict', to:'trump-jr',      type:'family',   w:1.5 },
+    { from:'truth-predict', to:'ceo-council',   type:'conflict', w:1.5 }
+  ];
+
+  var selected = 'polymarket';
+  var svg = document.getElementById('nw-svg');
+
+  function nById(id) { return nodes.find(function(n){ return n.id === id; }); }
+
+  function isConnected(id) {
+    if (id === selected) return true;
+    return edges.some(function(e){
+      return (e.from===selected&&e.to===id)||(e.to===selected&&e.from===id);
+    });
+  }
+
+  function el(tag) { return document.createElementNS(NS, tag); }
+
+  function buildSVG() {
+    svg.querySelectorAll('.nw-dyn').forEach(function(x){ x.remove(); });
+
+    var gAura  = el('g'); gAura.setAttribute('class','nw-dyn');
+    var gEdge  = el('g'); gEdge.setAttribute('class','nw-dyn');
+    var gNode  = el('g'); gNode.setAttribute('class','nw-dyn');
+    var gLabel = el('g'); gLabel.setAttribute('class','nw-dyn');
+    var gBadge = el('g'); gBadge.setAttribute('class','nw-dyn');
+
+    // AURAS
+    nodes.forEach(function(n) {
+      if (!isConnected(n.id)) return;
+      var isActive = n.id === selected;
+      var c = el('circle');
+      c.setAttribute('cx', n.lx); c.setAttribute('cy', n.ly);
+      c.setAttribute('r', n.r * (isActive ? 2.6 : 1.9));
+      c.setAttribute('fill', CAT[n.cat].color);
+      c.setAttribute('filter', 'url(#glow-soft)');
+      c.classList.add('nw-halo-anim');
+      if (!isActive) c.style.opacity = '0.06';
+      gAura.appendChild(c);
+    });
+
+    // EDGES
+    edges.forEach(function(e) {
+      var fn = nById(e.from), tn = nById(e.to);
+      if (!fn || !tn) return;
+      var active = (e.from===selected||e.to===selected);
+      var cfg = EDGE_CFG[e.type] || EDGE_CFG.equity;
+
+      var dx = tn.lx-fn.lx, dy = tn.ly-fn.ly;
+      var dist = Math.sqrt(dx*dx+dy*dy);
+      var nx = dx/dist, ny = dy/dist;
+      var x1 = fn.lx+nx*(fn.r+6), y1 = fn.ly+ny*(fn.r+6);
+      var x2 = tn.lx-nx*(tn.r+10), y2 = tn.ly-ny*(tn.r+10);
+
+      var p = el('path');
+      p.setAttribute('d','M'+x1+','+y1+' L'+x2+','+y2);
+      p.setAttribute('fill','none');
+
+      if (active) {
+        p.setAttribute('stroke', cfg.color);
+        p.setAttribute('stroke-width', e.w);
+        p.setAttribute('stroke-opacity', '0.85');
+        p.setAttribute('stroke-dasharray', cfg.conflict ? '4 6' : '6 4');
+        p.setAttribute('marker-end','url(#'+cfg.marker+')');
+        p.classList.add(cfg.conflict ? 'nw-edge-conflict' : 'nw-edge-flow');
+      } else {
+        p.setAttribute('stroke','rgba(255,255,255,0.04)');
+        p.setAttribute('stroke-width','1');
+      }
+      gEdge.appendChild(p);
+    });
+
+    // NODES
+    nodes.forEach(function(n) {
+      var isActive = n.id === selected;
+      var connected = isConnected(n.id);
+      var cat = CAT[n.cat];
+
+      var g = el('g');
+      g.style.cursor = 'pointer';
+      g.style.opacity = connected ? '1' : '0.15';
+      g.style.transition = 'opacity .3s';
+
+      // Orbit 1
+      var or1 = el('circle');
+      or1.setAttribute('cx',n.lx); or1.setAttribute('cy',n.ly);
+      or1.setAttribute('r', n.r+(isActive?22:14));
+      or1.setAttribute('fill','none');
+      or1.setAttribute('stroke', cat.color);
+      or1.setAttribute('stroke-width', isActive?'1.3':'0.6');
+      or1.setAttribute('stroke-dasharray', isActive?'3 4':'2 7');
+      if (isActive) or1.classList.add('nw-ring-anim');
+      else or1.setAttribute('stroke-opacity','0.1');
+      g.appendChild(or1);
+
+      // Orbit 2 (active only)
+      if (isActive) {
+        var or2 = el('circle');
+        or2.setAttribute('cx',n.lx); or2.setAttribute('cy',n.ly);
+        or2.setAttribute('r', n.r+40);
+        or2.setAttribute('fill','none');
+        or2.setAttribute('stroke', cat.color);
+        or2.setAttribute('stroke-width','0.5');
+        or2.setAttribute('stroke-opacity','0.1');
+        or2.setAttribute('stroke-dasharray','1 10');
+        g.appendChild(or2);
+      }
+
+      // Main circle
+      var circ = el('circle');
+      circ.setAttribute('cx',n.lx); circ.setAttribute('cy',n.ly);
+      circ.setAttribute('r', n.r);
+      circ.setAttribute('fill', cat.fill);
+      circ.setAttribute('stroke', isActive?'rgba(255,255,255,0.55)':'rgba(0,0,0,0.28)');
+      circ.setAttribute('stroke-width', isActive?'2':'1');
+      circ.setAttribute('filter','url(#'+cat.glow+')');
+      g.appendChild(circ);
+
+      // Specular
+      var hi = el('ellipse');
+      hi.setAttribute('cx', n.lx-n.r*.18); hi.setAttribute('cy', n.ly-n.r*.22);
+      hi.setAttribute('rx', n.r*.44); hi.setAttribute('ry', n.r*.26);
+      hi.setAttribute('fill','rgba(255,255,255,0.14)');
+      hi.style.pointerEvents='none';
+      g.appendChild(hi);
+
+      g.addEventListener('click', function(){
+        selected = n.id;
+        updateInspector(n);
+        buildSVG();
+      });
+      g.addEventListener('mouseenter', function(){
+        if (!isActive){ circ.setAttribute('stroke','rgba(255,255,255,0.38)'); circ.setAttribute('stroke-width','2'); }
+      });
+      g.addEventListener('mouseleave', function(){
+        if (!isActive){ circ.setAttribute('stroke','rgba(0,0,0,0.28)'); circ.setAttribute('stroke-width','1'); }
+      });
+
+      gNode.appendChild(g);
+    });
+
+    // LABELS
+    nodes.forEach(function(n) {
+      var isActive = n.id===selected;
+      var connected = isConnected(n.id);
+      var lines = n.label.split('\n');
+      var baseY = n.ly + n.r + 19;
+      lines.forEach(function(ln, i) {
+        var t = el('text');
+        t.setAttribute('x',n.lx); t.setAttribute('y', baseY+i*14);
+        t.setAttribute('text-anchor','middle');
+        t.setAttribute('font-family',"'Helvetica Neue',Arial,sans-serif");
+        t.setAttribute('font-size', isActive?'12.5':'11');
+        t.setAttribute('font-weight', isActive?'700':'500');
+        t.setAttribute('fill', isActive?'#fff':(connected?'rgba(255,255,255,0.7)':'rgba(255,255,255,0.15)'));
+        t.setAttribute('letter-spacing','0.02em');
+        t.style.pointerEvents='none';
+        t.textContent = ln;
+        gLabel.appendChild(t);
+      });
+    });
+
+    // BADGES
+    nodes.forEach(function(n) {
+      if (!n.showBadge || !n.badge || !isConnected(n.id)) return;
+      var cat = CAT[n.cat];
+      var bx = n.lx+n.r*.65, by = n.ly-n.r*.65;
+      var bw = Math.max(30, n.badge.length*5.8+12);
+      var bg = el('rect');
+      bg.setAttribute('x',bx-bw/2); bg.setAttribute('y',by-8);
+      bg.setAttribute('width',bw); bg.setAttribute('height','15');
+      bg.setAttribute('rx','3'); bg.setAttribute('fill',cat.color); bg.setAttribute('opacity','0.9');
+      bg.style.pointerEvents='none'; gBadge.appendChild(bg);
+      var bt = el('text');
+      bt.setAttribute('x',bx); bt.setAttribute('y',by+3.5);
+      bt.setAttribute('text-anchor','middle');
+      bt.setAttribute('font-family',"'Helvetica Neue',Arial,sans-serif");
+      bt.setAttribute('font-size','7.5'); bt.setAttribute('font-weight','700');
+      bt.setAttribute('fill','#fff'); bt.setAttribute('letter-spacing','0.04em');
+      bt.style.pointerEvents='none'; bt.textContent = n.badge; gBadge.appendChild(bt);
+    });
+
+    svg.appendChild(gAura);
+    svg.appendChild(gEdge);
+    svg.appendChild(gNode);
+    svg.appendChild(gLabel);
+    svg.appendChild(gBadge);
+  }
+
+  function updateInspector(n) {
+    var cat = CAT[n.cat];
+    document.getElementById('insp-name').textContent = n.label.replace('\n',' / ');
+    var badge = document.getElementById('insp-badge');
+    badge.textContent = cat.label;
+    badge.style.background = cat.bg;
+    badge.style.color = cat.color;
+    badge.style.border = '1px solid '+cat.border;
+    document.getElementById('insp-desc').textContent = n.desc;
+    var fe = document.getElementById('insp-facts');
+    fe.innerHTML = '';
+    n.facts.forEach(function(f) {
+      var row = document.createElement('div'); row.className='fact-row';
+      var dot = document.createElement('div'); dot.className='fact-dot'; dot.style.background=cat.color;
+      var txt = document.createElement('div'); txt.className='fact-txt'; txt.textContent=f;
+      row.appendChild(dot); row.appendChild(txt); fe.appendChild(row);
+    });
+    var connCount = edges.filter(function(e){ return e.from===n.id||e.to===n.id; }).length;
+    document.getElementById('insp-conn').textContent = 'NETWORK CONNECTIONS: '+connCount;
+  }
+
+  buildSVG();
+  updateInspector(nById('polymarket'));
+})();
+</script>
+</body>
+</html>
