@@ -1242,6 +1242,41 @@ body {
 
   /* Deployment banner */
   .deployment-banner { padding: 1.5rem 1.25rem; }
+
+  /* ── SPLASH: single-column stack on mobile ───────────────────── */
+  .splash-grid {
+    grid-template-columns: 1fr !important;
+    padding: 0 1.25rem !important;
+  }
+  /* Video comes first on mobile (order trick) */
+  .splash-right {
+    order: -1;
+    padding: 1.25rem 0 0.75rem !important;
+    justify-content: center !important;
+  }
+  .splash-left {
+    padding: 0.75rem 0 1.5rem !important;
+    border-right: none !important;
+    justify-content: flex-start !important;
+  }
+  /* Keep video proportional but not too tall */
+  .splash-video-wrap { width: min(175px, 48vw) !important; }
+  /* Hide the blockquote on mobile to save vertical space */
+  .splash-blockquote-hide { display: none !important; }
+
+  /* ── TABS NAV: scrollable on mobile, no squish ──────────────── */
+  .tabs-nav { justify-content: flex-start !important; }
+
+  /* ── STRUCTURE PANEL 4-cell hero: 4-col → 2×2 ──────────────── */
+  .structure-hero-grid {
+    grid-template-columns: 1fr 1fr !important;
+    height: auto !important;
+    min-height: unset !important;
+  }
+  .structure-hero-grid > div { min-height: 100px; }
+
+  /* ── LOOK PALETTE: 4-col → 2-col ────────────────────────────── */
+  .palette-grid { grid-template-columns: 1fr 1fr !important; }
 }
 
 /* Very narrow phones (< 420px) */
@@ -1263,10 +1298,10 @@ body {
   </div>
 
   <!-- Main body: content left, video right -->
-  <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;min-height:0;max-width:1280px;margin:0 auto;width:100%;padding:0 3.5rem;">
+  <div class="splash-grid" style="flex:1;display:grid;grid-template-columns:1fr 1fr;min-height:0;max-width:1280px;margin:0 auto;width:100%;padding:0 3.5rem;">
 
     <!-- LEFT: ALL IN title + quote + CTA -->
-    <div style="display:flex;flex-direction:column;justify-content:center;padding:3rem 3.5rem 3rem 0;border-right:1px solid rgba(255,255,255,0.05);">
+    <div class="splash-left" style="display:flex;flex-direction:column;justify-content:center;padding:3rem 3.5rem 3rem 0;border-right:1px solid rgba(255,255,255,0.05);">
 
       <!-- Brand mark — BIG -->
       <div style="margin-bottom:2rem;">
@@ -1282,7 +1317,7 @@ body {
       <p style="font-size:0.88rem;color:rgba(255,255,255,0.38);line-height:1.72;margin:0 0 1.75rem;max-width:400px;">A British comedian said what American journalism hasn't. Watch before you go in.</p>
 
       <!-- Pull quote -->
-      <blockquote style="border-left:2px solid #B11226;padding:0 0 0 1.5rem;margin:0 0 2.25rem;">
+      <blockquote class="splash-blockquote-hide" style="border-left:2px solid #B11226;padding:0 0 0 1.5rem;margin:0 0 2.25rem;">
         <p style="font-family:Georgia,serif;font-style:italic;font-size:clamp(0.92rem,1.4vw,1.1rem);color:rgba(255,255,255,0.82);line-height:1.72;margin:0 0 0.6rem;">"$2.1 billion in perfectly timed directional oil trades placed across five presidential announcements in a single month, completely unprecedented, and so far, <strong style="color:#fff;">completely uninvestigated.</strong>"</p>
         <cite style="font-size:0.52rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.25);font-style:normal;">Jonathan Pie &middot; British Satirist &middot; June 2026</cite>
       </blockquote>
@@ -1295,8 +1330,8 @@ body {
     </div>
 
     <!-- RIGHT: Video — larger, cinematic -->
-    <div style="display:flex;align-items:center;justify-content:center;padding:3rem 0 3rem 3.5rem;">
-      <div style="
+    <div class="splash-right" style="display:flex;align-items:center;justify-content:center;padding:3rem 0 3rem 3.5rem;">
+      <div class="splash-video-wrap" style="
         position:relative;
         width:min(300px,38vw);
         aspect-ratio:9/16;
@@ -1996,7 +2031,7 @@ body {
     <!-- PALETTE -->
     <div style="margin:3rem 0;padding:2rem;background:#0a0a12;border:1px solid rgba(255,255,255,0.06);border-radius:4px;" class="reveal">
       <div style="font-size:0.6rem;letter-spacing:0.24em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:1.5rem;">The Palette</div>
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-bottom:1.5rem;">
+      <div class="palette-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-bottom:1.5rem;">
         <div>
           <div style="height:60px;background:#B11226;border-radius:3px;margin-bottom:0.5rem;"></div>
           <div style="font-size:0.7rem;color:rgba(255,255,255,0.5);">Danger Red</div>
@@ -2049,7 +2084,7 @@ body {
 <section id="panel-structure" class="panel">
 
   <!-- 4-cell hero row -->
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;height:36vh;min-height:240px;overflow:hidden;gap:2px;background:#000;">
+  <div class="structure-hero-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;height:36vh;min-height:240px;overflow:hidden;gap:2px;background:#000;">
     <div style="position:relative;overflow:hidden;">
       <div style="position:absolute;inset:0;background:url('./hangar_flux_original.jpg') center 40%/cover no-repeat;filter:brightness(0.55) saturate(0.6);"></div>
       <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,rgba(0,0,0,0.65) 100%);"></div>
